@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Publit · Datenschutz / Privacy</title>
+<link rel="icon" href="../assets/publit.svg">
+<style>
+  :root { --bg: #f4f4f2; --card: #fff; --ink: #141414; --muted: #5d5d5a; --line: #e2e2dd; --accent: #ffc531; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #111; --card: #1b1b1b; --ink: #f2f2f0; --muted: #a3a3a0; --line: #2c2c2a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  header, main, footer { max-width: 760px; margin: 0 auto; padding: 0 22px; }
+  header { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; padding-bottom: 8px; }
+  header a { color: var(--ink); text-decoration: none; font-weight: 700; display: flex; gap: 8px; align-items: center; }
+  .switch { display: flex; gap: 6px; }
+  .switch button { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+  .switch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  article { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 8px 28px 24px; margin: 14px 0 28px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 22px 0 4px; }
+  h2 { font-size: 19px; margin: 28px 0 6px; }
+  p, li { color: var(--ink); }
+  .meta { color: var(--muted); font-size: 14px; margin-top: 0; }
+  .lead { border-left: 4px solid var(--accent); padding-left: 14px; }
+  a { color: inherit; }
+  ul { padding-left: 20px; }
+  li { margin: 4px 0; }
+  footer { color: var(--muted); font-size: 13px; padding-bottom: 30px; }
+  .js article[hidden] { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <a href="../"><svg viewBox="0 0 1024 1024" width="26" height="26" aria-hidden="true"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>publit</a>
+  <div class="switch"><button type="button" data-lang="de">Deutsch</button><button type="button" data-lang="en">English</button></div>
+</header>
+<main>
+
+<article id="de" lang="de">
+<h1>Datenschutzerklärung</h1>
+<p class="meta">Für die App Publit (iPhone, Apple Watch, Widgets) und diese Website · Stand: 18. Oktober 2026</p>
+
+<p class="lead">Kurz gesagt: Publit hat kein Konto, keine Werbung, kein Tracking und keine Analyse-Tools. Was du in der App speicherst, bleibt auf deinem Gerät. Daten verlassen dein Gerät nur, wenn die App sie für eine Funktion braucht, die du gerade benutzt – etwa um eine Verbindung zu suchen.</p>
+
+<h2>1. Verantwortlicher</h2>
+<p>Elijá Friedrich-Ulrich, Entwickler von Publit.<br>
+Kontakt: über <a href="https://github.com/elija-7580/Publit/issues">GitHub</a> (öffentlich) oder über das Profil <a href="https://github.com/elija-7580">github.com/elija-7580</a>. Für vertrauliche Anfragen nenne bitte in einem Issue nur, dass du Kontakt wünschst – keine persönlichen Daten.</p>
+
+<h2>2. Was auf deinem Gerät bleibt</h2>
+<p>Gespeicherte Orte, Favoriten, Linien, Reisen, Tickets, Einstellungen und Suchverlauf werden nur lokal auf deinem Gerät gespeichert (bzw. zwischen iPhone, Watch und Widgets über eine App-Gruppe auf deinen Geräten geteilt). Der Entwickler hat darauf keinen Zugriff. Wenn du die App löschst, werden diese Daten gelöscht.</p>
+
+<h2>3. Fahrplan- und Routendaten (Transitous)</h2>
+<p>Für Abfahrten, Haltestellensuche, Routen, Live-Zeiten und Karteninhalte fragt die App den freien Dienst <a href="https://transitous.org">Transitous</a> (api.transitous.org) ab. Dabei werden übertragen: deine Suchbegriffe, die Koordinaten von Start, Ziel bzw. dem gerade angezeigten Kartenausschnitt oder deinem Standort (wenn du „Hier“ bzw. Abfahrten in der Nähe nutzt), die gewünschte Zeit sowie technisch bedingt deine IP-Adresse und eine App-Kennung (User-Agent „Publit/Version“). Transitous speichert laut eigener Angabe IP-Adresse, Zeitpunkt, aufgerufene Adresse und User-Agent in Log-Dateien, um Fehler zu beheben und Missbrauch zu verhindern. Details: <a href="https://transitous.org/privacy/">Datenschutzerklärung von Transitous</a>.<br>
+Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Bereitstellung der von dir angeforderten Funktion) bzw. lit. f (berechtigtes Interesse an einer funktionierenden App).</p>
+
+<h2>4. Standort</h2>
+<p>Den Standort nutzt die App nur, wenn du es in iOS erlaubst – für Abfahrten in der Nähe, den Startpunkt „Hier“, die Karte und die Begleitung während einer Fahrt (z. B. Hinweis zum Aussteigen). Der Standort wird nicht gespeichert und nur in der oben beschriebenen Form (als Koordinaten in einer Anfrage) an Transitous bzw. – falls aktiviert – Google gesendet. Du kannst die Erlaubnis jederzeit in den iOS-Einstellungen ändern.</p>
+
+<h2>5. Optionale Google-Dienste</h2>
+<p>Nur wenn du in den Einstellungen Google als Ortssuche wählst, werden deine Suchbegriffe und ein ungefährer Standort bzw. Kartenbereich (für passende Vorschläge) an die Google Places API (places.googleapis.com) der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland, gesendet; dabei kann eine Übermittlung in die USA stattfinden (Google ist unter dem EU-US Data Privacy Framework zertifiziert). Ohne diese Auswahl spricht die App für die Suche nicht mit Google. Wenn du eine Route in Google Maps öffnest, gilt dort die Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>.<br>
+Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (deine Auswahl in den Einstellungen); du kannst sie jederzeit zurücknehmen.</p>
+
+<h2>6. Logos von Verkehrsunternehmen</h2>
+<p>Für Logos auf Tickets lädt die App Bilder von Wikidata/Wikimedia Commons (Wikimedia Foundation) und kleine Website-Symbole über den Favicon-Dienst von Google (www.google.com/s2/favicons). Übertragen werden dabei nur der Name bzw. die Internetadresse des Verkehrsunternehmens und technisch bedingt deine IP-Adresse – keine Ticketdaten.</p>
+
+<h2>7. Karten von Apple</h2>
+<p>Die Karte in der App ist Apple Maps (MapKit). Dafür gilt die Datenschutzerklärung von Apple: <a href="https://www.apple.com/legal/privacy/">apple.com/legal/privacy</a>. Kartendaten zum Teil © OpenStreetMap-Mitwirkende.</p>
+
+<h2>8. Weitere Berechtigungen – alles auf dem Gerät</h2>
+<ul>
+  <li><b>Bewegung &amp; Fitness</b> (optional): Aus deinen Schritten misst die App dein Gehtempo, damit Umstiegszeiten passen. Gespeichert wird nur das Tempo, lokal.</li>
+  <li><b>Kalender</b> (optional): Die App kann eine Reise als Termin eintragen. Sie liest deinen Kalender nicht.</li>
+  <li><b>Kamera &amp; Fotos</b> (optional): Tickets werden auf dem Gerät erkannt (Apple Vision). Bilder werden nicht hochgeladen.</li>
+  <li><b>Mitteilungen</b> (optional): Erinnerungen und Störungsmeldungen werden auf dem Gerät erzeugt. Es gibt keinen Push-Server.</li>
+  <li><b>Live-Aktivitäten, Widgets und Apple Watch</b> zeigen nur Daten, die schon auf deinem Gerät sind.</li>
+</ul>
+
+<h2>9. Diagnose</h2>
+<p>Die App notiert Hänger, Abstürze und fehlgeschlagene Anfragen (nur ihre Art) samt den kurz davor geöffneten Bildschirmen. Orte, Haltestellen und Tickets werden dabei nicht erfasst. Diese Angaben bleiben auf dem Gerät, bis du sie selbst teilst (z. B. per Mail oder GitHub) – dann siehst du vorher, was gesendet wird. In den Einstellungen kannst du sie löschen.</p>
+
+<h2>10. Apple Wallet (falls verfügbar)</h2>
+<p>Wenn du ein Ticket zu Apple Wallet hinzufügst, wird die Pass-Datei (mit den Ticketangaben, die du gespeichert hast) an einen Signier-Dienst gesendet, weil Apple nur signierte Pässe annimmt. Der Dienst signiert die Datei, gibt sie zurück und speichert sie nicht. Ohne eingerichteten Signier-Dienst ist diese Funktion ausgeschaltet.</p>
+
+<h2>11. Geteilte Links</h2>
+<p>Wenn du eine Verbindung oder Haltestelle teilst, entsteht ein Link auf diese Website. Die Angaben (Namen, Koordinaten, Zeit) stehen hinter dem Zeichen „#“ und werden von Browsern nicht an den Server übertragen; die Seite zeigt sie nur im Browser an.</p>
+
+<h2>12. Diese Website</h2>
+<p>Die Website wird über GitHub Pages (GitHub Inc., USA) bereitgestellt. Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie deine IP-Adresse, um die Seite auszuliefern und die Sicherheit zu gewährleisten: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>. Die Website setzt keine Cookies, nutzt keine Analyse-Tools und lädt keine externen Schriften. Die gewählte Sprache wird nur lokal in deinem Browser gespeichert.<br>
+Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+<h2>13. Deine Rechte</h2>
+<p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine Einwilligung jederzeit zu widerrufen. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren. Da der Entwickler selbst keine personenbezogenen Daten von dir speichert, richten sich Anfragen zu Server-Logs an den jeweiligen Dienst (Transitous, Google, Apple, GitHub).</p>
+
+<h2>14. Änderungen</h2>
+<p>Wenn sich die App ändert, wird diese Erklärung angepasst. Die aktuelle Fassung steht immer hier.</p>
+</article>
+
+<article id="en" lang="en">
+<h1>Privacy policy</h1>
+<p class="meta">For the Publit app (iPhone, Apple Watch, widgets) and this website · Last updated: 18 October 2026</p>
+
+<p class="lead">In short: Publit has no account, no ads, no tracking and no analytics. What you save in the app stays on your device. Data only leaves your device when the app needs it for a feature you are using right now – for example to find a route.</p>
+
+<h2>1. Controller</h2>
+<p>Elijá Friedrich-Ulrich, developer of Publit.<br>
+Contact: via <a href="https://github.com/elija-7580/Publit/issues">GitHub</a> (public) or the profile <a href="https://github.com/elija-7580">github.com/elija-7580</a>. For confidential requests, please only say in an issue that you would like to get in touch – no personal data.</p>
+
+<h2>2. What stays on your device</h2>
+<p>Saved places, favourites, lines, trips, tickets, settings and search history are stored only on your device (and shared between your iPhone, Watch and widgets through an app group on your devices). The developer has no access to them. Deleting the app deletes this data.</p>
+
+<h2>3. Timetable and routing data (Transitous)</h2>
+<p>For departures, stop search, routes, live times and map content the app queries the free service <a href="https://transitous.org">Transitous</a> (api.transitous.org). This sends: your search terms, the coordinates of origin, destination, the visible map area or your location (when you use “Here” or nearby departures), the requested time and, for technical reasons, your IP address and an app identifier (user agent “Publit/version”). According to Transitous, it keeps IP address, time, requested address and user agent in log files to fix problems and prevent abuse. Details: <a href="https://transitous.org/privacy/">Transitous privacy policy</a>.<br>
+Legal basis: Art. 6(1)(b) GDPR (providing the feature you asked for) and Art. 6(1)(f) (legitimate interest in a working app).</p>
+
+<h2>4. Location</h2>
+<p>The app only uses your location if you allow it in iOS – for nearby departures, the “Here” starting point, the map and guidance during a trip (e.g. when to get off). Your location is not stored and is only sent as coordinates in a request, as described above, to Transitous or – if enabled – Google. You can change the permission in iOS Settings at any time.</p>
+
+<h2>5. Optional Google services</h2>
+<p>Only if you choose Google as place search in Settings are your search terms and an approximate location or map area (for relevant suggestions) sent to the Google Places API (places.googleapis.com) of Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland; data may be transferred to the USA (Google is certified under the EU-US Data Privacy Framework). Without this choice the app does not talk to Google for search. If you open a route in Google Maps, Google’s privacy policy applies there: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>.<br>
+Legal basis: Art. 6(1)(a) GDPR (your choice in Settings); you can undo it at any time.</p>
+
+<h2>6. Transport operator logos</h2>
+<p>For logos on tickets the app loads images from Wikidata/Wikimedia Commons (Wikimedia Foundation) and small website icons through Google’s favicon service (www.google.com/s2/favicons). Only the operator’s name or web address and, for technical reasons, your IP address are sent – no ticket data.</p>
+
+<h2>7. Apple maps</h2>
+<p>The map in the app is Apple Maps (MapKit), covered by Apple’s privacy policy: <a href="https://www.apple.com/legal/privacy/">apple.com/legal/privacy</a>. Some map data © OpenStreetMap contributors.</p>
+
+<h2>8. Other permissions – all on the device</h2>
+<ul>
+  <li><b>Motion &amp; Fitness</b> (optional): the app measures your walking pace from your steps so transfer times fit. Only the pace is stored, locally.</li>
+  <li><b>Calendar</b> (optional): the app can add a trip as an event. It does not read your calendar.</li>
+  <li><b>Camera &amp; Photos</b> (optional): tickets are recognised on the device (Apple Vision). Images are not uploaded.</li>
+  <li><b>Notifications</b> (optional): reminders and disruption alerts are created on the device. There is no push server.</li>
+  <li><b>Live Activities, widgets and Apple Watch</b> only show data that is already on your device.</li>
+</ul>
+
+<h2>9. Diagnostics</h2>
+<p>The app notes freezes, crashes and failed requests (only their kind) with the screens opened just before. Places, stops and tickets are not recorded. This stays on the device until you share it yourself (e.g. by e-mail or GitHub) – you see what is sent first. You can delete it in Settings.</p>
+
+<h2>10. Apple Wallet (where available)</h2>
+<p>When you add a ticket to Apple Wallet, the pass file (with the ticket details you saved) is sent to a signing service, because Apple only accepts signed passes. The service signs the file, returns it and does not store it. Without a configured signing service this feature is off.</p>
+
+<h2>11. Shared links</h2>
+<p>When you share a route or stop, the app creates a link to this website. The details (names, coordinates, time) come after the “#” sign, which browsers do not send to the server; the page only displays them in your browser.</p>
+
+<h2>12. This website</h2>
+<p>This website is hosted on GitHub Pages (GitHub Inc., USA). When you visit, GitHub processes technically necessary data such as your IP address to deliver the page and keep it secure: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>. The website sets no cookies, uses no analytics and loads no external fonts. Your language choice is only stored locally in your browser.<br>
+Legal basis: Art. 6(1)(f) GDPR.</p>
+
+<h2>13. Your rights</h2>
+<p>You have the right of access, rectification, erasure, restriction of processing, data portability and objection (Art. 15–21 GDPR) and the right to withdraw consent at any time. You can also complain to a data protection supervisory authority. As the developer stores no personal data about you, requests about server logs go to the respective service (Transitous, Google, Apple, GitHub).</p>
+
+<h2>14. Changes</h2>
+<p>When the app changes, this policy is updated. The current version is always here.</p>
+</article>
+
+</main>
+<footer>© 2026 Publit · <a href="../">Website</a> · <a href="https://github.com/elija-7580/Publit">GitHub</a></footer>
+<script>
+(function () {
+  document.documentElement.className = "js";
+  var saved = null; try { saved = localStorage.getItem("lang"); } catch (e) {}
+  var q = new URLSearchParams(location.search).get("lang");
+  var lang = location.hash === "#en" ? "en" : location.hash === "#de" ? "de" : (q || saved || ((navigator.language || "").toLowerCase().indexOf("de") === 0 ? "de" : "en"));
+  function apply(l) {
+    lang = l === "de" ? "de" : "en";
+    document.documentElement.lang = lang;
+    document.getElementById("de").hidden = lang !== "de";
+    document.getElementById("en").hidden = lang !== "en";
+    document.title = lang === "de" ? "Publit · Datenschutzerklärung" : "Publit · Privacy policy";
+    [].forEach.call(document.querySelectorAll(".switch button"), function (b) { b.setAttribute("aria-pressed", String(b.dataset.lang === lang)); });
+  }
+  [].forEach.call(document.querySelectorAll(".switch button"), function (b) {
+    b.addEventListener("click", function () { try { localStorage.setItem("lang", b.dataset.lang); } catch (e) {} apply(b.dataset.lang); });
+  });
+  apply(lang);
+})();
+</script>
+</body>
+</html>

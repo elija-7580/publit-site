@@ -28,7 +28,8 @@ const EN = {
   w1:'No ads', w1t:'No ad stands between you and the next departure.', w2:'No account', w2t:'Open it and go. Your places stay on your device.',
   w3:'No tracking', w3t:'The app has no analytics SDKs and builds no profiles. Your location leaves the phone only for the search.', w4:'Open source', w4t:'All the code is on GitHub. You can read it, build the app yourself and send improvements.',
   endTitle:'Last stop. Everybody off, please.', endText:'Publit is still in development and coming to the App Store soon. Until then you can look at the code, try the app and send feedback.',
-  footData:'Timetable data: Transitous and open data sources'
+  footData:'Timetable data: Transitous and open data sources',
+  footPrivacy:'Privacy'
 };
 const DE = {};
 $$('[data-t]').forEach(e => DE[e.dataset.t] = e.textContent);
