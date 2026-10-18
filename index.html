@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Publit · Öffis in ganz Europa</title>
+<meta name="description" content="Publit: Abfahrten in der Nähe, Routen durch Europa und Schritt für Schritt bis zum Aussteigen. Kostenlos, ohne Werbung, ohne Konto, Open Source.">
+<meta name="theme-color" content="#f4f4f2">
+<link rel="icon" href="assets/publit.svg">
+<meta property="og:image" content="assets/publit-social.png">
+<link rel="preload" as="image" href="assets/app/start-nearby.webp">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<!-- The line: a yellow dot rides down the page and stops at every section. -->
+<aside class="line" aria-hidden="true">
+  <div class="line-track"><div class="line-done"></div></div>
+  <ol class="line-stops"></ol>
+  <div class="line-dot"><span class="line-label"></span></div>
+</aside>
+
+<header class="top">
+  <a class="brand" href="#start" aria-label="Publit">
+    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
+    <span>publit</span>
+  </a>
+  <nav>
+    <a href="#nearby" data-t="navApp">Die App</a>
+    <a href="#europa" data-t="navEurope">Europa</a>
+    <a href="#prinzip" data-t="navWhy">Warum</a>
+    <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
+    <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">
+      <svg viewBox="0 0 16 16" width="20" height="20"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.22 1.88.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+    </a>
+  </nav>
+</header>
+
+<main>
+<section id="start" class="hero" data-stop="Start">
+  <div class="hero-text">
+    <p class="kicker reveal"><span class="dot"></span><span data-t="kicker">Für iPhone und Apple Watch · Open Source</span></p>
+    <h1 class="reveal" data-t-html="heroTitle">Dein Weg.<br>Auf einen Blick.</h1>
+    <p class="lead reveal" data-t="heroLead">Publit zeigt, was in deiner Nähe gleich abfährt, plant Routen durch ganz Europa und begleitet dich bis zum Aussteigen. Die App ist kostenlos und kommt ohne Werbung und ohne Konto aus.</p>
+    <div class="cta reveal">
+      <a class="key key-ink" href="https://github.com/elija-7580/Publit" data-t="ctaPrimary">Auf GitHub ansehen</a>
+      <a class="key" href="#nearby" data-t="ctaSecondary">Funktionen ansehen ↓</a>
+    </div>
+    <ul class="facts reveal">
+      <li data-t="fact1">Keine Werbung</li><li data-t="fact2">Kein Konto</li><li data-t="fact3">Kein Tracking</li>
+    </ul>
+  </div>
+  <div class="hero-phones">
+    <div class="phone phone-back"><img src="assets/app/design-live-dark.webp" alt="" width="600" height="1305"></div>
+    <div class="phone phone-front" data-cycle>
+      <img class="on" src="assets/app/start-nearby.webp" alt="In der Nähe" width="600" height="1305">
+      <img src="assets/app/start-plan.webp" alt="Planen" width="600" height="1305" loading="lazy">
+      <img src="assets/app/design-route.webp" alt="Route" width="600" height="1305" loading="lazy">
+      <img src="assets/app/design-live-up.webp" alt="Live-Fahrt" width="600" height="1305" loading="lazy">
+    </div>
+    <div class="cycle-tabs" role="tablist">
+      <button class="on" data-i="0" data-t="tabNearby">In der Nähe</button>
+      <button data-i="1" data-t="tabPlan">Planen</button>
+      <button data-i="2" data-t="tabRoute">Route</button>
+      <button data-i="3" data-t="tabLive">Unterwegs</button>
+    </div>
+  </div>
+</section>
+
+<section class="ticker" aria-label="Nächster Halt in acht Sprachen">
+  <div class="ticker-row" data-speed="1"><div class="ticker-track">
+    <span>Nächster Halt</span><span>Next stop</span><span>Prochain arrêt</span><span>Prossima fermata</span><span>Próxima parada</span><span>Volgende halte</span><span>Następny przystanek</span><span>Próxima paragem</span>
+  </div></div>
+  <div class="ticker-row ticker-row-2" data-speed="-0.7"><div class="ticker-track">
+    <span>U6 Fröttmaning</span><span>S8 Flughafen</span><span>Vaporetto 1 Lido</span><span>Tram 2 Praterstern</span><span>RER B Aéroport CDG</span><span>Metro M1 Duomo</span><span>Bus 12 Burano</span><span>S1 Wien Hbf</span>
+  </div></div>
+</section>
+
+<section id="nearby" class="feature" data-stop="In der Nähe" data-stop-en="Nearby">
+  <div class="feature-text">
+    <p class="num reveal">01</p>
+    <h2 class="reveal" data-t="f1Title">Was fährt jetzt?</h2>
+    <p class="reveal" data-t="f1Text">Öffne Publit und sieh sofort die nächsten Abfahrten um dich herum: Linie, Richtung, Steig und die Minuten bis zur Abfahrt. Live-Zeiten und Verspätungen stehen direkt daneben.</p>
+    <ul class="points reveal">
+      <li data-t="f1a">Stationen antippen, Route hin mit einem Tipp</li>
+      <li data-t="f1b">Filter nach U-Bahn, Tram, Bus, Fähre</li>
+      <li data-t="f1c">Ist die Haltestelle weit weg, steht die Gehzeit dabei</li>
+    </ul>
+  </div>
+  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
+    <img src="assets/app/start-nearby.webp" alt="" loading="lazy" width="600" height="1305">
+    <img class="dark" src="assets/app/start-nearby-dark.webp" alt="" loading="lazy" width="600" height="1305">
+  </div></div>
+</section>
+
+<section id="plan" class="feature flip" data-stop="Planen" data-stop-en="Plan">
+  <div class="feature-text">
+    <p class="num reveal">02</p>
+    <h2 class="reveal" data-t="f2Title">Alle Wege auf einer Zeitachse.</h2>
+    <p class="reveal" data-t="f2Text">Publit legt jede Verbindung auf dieselbe Zeitachse. So siehst du auf einen Blick, welche früher ankommt, wo du umsteigst und wo es knapp wird.</p>
+    <ul class="points reveal">
+      <li data-t="f2a">Knappe Umstiege sind markiert</li>
+      <li data-t="f2b">Alle Routen auf einer Karte vergleichen</li>
+      <li data-t="f2c">Zu Fuß, Rad und Auto zum Vergleich</li>
+    </ul>
+  </div>
+  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
+    <img src="assets/app/start-plan.webp" alt="" loading="lazy" width="600" height="1305">
+    <img class="dark" src="assets/app/start-plan-dark.webp" alt="" loading="lazy" width="600" height="1305">
+  </div></div>
+</section>
+
+<section id="route" class="feature" data-stop="Route" data-stop-en="Route">
+  <div class="feature-text">
+    <p class="num reveal">03</p>
+    <h2 class="reveal" data-t="f3Title">Wissen, wann’s losgeht.</h2>
+    <p class="reveal" data-t="f3Text">Jede Route zeigt oben, wann du losgehen musst und wann du ankommst. Darunter stehen die Karte und alle Schritte in den Farben der Linien, mit Steig, Haltestellen und Verspätungen.</p>
+    <ul class="points reveal">
+      <li data-t="f3a">Erinnerung zum Losgehen und Aussteigen</li>
+      <li data-t="f3b">In den Kalender oder als Link teilen</li>
+      <li data-t="f3c">Tickets direkt an die Fahrt hängen</li>
+    </ul>
+  </div>
+  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
+    <img src="assets/app/design-route.webp" alt="" loading="lazy" width="600" height="1305">
+    <img class="dark" src="assets/app/design-route-dark.webp" alt="" loading="lazy" width="600" height="1305">
+  </div></div>
+</section>
+
+<section id="live" class="feature flip" data-stop="Unterwegs" data-stop-en="On the way">
+  <div class="feature-text">
+    <p class="num reveal">04</p>
+    <h2 class="reveal" data-t="f4Title">Von hier bis zum Aussteigen.</h2>
+    <p class="reveal" data-t="f4Text">Während der Fahrt zeigt Publit groß an, welche Linie du nimmst, wie lange es noch dauert und wo du aussteigst. Verspätungen und Gleiswechsel siehst du sofort, auch auf dem Sperrbildschirm und der Apple Watch.</p>
+    <ul class="points reveal">
+      <li data-t="f4a">Live-Aktivität und Dynamic Island</li>
+      <li data-t="f4b">Vom Weg abgekommen? Neuer Fußweg ab hier</li>
+      <li data-t="f4c">Endet von selbst, wenn du da bist</li>
+    </ul>
+  </div>
+  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
+    <img src="assets/app/design-live-up.webp" alt="" loading="lazy" width="600" height="1305">
+    <img class="dark" src="assets/app/design-live-up-dark.webp" alt="" loading="lazy" width="600" height="1305">
+  </div></div>
+</section>
+
+<section id="tickets" class="feature" data-stop="Tickets" data-stop-en="Tickets">
+  <div class="feature-text">
+    <p class="num reveal">05</p>
+    <h2 class="reveal" data-t="f5Title">Das Ticket ist schon da.</h2>
+    <p class="reveal" data-t="f5Text">Füge Tickets aus einem PDF, Foto oder Screenshot hinzu. Publit liest die Angaben auf deinem iPhone aus und lädt dabei nichts hoch. An der Sperre ist der Code sofort da.</p>
+    <ul class="points reveal">
+      <li data-t="f5a">Klimaticket, Deutschlandticket, Einzelfahrten</li>
+      <li data-t="f5b">Code hell und groß an der Sperre</li>
+    </ul>
+  </div>
+  <div class="feature-shot reveal"><div class="phone"><img src="assets/app/pass-wallet.webp" alt="" loading="lazy" width="600" height="1305"></div></div>
+</section>
+
+<section id="dark" class="dark-strip" data-stop="Nachts" data-stop-en="At night">
+  <h2 class="reveal" data-t="darkTitle">Auch um Mitternacht gut lesbar.</h2>
+  <div class="strip">
+    <div class="phone reveal"><img src="assets/app/start-nearby-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
+    <div class="phone reveal"><img src="assets/app/design-route-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
+    <div class="phone reveal"><img src="assets/app/design-live-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
+  </div>
+</section>
+
+<section id="europa" class="europe" data-stop="Europa" data-stop-en="Europe">
+  <div>
+    <h2 class="reveal" data-t-html="euTitle">Öffis.<br>In ganz Europa.</h2>
+    <p class="reveal" data-t="euText">Für den Weg zur Arbeit und für Städte, die du noch nicht kennst. Publit nutzt offene Fahrplandaten von Transitous, von der U-Bahn in München bis zum Vaporetto in Venedig.</p>
+    <a class="link reveal" href="https://transitous.org" data-t="euLink">Abdeckung in deiner Region ↗</a>
+  </div>
+  <div class="cities reveal">
+    <span>München</span><span>Wien</span><span>Venezia</span><span>Paris</span><span>Milano</span><span>Berlin</span><span>Zürich</span><span>Amsterdam</span><span>Kraków</span><span>Lisboa</span><span>Barcelona</span><span>Praha</span>
+  </div>
+</section>
+
+<section id="prinzip" class="principles" data-stop="Warum" data-stop-en="Why">
+  <h2 class="reveal" data-t="whyTitle">So ist Publit gebaut.</h2>
+  <div class="cards">
+    <article class="card reveal"><h3 data-t="w1">Keine Werbung</h3><p data-t="w1t">Zwischen dir und der nächsten Abfahrt steht keine Anzeige.</p></article>
+    <article class="card reveal"><h3 data-t="w2">Kein Konto</h3><p data-t="w2t">Öffnen und losfahren. Deine Orte bleiben auf deinem Gerät.</p></article>
+    <article class="card reveal"><h3 data-t="w3">Kein Tracking</h3><p data-t="w3t">Die App enthält keine Analyse-SDKs und legt keine Profile an. Dein Standort verlässt das Handy nur für die Suche.</p></article>
+    <article class="card reveal"><h3 data-t="w4">Open Source</h3><p data-t="w4t">Der ganze Code liegt auf GitHub. Du kannst ihn lesen, die App selbst bauen und Verbesserungen schicken.</p></article>
+  </div>
+</section>
+
+<section id="ende" class="closing" data-stop="Ziel" data-stop-en="Arrive">
+  <h2 class="reveal" data-t="endTitle">Endstation. Bitte alle aussteigen.</h2>
+  <p class="reveal" data-t="endText">Publit ist noch in Entwicklung und kommt bald in den App Store. Bis dahin kannst du dir den Code ansehen, die App ausprobieren und Feedback geben.</p>
+  <div class="cta reveal"><a class="key key-ink" href="https://github.com/elija-7580/Publit" data-t="ctaPrimary">Auf GitHub ansehen</a></div>
+</section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 Publit</span>
+  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+</footer>
+
+<script src="site.js" defer></script>
+</body>
+</html>
