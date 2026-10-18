@@ -167,3 +167,17 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 .shot .hero{min-height:900px}.shot .feature{min-height:820px}.shot .hero-phones{height:700px}
 .shot .reveal{opacity:1;transform:none;transition:none}
 .shot *,.shot *::after{transition:none!important;animation:none!important}
+
+/* Coverage map */
+.coverage{display:block}
+.coverage>p{max-width:36em;margin-top:18px}
+.covwrap{margin-top:32px;display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+#covmap{height:520px;border-radius:22px;background:#ebebe7;overflow:hidden;border:1px solid rgba(17,17,17,.09)}
+#covmap.covmap-off::after{content:"Map unavailable";display:grid;place-items:center;height:100%;color:#66666b}
+.covlegend{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:15px}
+.covlegend li{display:flex;align-items:center;gap:10px}
+.covlegend i{width:14px;height:14px;border-radius:50%;border:2px solid;flex:none}
+.covlegend span{margin-left:auto;color:#66666b;font-variant-numeric:tabular-nums}
+.covnote{font-size:13px;color:#66666b;margin-top:16px}
+.leaflet-popup-content-wrapper{border-radius:14px}
+@media (max-width:800px){.covwrap{grid-template-columns:1fr}#covmap{height:420px}}

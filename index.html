@@ -170,11 +170,21 @@
   <div>
     <h2 class="reveal" data-t-html="euTitle">Öffis.<br>In ganz Europa.</h2>
     <p class="reveal" data-t="euText">Für den Weg zur Arbeit und für Städte, die du noch nicht kennst. Publit nutzt offene Fahrplandaten von Transitous, von der U-Bahn in München bis zum Vaporetto in Venedig.</p>
-    <a class="link reveal" href="https://transitous.org" data-t="euLink">Abdeckung in deiner Region ↗</a>
+    <a class="link reveal" href="#abdeckung" data-t="euLink">Abdeckung auf der Karte ↓</a>
   </div>
   <div class="cities reveal">
     <span>München</span><span>Wien</span><span>Venezia</span><span>Paris</span><span>Milano</span><span>Berlin</span><span>Zürich</span><span>Amsterdam</span><span>Kraków</span><span>Lisboa</span><span>Barcelona</span><span>Praha</span>
   </div>
+</section>
+
+<section id="abdeckung" class="coverage" data-stop="Abdeckung" data-stop-en="Coverage">
+  <h2 class="reveal" data-t="covTitle">Wo Publit was weiß.</h2>
+  <p class="reveal" data-t="covText">Jeder Punkt ist eine Stadt, die wir getestet haben: grün mit Live-Zeiten, grau nur mit Fahrplan, gelb mit Live-Zeiten, die Publit selbst bei den Verkehrsbetrieben holt. Tippe auf einen Punkt für Details.</p>
+  <div class="covwrap reveal">
+    <div id="covmap" role="img" aria-label="Karte der Abdeckung in Europa"></div>
+    <ul id="covlegend" class="covlegend"></ul>
+  </div>
+  <p class="covnote" data-t="covNote">Stichproben vom 14. Oktober 2026 aus offenen Daten (Transitous). Alle Angaben ohne Gewähr.</p>
 </section>
 
 <section id="prinzip" class="principles" data-stop="Warum" data-stop-en="Why">
@@ -201,5 +211,6 @@
 </footer>
 
 <script src="site.js" defer></script>
+<script src="coverage.js" defer></script>
 </body>
 </html>

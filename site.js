@@ -23,12 +23,14 @@ const EN = {
   f5Title:'Your ticket is already there.', f5Text:'Add tickets from a PDF, a photo or a screenshot. Publit reads the details on your iPhone and uploads nothing. At the gate the code is ready.',
   f5a:'Klimaticket, Deutschlandticket, single tickets', f5b:'The code bright and big at the gate',
   darkTitle:'Easy to read at midnight, too.',
-  euTitle:'Public transport.<br>All over Europe.', euText:'For your commute and for cities you don’t know yet. Publit uses open timetable data from Transitous, from the Munich U-Bahn to the vaporetto in Venice.', euLink:'Coverage in your region ↗',
+  euTitle:'Public transport.<br>All over Europe.', euText:'For your commute and for cities you don’t know yet. Publit uses open timetable data from Transitous, from the Munich U-Bahn to the vaporetto in Venice.', euLink:'Coverage on the map ↓',
   whyTitle:'How Publit is built.',
   w1:'No ads', w1t:'No ad stands between you and the next departure.', w2:'No account', w2t:'Open it and go. Your places stay on your device.',
   w3:'No tracking', w3t:'The app has no analytics SDKs and builds no profiles. Your location leaves the phone only for the search.', w4:'Open source', w4t:'All the code is on GitHub. You can read it, build the app yourself and send improvements.',
   endTitle:'Last stop. Everybody off, please.', endText:'Publit is still in development and coming to the App Store soon. Until then you can look at the code, try the app and send feedback.',
   footData:'Timetable data: Transitous and open data sources',
+  covTitle:'What Publit knows where.', covText:'Every dot is a city we tested: green with live times, grey with timetables only, yellow with live times Publit fetches from the operators itself. Tap a dot for details.',
+  covNote:'Samples from 14 October 2026, from open data (Transitous). All information without guarantee.', covAria:'Map of coverage in Europe',
   footPrivacy:'Privacy'
 };
 const DE = {};
