@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Publit · Für Städte und Verkehrsbetriebe</title>
+<meta name="description" content="Wie Städte und Verkehrsbetriebe offene Fahrplan- und Live-Daten (GTFS, GTFS-RT) bereitstellen, damit Publit bei ihnen live wird.">
+<meta name="theme-color" content="#f4f4f2">
+<link rel="icon" href="../assets/publit.svg">
+<link rel="stylesheet" href="../site.css">
+<style>
+.steps{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:56px}
+.steps .n{font-size:13px;font-weight:800;color:var(--faint);letter-spacing:.08em;margin-bottom:8px}
+.why>div{min-width:0}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:110px}
+.why ul{list-style:none;display:grid;gap:12px}
+.why li{display:flex;gap:12px;align-items:baseline;font-size:16px;font-weight:600}
+.why li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;border:2px solid var(--ink);transform:translateY(-1px)}
+pre{margin-top:22px;padding:22px;border-radius:18px;background:#111;color:#e9e9e4;font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto}
+.contact{margin-top:110px;padding:44px;border-radius:28px;background:var(--ink);color:#fff}
+.contact p{color:rgba(255,255,255,.7);max-width:36em;margin-top:14px}
+.contact .key{background:#fff;color:#111}
+.contact .link{color:#fff}
+@media (max-width:900px){.why{grid-template-columns:1fr;gap:28px;margin-top:80px}.contact{padding:28px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="../" aria-label="Publit">
+    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
+    <span>publit</span>
+  </a>
+  <nav>
+    <a href="../" data-t="navHome">Start</a>
+    <a href="../features/" data-t="navAll">Alle Funktionen</a>
+    <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
+  </nav>
+</header>
+<main>
+<section class="fpage">
+  <p class="kicker"><span class="dot" style="visibility:visible"></span><span data-t="kick">Für Städte und Verkehrsbetriebe</span></p>
+  <h1 data-t="title">Macht eure Öffis live.</h1>
+  <p class="lead" data-t="lead">Publit zeigt Abfahrten, Verspätungen und Ausfälle überall dort, wo Verkehrsbetriebe ihre Daten offen bereitstellen. Fünf Schritte, und eure Fahrgäste sehen live, wann es losgeht. Ohne Vertrag, ohne Gebühren, ohne App-Entwicklung auf eurer Seite.</p>
+  <ol class="steps cards">
+    <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M9 9.5v10M9 14.5h11.5"/><circle class="y" cx="15" cy="17" r="1.6"/></svg></span><p class="n">01</p><h3 data-t="s1">Fahrplan als GTFS veröffentlichen</h3><p data-t="s1x">Der Fahrplan als GTFS-Datei (ZIP mit stops.txt, routes.txt, trips.txt, stop_times.txt und calendar.txt). Viele Planungssysteme exportieren GTFS direkt. In der EU gibt es dafür meist schon einen Nationalen Zugangspunkt (NAP).</p></li>
+    <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18.5l5-5 5 2 6-9"/><circle class="w" cx="9" cy="13.5" r="1.9"/><circle class="w" cx="14" cy="15.5" r="1.9"/><circle class="f" cx="4" cy="18.5" r="1.8"/><circle class="y" cx="20" cy="6.5" r="2.6"/></svg></span><p class="n">02</p><h3 data-t="s2">Live-Daten als GTFS-Realtime anbieten</h3><p data-t="s2x">TripUpdates mit Verspätungen und Ausfällen, dazu wenn möglich VehiclePositions und ServiceAlerts. Die trip_id und stop_id müssen zu deinem GTFS passen. SIRI geht auch.</p></li>
+    <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle class="y" cx="12" cy="12" r="3.4"/></svg></span><p class="n">03</p><h3 data-t="s3">Unter einer festen Adresse, mit offener Lizenz</h3><p data-t="s3x">Eine dauerhafte URL, die ohne Anmeldung erreichbar ist, und eine klare Lizenz, etwa CC BY 4.0 oder die Datenlizenz Deutschland. Den Fahrplan regelmäßig aktualisieren und die Live-Daten alle 15 bis 30 Sekunden.</p></li>
+    <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-8a5 5 0 0 1 5-5h9"/><path d="M15.5 3.5L19 7l-3.5 3.5"/><circle class="y" cx="5" cy="20" r="2.4"/></svg></span><p class="n">04</p><h3 data-t="s4">Bei Transitous eintragen</h3><p data-t="s4x">Publit bekommt seine Daten über Transitous, eine offene, gemeinschaftlich betriebene Fahrplanauskunft. Ein Feed wird mit einem kleinen Eintrag in feeds/*.json im Transitous-Repo auf GitHub ergänzt. Ist er bei der Mobility Database oder bei Transitland gelistet, reicht dessen ID.</p></li>
+    <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/><circle class="y" cx="18" cy="5" r="2.6"/></svg></span><p class="n">05</p><h3 data-t="s5">Fertig: Publit ist bei euch live</h3><p data-t="s5x">Nach dem nächsten täglichen Import zeigt Publit eure Abfahrten mit Live-Zeiten, Verspätungen und Ausfällen. Das gilt auch für jede andere App, die auf Transitous oder offene Daten setzt.</p></li>
+  </ol>
+
+  <div class="why">
+    <div>
+      <h2 data-t="codeT">So sieht der Eintrag aus.</h2>
+      <p style="margin-top:18px" data-t="codeX">Ein Fahrplan und ein Live-Feed mit demselben Namen, damit Transitous die Updates dem richtigen Fahrplan zuordnet. Nach dem Pull Request wird der Feed automatisch getestet.</p>
+      <pre>[
+  {
+    "name": "meine-stadt",
+    "type": "http",
+    "url": "https://daten.meine-stadt.eu/gtfs.zip",
+    "license": { "spdx-identifier": "CC-BY-4.0" }
+  },
+  {
+    "name": "meine-stadt",
+    "type": "url",
+    "spec": "gtfs-rt",
+    "url": "https://daten.meine-stadt.eu/gtfs-rt/trip-updates"
+  }
+]</pre>
+      <a class="link" href="https://transitous.org/doc/#adding-a-region" data-t="docs">Anleitung bei Transitous →</a>
+    </div>
+    <div>
+      <h2 data-t="whyT">Was ihr davon habt.</h2>
+      <ul style="margin-top:28px">
+        <li data-t="b1">Fahrgäste sehen Verspätungen und Ausfälle, bevor sie am Steig stehen</li>
+        <li data-t="b2">Einmal bereitstellen, in vielen Apps sichtbar, nicht nur in Publit</li>
+        <li data-t="b3">Umstiege zwischen Betrieben und Ländern werden planbar</li>
+        <li data-t="b4">Erfüllt, was die EU mit den Nationalen Zugangspunkten ohnehin verlangt</li>
+        <li data-t="b5">Keine Fahrgastdaten: Publit braucht kein Konto und trackt niemanden</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="contact">
+    <h2 data-t="cT">Fragen oder schon einen Feed?</h2>
+    <p data-t="cX">Schreibt uns auf GitHub. Wir helfen beim Eintrag, prüfen eure Daten in Publit und sagen Bescheid, sobald eure Stadt live ist.</p>
+    <div class="cta"><a class="key" href="https://github.com/elija-7580/Publit/issues/new?title=Feed%3A%20" data-t="cBtn">Feed melden</a><a class="key" style="background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)" href="../#abdeckung" data-t="cMap">Abdeckung ansehen</a></div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <span>© 2026 Publit</span>
+  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+  <a href="../privacy/" data-t="footPrivacy" style="color:inherit">Datenschutz</a>
+</footer>
+<script>
+(() => {
+const EN = {"s1": "Publish your timetable as GTFS", "s1x": "Your timetable as a GTFS file (a ZIP with stops.txt, routes.txt, trips.txt, stop_times.txt and calendar.txt). Many scheduling systems export GTFS directly. In the EU there is usually a National Access Point (NAP) for it already.", "s2": "Offer live data as GTFS Realtime", "s2x": "TripUpdates with delays and cancellations, plus VehiclePositions and ServiceAlerts if you can. The trip_id and stop_id must match your GTFS. SIRI works too.", "s3": "At a stable URL, with an open licence", "s3x": "A permanent URL that works without signing up, and a clear licence such as CC BY 4.0. Update the timetable regularly and the live feed every 15 to 30 seconds.", "s4": "Add it to Transitous", "s4x": "Publit gets its data through Transitous, an open, community-run journey planner. A feed is added with a small entry in feeds/*.json in the Transitous repository on GitHub. If it is listed in the Mobility Database or on Transitland, its ID is enough.", "s5": "Done: Publit is live in your city", "s5x": "After the next daily import Publit shows your departures with live times, delays and cancellations. So does every other app built on Transitous or open data.", "navHome": "Start", "navAll": "All features", "kick": "For cities and transit operators", "title": "Put your transit live.", "lead": "Publit shows departures, delays and cancellations wherever operators publish their data openly. Five steps, and your riders see live when to leave. No contract, no fees, no app development on your side.", "codeT": "This is what the entry looks like.", "codeX": "A timetable and a live feed with the same name, so Transitous applies the updates to the right timetable. After the pull request the feed is tested automatically.", "docs": "Guide at Transitous →", "whyT": "What you get.", "b1": "Riders see delays and cancellations before they reach the platform", "b2": "Publish once, show up in many apps, not only Publit", "b3": "Changes between operators and countries become plannable", "b4": "Fits what the EU already asks for with National Access Points", "b5": "No rider data: Publit needs no account and tracks no one", "cT": "Questions, or already have a feed?", "cX": "Write to us on GitHub. We help with the entry, check your data in Publit and let you know as soon as your city is live.", "cBtn": "Report a feed", "cMap": "See coverage", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy"};
+const els = [...document.querySelectorAll('[data-t]')], DE = {};
+els.forEach(e => DE[e.dataset.t] = e.textContent);
+let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
+const btn = document.querySelector('.lang');
+function apply() {
+  const d = lang === 'de' ? DE : EN;
+  document.documentElement.lang = lang;
+  els.forEach(e => { if (d[e.dataset.t]) e.textContent = d[e.dataset.t]; });
+  document.title = 'Publit · ' + (lang === 'de' ? 'Für Städte und Verkehrsbetriebe' : 'For cities and transit operators');
+  btn.textContent = lang === 'de' ? 'EN' : 'DE';
+}
+btn.addEventListener('click', () => { lang = lang === 'de' ? 'en' : 'de'; localStorage.setItem('lang', lang); apply(); });
+const top = document.querySelector('.top');
+addEventListener('scroll', () => top.classList.toggle('scrolled', scrollY > 10), {passive: true});
+apply();
+})();
+</script>
+</body>
+</html>

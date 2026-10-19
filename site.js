@@ -5,7 +5,8 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 
 /* ---------- Language ---------- */
 const EN = {
-  navApp:'The app', navEurope:'Europe', navWhy:'Why', navAll:'All features', allFeatures:'See all features →',
+  navApp:'The app', navEurope:'Europe', navWhy:'Why', navAll:'All features', navCities:'For cities', footCities:'For cities and transit operators', light:'Light', dark:'Dark',
+  film1:'Board', film2:'On the way', film3:'Get off', filmBanner:'Next stop: Marienplatz', filmBannerSub:'Get off now · U6 towards Klinikum Großhadern', allFeatures:'See all features →',
   kicker:'For iPhone · Made in EU · Open source',
   heroTitle:'Your way.<br>At a glance.',
   heroLead:'Publit shows what leaves near you, plans routes across Europe and guides you until you get off. It is free, with no ads and no account.',
@@ -60,7 +61,7 @@ const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting
 $$('.reveal').forEach(e => io.observe(e));
 
 /* ---------- Hero: the screens take turns ---------- */
-const cycle = $('[data-cycle]'), shots = $$('img', cycle), tabs = $$('.cycle-tabs button');
+const cycle = $('[data-cycle]'), shots = $$('.slide', cycle), tabs = $$('.cycle-tabs button');
 let ci = 0, timer;
 const CYCLE = 3600;
 document.documentElement.style.setProperty('--cycle', CYCLE + 'ms');
@@ -74,13 +75,33 @@ tabs.forEach(t => t.addEventListener('click', () => { show(+t.dataset.i); play()
 play();
 document.addEventListener('visibilitychange', () => document.hidden ? clearInterval(timer) : play());
 
-/* ---------- Feature phones: light, then night ---------- */
-const swaps = $$('[data-theme-swap]');
-const swapIO = new IntersectionObserver(es => es.forEach(e => {
-  clearInterval(e.target._t);
-  if (e.isIntersecting && !reduce) e.target._t = setInterval(() => e.target.classList.toggle('night'), 3200);
-}), { threshold: .5 });
-swaps.forEach(p => { swapIO.observe(p); p.addEventListener('click', () => p.classList.toggle('night')); });
+/* ---------- Screens: light or dark, one switch for all phones ---------- */
+$$('.theme').forEach(b => b.addEventListener('click', () => document.body.classList.toggle('screens-dark')));
+
+/* ---------- Live trip film: board, ride, get off ---------- */
+const film = $('.film');
+if (film) {
+  const slides = $$('.slide', film), steps = $$('.film-steps li', film), minEl = $('.island .min', film);
+  const SCENE = 3400, mins = [8, 5, 1];
+  film.style.setProperty('--scene', SCENE + 'ms');
+  let fi = 0, ft, tick;
+  const scene = i => {
+    fi = i % 3;
+    slides.forEach((s, k) => s.classList.toggle('on', k === fi));
+    steps.forEach((t, k) => { t.classList.remove('on'); if (k === fi) { void t.offsetWidth; t.classList.add('on'); } });
+    film.classList.add('on');
+    film.classList.toggle('out', fi === 2);
+    clearInterval(tick);
+    let m = mins[fi]; minEl.textContent = m + ' min';
+    if (fi < 2 && !reduce) tick = setInterval(() => { if (m > mins[fi + 1] + 1) { m--; minEl.textContent = m + ' min'; } }, SCENE / 4);
+  };
+  const playFilm = () => { clearInterval(ft); if (!reduce) ft = setInterval(() => scene(fi + 1), SCENE); };
+  steps.forEach((t, k) => t.addEventListener('click', () => { scene(k); playFilm(); }));
+  new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { scene(fi); playFilm(); } else { clearInterval(ft); clearInterval(tick); }
+  }), { threshold: .4 }).observe(film);
+  if (reduce) scene(0);
+}
 
 /* ---------- Cities light up one after another ---------- */
 const cities = $$('.cities span');
@@ -100,19 +121,70 @@ const rows = $$('.ticker-row').map(row => {
 });
 function measure() { rows.forEach(r => r.w = r.track.scrollWidth / 2); }
 
-/* ---------- The line ---------- */
-const line = $('.line'), done = $('.line-done'), dot = $('.line-dot'), label = $('.line-label'), stopsEl = $('.line-stops');
-let stops = [], railH = 0;
-function buildStops() {
-  railH = line.clientHeight;
-  const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-  stops = $$('[data-stop]').map(s => {
-    const name = lang === 'en' ? (s.dataset.stopEn || s.dataset.stop) : s.dataset.stop;
-    const at = Math.min(1, Math.max(0, (s.offsetTop - innerHeight * .35) / max));
-    return { name, at };
-  });
-  stopsEl.innerHTML = stops.map(s => `<li style="top:${(s.at * railH).toFixed(1)}px"></li>`).join('');
+/* ---------- The track: from the kicker dot through every heading down to the last button ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.createElementNS(NS, 'svg'); svg.classList.add('track'); svg.setAttribute('aria-hidden', 'true');
+svg.innerHTML = '<defs><clipPath id="trackDark"></clipPath></defs><path class="rest"/><path class="done"/><path class="done-dark" clip-path="url(#trackDark)"/><g class="sts"></g>';
+document.body.appendChild(svg);
+const tdot = document.createElement('div'); tdot.className = 'tdot'; document.body.appendChild(tdot);
+const [pRest, pDone, pDoneDark] = $$('path', svg), stG = $('.sts', svg), clip = $('#trackDark', svg);
+let track = null;
+function docXY(el) { let x = 0, y = 0; for (let e = el; e; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y }; }
+function roundPath(v, r) {
+  let d = `M${v[0][0]} ${v[0][1]}`;
+  for (let i = 1; i < v.length - 1; i++) {
+    const [ax, ay] = v[i - 1], [x, y] = v[i], [bx, by] = v[i + 1];
+    const la = Math.hypot(ax - x, ay - y), lb = Math.hypot(bx - x, by - y), rr = Math.min(r, la / 2, lb / 2);
+    if (rr < .5) { d += ` L${x} ${y}`; continue; }
+    d += ` L${(x + (ax - x) / la * rr).toFixed(1)} ${(y + (ay - y) / la * rr).toFixed(1)} Q${x} ${y} ${(x + (bx - x) / lb * rr).toFixed(1)} ${(y + (by - y) / lb * rr).toFixed(1)}`;
+  }
+  const l = v[v.length - 1]; return d + ` L${l[0]} ${l[1]}`;
 }
+function buildTrack() {
+  const mob = innerWidth < 900, G = mob ? 13 : 30;
+  const els = $$('[data-station]');
+  const st = els.map(el => {
+    const p = docXY(el), r = el.getBoundingClientRect();
+    if (el.dataset.station === 'start') return { x: p.x + r.width / 2, y: p.y + r.height / 2, el, kind: 'start' };
+    if (el.dataset.station === 'end') return { x: p.x - (mob ? 22 : 34), y: p.y + el.offsetHeight / 2, el, kind: 'end' };
+    const rg = document.createRange(); rg.selectNodeContents(el);
+    const tl = rg.getClientRects()[0] || r;
+    const fs = parseFloat(getComputedStyle(el).fontSize);
+    return { x: Math.round(p.x + (tl.left - r.left) - G), y: Math.round(p.y + fs * .52), el, kind: 'h', sec: el.closest('section') };
+  });
+  if (st.length < 2) return;
+  const v = [[st[0].x, st[0].y]];
+  let cx = Math.min(st[0].x, st[1].x);
+  if (cx !== st[0].x) v.push([cx, st[0].y]);
+  for (let i = 1; i < st.length; i++) {
+    const S = st[i], last = v[v.length - 1];
+    if (S.kind === 'end') { v.push([cx, S.y]); v.push([S.x, S.y]); continue; }
+    if (Math.abs(S.x - cx) > 2) {
+      const top = docXY(S.sec).y, yc = Math.max(last[1] + 30, top + Math.min(60, (S.y - top) * .4));
+      v.push([cx, yc]); v.push([S.x, yc]);
+    }
+    v.push([S.x, S.y]); cx = S.x;
+  }
+  const d = roundPath(v, mob ? 18 : 30);
+  [pRest, pDone, pDoneDark].forEach(p => p.setAttribute('d', d));
+  const H = document.documentElement.scrollHeight, W = document.documentElement.clientWidth;
+  svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const len = pRest.getTotalLength();
+  const samples = []; for (let l = 0; l <= len; l += 3) { const q = pRest.getPointAtLength(l); samples.push([l, q.x, q.y]); }
+  st.forEach(S => { let best = 0, bd = 1e9; for (const [l, x, y] of samples) { const dd = (x - S.x) ** 2 + (y - S.y) ** 2; if (dd < bd) { bd = dd; best = l; } } S.len = best; });
+  st[0].len = 0; st[st.length - 1].len = len;
+  const max = Math.max(1, H - innerHeight);
+  let prev = 0;
+  st.forEach((S, i) => { S.at = i === 0 ? 0 : i === st.length - 1 ? max : Math.max(prev + 1, Math.min(max - 1, S.y - innerHeight * .42)); prev = S.at; });
+  const darks = $$('.ticker,.dark-strip').map(e => { const p = docXY(e); return { y: p.y, h: e.offsetHeight }; });
+  clip.innerHTML = darks.map(r => `<rect x="0" y="${r.y}" width="${W}" height="${r.h}"/>`).join('');
+  const inDark = y => darks.some(r => y >= r.y && y <= r.y + r.h);
+  stG.innerHTML = st.slice(1).map(S => `<circle class="st${S.kind === 'end' ? ' end' : ''}${inDark(S.y) ? ' dk' : ''}" cx="${S.x}" cy="${S.y}" r="6"/>`).join('');
+  track = { st, len, inDark, circles: [null, ...stG.children] };
+}
+let trackT; const queueTrack = () => { clearTimeout(trackT); trackT = setTimeout(buildTrack, 120); };
+new ResizeObserver(queueTrack).observe(document.body);
+function buildStops() { queueTrack(); }
 
 /* ---------- One frame loop for everything that moves ---------- */
 let lastY = scrollY, vel = 0, dir = 1, dotP = 0, lastT = performance.now();
@@ -134,30 +206,20 @@ function frame(t) {
     });
   }
 
-  // line: the dot glides after the scroll position
-  const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-  const p = Math.min(1, Math.max(0, y / max));
-  dotP += (p - dotP) * (reduce ? 1 : Math.min(1, dt * 7));
-  const py = dotP * railH;
-  dot.style.transform = `translate3d(0,${py.toFixed(1)}px,0)`;
-  done.style.height = py.toFixed(1) + 'px';
-  flyKicker(y, py);
-  let cur = 0;
-  stops.forEach((s, i) => { if (dotP >= s.at - .002) cur = i; });
-  const lis = stopsEl.children;
-  for (let i = 0; i < lis.length; i++) {
-    lis[i].classList.toggle('passed', i < cur);
-    lis[i].classList.toggle('here', i === cur);
+  // track: the dot travels from station to station
+  if (track) {
+    const st = track.st;
+    let i = 0; while (i < st.length - 2 && y >= st[i + 1].at) i++;
+    const A = st[i], B = st[i + 1];
+    const k = Math.min(1, Math.max(0, (y - A.at) / Math.max(1, B.at - A.at)));
+    const target = A.len + (B.len - A.len) * k;
+    dotP += (target - dotP) * (reduce ? 1 : Math.min(1, dt * 8));
+    const q = pRest.getPointAtLength(dotP);
+    tdot.style.transform = `translate3d(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px,0)`;
+    tdot.classList.toggle('dk', track.inDark(q.y));
+    pDone.style.strokeDasharray = pDoneDark.style.strokeDasharray = `${dotP.toFixed(1)} ${track.len + 10}`;
+    for (let j = 1; j < st.length; j++) track.circles[j].classList.toggle('passed', st[j].len <= dotP + 2);
   }
-  const moving = Math.abs(vel) > 40;
-  const next = stops[Math.min(stops.length - 1, cur + (dir > 0 ? 1 : 0))];
-  const nearStop = stops[cur] && Math.abs(dotP - stops[cur].at) < .012;
-  const text = moving && next && next !== stops[cur] ? (lang === 'de' ? 'Nächster Halt: ' : 'Next stop: ') + next.name : (stops[cur] ? stops[cur].name : '');
-  if (label.textContent !== text) label.textContent = text;
-  line.classList.toggle('moving', moving);
-  line.classList.toggle('near', !!nearStop);
-  const under = document.elementFromPoint(line.getBoundingClientRect().left + 12, line.getBoundingClientRect().top + py);
-  document.body.classList.toggle('on-dark', !!(under && under.closest('.ticker,.dark-strip')));
 
   // feature phones lean in as they arrive
   if (!reduce) for (const ph of tilt) {
@@ -168,34 +230,10 @@ function frame(t) {
 }
 const tilt = $$('.feature-shot .phone');
 
-/* ---------- The kicker dot flies onto the line, then the line dot takes over ---------- */
-const kdot = $('.kicker .dot');
-let kOrigin = null;
-function measureKicker() {
-  if (!kdot) return;
-  const t = kdot.style.transform; kdot.style.transform = 'none';
-  const r = kdot.getBoundingClientRect();
-  kOrigin = { x: r.left + r.width / 2, y: r.top + r.height / 2 + scrollY };
-  kdot.style.transform = t;
-}
-function flyKicker(y, py) {
-  if (!kdot || !kOrigin) return;
-  const D = Math.max(160, innerHeight * .32);
-  const p = reduce ? (y > 4 ? 1 : 0) : Math.min(1, Math.max(0, y / D));
-  if (p >= 1) { kdot.classList.add('gone'); dot.classList.remove('wait'); kdot.style.transform = 'none'; return; }
-  kdot.classList.remove('gone'); dot.classList.add('wait');
-  const lr = line.getBoundingClientRect(), dr = dot.offsetWidth;
-  const tx = lr.left + dot.offsetLeft + dr / 2, ty = lr.top + py;
-  const cx = kOrigin.x, cy = kOrigin.y - y;
-  const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-  const arc = Math.sin(p * Math.PI) * -40;
-  const sc = 1 + (dr / 10 - 1) * e;
-  kdot.style.transform = `translate3d(${((tx - cx) * e).toFixed(1)}px,${((ty - cy) * e + arc).toFixed(1)}px,0) scale(${sc.toFixed(3)})`;
-}
 
-addEventListener('resize', () => { measure(); buildStops(); measureKicker(); });
-addEventListener('load', () => { measure(); buildStops(); measureKicker(); });
-measureKicker(); setTimeout(measureKicker, 1300);
+addEventListener('resize', () => { measure(); buildTrack(); });
+addEventListener('load', () => { measure(); buildTrack(); });
+buildTrack();
 applyLang(); measure();
 requestAnimationFrame(frame);
 })();

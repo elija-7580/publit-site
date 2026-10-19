@@ -9,16 +9,11 @@
 <link rel="icon" href="assets/publit.svg">
 <meta property="og:image" content="assets/publit-social.png">
 <link rel="preload" as="image" href="assets/app/web-nearby.webp">
+<link rel="preload" as="image" href="assets/iphone-17-pro.webp">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
-<!-- The line: a yellow dot rides down the page and stops at every section. -->
-<aside class="line" aria-hidden="true">
-  <div class="line-track"><div class="line-done"></div></div>
-  <ol class="line-stops"></ol>
-  <div class="line-dot"><span class="line-label"></span></div>
-</aside>
 
 <header class="top">
   <a class="brand" href="#start" aria-label="Publit">
@@ -30,6 +25,7 @@
     <a href="#europa" data-t="navEurope">Europa</a>
     <a href="#prinzip" data-t="navWhy">Warum</a>
     <a href="features/" data-t="navAll">Alle Funktionen</a>
+    <a href="staedte/" data-t="navCities">Für Städte</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
     <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">
       <svg viewBox="0 0 16 16" width="20" height="20"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.22 1.88.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -40,7 +36,7 @@
 <main>
 <section id="start" class="hero" data-stop="Start">
   <div class="hero-text">
-    <p class="kicker reveal"><span class="dot"></span><span data-t="kicker">Für iPhone · Made in EU · Open Source</span></p>
+    <p class="kicker reveal"><span class="dot" data-station="start"></span><span data-t="kicker">Für iPhone · Made in EU · Open Source</span></p>
     <h1 class="reveal" data-t-html="heroTitle">Dein Weg.<br>Auf einen Blick.</h1>
     <p class="lead reveal" data-t="heroLead">Publit zeigt, was in deiner Nähe gleich abfährt, plant Routen durch ganz Europa und begleitet dich bis zum Aussteigen. Die App ist kostenlos und kommt ohne Werbung und ohne Konto aus.</p>
     <div class="cta reveal">
@@ -52,18 +48,21 @@
     </ul>
   </div>
   <div class="hero-phones">
-    <div class="phone phone-back"><img src="assets/app/web-live-dark.webp" alt="" width="600" height="1305"></div>
+    <div class="phone phone-back"><img src="assets/app/web-live.webp" alt="" width="600" height="1305"><img class="dark" src="assets/app/web-live-dark.webp" alt="" width="600" height="1305"></div>
     <div class="phone phone-front" data-cycle>
-      <img class="on" src="assets/app/web-nearby.webp" alt="In der Nähe" width="600" height="1305">
-      <img src="assets/app/web-plan.webp" alt="Planen" width="600" height="1305" loading="lazy">
-      <img src="assets/app/web-route.webp" alt="Route" width="600" height="1305" loading="lazy">
-      <img src="assets/app/web-live-up.webp" alt="Live-Fahrt" width="600" height="1305" loading="lazy">
+      <div class="slide on"><img src="assets/app/web-nearby.webp" alt="In der Nähe" width="600" height="1305"><img class="dark" src="assets/app/web-nearby-dark.webp" alt="" width="600" height="1305"></div>
+      <div class="slide"><img src="assets/app/web-plan.webp" alt="Planen" width="600" height="1305" loading="lazy"><img class="dark" src="assets/app/web-plan-dark.webp" alt="" width="600" height="1305" loading="lazy"></div>
+      <div class="slide"><img src="assets/app/web-route.webp" alt="Route" width="600" height="1305" loading="lazy"><img class="dark" src="assets/app/web-route-dark.webp" alt="" width="600" height="1305" loading="lazy"></div>
+      <div class="slide"><img src="assets/app/web-live-up.webp" alt="Live-Fahrt" width="600" height="1305" loading="lazy"><img class="dark" src="assets/app/web-live-up-dark.webp" alt="" width="600" height="1305" loading="lazy"></div>
     </div>
-    <div class="cycle-tabs" role="tablist">
-      <button class="on" data-i="0" data-t="tabNearby">In der Nähe</button>
-      <button data-i="1" data-t="tabPlan">Planen</button>
-      <button data-i="2" data-t="tabRoute">Route</button>
-      <button data-i="3" data-t="tabLive">Unterwegs</button>
+    <div class="hero-tools">
+      <div class="cycle-tabs" role="tablist">
+        <button class="on" data-i="0" data-t="tabNearby">In der Nähe</button>
+        <button data-i="1" data-t="tabPlan">Planen</button>
+        <button data-i="2" data-t="tabRoute">Route</button>
+        <button data-i="3" data-t="tabLive">Unterwegs</button>
+      </div>
+      <button class="theme" type="button" aria-label="Hell / Dunkel"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><b data-t="light">Hell</b></span><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></svg><b data-t="dark">Dunkel</b></span></button>
     </div>
   </div>
 </section>
@@ -80,7 +79,7 @@
 <section id="nearby" class="feature" data-stop="In der Nähe" data-stop-en="Nearby">
   <div class="feature-text">
     <p class="num reveal">01</p>
-    <h2 class="reveal" data-t="f1Title">Was fährt jetzt?</h2>
+    <h2 data-station class="reveal" data-t="f1Title">Was fährt jetzt?</h2>
     <p class="reveal" data-t="f1Text">Öffne Publit und sieh sofort die nächsten Abfahrten um dich herum: Linie, Richtung, Steig und die Minuten bis zur Abfahrt. Live-Zeiten und Verspätungen stehen direkt daneben.</p>
     <ul class="points reveal">
       <li data-t="f1a">Stationen antippen, Route hin mit einem Tipp</li>
@@ -89,16 +88,17 @@
       <li data-t="f1d">Auf der Karte Cafés, Apotheken oder Supermärkte in der Nähe finden</li>
     </ul>
   </div>
-  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
+  <div class="feature-shot reveal"><div class="phone">
     <img src="assets/app/web-nearby.webp" alt="" loading="lazy" width="600" height="1305">
     <img class="dark" src="assets/app/web-nearby-dark.webp" alt="" loading="lazy" width="600" height="1305">
-  </div></div>
+  </div>
+  <button class="theme" type="button" aria-label="Hell / Dunkel"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><b data-t="light">Hell</b></span><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></svg><b data-t="dark">Dunkel</b></span></button></div>
 </section>
 
 <section id="plan" class="feature flip" data-stop="Planen" data-stop-en="Plan">
   <div class="feature-text">
     <p class="num reveal">02</p>
-    <h2 class="reveal" data-t="f2Title">Alle Wege auf einer Zeitachse.</h2>
+    <h2 data-station class="reveal" data-t="f2Title">Alle Wege auf einer Zeitachse.</h2>
     <p class="reveal" data-t="f2Text">Publit legt jede Verbindung auf dieselbe Zeitachse. So siehst du auf einen Blick, welche früher ankommt, wo du umsteigst und wo es knapp wird.</p>
     <ul class="points reveal">
       <li data-t="f2a">Knappe Umstiege sind markiert</li>
@@ -106,16 +106,17 @@
       <li data-t="f2c">Zu Fuß, Rad und Auto zum Vergleich</li>
     </ul>
   </div>
-  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
+  <div class="feature-shot reveal"><div class="phone">
     <img src="assets/app/web-plan.webp" alt="" loading="lazy" width="600" height="1305">
     <img class="dark" src="assets/app/web-plan-dark.webp" alt="" loading="lazy" width="600" height="1305">
-  </div></div>
+  </div>
+  <button class="theme" type="button" aria-label="Hell / Dunkel"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><b data-t="light">Hell</b></span><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></svg><b data-t="dark">Dunkel</b></span></button></div>
 </section>
 
 <section id="route" class="feature" data-stop="Route" data-stop-en="Route">
   <div class="feature-text">
     <p class="num reveal">03</p>
-    <h2 class="reveal" data-t="f3Title">Wissen, wann’s losgeht.</h2>
+    <h2 data-station class="reveal" data-t="f3Title">Wissen, wann’s losgeht.</h2>
     <p class="reveal" data-t="f3Text">Jede Route zeigt oben, wann du losgehen musst und wann du ankommst. Darunter stehen die Karte und alle Schritte in den Farben der Linien, mit Steig, Haltestellen und Verspätungen.</p>
     <ul class="points reveal">
       <li data-t="f3a">Erinnerung zum Losgehen und Aussteigen</li>
@@ -123,33 +124,41 @@
       <li data-t="f3c">Tickets direkt an die Fahrt hängen</li>
     </ul>
   </div>
-  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
+  <div class="feature-shot reveal"><div class="phone">
     <img src="assets/app/web-route.webp" alt="" loading="lazy" width="600" height="1305">
     <img class="dark" src="assets/app/web-route-dark.webp" alt="" loading="lazy" width="600" height="1305">
-  </div></div>
+  </div>
+  <button class="theme" type="button" aria-label="Hell / Dunkel"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><b data-t="light">Hell</b></span><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></svg><b data-t="dark">Dunkel</b></span></button></div>
 </section>
 
 <section id="live" class="feature flip" data-stop="Unterwegs" data-stop-en="On the way">
   <div class="feature-text">
     <p class="num reveal">04</p>
-    <h2 class="reveal" data-t="f4Title">Von hier bis zum Aussteigen.</h2>
+    <h2 data-station class="reveal" data-t="f4Title">Von hier bis zum Aussteigen.</h2>
     <p class="reveal" data-t="f4Text">Während der Fahrt zeigt Publit groß an, welche Linie du nimmst, wie lange es noch dauert und wo du aussteigst. Verspätungen und Gleiswechsel siehst du sofort, auch auf dem Sperrbildschirm und in der Dynamic Island.</p>
     <ul class="live-points reveal">
-      <li><i>🗺️</i><div><b data-t="f4a">Die ganze Fahrt im Überblick</b><span data-t="f4at">Eine Karte mit allen restlichen Wegen und den Live-Zeiten jedes Abschnitts.</span></div></li>
-      <li><i>↪︎</i><div><b data-t="f4b">Neue Verbindung ab hier</b><span data-t="f4bt">Anschluss verpasst oder falsch abgebogen? Publit sucht mit einem Tipp den besten Weg von dort, wo du gerade bist.</span></div></li>
-      <li><i>🔔</i><div><b data-t="f4c">Erinnerung zum Aussteigen</b><span data-t="f4ct">Kurz vor deinem Halt meldet sich Publit, auf Wunsch mit Ansage, damit du die Station nicht verpasst.</span></div></li>
+      <li><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18.5l5-5 5 2 6-9"/><circle class="w" cx="9" cy="13.5" r="1.9"/><circle class="w" cx="14" cy="15.5" r="1.9"/><circle class="f" cx="4" cy="18.5" r="1.8"/><circle class="y" cx="20" cy="6.5" r="2.6"/></svg></i><div><b data-t="f4a">Die ganze Fahrt im Überblick</b><span data-t="f4at">Eine Karte mit allen restlichen Wegen und den Live-Zeiten jedes Abschnitts.</span></div></li>
+      <li><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-8a5 5 0 0 1 5-5h9"/><path d="M15.5 3.5L19 7l-3.5 3.5"/><circle class="y" cx="5" cy="20" r="2.4"/></svg></i><div><b data-t="f4b">Neue Verbindung ab hier</b><span data-t="f4bt">Anschluss verpasst oder falsch abgebogen? Publit sucht mit einem Tipp den besten Weg von dort, wo du gerade bist.</span></div></li>
+      <li><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/><circle class="y" cx="18" cy="5" r="2.6"/></svg></i><div><b data-t="f4c">Erinnerung zum Aussteigen</b><span data-t="f4ct">Kurz vor deinem Halt meldet sich Publit, auf Wunsch mit Ansage, damit du die Station nicht verpasst.</span></div></li>
     </ul>
   </div>
-  <div class="feature-shot reveal"><div class="phone" data-theme-swap>
-    <img src="assets/app/web-live-overview.webp" alt="" loading="lazy" width="600" height="1305">
-    <img class="dark" src="assets/app/web-live-overview-dark.webp" alt="" loading="lazy" width="600" height="1305">
+  <div class="feature-shot reveal"><div class="film">
+    <div class="phone" data-film>
+      <div class="slide on"><img src="assets/app/web-live-up.webp" alt="" loading="lazy" width="600" height="1305"><img class="dark" src="assets/app/web-live-up-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
+      <div class="slide"><img src="assets/app/web-live-overview.webp" alt="" loading="lazy" width="600" height="1305"><img class="dark" src="assets/app/web-live-overview-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
+      <div class="slide"><img src="assets/app/web-live.webp" alt="" loading="lazy" width="600" height="1305"><img class="dark" src="assets/app/web-live-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
+      <div class="island" aria-hidden="true"><span class="ln">U6</span><span class="mid">Marienplatz</span><span class="min">8 min</span></div>
+      <div class="banner" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/><circle class="y" cx="18" cy="5" r="2.6"/></svg><div><b data-t="filmBanner">Nächster Halt: Marienplatz</b><span data-t="filmBannerSub">Jetzt aussteigen · U6 Richtung Klinikum Großhadern</span></div></div>
+    </div>
+    <ol class="film-steps"><li class="on" data-t="film1">Einsteigen</li><li data-t="film2">Unterwegs</li><li data-t="film3">Aussteigen</li></ol>
+    <button class="theme" type="button" aria-label="Hell / Dunkel"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><b data-t="light">Hell</b></span><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></svg><b data-t="dark">Dunkel</b></span></button>
   </div></div>
 </section>
 
 <section id="tickets" class="feature" data-stop="Tickets" data-stop-en="Tickets">
   <div class="feature-text">
     <p class="num reveal">05</p>
-    <h2 class="reveal" data-t="f5Title">Das Ticket ist schon da.</h2>
+    <h2 data-station class="reveal" data-t="f5Title">Das Ticket ist schon da.</h2>
     <p class="reveal" data-t="f5Text">Füge Tickets aus einem PDF, Foto oder Screenshot hinzu. Publit liest die Angaben auf deinem iPhone aus und lädt dabei nichts hoch. An der Sperre ist der Code sofort da.</p>
     <ul class="points reveal">
       <li data-t="f5a">Klimaticket, Deutschlandticket, Einzelfahrten</li>
@@ -160,7 +169,7 @@
 </section>
 
 <section id="dark" class="dark-strip" data-stop="Nachts" data-stop-en="At night">
-  <h2 class="reveal" data-t="darkTitle">Auch um Mitternacht gut lesbar.</h2>
+  <h2 data-station class="reveal" data-t="darkTitle">Auch um Mitternacht gut lesbar.</h2>
   <div class="strip">
     <div class="phone reveal"><img src="assets/app/web-nearby-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
     <div class="phone reveal"><img src="assets/app/web-plan-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
@@ -170,7 +179,7 @@
 
 <section id="europa" class="europe" data-stop="Europa" data-stop-en="Europe">
   <div>
-    <h2 class="reveal" data-t-html="euTitle">Öffis.<br>In ganz Europa.</h2>
+    <h2 data-station class="reveal" data-t-html="euTitle">Öffis.<br>In ganz Europa.</h2>
     <p class="reveal" data-t="euText">Für den Weg zur Arbeit und für Städte, die du noch nicht kennst. Publit nutzt offene Fahrplandaten von Transitous, von der U-Bahn in München bis zum Vaporetto in Venedig.</p>
     <a class="link reveal" href="#abdeckung" data-t="euLink">Abdeckung auf der Karte ↓</a>
   </div>
@@ -180,7 +189,7 @@
 </section>
 
 <section id="abdeckung" class="coverage" data-stop="Abdeckung" data-stop-en="Coverage">
-  <h2 class="reveal" data-t="covTitle">Wo Publit was weiß.</h2>
+  <h2 data-station class="reveal" data-t="covTitle">Wo Publit was weiß.</h2>
   <p class="reveal" data-t="covText">Jeder Punkt ist eine Stadt, die wir getestet haben: grün mit Live-Zeiten, grau nur mit Fahrplan, gelb mit Live-Zeiten, die Publit selbst bei den Verkehrsbetrieben holt. Tippe auf einen Punkt für Details.</p>
   <div class="covwrap reveal">
     <div id="covmap" role="img" aria-label="Karte der Abdeckung in Europa"></div>
@@ -190,14 +199,14 @@
 </section>
 
 <section id="prinzip" class="principles" data-stop="Warum" data-stop-en="Why">
-  <h2 class="reveal" data-t="whyTitle">So ist Publit gebaut.</h2>
+  <h2 data-station class="reveal" data-t="whyTitle">So ist Publit gebaut.</h2>
   <div class="cards">
-    <article class="card reveal"><span class="ic">🇪🇺</span><h3 data-t="w1">Made in EU</h3><p data-t="w1t">Entwickelt in Europa, für Europa. Fahrplandaten aus offenen europäischen Quellen, ohne Umweg über große Plattformen.</p></article>
-    <article class="card reveal"><span class="ic">🔒</span><h3 data-t="w2">Privat</h3><p data-t="w2t">Kein Konto, kein Tracking, keine Analyse-SDKs. Deine Orte, Fahrten und Tickets bleiben auf deinem iPhone.</p></article>
-    <article class="card reveal"><span class="ic">🧑‍💻</span><h3 data-t="w3">Unabhängig</h3><p data-t="w3t">Gebaut von einem Indie-Entwickler, nicht von einem Konzern. Keine Werbung, kein Datenhandel, kein Interesse daran, dich in der App zu halten.</p></article>
-    <article class="card reveal"><span class="ic">📂</span><h3 data-t="w4">Offene Daten</h3><p data-t="w4t">Publit nutzt offene Fahrpläne (GTFS) und Live-Daten (GTFS-RT) über Transitous. Der ganze Code liegt offen auf GitHub.</p></article>
-    <article class="card reveal"><span class="ic">◎</span><h3 data-t="w5">Einfach</h3><p data-t="w5t">Öffnen und losfahren. Das Wichtigste steht groß da, alles andere ist einen Tipp entfernt.</p></article>
-    <article class="card reveal"><span class="ic">⚡︎</span><h3 data-t="w6">Smart Routing</h3><p data-t="w6t">Publit bewertet jeden Umstieg: Wie sicher klappt er, wie lange wartest und gehst du? So gewinnt die Route, die sich am kürzesten anfühlt.</p></article>
+    <article class="card reveal"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><g class="f"><circle cx="20.00" cy="12.00" r="1.15"/><circle cx="18.93" cy="16.00" r="1.15"/><circle cx="16.00" cy="18.93" r="1.15"/><circle cx="12.00" cy="20.00" r="1.15"/><circle cx="8.00" cy="18.93" r="1.15"/><circle cx="5.07" cy="16.00" r="1.15"/><circle cx="4.00" cy="12.00" r="1.15"/><circle cx="5.07" cy="8.00" r="1.15"/><circle cx="8.00" cy="5.07" r="1.15"/><circle cx="12.00" cy="4.00" r="1.15"/><circle cx="16.00" cy="5.07" r="1.15"/><circle cx="18.93" cy="8.00" r="1.15"/></g><circle class="y" cx="12" cy="12" r="2.6"/></svg></span><h3 data-t="w1">Made in EU</h3><p data-t="w1t">Entwickelt in Europa, für Europa. Fahrplandaten aus offenen europäischen Quellen, ohne Umweg über große Plattformen.</p></article>
+    <article class="card reveal"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 5h3"/><circle class="y" cx="12" cy="13" r="2.6"/></svg></span><h3 data-t="w2">Privat</h3><p data-t="w2t">Kein Konto, kein Tracking, keine Analyse-SDKs. Deine Orte, Fahrten und Tickets bleiben auf deinem iPhone.</p></article>
+    <article class="card reveal"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20.5c.9-3.9 3.7-6 7-6s6.1 2.1 7 6"/><circle class="y" cx="19" cy="4.5" r="2.2"/></svg></span><h3 data-t="w3">Unabhängig</h3><p data-t="w3t">Gebaut von einem Indie-Entwickler, nicht von einem Konzern. Keine Werbung, kein Datenhandel, kein Interesse daran, dich in der App zu halten.</p></article>
+    <article class="card reveal"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M9 9.5v10M9 14.5h11.5"/><circle class="y" cx="15" cy="17" r="1.6"/></svg></span><h3 data-t="w4">Offene Daten</h3><p data-t="w4t">Publit nutzt offene Fahrpläne (GTFS) und Live-Daten (GTFS-RT) über Transitous. Der ganze Code liegt offen auf GitHub.</p></article>
+    <article class="card reveal"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle class="y" cx="12" cy="12" r="3.4"/></svg></span><h3 data-t="w5">Einfach</h3><p data-t="w5t">Öffnen und losfahren. Das Wichtigste steht groß da, alles andere ist einen Tipp entfernt.</p></article>
+    <article class="card reveal"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10a5 5 0 0 1 5-5h7"/><path d="M5 14h7a5 5 0 0 1 5 5v1" stroke-dasharray="2 3.2" opacity=".55"/><circle class="f" cx="5" cy="20" r="1.8"/><circle class="y" cx="18.5" cy="5" r="2.6"/></svg></span><h3 data-t="w6">Smart Routing</h3><p data-t="w6t">Publit bewertet jeden Umstieg: Wie sicher klappt er, wie lange wartest und gehst du? So gewinnt die Route, die sich am kürzesten anfühlt.</p></article>
   </div>
 </section>
 
@@ -206,15 +215,16 @@
 </section>
 
 <section id="ende" class="closing" data-stop="Ziel" data-stop-en="Arrive">
-  <h2 class="reveal" data-t="endTitle">Endstation. Bitte alle aussteigen.</h2>
+  <h2 data-station class="reveal" data-t="endTitle">Endstation. Bitte alle aussteigen.</h2>
   <p class="reveal" data-t="endText">Publit ist noch in Entwicklung und kommt bald in den App Store. Bis dahin kannst du dir den Code ansehen, die App ausprobieren und Feedback geben.</p>
-  <div class="cta reveal"><a class="key key-ink" href="https://github.com/elija-7580/Publit" data-t="ctaPrimary">Auf GitHub ansehen</a></div>
+  <div class="cta reveal"><a data-station="end" class="key key-ink" href="https://github.com/elija-7580/Publit" data-t="ctaPrimary">Auf GitHub ansehen</a></div>
 </section>
 </main>
 
 <footer class="foot">
   <span>© 2026 Publit</span>
   <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+  <a href="staedte/" data-t="footCities" style="color:inherit">Für Städte und Verkehrsbetriebe</a>
   <a href="privacy/" data-t="footPrivacy" style="color:inherit">Datenschutz</a>
 </footer>
 
