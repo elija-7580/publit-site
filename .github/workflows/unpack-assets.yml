@@ -1,0 +1,23 @@
+# Binary files (images) that arrive as base64 text in _incoming/ are unpacked here.
+# Push the parts first, then _incoming/go to start the unpack.
+name: Unpack assets
+on:
+  push:
+    paths: ['_incoming/go']
+permissions:
+  contents: write
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack
+        run: |
+          set -e
+          cat $(ls _incoming/part-* | sort) | base64 -d | tar xz
+          git rm -rq _incoming
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Unpack binary assets"
+          git push
