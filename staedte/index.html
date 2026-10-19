@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Publit · Für Städte und Verkehrsbetriebe</title>
 <meta name="description" content="Wie Städte und Verkehrsbetriebe offene Fahrplan- und Live-Daten (GTFS, GTFS-RT) bereitstellen, damit Publit bei ihnen live wird.">
-<meta name="theme-color" content="#f4f4f2">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
 <link rel="stylesheet" href="../site.css">
 <style>
@@ -22,6 +24,7 @@ pre{margin-top:22px;padding:22px;border-radius:18px;background:#111;color:#e9e9e
 .contact .key{background:#fff;color:#111}
 .contact .link{color:#fff}
 @media (max-width:900px){.why{grid-template-columns:1fr;gap:28px;margin-top:80px}.contact{padding:28px}}
+@media (prefers-color-scheme:dark){pre{background:#1c1c1e}.contact{background:#1c1c1e;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}}
 </style>
 </head>
 <body>

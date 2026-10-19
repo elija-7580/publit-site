@@ -77,6 +77,9 @@ document.addEventListener('visibilitychange', () => document.hidden ? clearInter
 
 /* ---------- Screens: light or dark, one switch for all phones ---------- */
 $$('.theme').forEach(b => b.addEventListener('click', () => document.body.classList.toggle('screens-dark')));
+// screens follow the system appearance until someone picks one
+const dm = matchMedia('(prefers-color-scheme: dark)'), syncScreens = () => document.body.classList.toggle('screens-dark', dm.matches);
+syncScreens(); dm.addEventListener('change', syncScreens);
 
 /* ---------- Live trip film: board, ride, get off ---------- */
 const film = $('.film');
@@ -127,8 +130,10 @@ const svg = document.createElementNS(NS, 'svg'); svg.classList.add('track'); svg
 svg.innerHTML = '<defs><clipPath id="trackDark"></clipPath><mask id="trackGap" maskUnits="userSpaceOnUse"></mask></defs>'
   + '<g mask="url(#trackGap)"><path class="rest"/><path class="done"/><path class="done-dark" clip-path="url(#trackDark)"/></g><g class="sts"></g>'
   + '<g class="tdot"><circle class="halo" r="9"/><circle class="core" r="9" fill="#ffc531"/></g>';
+// iOS changes innerHeight while the toolbar hides; keep one height so the stations don't jump
+let VH = innerHeight, VW = innerWidth;
 document.body.appendChild(svg);
-const tdot = $('.tdot', svg), core = $('.core', svg);
+const tdot = $('.tdot', svg);
 const [pRest, pDone, pDoneDark] = $$('path', svg), stG = $('.sts', svg), clip = $('#trackDark', svg), gap = $('#trackGap', svg);
 let track = null;
 function docXY(el) { let x = 0, y = 0; for (let e = el; e; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y }; }
@@ -175,9 +180,9 @@ function buildTrack() {
   const samples = []; for (let l = 0; l <= len; l += 3) { const q = pRest.getPointAtLength(l); samples.push([l, q.x, q.y]); }
   st.forEach(S => { let best = 0, bd = 1e9; for (const [l, x, y] of samples) { const dd = (x - S.x) ** 2 + (y - S.y) ** 2; if (dd < bd) { bd = dd; best = l; } } S.len = best; });
   st[0].len = 0; st[st.length - 1].len = len;
-  const max = Math.max(1, H - innerHeight);
+  const max = Math.max(1, H - VH);
   let prev = 0;
-  st.forEach((S, i) => { S.at = i === 0 ? 0 : i === st.length - 1 ? max : Math.max(prev + 1, Math.min(max - 1, S.y - innerHeight * .42)); prev = S.at; });
+  st.forEach((S, i) => { S.at = i === 0 ? 0 : i === st.length - 1 ? max : Math.max(prev + 1, Math.min(max - 1, S.y - VH * .42)); prev = S.at; });
   const darks = $$('.ticker,.dark-strip').map(e => { const p = docXY(e); return { y: p.y, h: e.offsetHeight }; });
   clip.innerHTML = darks.map(r => `<rect x="0" y="${r.y}" width="${W}" height="${r.h}"/>`).join('');
   const inDark = y => darks.some(r => y >= r.y && y <= r.y + r.h);
@@ -190,7 +195,9 @@ function buildTrack() {
   }).join('');
   gap.innerHTML = `<rect x="0" y="0" width="${W}" height="${H}" fill="#fff"/>` + holes;
   stG.innerHTML = st.slice(1).map(S => `<circle class="st${S.kind === 'end' ? ' end' : ''}${inDark(S.y) ? ' dk' : ''}" cx="${S.x}" cy="${S.y}" r="6"/>`).join('');
-  track = { st, len, inDark, circles: [null, ...stG.children] };
+  const lut = new Float32Array(Math.floor(len / 2) * 2 + 4);
+  for (let l = 0, k = 0; k < lut.length; l += 2, k += 2) { const q = pRest.getPointAtLength(Math.min(l, len)); lut[k] = q.x; lut[k + 1] = q.y; }
+  track = { st, len, inDark, lut, circles: [null, ...stG.children] };
 }
 // a small snap: when scrolling stops close to a heading, settle on it
 let snapT, touching = false, snapping = false;
@@ -201,19 +208,19 @@ addEventListener('scroll', () => {
   if (snapping || reduce || !track) return;
   snapT = setTimeout(() => {
     if (touching || !track) return;
-    const y = scrollY, hit = track.st.slice(1, -1).find(S => Math.abs(S.at - y) < Math.min(110, innerHeight * .12));
+    const y = scrollY, hit = track.st.slice(1, -1).find(S => Math.abs(S.at - y) < Math.min(90, VH * .1));
     if (hit && Math.abs(hit.at - y) > 2) {
       snapping = true; scrollTo({ top: hit.at, behavior: 'smooth' });
       setTimeout(() => { snapping = false; }, 700);
     }
-  }, 180);
+  }, 240);
 }, { passive: true });
 let trackT; const queueTrack = () => { clearTimeout(trackT); trackT = setTimeout(buildTrack, 120); };
 new ResizeObserver(queueTrack).observe(document.body);
 function buildStops() { queueTrack(); }
 
 /* ---------- One frame loop for everything that moves ---------- */
-let lastY = scrollY, vel = 0, dir = 1, dotP = 0, dotV = 0, lastNear = -1, lastT = performance.now();
+let lastY = scrollY, vel = 0, dir = 1, dotP = 0, dotV = 0, lastT = performance.now();
 function frame(t) {
   const dt = Math.min(64, t - lastT) / 1000; lastT = t;
   const y = scrollY, dy = y - lastY; lastY = y;
@@ -238,20 +245,23 @@ function frame(t) {
     let i = 0; while (i < st.length - 2 && y >= st[i + 1].at) i++;
     const A = st[i], B = st[i + 1], span = Math.max(1, B.at - A.at);
     // the dot rests at each heading for a moment, then glides on to the next one
-    const D = Math.min(innerHeight * .14, 110, span * .3);
+    const D = Math.min(VH * .12, 90, span * .25);
     const dA = i === 0 ? 0 : D, dB = i === st.length - 2 ? 0 : D;
     let u = Math.min(1, Math.max(0, (y - A.at - dA) / Math.max(1, span - dA - dB)));
-    u = u * u * (3 - 2 * u);
+    u = u * u * u * (u * (u * 6 - 15) + 10);
     const target = A.len + (B.len - A.len) * u;
     if (reduce) { dotP = target; dotV = 0; }
-    else { const w = 11, a = w * w * (target - dotP) - 2 * w * dotV; dotV += a * dt; dotP += dotV * dt; }
+    else {
+      // critically damped spring in small sub-steps: no overshoot, no jitter on uneven frames
+      const w = 8, n = Math.ceil(dt / .008), h = dt / n;
+      for (let s = 0; s < n; s++) { const a = w * w * (target - dotP) - 2 * w * dotV; dotV += a * h; dotP += dotV * h; }
+      if (Math.abs(target - dotP) < .05 && Math.abs(dotV) < .5) { dotP = target; dotV = 0; }
+    }
     dotP = Math.max(0, Math.min(track.len, dotP));
-    const q = pRest.getPointAtLength(dotP);
-    tdot.setAttribute('transform', `translate(${q.x.toFixed(1)} ${q.y.toFixed(1)})`);
-    tdot.classList.toggle('dk', track.inDark(q.y));
-    const near = st.findIndex((S, j) => j > 0 && Math.abs(S.len - dotP) < 2.5 && Math.abs(dotV) < 40);
-    if (near > 0 && near !== lastNear) { core.classList.remove('arrive'); void core.getBBox(); core.classList.add('arrive'); }
-    lastNear = near > 0 ? near : (Math.abs(dotV) > 80 ? -1 : lastNear);
+    const L = track.lut, f = dotP / 2, k0 = Math.min(L.length / 2 - 2, Math.floor(f)), fr = f - k0;
+    const qx = L[k0 * 2] + (L[k0 * 2 + 2] - L[k0 * 2]) * fr, qy = L[k0 * 2 + 1] + (L[k0 * 2 + 3] - L[k0 * 2 + 1]) * fr;
+    tdot.setAttribute('transform', `translate(${qx.toFixed(2)} ${qy.toFixed(2)})`);
+    tdot.classList.toggle('dk', track.inDark(qy));
     pDone.style.strokeDasharray = pDoneDark.style.strokeDasharray = `${dotP.toFixed(1)} ${track.len + 10}`;
     for (let j = 1; j < st.length; j++) track.circles[j].classList.toggle('passed', st[j].len <= dotP + 2);
   }
@@ -266,7 +276,7 @@ function frame(t) {
 const tilt = $$('.feature-shot .phone');
 
 
-addEventListener('resize', () => { measure(); buildTrack(); });
+addEventListener('resize', () => { measure(); if (innerWidth !== VW || Math.abs(innerHeight - VH) > 160) { VW = innerWidth; VH = innerHeight; buildTrack(); } });
 addEventListener('load', () => { measure(); buildTrack(); });
 buildTrack();
 applyLang(); measure();

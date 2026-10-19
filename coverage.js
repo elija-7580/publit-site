@@ -77,8 +77,10 @@ let dots = '';
     `<circle cx="${x}" cy="${y}" r="${s.r + 7}" fill="transparent"/>` +
     `<circle cx="${x}" cy="${y}" r="${s.r}" fill="${s.fill}" stroke="${s.stroke}" stroke-width="${s.w}"/></g>`;
 });
-el.innerHTML = `<svg viewBox="0 170 1000 790" xmlns="${NS}"><image href="assets/europe.svg" x="0" y="170" width="1000" height="790"/>${dots}</svg><div class="covtip" role="status"></div>`;
+const darkMap = matchMedia('(prefers-color-scheme: dark)');
+el.innerHTML = `<svg viewBox="0 170 1000 790" xmlns="${NS}"><image href="assets/europe${darkMap.matches ? '-dark' : ''}.svg" x="0" y="170" width="1000" height="790"/>${dots}</svg><div class="covtip" role="status"></div>`;
 const svg = el.querySelector('svg'), tip = el.querySelector('.covtip');
+darkMap.addEventListener('change', () => svg.querySelector('image').setAttribute('href', `assets/europe${darkMap.matches ? '-dark' : ''}.svg`));
 let sel = null;
 function showTip(g) {
   const c = C[+g.dataset.i], l = lang(), s = STYLE[c[3]];
