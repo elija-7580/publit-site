@@ -126,15 +126,15 @@ function measure() { rows.forEach(r => r.w = r.track.scrollWidth / 2); }
 
 /* ---------- The track: from the kicker dot through every heading down to the last button ---------- */
 const NS = 'http://www.w3.org/2000/svg';
-const svg = document.createElementNS(NS, 'svg'); svg.classList.add('track'); svg.setAttribute('aria-hidden', 'true');
-svg.innerHTML = '<defs><clipPath id="trackDark"></clipPath><mask id="trackGap" maskUnits="userSpaceOnUse"></mask></defs>'
-  + '<g mask="url(#trackGap)"><path class="rest"/><path class="done"/><path class="done-dark" clip-path="url(#trackDark)"/></g><g class="sts"></g>'
-  + '<g class="tdot"><circle class="halo" r="9"/><circle class="core" r="9" fill="#ffc531"/></g>';
+// one hidden path only for measuring; what you see is drawn in small pieces, so a moving dot never repaints the whole page
+const meas = document.createElementNS(NS, 'svg'); meas.setAttribute('aria-hidden', 'true');
+meas.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;visibility:hidden';
+meas.innerHTML = '<path/>'; document.body.appendChild(meas);
+const pMeas = $('path', meas);
+const layer = document.createElement('div'); layer.className = 'track'; layer.setAttribute('aria-hidden', 'true'); document.body.appendChild(layer);
+const tdot = document.createElement('div'); tdot.className = 'tdot'; document.body.appendChild(tdot);
 // iOS changes innerHeight while the toolbar hides; keep one height so the stations don't jump
 let VH = innerHeight, VW = innerWidth;
-document.body.appendChild(svg);
-const tdot = $('.tdot', svg);
-const [pRest, pDone, pDoneDark] = $$('path', svg), stG = $('.sts', svg), clip = $('#trackDark', svg), gap = $('#trackGap', svg);
 let track = null;
 function docXY(el) { let x = 0, y = 0; for (let e = el; e; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y }; }
 function roundPath(v, r) {
@@ -146,6 +146,17 @@ function roundPath(v, r) {
     d += ` L${(x + (ax - x) / la * rr).toFixed(1)} ${(y + (ay - y) / la * rr).toFixed(1)} Q${x} ${y} ${(x + (bx - x) / lb * rr).toFixed(1)} ${(y + (by - y) / lb * rr).toFixed(1)}`;
   }
   const l = v[v.length - 1]; return d + ` L${l[0]} ${l[1]}`;
+}
+// dash pattern that is cut off at length p
+function dashUpTo(pat, p) {
+  const out = []; let acc = 0;
+  for (let i = 0; i < pat.length; i++) {
+    const seg = pat[i];
+    if (acc + seg >= p) { out.push(i % 2 ? seg : p - acc); if (i % 2) out.push(0); break; }
+    out.push(seg); acc += seg;
+  }
+  if (out.length % 2) out.push(1e5); else out.push(0, 1e5);
+  return out.map(n => n.toFixed(1)).join(' ');
 }
 function buildTrack() {
   const mob = innerWidth < 900, G = mob ? 14 : 30;
@@ -172,32 +183,60 @@ function buildTrack() {
     }
     v.push([S.x, S.y]); cx = S.x;
   }
-  const d = roundPath(v, mob ? 18 : 30);
-  [pRest, pDone, pDoneDark].forEach(p => p.setAttribute('d', d));
-  const H = document.documentElement.scrollHeight, W = document.documentElement.clientWidth;
-  svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  const len = pRest.getTotalLength();
-  const samples = []; for (let l = 0; l <= len; l += 3) { const q = pRest.getPointAtLength(l); samples.push([l, q.x, q.y]); }
-  st.forEach(S => { let best = 0, bd = 1e9; for (const [l, x, y] of samples) { const dd = (x - S.x) ** 2 + (y - S.y) ** 2; if (dd < bd) { bd = dd; best = l; } } S.len = best; });
+  pMeas.setAttribute('d', roundPath(v, mob ? 18 : 30));
+  const H = document.documentElement.scrollHeight;
+  const len = pMeas.getTotalLength(), N = Math.floor(len / 2) + 2;
+  const lut = new Float32Array(N * 2);
+  for (let k = 0; k < N; k++) { const q = pMeas.getPointAtLength(Math.min(k * 2, len)); lut[k * 2] = q.x; lut[k * 2 + 1] = q.y; }
+  st.forEach(S => { let best = 0, bd = 1e9; for (let k = 0; k < N; k++) { const dd = (lut[k * 2] - S.x) ** 2 + (lut[k * 2 + 1] - S.y) ** 2; if (dd < bd) { bd = dd; best = k * 2; } } S.len = best; });
   st[0].len = 0; st[st.length - 1].len = len;
   const max = Math.max(1, H - VH);
   let prev = 0;
   st.forEach((S, i) => { S.at = i === 0 ? 0 : i === st.length - 1 ? max : Math.max(prev + 1, Math.min(max - 1, S.y - VH * .42)); prev = S.at; });
-  const darks = $$('.ticker,.dark-strip').map(e => { const p = docXY(e); return { y: p.y, h: e.offsetHeight }; });
-  clip.innerHTML = darks.map(r => `<rect x="0" y="${r.y}" width="${W}" height="${r.h}"/>`).join('');
+  const darks = $$('.dark-strip').map(e => { const p = docXY(e); return { y: p.y, h: e.offsetHeight }; });
   const inDark = y => darks.some(r => y >= r.y && y <= r.y + r.h);
   // the line passes under things instead of drawing over them
   const P = mob ? 8 : 12;
-  const holes = $$('.ticker,.phone,.card,.theme,.cycle-tabs,.film-steps,.cities,.covwrap,.live-points li,.key,.facts li').map(e => {
-    const w = e.offsetWidth, h = e.offsetHeight; if (!w) return '';
-    const p = docXY(e);
-    return `<rect x="${p.x - P}" y="${p.y - P}" width="${w + 2 * P}" height="${h + 2 * P}" rx="18" fill="#000"/>`;
-  }).join('');
-  gap.innerHTML = `<rect x="0" y="0" width="${W}" height="${H}" fill="#fff"/>` + holes;
-  stG.innerHTML = st.slice(1).map(S => `<circle class="st${S.kind === 'end' ? ' end' : ''}${inDark(S.y) ? ' dk' : ''}" cx="${S.x}" cy="${S.y}" r="6"/>`).join('');
-  const lut = new Float32Array(Math.floor(len / 2) * 2 + 4);
-  for (let l = 0, k = 0; k < lut.length; l += 2, k += 2) { const q = pRest.getPointAtLength(Math.min(l, len)); lut[k] = q.x; lut[k + 1] = q.y; }
-  track = { st, len, inDark, lut, circles: [null, ...stG.children] };
+  const holes = $$('.ticker,.phone,.card,.theme,.cycle-tabs,.film-steps,.cities,.covwrap,.live-points li,.key,.facts li').filter(e => e.offsetWidth).map(e => {
+    const p = docXY(e); return [p.x - P, p.y - P, p.x + e.offsetWidth + P, p.y + e.offsetHeight + P];
+  });
+  const hidden = (x, y) => holes.some(h => x > h[0] && x < h[2] && y > h[1] && y < h[3]);
+  // one small svg per leg between two stations
+  let html = '';
+  const legs = [];
+  for (let j = 0; j < st.length - 1; j++) {
+    const a = st[j].len, b = st[j + 1].len, k0 = Math.round(a / 2), k1 = Math.min(N - 1, Math.round(b / 2));
+    let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    const pts = [], pat = []; let run = 0, vis = true;
+    for (let k = k0; k <= k1; k++) {
+      const x = lut[k * 2], y = lut[k * 2 + 1];
+      x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y);
+      const n = pts.length;
+      // keep corners, drop points in the middle of straight runs
+      if (n >= 2 && Math.abs((pts[n - 1][0] - pts[n - 2][0]) * (y - pts[n - 2][1]) - (pts[n - 1][1] - pts[n - 2][1]) * (x - pts[n - 2][0])) < .01) pts[n - 1] = [x, y]; else pts.push([x, y]);
+      if (k > k0) { const h = !hidden(x, y); if (h !== vis) { pat.push(run); run = 0; vis = h; } run += 2; }
+    }
+    pat.push(run); if (pat.length % 2) pat.push(0);
+    const pad = 14, ox = x0 - pad, oy = y0 - pad, w = x1 - x0 + 2 * pad, h = y1 - y0 + 2 * pad;
+    const d = 'M' + pts.map(q => `${(q[0] - ox).toFixed(1)} ${(q[1] - oy).toFixed(1)}`).join(' L');
+    const S = st[j + 1], dkLeg = darks.filter(r => r.y < y1 && r.y + r.h > y0);
+    const clipId = 'tk' + j;
+    html += `<svg class="leg" style="left:${ox}px;top:${oy}px" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`
+      + (dkLeg.length ? `<defs><clipPath id="${clipId}">${dkLeg.map(r => `<rect x="0" y="${r.y - oy}" width="${w}" height="${r.h}"/>`).join('')}</clipPath></defs>` : '')
+      + `<path class="rest" d="${d}" stroke-dasharray="${pat.join(' ')}"/><path class="done" d="${d}" stroke-dasharray="0 100000"/>`
+      + (dkLeg.length ? `<path class="done done-dark" d="${d}" clip-path="url(#${clipId})" stroke-dasharray="0 100000"/>` : '')
+      + `<circle class="st${S.kind === 'end' ? ' end' : ''}${inDark(S.y) ? ' dk' : ''}" cx="${S.x - ox}" cy="${S.y - oy}" r="${S.kind === 'end' ? 8 : 6}"/></svg>`;
+    legs.push({ a, b, pat, total: pat.reduce((s, n) => s + n, 0), shown: -1, passed: null });
+  }
+  layer.innerHTML = html;
+  [...layer.children].forEach((el, j) => { legs[j].done = $$('.done', el); legs[j].circle = $('circle', el); });
+  // keep the dot where it was, relative to its leg, when the page is measured again
+  if (track) {
+    const o = track.st; let i = 0; while (i < o.length - 2 && dotP > o[i + 1].len) i++;
+    const f = (dotP - o[i].len) / Math.max(1, o[i + 1].len - o[i].len);
+    if (st[i + 1]) dotP = st[i].len + f * (st[i + 1].len - st[i].len);
+  }
+  track = { st, len, inDark, lut, legs, dk: null };
 }
 // a small snap: when scrolling stops close to a heading, settle on it
 let snapT, touching = false, snapping = false;
@@ -260,16 +299,20 @@ function frame(t) {
     dotP = Math.max(0, Math.min(track.len, dotP));
     const L = track.lut, f = dotP / 2, k0 = Math.min(L.length / 2 - 2, Math.floor(f)), fr = f - k0;
     const qx = L[k0 * 2] + (L[k0 * 2 + 2] - L[k0 * 2]) * fr, qy = L[k0 * 2 + 1] + (L[k0 * 2 + 3] - L[k0 * 2 + 1]) * fr;
-    tdot.setAttribute('transform', `translate(${qx.toFixed(2)} ${qy.toFixed(2)})`);
-    tdot.classList.toggle('dk', track.inDark(qy));
-    pDone.style.strokeDasharray = pDoneDark.style.strokeDasharray = `${dotP.toFixed(1)} ${track.len + 10}`;
-    for (let j = 1; j < st.length; j++) track.circles[j].classList.toggle('passed', st[j].len <= dotP + 2);
+    tdot.style.transform = `translate3d(${qx.toFixed(2)}px,${qy.toFixed(2)}px,0)`;
+    const dk = track.inDark(qy); if (dk !== track.dk) { track.dk = dk; tdot.classList.toggle('dk', dk); }
+    // only the leg the dot is on gets redrawn
+    for (const g of track.legs) {
+      const p = Math.max(0, Math.min(g.b - g.a, dotP - g.a)), r = Math.round(p * 2) / 2;
+      if (r !== g.shown) { g.shown = r; const da = r <= 0 ? '0 100000' : r >= g.total - .5 ? g.pat.join(' ') : dashUpTo(g.pat, r); g.done.forEach(e => e.setAttribute('stroke-dasharray', da)); }
+      const ps = dotP >= g.b - 2; if (ps !== g.passed) { g.passed = ps; g.circle.classList.toggle('passed', ps); }
+    }
   }
 
   // feature phones lean in as they arrive
-  if (!reduce) for (const ph of tilt) {
-    const r = ph.getBoundingClientRect(), c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-    if (Math.abs(c) < 1.2) ph.style.transform = `translateY(${(c * 40).toFixed(1)}px) rotateX(${(c * 8).toFixed(2)}deg)`;
+  if (!reduce && tilt.length) {
+    const cs = tilt.map(ph => { const r = ph.getBoundingClientRect(); return (r.top + r.height / 2 - innerHeight / 2) / innerHeight; });
+    tilt.forEach((ph, j) => { const c = cs[j]; if (Math.abs(c) < 1.2) { const t = `translateY(${(c * 40).toFixed(1)}px) rotateX(${(c * 8).toFixed(2)}deg)`; if (ph._t !== t) { ph._t = t; ph.style.transform = t; } } });
   }
   requestAnimationFrame(frame);
 }

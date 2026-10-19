@@ -251,19 +251,19 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 .card .ic,.live-points i{color:var(--ink)}
 
 /* The track: one line from the kicker dot through every heading to the last button */
-.track{position:absolute;left:0;top:0;z-index:6;pointer-events:none;overflow:visible}
+.track{position:absolute;left:0;top:0;width:0;height:0;z-index:6;pointer-events:none}
+.track .leg{position:absolute;overflow:visible}
 .track path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .track .rest{stroke:#d3d3ce;stroke-width:2.5}
 .track .done{stroke:var(--ink);stroke-width:3}
-.track .done-dark{stroke:#fff;stroke-width:3}
-.track circle.st{fill:var(--ground);stroke:#d3d3ce;stroke-width:2.5;transition:stroke .3s,r .3s}
+.track .done-dark{stroke:#fff}
+.track circle.st{fill:var(--ground);stroke:#d3d3ce;stroke-width:2.5;transition:stroke .3s}
 .track circle.st.passed{stroke:var(--ink)}
 .track circle.st.dk{fill:#0b0b0c}.track circle.st.dk.passed{stroke:#fff}
-.track circle.st.end{r:8}
-.track .tdot{pointer-events:none}
-.track .tdot .core{stroke:var(--ground);stroke-width:3;paint-order:stroke}
-.track .tdot.dk .core{stroke:#0b0b0c}
-.track .tdot .halo{fill:none;stroke:#ffc531;stroke-width:2;transform-box:fill-box;transform-origin:center;opacity:0;animation:ring 2.4s infinite}
+.tdot{position:absolute;left:0;top:0;z-index:7;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#ffc531;pointer-events:none;
+  box-shadow:0 0 0 3px var(--ground);will-change:transform}
+.tdot::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #ffc531;opacity:0;animation:ring 2.4s infinite;will-change:transform,opacity}
+.tdot.dk{box-shadow:0 0 0 3px #0b0b0c}
 .kicker .dot{visibility:hidden;animation:none}
 .line{display:none}
 
@@ -332,6 +332,6 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
   .track .rest{stroke:#3a3a3a}
   .track circle.st{stroke:#3a3a3a}
   .track circle.st.dk{fill:#000}
-  .track .tdot.dk .core{stroke:#000}
+  .tdot.dk{box-shadow:0 0 0 3px #000}
   .phone{filter:drop-shadow(0 calc(var(--w)*.09) calc(var(--w)*.08) rgba(0,0,0,.6)) drop-shadow(0 calc(var(--w)*.02) calc(var(--w)*.025) rgba(0,0,0,.5))}
 }
