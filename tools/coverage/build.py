@@ -136,7 +136,47 @@ for iso,c in sorted(countries.items()):
             rr.append(dict(id=rk,de=R['de'],en=R['en'],d=path(R['geom'],.06,2) or path(R['geom'],.005,2),b=pb(R['geom']),**s))
         st=CS[iso]; enc=lambda S_: ';'.join(f'{a},{b}' for a,b in sorted(S_))
         stat_only=st['cells']-st['lcells']
+        rec['rn']=[[r['id'],r['de'],r['en']] for r in rr]
         json.dump(dict(iso=iso,scale=100,dx=DX,dy=DY,regions=rr,cs=enc(stat_only),cl=enc(st['lcells'])),open(f'{OUT}/{iso}.json','w'),ensure_ascii=False,separators=(',',':'))
+# ---------- stop tiles (2 x 2 degrees, 0.001 degree grid) ----------
+# Each file data/t/<x>_<y>.txt has two lines: stops with a realtime source, stops with timetable only.
+# A line is a sorted list of cell indices (iy*2000+ix), delta coded as base-32 varints in a 64-char alphabet.
+import shutil
+TD=OUT+'/t'; shutil.rmtree(TD,ignore_errors=True); os.makedirs(TD)
+ALPH='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'
+def venc(vals):
+    out=[]; prev=-1
+    for v in vals:
+        d=v-prev-1; prev=v
+        while d>=32: out.append(ALPH[32+(d&31)]); d>>=5
+        out.append(ALPH[d])
+    return ''.join(out)
+live=collections.defaultdict(set); tt=collections.defaultdict(set)
+for f in feeds:
+    P=f['pts']
+    if not len(P): continue
+    lat,lon=P[:,0],P[:,1]; m=(lon>=-25)&(lon<45.5)&(lat>=34)&(lat<71.5); lat,lon=lat[m],lon[m]
+    q=np.round(lon*1000).astype(np.int64)*1000000+np.round(lat*1000).astype(np.int64)
+    (live if f['rt'] else tt)[0].update(q.tolist())
+L_=live[0]; T_=tt[0]-L_
+tiles=collections.defaultdict(lambda:([],[]))
+for k,S_ in ((0,L_),(1,T_)):
+    for q in S_:
+        x=q//1000000; y=q-x*1000000
+        if y>=500000: y-=1000000; x+=1
+        tx,ty=x//2000,y//2000
+        tiles[(tx,ty)][k].append((y-ty*2000)*2000+(x-tx*2000))
+for (tx,ty),(a,b) in tiles.items():
+    open(f'{TD}/{tx}_{ty}.txt','w').write(venc(sorted(a))+'\n'+venc(sorted(b)))
+eu['tiles']=sorted(f'{tx}_{ty}' for tx,ty in tiles)
+print('tiles',len(tiles),'live',len(L_),'tt',len(T_))
+# ---------- place names ----------
+pl=[]
+for ft in json.load(open('pp.geojson'))['features']:
+    p=ft['properties']; lo,la=p['longitude'],p['latitude']
+    if -25<lo<45.5 and 34<la<71.5 and p['scalerank']<=8:
+        pl.append([p['name'],round(la,3),round(lo,3),p['scalerank'],1 if p['adm0cap'] else 0])
+pl.sort(key=lambda r:(r[3],-r[4])); eu['places']=pl
 import ast
 src=open(SITE+'/coverage.js').read()
 arr=src[src.index('const C = [')+10:src.index('];',src.index('const C = ['))+1]
