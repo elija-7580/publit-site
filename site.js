@@ -124,10 +124,12 @@ function measure() { rows.forEach(r => r.w = r.track.scrollWidth / 2); }
 /* ---------- The track: from the kicker dot through every heading down to the last button ---------- */
 const NS = 'http://www.w3.org/2000/svg';
 const svg = document.createElementNS(NS, 'svg'); svg.classList.add('track'); svg.setAttribute('aria-hidden', 'true');
-svg.innerHTML = '<defs><clipPath id="trackDark"></clipPath></defs><path class="rest"/><path class="done"/><path class="done-dark" clip-path="url(#trackDark)"/><g class="sts"></g>';
+svg.innerHTML = '<defs><clipPath id="trackDark"></clipPath><mask id="trackGap" maskUnits="userSpaceOnUse"></mask></defs>'
+  + '<g mask="url(#trackGap)"><path class="rest"/><path class="done"/><path class="done-dark" clip-path="url(#trackDark)"/></g><g class="sts"></g>'
+  + '<g class="tdot"><circle class="halo" r="9"/><circle class="core" r="9" fill="#ffc531"/></g>';
 document.body.appendChild(svg);
-const tdot = document.createElement('div'); tdot.className = 'tdot'; document.body.appendChild(tdot);
-const [pRest, pDone, pDoneDark] = $$('path', svg), stG = $('.sts', svg), clip = $('#trackDark', svg);
+const tdot = $('.tdot', svg), core = $('.core', svg);
+const [pRest, pDone, pDoneDark] = $$('path', svg), stG = $('.sts', svg), clip = $('#trackDark', svg), gap = $('#trackGap', svg);
 let track = null;
 function docXY(el) { let x = 0, y = 0; for (let e = el; e; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y }; }
 function roundPath(v, r) {
@@ -141,7 +143,7 @@ function roundPath(v, r) {
   const l = v[v.length - 1]; return d + ` L${l[0]} ${l[1]}`;
 }
 function buildTrack() {
-  const mob = innerWidth < 900, G = mob ? 13 : 30;
+  const mob = innerWidth < 900, G = mob ? 14 : 30;
   const els = $$('[data-station]');
   const st = els.map(el => {
     const p = docXY(el), r = el.getBoundingClientRect();
@@ -179,15 +181,39 @@ function buildTrack() {
   const darks = $$('.ticker,.dark-strip').map(e => { const p = docXY(e); return { y: p.y, h: e.offsetHeight }; });
   clip.innerHTML = darks.map(r => `<rect x="0" y="${r.y}" width="${W}" height="${r.h}"/>`).join('');
   const inDark = y => darks.some(r => y >= r.y && y <= r.y + r.h);
+  // the line passes under things instead of drawing over them
+  const P = mob ? 8 : 12;
+  const holes = $$('.ticker,.phone,.card,.theme,.cycle-tabs,.film-steps,.cities,.covwrap,.live-points li,.key,.facts li').map(e => {
+    const w = e.offsetWidth, h = e.offsetHeight; if (!w) return '';
+    const p = docXY(e);
+    return `<rect x="${p.x - P}" y="${p.y - P}" width="${w + 2 * P}" height="${h + 2 * P}" rx="18" fill="#000"/>`;
+  }).join('');
+  gap.innerHTML = `<rect x="0" y="0" width="${W}" height="${H}" fill="#fff"/>` + holes;
   stG.innerHTML = st.slice(1).map(S => `<circle class="st${S.kind === 'end' ? ' end' : ''}${inDark(S.y) ? ' dk' : ''}" cx="${S.x}" cy="${S.y}" r="6"/>`).join('');
   track = { st, len, inDark, circles: [null, ...stG.children] };
 }
+// a small snap: when scrolling stops close to a heading, settle on it
+let snapT, touching = false, snapping = false;
+addEventListener('touchstart', () => { touching = true; clearTimeout(snapT); }, { passive: true });
+addEventListener('touchend', () => { touching = false; }, { passive: true });
+addEventListener('scroll', () => {
+  clearTimeout(snapT);
+  if (snapping || reduce || !track) return;
+  snapT = setTimeout(() => {
+    if (touching || !track) return;
+    const y = scrollY, hit = track.st.slice(1, -1).find(S => Math.abs(S.at - y) < Math.min(110, innerHeight * .12));
+    if (hit && Math.abs(hit.at - y) > 2) {
+      snapping = true; scrollTo({ top: hit.at, behavior: 'smooth' });
+      setTimeout(() => { snapping = false; }, 700);
+    }
+  }, 180);
+}, { passive: true });
 let trackT; const queueTrack = () => { clearTimeout(trackT); trackT = setTimeout(buildTrack, 120); };
 new ResizeObserver(queueTrack).observe(document.body);
 function buildStops() { queueTrack(); }
 
 /* ---------- One frame loop for everything that moves ---------- */
-let lastY = scrollY, vel = 0, dir = 1, dotP = 0, lastT = performance.now();
+let lastY = scrollY, vel = 0, dir = 1, dotP = 0, dotV = 0, lastNear = -1, lastT = performance.now();
 function frame(t) {
   const dt = Math.min(64, t - lastT) / 1000; lastT = t;
   const y = scrollY, dy = y - lastY; lastY = y;
@@ -210,13 +236,22 @@ function frame(t) {
   if (track) {
     const st = track.st;
     let i = 0; while (i < st.length - 2 && y >= st[i + 1].at) i++;
-    const A = st[i], B = st[i + 1];
-    const k = Math.min(1, Math.max(0, (y - A.at) / Math.max(1, B.at - A.at)));
-    const target = A.len + (B.len - A.len) * k;
-    dotP += (target - dotP) * (reduce ? 1 : Math.min(1, dt * 8));
+    const A = st[i], B = st[i + 1], span = Math.max(1, B.at - A.at);
+    // the dot rests at each heading for a moment, then glides on to the next one
+    const D = Math.min(innerHeight * .14, 110, span * .3);
+    const dA = i === 0 ? 0 : D, dB = i === st.length - 2 ? 0 : D;
+    let u = Math.min(1, Math.max(0, (y - A.at - dA) / Math.max(1, span - dA - dB)));
+    u = u * u * (3 - 2 * u);
+    const target = A.len + (B.len - A.len) * u;
+    if (reduce) { dotP = target; dotV = 0; }
+    else { const w = 11, a = w * w * (target - dotP) - 2 * w * dotV; dotV += a * dt; dotP += dotV * dt; }
+    dotP = Math.max(0, Math.min(track.len, dotP));
     const q = pRest.getPointAtLength(dotP);
-    tdot.style.transform = `translate3d(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px,0)`;
+    tdot.setAttribute('transform', `translate(${q.x.toFixed(1)} ${q.y.toFixed(1)})`);
     tdot.classList.toggle('dk', track.inDark(q.y));
+    const near = st.findIndex((S, j) => j > 0 && Math.abs(S.len - dotP) < 2.5 && Math.abs(dotV) < 40);
+    if (near > 0 && near !== lastNear) { core.classList.remove('arrive'); void core.getBBox(); core.classList.add('arrive'); }
+    lastNear = near > 0 ? near : (Math.abs(dotV) > 80 ? -1 : lastNear);
     pDone.style.strokeDasharray = pDoneDark.style.strokeDasharray = `${dotP.toFixed(1)} ${track.len + 10}`;
     for (let j = 1; j < st.length; j++) track.circles[j].classList.toggle('passed', st[j].len <= dotP + 2);
   }
