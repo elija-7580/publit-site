@@ -1,8 +1,12 @@
 /* Coverage map: where Publit has timetables and live times (docs/COVERAGE.md, checked 14 Oct 2026).
-   Leaflet and the map tiles load only when the section comes into view. */
+   Own SVG map: Natural Earth 50m borders in Mercator (assets/europe.svg), no external tiles or scripts. */
 (() => {
 const el = document.getElementById('covmap');
 if (!el) return;
+// Same projection as assets/europe.svg
+const K = 0.6156614753256583, SX = 22.87703162651752, Y1 = 1.81486224426954, S = K * SX;
+const px = lon => (lon + SX) * S;
+const py = lat => (Y1 - Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360))) * S * 180 / Math.PI;
 // k: n = no data, p = part of the network, t = timetable only, x = live through Publit's own sources, l = live
 const C = [
  ['Athens',37.98,23.73,'n','Feeds listed, no stops loaded','Feeds gelistet, aber keine Haltestellen geladen'],
@@ -38,11 +42,11 @@ const LABEL = {
   de: {n:'Keine Fahrplandaten', p:'Nur Teile des Netzes', t:'Nur Fahrplan', x:'Live über Publit', l:'Fahrplan und live'}
 };
 const STYLE = {
-  n: {radius:6, color:'#9c9ca1', weight:2, fillColor:'#ffffff', fillOpacity:1},
-  p: {radius:6, color:'#b25000', weight:2, fillColor:'#ffffff', fillOpacity:1},
-  t: {radius:6, color:'#111111', weight:1.5, fillColor:'#9c9ca1', fillOpacity:1},
-  x: {radius:7, color:'#111111', weight:2, fillColor:'#ffc531', fillOpacity:1},
-  l: {radius:6, color:'#ffffff', weight:1.5, fillColor:'#1b7a33', fillOpacity:1}
+  n: {r:6, stroke:'#9c9ca1', w:2, fill:'#ffffff'},
+  p: {r:6, stroke:'#b25000', w:2, fill:'#ffffff'},
+  t: {r:6, stroke:'#111111', w:1.5, fill:'#9c9ca1'},
+  x: {r:7, stroke:'#111111', w:2, fill:'#ffc531'},
+  l: {r:6.5, stroke:'#ffffff', w:1.5, fill:'#1b7a33'}
 };
 const lang = () => document.documentElement.lang === 'de' ? 'de' : 'en';
 function legend() {
@@ -52,50 +56,51 @@ function legend() {
   box.innerHTML = Object.keys(STYLE).map(k => {
     const s = STYLE[k];
     const n = C.filter(c => c[3] === k).length;
-    return `<li><i style="background:${s.fillColor};border-color:${s.color}"></i>${L[k]} <span>${n}</span></li>`;
+    return `<li><i style="background:${s.fill};border-color:${s.stroke === '#ffffff' ? s.fill : s.stroke}"></i>${L[k]} <span>${n}</span></li>`;
   }).join('');
 }
 legend();
-new MutationObserver(() => { legend(); if (window._covRefresh) window._covRefresh(); })
-  .observe(document.documentElement, {attributes: true, attributeFilter: ['lang']});
+new MutationObserver(legend).observe(document.documentElement, {attributes: true, attributeFilter: ['lang']});
 
-function load() {
-  const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-  css.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='; css.crossOrigin = '';
-  document.head.appendChild(css);
-  const js = document.createElement('script');
-  js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  js.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo='; js.crossOrigin = '';
-  js.onload = draw;
-  js.onerror = () => { el.classList.add('covmap-off'); };
-  document.head.appendChild(js);
+// Draw: map, then dots from west to east; live ones on top.
+const NS = 'http://www.w3.org/2000/svg';
+const order = {n: 0, p: 1, t: 2, x: 3, l: 4};
+const minLon = Math.min(...C.map(c => c[2])), maxLon = Math.max(...C.map(c => c[2]));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('shot');
+let dots = '';
+[...C].sort((a, b) => order[a[3]] - order[b[3]]).forEach(c => {
+  const s = STYLE[c[3]], x = px(c[2]).toFixed(1), y = py(c[1]).toFixed(1);
+  const delay = reduce ? 0 : ((c[2] - minLon) / (maxLon - minLon) * 1.8).toFixed(2);
+  const i = C.indexOf(c);
+  dots += `<g class="pt" data-i="${i}" style="transition-delay:${delay}s">` +
+    (c[3] === 'l' && !reduce ? `<circle class="ring" cx="${x}" cy="${y}" r="${s.r}" style="animation-delay:${(+delay + 0.6 + (i % 7) * .3).toFixed(2)}s"/>` : '') +
+    `<circle cx="${x}" cy="${y}" r="${s.r + 7}" fill="transparent"/>` +
+    `<circle cx="${x}" cy="${y}" r="${s.r}" fill="${s.fill}" stroke="${s.stroke}" stroke-width="${s.w}"/></g>`;
+});
+el.innerHTML = `<svg viewBox="0 170 1000 790" xmlns="${NS}"><image href="assets/europe.svg" x="0" y="170" width="1000" height="790"/>${dots}</svg><div class="covtip" role="status"></div>`;
+const svg = el.querySelector('svg'), tip = el.querySelector('.covtip');
+let sel = null;
+function showTip(g) {
+  const c = C[+g.dataset.i], l = lang(), s = STYLE[c[3]];
+  const note = l === 'de' ? (c[5] || '') : (c[4] || '');
+  tip.innerHTML = `<b>${c[0]}</b><span><i style="background:${s.fill};border-color:${s.stroke === '#ffffff' ? s.fill : s.stroke}"></i>${LABEL[l][c[3]]}</span>${note ? '<small>' + note + '</small>' : ''}`;
+  const r = el.getBoundingClientRect(), d = g.lastChild.getBoundingClientRect();
+  let x = d.left + d.width / 2 - r.left;
+  x = Math.max(90, Math.min(r.width - 90, x));
+  tip.style.left = x + 'px'; tip.style.top = (d.top - r.top) + 'px';
+  tip.classList.add('show');
+  if (sel) sel.classList.remove('sel');
+  sel = g; g.classList.add('sel');
 }
-function draw() {
-  const L = window.L;
-  const map = L.map(el, {scrollWheelZoom: false, worldCopyJump: false, minZoom: 3, maxZoom: 9, zoomSnap: 0.5})
-    .setView([50, 14], window.innerWidth < 700 ? 3 : 4);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    subdomains: 'abcd', maxZoom: 19,
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · © <a href="https://carto.com/attributions">CARTO</a> · <a href="https://transitous.org">Transitous</a>'
-  }).addTo(map);
-  const markers = C.map(c => {
-    const m = L.circleMarker([c[1], c[2]], STYLE[c[3]]).addTo(map);
-    m._cov = c;
-    return m;
-  });
-  const popup = c => {
-    const l = lang();
-    const note = l === 'de' ? (c[5] || '') : (c[4] || '');
-    return `<strong>${c[0]}</strong><br>${LABEL[l][c[3]]}${note ? '<br><small>' + note + '</small>' : ''}`;
-  };
-  window._covRefresh = () => markers.forEach(m => m.bindPopup(popup(m._cov)));
-  window._covRefresh();
-  // Order: live on top, so dense areas show the best there is.
-  markers.filter(m => m._cov[3] === 'l' || m._cov[3] === 'x').forEach(m => m.bringToFront());
-}
-if ('IntersectionObserver' in window) {
-  const io = new IntersectionObserver(e => { if (e.some(x => x.isIntersecting)) { io.disconnect(); load(); } }, {rootMargin: '300px'});
+function hideTip() { tip.classList.remove('show'); if (sel) sel.classList.remove('sel'); sel = null; }
+svg.addEventListener('pointerover', e => { const g = e.target.closest('.pt'); if (g) showTip(g); });
+svg.addEventListener('pointerout', e => { const g = e.target.closest('.pt'); if (g && !g.contains(e.relatedTarget) && e.pointerType === 'mouse') hideTip(); });
+svg.addEventListener('click', e => { const g = e.target.closest('.pt'); g ? showTip(g) : hideTip(); });
+el.setAttribute('aria-label', lang() === 'de' ? 'Karte der Abdeckung in Europa' : 'Map of coverage in Europe');
+
+if (reduce || !('IntersectionObserver' in window)) el.classList.add('on');
+else {
+  const io = new IntersectionObserver(e => { if (e.some(x => x.isIntersecting)) { io.disconnect(); el.classList.add('on'); } }, {threshold: .3});
   io.observe(el);
-} else load();
+}
 })();

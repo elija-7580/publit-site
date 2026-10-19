@@ -5,12 +5,12 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 
 /* ---------- Language ---------- */
 const EN = {
-  navApp:'The app', navEurope:'Europe', navWhy:'Why',
-  kicker:'For iPhone and Apple Watch · Open source',
+  navApp:'The app', navEurope:'Europe', navWhy:'Why', navAll:'All features', allFeatures:'See all features →',
+  kicker:'For iPhone · Made in EU · Open source',
   heroTitle:'Your way.<br>At a glance.',
   heroLead:'Publit shows what leaves near you, plans routes across Europe and guides you until you get off. It is free, with no ads and no account.',
   ctaPrimary:'View on GitHub', ctaSecondary:'See the features ↓',
-  fact1:'No ads', fact2:'No account', fact3:'No tracking',
+  fact1:'Made in EU', fact2:'No account', fact3:'No tracking', fact4:'Open data',
   tabNearby:'Nearby', tabPlan:'Plan', tabRoute:'Route', tabLive:'On the way',
   f1Title:'What leaves next?', f1Text:'Open Publit and see the next departures around you: line, direction, platform and the minutes until it leaves. Live times and delays right beside them.',
   f1a:'Tap a station, route there with one tap', f1b:'Filter by metro, tram, bus, ferry', f1c:'When the stop is far, the walking time is shown', f1d:'Find cafés, pharmacies or supermarkets nearby on the map',
@@ -18,15 +18,18 @@ const EN = {
   f2a:'Tight changes are marked', f2b:'Compare all routes on one map', f2c:'Walking, cycling and driving to compare',
   f3Title:'Know when to leave.', f3Text:'Every route says at the top when to leave and when you arrive. Below are the map and every step in the colours of the lines, with platforms, stops and delays.',
   f3a:'Reminders to leave and to get off', f3b:'Add to calendar or share as a link', f3c:'Attach tickets to the trip',
-  f4Title:'From here until you get off.', f4Text:'On the way, Publit shows in large type which line you are on, how long is left and where to get off. Delays and platform changes appear at once, on the lock screen and the Apple Watch too.',
-  f4a:'Live Activity and Dynamic Island', f4b:'Off the path? A new walk from where you are', f4c:'Ends by itself when you arrive',
+  f4Title:'From here until you get off.', f4Text:'On the way, Publit shows in large type which line you are on, how long is left and where to get off. Delays and platform changes appear at once, on the lock screen and in the Dynamic Island too.',
+  f4a:'The whole trip at a glance', f4at:'One map with every remaining leg and the live times of each one.',
+  f4b:'New connection from here', f4bt:'Missed a connection or took a wrong turn? One tap and Publit finds the best way from where you are now.',
+  f4c:'Reminder to get off', f4ct:'Just before your stop Publit lets you know, with a spoken announcement if you like, so you don’t miss it.',
   f5Title:'Your ticket is already there.', f5Text:'Add tickets from a PDF, a photo or a screenshot. Publit reads the details on your iPhone and uploads nothing. At the gate the code is ready.',
   f5a:'Klimaticket, Deutschlandticket, single tickets', f5b:'The code bright and big at the gate',
   darkTitle:'Easy to read at midnight, too.',
   euTitle:'Public transport.<br>All over Europe.', euText:'For your commute and for cities you don’t know yet. Publit uses open timetable data from Transitous, from the Munich U-Bahn to the vaporetto in Venice.', euLink:'Coverage on the map ↓',
   whyTitle:'How Publit is built.',
-  w1:'No ads', w1t:'No ad stands between you and the next departure.', w2:'No account', w2t:'Open it and go. Your places stay on your device.',
-  w3:'No tracking', w3t:'The app has no analytics SDKs and builds no profiles. Your location leaves the phone only for the search.', w4:'Open source', w4t:'All the code is on GitHub. You can read it, build the app yourself and send improvements.',
+  w1:'Made in EU', w1t:'Built in Europe, for Europe. Timetables from open European sources, without a detour through big platforms.', w2:'Private', w2t:'No account, no tracking, no analytics SDKs. Your places, trips and tickets stay on your iPhone.',
+  w3:'Independent', w3t:'Built by an indie developer, not a corporation. No ads, no data trading, no interest in keeping you in the app.', w4:'Open data', w4t:'Publit uses open timetables (GTFS) and live data (GTFS-RT) via Transitous. All the code is open on GitHub.',
+  w5:'Simple', w5t:'Open it and go. What matters is shown big, everything else is one tap away.', w6:'Smart routing', w6t:'Publit rates every change: how safe is it, how long do you wait and walk? The route that feels shortest wins.',
   endTitle:'Last stop. Everybody off, please.', endText:'Publit is still in development and coming to the App Store soon. Until then you can look at the code, try the app and send feedback.',
   footData:'Timetable data: Transitous and open data sources',
   covTitle:'What Publit knows where.', covText:'Every dot is a city we tested: green with live times, grey with timetables only, yellow with live times Publit fetches from the operators itself. Tap a dot for details.',
@@ -138,6 +141,7 @@ function frame(t) {
   const py = dotP * railH;
   dot.style.transform = `translate3d(0,${py.toFixed(1)}px,0)`;
   done.style.height = py.toFixed(1) + 'px';
+  flyKicker(y, py);
   let cur = 0;
   stops.forEach((s, i) => { if (dotP >= s.at - .002) cur = i; });
   const lis = stopsEl.children;
@@ -164,8 +168,34 @@ function frame(t) {
 }
 const tilt = $$('.feature-shot .phone');
 
-addEventListener('resize', () => { measure(); buildStops(); });
-addEventListener('load', () => { measure(); buildStops(); });
+/* ---------- The kicker dot flies onto the line, then the line dot takes over ---------- */
+const kdot = $('.kicker .dot');
+let kOrigin = null;
+function measureKicker() {
+  if (!kdot) return;
+  const t = kdot.style.transform; kdot.style.transform = 'none';
+  const r = kdot.getBoundingClientRect();
+  kOrigin = { x: r.left + r.width / 2, y: r.top + r.height / 2 + scrollY };
+  kdot.style.transform = t;
+}
+function flyKicker(y, py) {
+  if (!kdot || !kOrigin) return;
+  const D = Math.max(160, innerHeight * .32);
+  const p = reduce ? (y > 4 ? 1 : 0) : Math.min(1, Math.max(0, y / D));
+  if (p >= 1) { kdot.classList.add('gone'); dot.classList.remove('wait'); kdot.style.transform = 'none'; return; }
+  kdot.classList.remove('gone'); dot.classList.add('wait');
+  const lr = line.getBoundingClientRect(), dr = dot.offsetWidth;
+  const tx = lr.left + dot.offsetLeft + dr / 2, ty = lr.top + py;
+  const cx = kOrigin.x, cy = kOrigin.y - y;
+  const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+  const arc = Math.sin(p * Math.PI) * -40;
+  const sc = 1 + (dr / 10 - 1) * e;
+  kdot.style.transform = `translate3d(${((tx - cx) * e).toFixed(1)}px,${((ty - cy) * e + arc).toFixed(1)}px,0) scale(${sc.toFixed(3)})`;
+}
+
+addEventListener('resize', () => { measure(); buildStops(); measureKicker(); });
+addEventListener('load', () => { measure(); buildStops(); measureKicker(); });
+measureKicker(); setTimeout(measureKicker, 1300);
 applyLang(); measure();
 requestAnimationFrame(frame);
 })();
