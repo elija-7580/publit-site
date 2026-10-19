@@ -1,0 +1,42 @@
+# Aktualisiert die Abdeckungsdaten (abdeckung/data/*.json) einmal im Monat
+# aus den offenen Transitous-Daten. Manuell startbar unter Actions > Abdeckung aktualisieren.
+name: Abdeckung aktualisieren
+on:
+  schedule:
+    - cron: '17 4 1 * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Abhaengigkeiten
+        run: pip install numpy shapely
+      - name: Daten laden
+        run: |
+          set -e
+          mkdir -p /tmp/cov/stops && cd /tmp/cov
+          NE=https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson
+          curl -sfL -o a0.geojson $NE/ne_50m_admin_0_countries.geojson
+          curl -sfL -o a1.geojson $NE/ne_10m_admin_1_states_provinces.geojson
+          curl -sfL -o lic.json https://api.transitous.org/gtfs/license.json
+          curl -sfL https://codeload.github.com/public-transport/transitous/tar.gz/refs/heads/main | tar xz
+          python3 $GITHUB_WORKSPACE/tools/coverage/fetch_stops.py | tail -20
+          n=$(ls stops | wc -l); echo "Quellen mit Haltestellen: $n"
+          test "$n" -gt 800
+      - name: Karte bauen
+        run: cd /tmp/cov && SITE=$GITHUB_WORKSPACE python3 $GITHUB_WORKSPACE/tools/coverage/build.py
+      - name: Speichern
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add abdeckung/data
+          git diff --cached --quiet && { echo "Keine Aenderungen"; exit 0; }
+          git commit -m "Abdeckungsdaten aktualisiert ($(date -u +%Y-%m-%d))"
+          git push
