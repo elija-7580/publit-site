@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Publit · Abdeckung von Transitous</title>
+<meta name="description" content="Zoombare Karte: welche Länder und Regionen in Europa Fahrplan- und Echtzeitdaten über Transitous haben, gemessen an echten Haltestellen.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/publit.svg">
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="cov.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="../" aria-label="Publit">
+    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
+    <span>publit</span>
+  </a>
+  <nav>
+    <a href="../" data-t="navHome">Start</a>
+    <a href="../features/" data-t="navAll">Alle Funktionen</a>
+    <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
+  </nav>
+</header>
+<main>
+<section class="fpage covpage">
+  <p class="kicker"><span class="dot" style="visibility:visible"></span><span data-t="kick">Abdeckung von Transitous</span></p>
+  <h1 data-t="title">Wo Transitous fährt.</h1>
+  <p class="lead" data-t="lead">Publit holt Fahrpläne und Echtzeit über Transitous. Diese Karte zeigt, wie gut jedes Land und jede Region abgedeckt ist, gemessen an den echten Haltestellen aus allen Quellen. Zoome hinein oder tippe auf ein Land, dann siehst du seine Bundesländer und Regionen.</p>
+
+  <div class="cov">
+    <div class="cov-map">
+      <svg id="m" role="img" aria-label="Zoombare Karte der Abdeckung"></svg>
+      <nav class="crumbs" id="crumbs"></nav>
+      <div class="zoom">
+        <button type="button" id="zin" aria-label="Hineinzoomen">+</button>
+        <button type="button" id="zout" aria-label="Herauszoomen">−</button>
+        <button type="button" id="zhome" aria-label="Ganz Europa"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="tip" id="tip" role="status"></div>
+      <p class="hint" data-t="hint">Scrollen oder mit zwei Fingern zoomen, ziehen zum Verschieben, tippen für Details.</p>
+    </div>
+    <aside class="cov-panel" id="panel" aria-live="polite"></aside>
+  </div>
+  <ul class="cov-legend" id="legend"></ul>
+  <label class="cov-toggle"><input type="checkbox" id="cells" checked> <span data-t="cellsT">Haltestellen-Raster zeigen (ca. 3 km)</span></label>
+
+  <h2 class="cov-h" data-t="tableT">Alle Länder</h2>
+  <div class="cov-tablewrap"><table class="cov-table" id="table"></table></div>
+
+  <div class="cov-method">
+    <h2 class="cov-h" data-t="methT">So ist die Karte gemessen</h2>
+    <p data-t="meth1">Für jede europäische Quelle bei Transitous lesen wir die Haltestellen aus der aufbereiteten GTFS-Datei und ordnen jede Haltestelle über ihre Koordinaten einem Land und einer Region zu. Grenzüberschreitende Quellen zählen also dort, wo ihre Haltestellen wirklich liegen.</p>
+    <p data-t="meth2">Fläche heißt: Anteil der Rasterzellen (etwa 3 × 3 km) im Gebiet, in denen mindestens eine Haltestelle liegt. Echtzeit heißt: Anteil der Haltestellen, deren Quelle bei Transitous einen Echtzeit-Feed hat (GTFS-RT oder SIRI). Das sagt nicht, dass jede Fahrt live ist, nur dass Live-Daten vorgesehen sind.</p>
+    <p data-t="meth3">Die gelben, grünen und grauen Punkte sind Städte, die Publit selbst getestet hat. Ländergrenzen: Natural Earth. Alle Angaben ohne Gewähr.</p>
+    <p class="cov-date" id="date"></p>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <span>© 2026 Publit</span>
+  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+  <a href="../privacy/" data-t="footPrivacy" style="color:inherit">Datenschutz</a>
+</footer>
+<script src="cov.js"></script>
+</body>
+</html>
