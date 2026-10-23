@@ -72,6 +72,7 @@ const mobile = matchMedia('(max-width:1320px)');
 let D = null, byIso = {}, cache = {}, cur = {iso: null, region: null}, view = {x: 0, y: 170, w: 1000, h: 790}, mapBounds = null, anim = null, showStops = true, rotation = 0;
 let W = 1, H = 1, DPR = 1;
 const WORLD = [px(-180), py(85), px(180), py(-85)];
+const EUROPE = [px(-11), py(71), px(42), py(34.5)];
 const unLat = y => (Math.atan(Math.exp(Y1 - y * Math.PI / (180 * S))) - Math.PI / 4) * 360 / Math.PI;
 const unLon = x => x / S - SX;
 
@@ -617,7 +618,7 @@ Promise.all([fetch('data/europe.json').then(r => r.json()), fetch('data/world.js
   mapBounds = WORLD;
   (D.tiles || []).forEach(k => TILE.add(k)); D.places = D.places || [];
   measure(); readColors(); drawEurope(); svg.classList.add('cellson');
-  applyLang(); view = fitBox(WORLD, .01); apply();
+  applyLang(); view = fitBox(EUROPE, .01); apply();
   const [h, r] = decodeURIComponent(location.hash.slice(1)).split('/');
   if (h && byIso[h]?.eu) go(h, r || null, false);
 });
