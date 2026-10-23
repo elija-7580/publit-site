@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Publit · Abdeckung von Transitous</title>
-<meta name="description" content="Zoombare Karte: welche Länder und Regionen in Europa Fahrplan- und Echtzeitdaten über Transitous haben, gemessen an echten Haltestellen.">
+<meta name="description" content="Zoombare Weltkarte mit den Fahrplan- und Echtzeitdaten von Transitous für Europa, gemessen an echten Haltestellen.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
 <link rel="stylesheet" href="../site.css?v=92ae795">
-<link rel="stylesheet" href="cov.css?v=ba43a74">
+<link rel="stylesheet" href="cov.css?v=global-map-20261023">
 </head>
 <body>
 <header class="top">
@@ -29,7 +29,7 @@
 <section class="fpage covpage">
   <p class="kicker"><span class="dot" style="visibility:visible"></span><span data-t="kick">Abdeckung von Transitous</span></p>
   <h1 data-t="title">Wo Transitous fährt.</h1>
-  <p class="lead" data-t="lead">Publit holt Fahrpläne und Echtzeit über Transitous. Diese Karte zeigt, wie gut jedes Land und jede Region abgedeckt ist, gemessen an den echten Haltestellen aus allen Quellen. Zoome hinein oder tippe auf ein Land, dann siehst du seine Bundesländer und Regionen.</p>
+  <p class="lead" data-t="lead">Die Karte zeigt die ganze Welt. Abdeckungsdaten von Transitous gibt es für Europa – berechnet aus echten Haltestellen aller Quellen. Zoome hinein oder tippe auf ein europäisches Land, um Bundesländer und Regionen zu sehen.</p>
 
   <div class="cov">
     <div class="cov-map" id="map">
@@ -46,7 +46,7 @@
       <div class="zoom">
         <button type="button" id="zin" aria-label="Hineinzoomen"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
         <button type="button" id="zout" aria-label="Herauszoomen"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
-        <button type="button" id="zhome" aria-label="Ganz Europa"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <button type="button" id="zhome" aria-label="Ganze Welt"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       </div>
       <div class="m-foot">
         <div class="scale" id="scale"><i></i><span></span></div>
@@ -81,7 +81,7 @@
   <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
   <a href="../privacy/" data-t="footPrivacy" style="color:inherit">Datenschutz</a>
 </footer>
-<script src="cov.js?v=ba43a74"></script>
+<script src="cov.js?v=global-map-20261023"></script>
 <script src="/analytics-consent.js" defer></script>
 </body>
 </html>

@@ -14,6 +14,7 @@
 #m{cursor:grab}#m.drag{cursor:grabbing}
 #cv{pointer-events:none}
 #m path{vector-effect:non-scaling-stroke;stroke-linejoin:round}
+#m .world-land{fill:var(--c-bg);stroke:var(--c-edge);stroke-width:.55;pointer-events:none}
 #m .bg{fill:var(--c-bg);stroke:var(--c-edge);stroke-width:.8}
 #m .c{stroke:var(--c-edge);stroke-width:.9;cursor:pointer;transition:fill .3s,opacity .45s}
 #m .k-l2{fill:var(--c-l2)}#m .k-l1{fill:var(--c-l1)}#m .k-t{fill:var(--c-t)}#m .k-v{fill:var(--c-v)}#m .k-n{fill:var(--c-n)}
@@ -131,7 +132,6 @@
   .sheet h2{font-size:24px}
   .m-foot{bottom:calc(var(--peek,150px) + 16px)}
   .zoom{top:64px;right:12px}
-  .zoom #zhome{display:none}
 }
 @media (prefers-color-scheme:dark){
   .covpage{--c-l2:#2f9e4f;--c-l1:#2a5e3a;--c-t:#6a6a6e;--c-v:#3e3e41;--c-n:#2b2b2d;--c-bg:#242426;--c-sea:#161618;--c-edge:#111;--c-cell-l:#43d36c;--c-cell-t:#a2a2a7;

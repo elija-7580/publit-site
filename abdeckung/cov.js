@@ -9,8 +9,8 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- language ---------- */
 const EN = {navHome: 'Home', navAll: 'All features', navCities: 'For cities', kick: 'Coverage of Transitous', title: 'Where Transitous runs.',
-  lead: 'Publit gets timetables and realtime through Transitous. This map shows how well every country and region is covered, measured by the real stops from all sources. Zoom in or tap a country to see its states and regions.',
-  hint: 'Scroll or pinch to zoom, drag to move, tap for details.', cellsT: 'Show stop grid (about 3 km)', tableT: 'All countries', methT: 'How the map is measured',
+  lead: 'The map shows the whole world. Transitous coverage data is available for Europe, measured from real stops across its sources. Zoom in or tap a European country to see its states and regions.',
+  hint: 'Pinch to zoom or rotate, drag to move, tap for details.', cellsT: 'Show stop grid (about 3 km)', tableT: 'All countries', methT: 'How the map is measured',
   meth1: 'For every European source in Transitous we read the stops from the processed GTFS file and place each stop in a country and region by its coordinates. Cross-border sources therefore count where their stops really are.',
   meth2: 'Area means: share of grid cells (about 3 × 3 km) in the area that contain at least one stop. When you zoom in, the map shows every single stop instead (to about 100 m) and a radius of about 300 m walking. Realtime means: share of stops whose source has a realtime feed in Transitous (GTFS-RT or SIRI). That does not mean every trip is live, only that live data is provided.',
   meth3: 'The yellow, green and grey dots are cities Publit tested itself. Borders: Natural Earth. No guarantee for any information.',
@@ -56,22 +56,22 @@ const TSTYLE = {n: ['#ffffff', '#9c9ca1'], p: ['#ffffff', '#b25000'], t: ['#9c9c
 Object.assign(L.de, {areaS: 'Fläche', liveS: 'Echtzeit', search: 'Land, Region oder Stadt suchen', none: 'Nichts gefunden', city: 'Stadt', regionW: 'Region',
   zoomMore: 'Zoomen für einzelne Haltestellen', stopsMode: 'Einzelne Haltestellen', loading: 'Lädt Haltestellen …',
   dotL: 'Haltestelle mit Echtzeit-Quelle', dotT: 'Haltestelle nur mit Fahrplan', walk: 'Etwa 300 m um eine Haltestelle',
-  quick: (s, r, n) => `${s} Quellen · ${r} mit Echtzeit · ${n} Haltestellen`, back: 'Zurück', zin: 'Hineinzoomen', zout: 'Herauszoomen', home: 'Ganz Europa', grab: 'Details ein- oder ausklappen'});
+  quick: (s, r, n) => `${s} Quellen · ${r} mit Echtzeit · ${n} Haltestellen`, back: 'Zurück', zin: 'Hineinzoomen', zout: 'Herauszoomen', home: 'Ganze Welt', grab: 'Details ein- oder ausklappen'});
 Object.assign(L.en, {areaS: 'Area', liveS: 'Realtime', search: 'Search country, region or city', none: 'Nothing found', city: 'City', regionW: 'Region',
   zoomMore: 'Zoom in for single stops', stopsMode: 'Single stops', loading: 'Loading stops …',
   dotL: 'Stop with a realtime source', dotT: 'Stop with timetable only', walk: 'About 300 m around a stop',
-  quick: (s, r, n) => `${s} sources · ${r} with realtime · ${n} stops`, back: 'Back', zin: 'Zoom in', zout: 'Zoom out', home: 'All of Europe', grab: 'Expand or collapse details'});
+  quick: (s, r, n) => `${s} sources · ${r} with realtime · ${n} stops`, back: 'Back', zin: 'Zoom in', zout: 'Zoom out', home: 'Whole world', grab: 'Expand or collapse details'});
 L.de.cellsT = 'Haltestellen zeigen'; L.en.cellsT = 'Show stops';
 EN.cellsT = 'Show stops';
 
 /* ---------- map setup ---------- */
 const svg = $('#m'), wrap = $('#map'), tip = $('#tip'), panel = $('#panel'), pbody = $('#pbody'), cv = $('#cv'), ctx = cv.getContext('2d');
-svg.innerHTML = '<g id="gw" transform="scale(.1)"></g><g id="gr" transform="scale(.01)"></g><g id="gh"></g>';
-const gw = $('#gw', svg), gr = $('#gr', svg), gh = $('#gh', svg);
+svg.innerHTML = '<g id="world" transform="scale(.1)"></g><g id="gw" transform="scale(.1)"></g><g id="gr" transform="scale(.01)"></g><g id="gh"></g>';
+const world = $('#world', svg), gw = $('#gw', svg), gr = $('#gr', svg), gh = $('#gh', svg);
 const mobile = matchMedia('(max-width:1320px)');
-let D = null, byIso = {}, cache = {}, cur = {iso: null, region: null}, view = {x: 0, y: 170, w: 1000, h: 790}, mapBounds = null, anim = null, showStops = true;
+let D = null, byIso = {}, cache = {}, cur = {iso: null, region: null}, view = {x: 0, y: 170, w: 1000, h: 790}, mapBounds = null, anim = null, showStops = true, rotation = 0;
 let W = 1, H = 1, DPR = 1;
-const EUROPE = [px(-11), py(71), px(42), py(34.5)];
+const WORLD = [px(-180), py(85), px(180), py(-85)];
 const unLat = y => (Math.atan(Math.exp(Y1 - y * Math.PI / (180 * S))) - Math.PI / 4) * 360 / Math.PI;
 const unLon = x => x / S - SX;
 
@@ -106,6 +106,7 @@ function apply() {
     wrap.style.setProperty('--map-data-fades', fades.join(',') || 'none');
   }
   svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`);
+  svg.style.transform = cv.style.transform = `rotate(${rotation}deg)`;
   schedule();
 }
 function fitBox(b, pad = .08) {
@@ -130,7 +131,7 @@ function animateTo(t, ms = 800) {
   };
   anim = requestAnimationFrame(step);
 }
-const MINW = 1.1, MAXW = 1800;
+const MINW = 1.1, MAXW = 8000;
 function zoomAt(f, cx, cy) {
   const w = Math.min(MAXW, Math.max(MINW, view.w * f)); f = w / view.w;
   view = {x: cx - (cx - view.x) * f, y: cy - (cy - view.y) * f, w, h: view.h * f}; apply();
@@ -140,8 +141,12 @@ function zoomBy(f, ms = 320) {
   const cx = view.x + view.w * sx, cy = view.y + view.h * sy, w = Math.min(MAXW, Math.max(MINW, view.w * f)), k = w / view.w;
   animateTo({x: cx - (cx - view.x) * k, y: cy - (cy - view.y) * k, w, h: view.h * k}, ms);
 }
-function toUnits(cx, cy) { const r = wrap.getBoundingClientRect(); return {x: view.x + (cx - r.left) / W * view.w, y: view.y + (cy - r.top) / H * view.h}; }
-const toScreen = (x, y) => [(x - view.x) * W / view.w, (y - view.y) * W / view.w];
+function screenDelta(dx, dy) { const a = rotation * Math.PI / 180, c = Math.cos(a), s = Math.sin(a); return {x: c * dx + s * dy, y: -s * dx + c * dy}; }
+function toUnits(cx, cy) {
+  const r = wrap.getBoundingClientRect(), sx = cx - r.left - W / 2, sy = cy - r.top - H / 2, p = screenDelta(sx, sy);
+  return {x: view.x + (p.x + W / 2) / W * view.w, y: view.y + (p.y + H / 2) / H * view.h};
+}
+const toScreen = (x, y) => { const a = rotation * Math.PI / 180, sx = (x - view.x) * W / view.w - W / 2, sy = (y - view.y) * H / view.h - H / 2; return [W / 2 + sx * Math.cos(a) - sy * Math.sin(a), H / 2 + sx * Math.sin(a) + sy * Math.cos(a)]; };
 
 /* ---------- gestures: drag with momentum, smooth wheel, pinch, double tap ---------- */
 const ptrs = new Map(); let moved = 0, pinch = null, vel = {x: 0, y: 0, t: 0}, inertia = 0, lastTap = {t: 0, x: 0, y: 0};
@@ -167,16 +172,20 @@ svg.addEventListener('pointermove', e => {
   const k = view.w / W, prev = ptrs.get(e.pointerId);
   ptrs.set(e.pointerId, {x: e.clientX, y: e.clientY});
   if (ptrs.size === 1) {
-    const dx = e.clientX - prev.x, dy = e.clientY - prev.y; moved += Math.abs(dx) + Math.abs(dy);
+    const dx = e.clientX - prev.x, dy = e.clientY - prev.y, delta = screenDelta(dx, dy); moved += Math.abs(dx) + Math.abs(dy);
     if (moved > 5) {
-      svg.classList.add('drag'); view.x -= dx * k; view.y -= dy * k; apply(); hideTip();
+      svg.classList.add('drag'); view.x -= delta.x * k; view.y -= delta.y * k; apply(); hideTip();
       const now = performance.now(), dt = Math.max(1, now - vel.t);
       vel = {x: .75 * (dx / dt) + .25 * vel.x, y: .75 * (dy / dt) + .25 * vel.y, t: now};
     }
   } else if (ptrs.size === 2) {
-    const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y), m = {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2};
-    if (pinch) { const u = toUnits(m.x, m.y), pu = toUnits(pinch.m.x, pinch.m.y); view.x -= u.x - pu.x; view.y -= u.y - pu.y; const p = toUnits(m.x, m.y); zoomAt(pinch.d / d, p.x, p.y); }
-    pinch = {d, m}; moved = 99; hideTip();
+    const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y), m = {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2}, angle = Math.atan2(b.y - a.y, b.x - a.x);
+    if (pinch) {
+      let da = angle - pinch.angle; while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI;
+      rotation += da * 180 / Math.PI; const u = toUnits(m.x, m.y), pu = toUnits(pinch.m.x, pinch.m.y);
+      view.x -= u.x - pu.x; view.y -= u.y - pu.y; const p = toUnits(m.x, m.y); zoomAt(pinch.d / d, p.x, p.y);
+    }
+    pinch = {d, m, angle}; moved = 99; hideTip();
   }
 });
 function up(e) {
@@ -187,7 +196,7 @@ function up(e) {
     let vx = vel.x, vy = vel.y, t0 = performance.now();
     const step = now => {
       const dt = Math.min(32, now - t0); t0 = now; const k = view.w / W;
-      view.x -= vx * dt * k; view.y -= vy * dt * k; apply();
+      const delta = screenDelta(vx * dt, vy * dt); view.x -= delta.x * k; view.y -= delta.y * k; apply();
       const f = Math.pow(.994, dt); vx *= f; vy *= f;
       inertia = Math.hypot(vx, vy) > .02 ? requestAnimationFrame(step) : 0;
     };
@@ -269,6 +278,7 @@ function click(e) {
 /* ---------- vector layers ---------- */
 function regionOf(iso, id) { return cache[iso] && cache[iso].regions.find(r => r.id === id); }
 function drawEurope() {
+  world.innerHTML = (D.world || []).filter(Boolean).map(d => `<path class="world-land" d="${d}"/>`).join('');
   gw.innerHTML = D.countries.map(c => c.eu ? `<path class="c k-${c.cat}" data-iso="${c.iso}" d="${c.d}"/>` : `<path class="bg" d="${c.d}"/>`).join('');
 }
 function cellsArr(str, dx, dy) {
@@ -297,8 +307,9 @@ async function go(iso, region = null, push = true) {
   $('#back').hidden = !iso;
   $$('.c.on', gw).forEach(e => e.classList.remove('on'));
   if (!iso) {
+    rotation = 0;
     svg.classList.remove('focus'); gr.innerHTML = ''; gr.dataset.iso = '';
-    renderPanel(); animateTo(fitBox(EUROPE, .01)); highlight(); schedule();
+    renderPanel(); animateTo(fitBox(WORLD, .01)); highlight(); schedule();
     if (push) history.replaceState(null, '', location.pathname + location.search);
     return;
   }
@@ -601,12 +612,12 @@ btn.addEventListener('click', () => { lang = lang === 'de' ? 'en' : 'de'; localS
 const top = $('.top'); addEventListener('scroll', () => top.classList.toggle('scrolled', scrollY > 10), {passive: true});
 
 /* ---------- start ---------- */
-fetch('data/europe.json').then(r => r.json()).then(d => {
-  D = d; D.countries.forEach(c => byIso[c.iso] = c);
-  mapBounds = D.countries.reduce((b, c) => [Math.min(b[0], c.b[0]), Math.min(b[1], c.b[1]), Math.max(b[2], c.b[2]), Math.max(b[3], c.b[3])], [Infinity, Infinity, -Infinity, -Infinity]);
+Promise.all([fetch('data/europe.json').then(r => r.json()), fetch('data/world.json?v=global-map-20261023').then(r => r.json())]).then(([d, w]) => {
+  D = d; D.world = w.layers; D.countries.forEach(c => byIso[c.iso] = c);
+  mapBounds = WORLD;
   (D.tiles || []).forEach(k => TILE.add(k)); D.places = D.places || [];
   measure(); readColors(); drawEurope(); svg.classList.add('cellson');
-  applyLang(); view = fitBox(EUROPE, .01); apply();
+  applyLang(); view = fitBox(WORLD, .01); apply();
   const [h, r] = decodeURIComponent(location.hash.slice(1)).split('/');
   if (h && byIso[h]?.eu) go(h, r || null, false);
 });

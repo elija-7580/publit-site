@@ -32,7 +32,10 @@ jobs:
           n=$(ls stops | wc -l); echo "Quellen mit Haltestellen: $n"
           test "$n" -gt 800
       - name: Karte bauen
-        run: cd /tmp/cov && SITE=$GITHUB_WORKSPACE python3 $GITHUB_WORKSPACE/tools/coverage/build.py
+        run: |
+          cd /tmp/cov
+          SITE=$GITHUB_WORKSPACE python3 $GITHUB_WORKSPACE/tools/coverage/build.py
+          SITE=$GITHUB_WORKSPACE python3 $GITHUB_WORKSPACE/tools/coverage/build_world.py
       - name: Speichern
         run: |
           git config user.name "github-actions[bot]"
