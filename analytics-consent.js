@@ -2,7 +2,7 @@
   "use strict";
 
   var key = "publit-site-analytics-consent";
-  var siteId = "2";
+  var siteId = "1";
   var consent = null;
   var trackerLoaded = false;
 
