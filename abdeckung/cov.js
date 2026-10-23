@@ -68,7 +68,7 @@ EN.cellsT = 'Show stops';
 const svg = $('#m'), wrap = $('#map'), tip = $('#tip'), panel = $('#panel'), pbody = $('#pbody'), cv = $('#cv'), ctx = cv.getContext('2d');
 svg.innerHTML = '<g id="gw" transform="scale(.1)"></g><g id="gr" transform="scale(.01)"></g><g id="gh"></g>';
 const gw = $('#gw', svg), gr = $('#gr', svg), gh = $('#gh', svg);
-const mobile = matchMedia('(max-width:1100px)');
+const mobile = matchMedia('(max-width:1320px)');
 let D = null, byIso = {}, cache = {}, cur = {iso: null, region: null}, view = {x: 0, y: 170, w: 1000, h: 790}, mapBounds = null, anim = null, showStops = true;
 let W = 1, H = 1, DPR = 1;
 const EUROPE = [px(-11), py(71), px(42), py(34.5)];
@@ -91,6 +91,19 @@ function apply() {
     const left = x0 - padX, right = x1 + padX, top = y0 - padY, bottom = y1 + padY;
     view.x = view.w >= right - left ? (left + right - view.w) / 2 : Math.max(left, Math.min(right - view.w, view.x));
     view.y = view.h >= bottom - top ? (top + bottom - view.h) / 2 : Math.max(top, Math.min(bottom - view.h, view.y));
+    const fade = Math.min(96, Math.max(36, Math.min(W, H) * .08));
+    const edges = [
+      (x0 - view.x) * W / view.w,
+      (x1 - view.x) * W / view.w,
+      (y0 - view.y) * H / view.h,
+      (y1 - view.y) * H / view.h
+    ];
+    const fades = [];
+    if (edges[0] > -fade && edges[0] < W + fade) fades.push(`linear-gradient(to right,var(--c-sea),transparent) ${edges[0].toFixed(1)}px 0/${fade}px 100% no-repeat`);
+    if (edges[1] > -fade && edges[1] < W + fade) fades.push(`linear-gradient(to left,var(--c-sea),transparent) ${(edges[1] - fade).toFixed(1)}px 0/${fade}px 100% no-repeat`);
+    if (edges[2] > -fade && edges[2] < H + fade) fades.push(`linear-gradient(to bottom,var(--c-sea),transparent) 0 ${edges[2].toFixed(1)}px/100% ${fade}px no-repeat`);
+    if (edges[3] > -fade && edges[3] < H + fade) fades.push(`linear-gradient(to top,var(--c-sea),transparent) 0 ${(edges[3] - fade).toFixed(1)}px/100% ${fade}px no-repeat`);
+    wrap.style.setProperty('--map-data-fades', fades.join(',') || 'none');
   }
   svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`);
   schedule();
