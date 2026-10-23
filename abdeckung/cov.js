@@ -69,7 +69,7 @@ const svg = $('#m'), wrap = $('#map'), tip = $('#tip'), panel = $('#panel'), pbo
 svg.innerHTML = '<g id="gw" transform="scale(.1)"></g><g id="gr" transform="scale(.01)"></g><g id="gh"></g>';
 const gw = $('#gw', svg), gr = $('#gr', svg), gh = $('#gh', svg);
 const mobile = matchMedia('(max-width:820px)');
-let D = null, byIso = {}, cache = {}, cur = {iso: null, region: null}, view = {x: 0, y: 170, w: 1000, h: 790}, anim = null, showStops = true;
+let D = null, byIso = {}, cache = {}, cur = {iso: null, region: null}, view = {x: 0, y: 170, w: 1000, h: 790}, mapBounds = null, anim = null, showStops = true;
 let W = 1, H = 1, DPR = 1;
 const EUROPE = [px(-11), py(71), px(42), py(34.5)];
 const unLat = y => (Math.atan(Math.exp(Y1 - y * Math.PI / (180 * S))) - Math.PI / 4) * 360 / Math.PI;
@@ -86,6 +86,12 @@ function insets() {
 const ppu = () => W / view.w; // screen px per map unit
 function apply() {
   view.h = view.w * H / W;
+  if (mapBounds) {
+    const [x0, y0, x1, y1] = mapBounds, padX = (x1 - x0) * .025, padY = (y1 - y0) * .025;
+    const left = x0 - padX, right = x1 + padX, top = y0 - padY, bottom = y1 + padY;
+    view.x = view.w >= right - left ? (left + right - view.w) / 2 : Math.max(left, Math.min(right - view.w, view.x));
+    view.y = view.h >= bottom - top ? (top + bottom - view.h) / 2 : Math.max(top, Math.min(bottom - view.h, view.y));
+  }
   svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`);
   schedule();
 }
@@ -584,6 +590,7 @@ const top = $('.top'); addEventListener('scroll', () => top.classList.toggle('sc
 /* ---------- start ---------- */
 fetch('data/europe.json').then(r => r.json()).then(d => {
   D = d; D.countries.forEach(c => byIso[c.iso] = c);
+  mapBounds = D.countries.reduce((b, c) => [Math.min(b[0], c.b[0]), Math.min(b[1], c.b[1]), Math.max(b[2], c.b[2]), Math.max(b[3], c.b[3])], [Infinity, Infinity, -Infinity, -Infinity]);
   (D.tiles || []).forEach(k => TILE.add(k)); D.places = D.places || [];
   measure(); readColors(); drawEurope(); svg.classList.add('cellson');
   applyLang(); view = fitBox(EUROPE, .01); apply();
