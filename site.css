@@ -179,7 +179,10 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 .coverage>p{max-width:36em;margin-top:18px}
 .covwrap{margin-top:32px;display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
 #covmap{position:relative;border-radius:22px;background:#f8f8f6;overflow:hidden;border:1px solid rgba(17,17,17,.09)}
-#covmap svg{display:block;width:100%;height:auto;-webkit-mask-image:radial-gradient(ellipse 58% 62% at 50% 50%,#000 70%,transparent 100%);mask-image:radial-gradient(ellipse 58% 62% at 50% 50%,#000 70%,transparent 100%)}
+#covmap svg{display:block;width:100%;height:auto}
+#covmap::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(to right,#f8f8f6 0%,transparent 14%,transparent 86%,#f8f8f6 100%),
+  linear-gradient(to bottom,#f8f8f6 0%,transparent 14%,transparent 86%,#f8f8f6 100%)}
 #covmap .pt{opacity:0;transform:scale(.2);transform-box:fill-box;transform-origin:center;transition:opacity .5s var(--ease),transform .6s var(--ease);cursor:pointer}
 #covmap.on .pt{opacity:1;transform:none}
 #covmap .pt:hover,#covmap .pt.sel{transform:scale(1.5)}
@@ -322,6 +325,9 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
   .tile.road{background:#000;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
   .tile .shot{border-color:#000;background:#000}
   #covmap{background:#18181a;border-color:rgba(255,255,255,.07)}
+  #covmap::after{background:
+    linear-gradient(to right,#18181a 0%,transparent 14%,transparent 86%,#18181a 100%),
+    linear-gradient(to bottom,#18181a 0%,transparent 14%,transparent 86%,#18181a 100%)}
   #covmap circle[stroke="#111111"]{stroke:#f2f2f0}
   #covmap circle[fill="#ffffff"]{fill:#18181a}
   .covlegend span,.covnote{color:#8e8e93}

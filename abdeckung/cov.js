@@ -68,7 +68,7 @@ EN.cellsT = 'Show stops';
 const svg = $('#m'), wrap = $('#map'), tip = $('#tip'), panel = $('#panel'), pbody = $('#pbody'), cv = $('#cv'), ctx = cv.getContext('2d');
 svg.innerHTML = '<g id="gw" transform="scale(.1)"></g><g id="gr" transform="scale(.01)"></g><g id="gh"></g>';
 const gw = $('#gw', svg), gr = $('#gr', svg), gh = $('#gh', svg);
-const mobile = matchMedia('(max-width:820px)');
+const mobile = matchMedia('(max-width:1100px)');
 let D = null, byIso = {}, cache = {}, cur = {iso: null, region: null}, view = {x: 0, y: 170, w: 1000, h: 790}, mapBounds = null, anim = null, showStops = true;
 let W = 1, H = 1, DPR = 1;
 const EUROPE = [px(-11), py(71), px(42), py(34.5)];
