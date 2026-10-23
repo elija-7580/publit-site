@@ -11,7 +11,7 @@ const EN = {
   heroTitle:'Your way.<br>At a glance.',
   heroLead:'Publit shows what leaves near you, plans routes across Europe and guides you until you get off. It is free, with no ads and no account.',
   ctaPrimary:'View on GitHub', ctaSecondary:'See the features ↓',
-  fact1:'Made in EU', fact2:'No account', fact3:'No tracking', fact4:'Open data',
+  fact1:'Made in EU', fact2:'No account', fact3:'Opt-in stats', fact4:'Open data',
   tabNearby:'Nearby', tabPlan:'Plan', tabRoute:'Route', tabLive:'On the way',
   f1Title:'What leaves next?', f1Text:'Open Publit and see the next departures around you: line, direction, platform and the minutes until it leaves. Live times and delays right beside them.',
   f1a:'Tap a station, route there with one tap', f1b:'Filter by metro, tram, bus, ferry', f1c:'When the stop is far, the walking time is shown', f1d:'Find cafés, pharmacies or supermarkets nearby on the map',

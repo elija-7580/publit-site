@@ -1,0 +1,81 @@
+#publit-analytics-consent {
+  position: fixed;
+  z-index: 10000;
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.pc-consent-panel {
+  right: 16px;
+  bottom: 16px;
+  width: min(520px, calc(100vw - 32px));
+  padding: 16px;
+  color: #141414;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px #0003;
+}
+
+.pc-consent-panel p {
+  margin: 0 0 12px;
+}
+
+.pc-consent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-consent-actions button,
+.pc-consent-settings button {
+  padding: 8px 14px;
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  border-radius: 999px;
+  background: #fff;
+  color: #141414;
+}
+
+.pc-consent-actions .pc-consent-primary {
+  color: #fff;
+  background: #141414;
+  border-color: #141414;
+}
+
+.pc-consent-actions a {
+  padding: 8px 6px;
+  color: #333;
+}
+
+.pc-consent-settings {
+  right: 12px;
+  bottom: 12px;
+}
+
+.pc-consent-settings button {
+  padding: 7px 12px;
+  color: #141414;
+  background: #fff;
+  box-shadow: 0 4px 18px #0003;
+}
+
+@media (prefers-color-scheme: dark) {
+  .pc-consent-panel,
+  .pc-consent-settings button {
+    color: #f4f4f2;
+    background: #1b1b1b;
+    border-color: #444;
+  }
+
+  .pc-consent-actions .pc-consent-primary {
+    color: #141414;
+    background: #ffc531;
+    border-color: #ffc531;
+  }
+
+  .pc-consent-actions a {
+    color: #f4f4f2;
+  }
+}
