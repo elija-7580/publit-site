@@ -5,7 +5,7 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 
 /* ---------- Language ---------- */
 const EN = {
-  platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show iOS.', androidDownload:'Download Android APK',
+  platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show the iPhone and the Pixel 8 Pro.', androidDownload:'Download Android APK',
   navApp:'The app', navEurope:'Europe', navWhy:'Why', navAll:'All features', navCities:'For cities', footCities:'For cities and transit operators', light:'Light', dark:'Dark',
   film1:'Board', film2:'On the way', film3:'Get off', filmBanner:'Next stop: Marienplatz', filmBannerSub:'Get off now · U6 towards Klinikum Großhadern', allFeatures:'See all features →',
   kicker:'For iPhone and Android · Made in EU · Open source',

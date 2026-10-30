@@ -53,6 +53,15 @@ p{font-size:18px;line-height:1.55;color:var(--soft)}
 .phone img{position:absolute;left:5.333%;top:2.5%;width:89.334%;height:95%;object-fit:cover;border-radius:calc(var(--w)*.13)}
 .phone::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:url(assets/iphone-17-pro.webp) center/100% 100% no-repeat}
 .hero-phones .phone{--w:calc(min(700px,78vh)*.4891)}
+/* Pixel 8 Pro (Android Studio device art, Apache 2.0): the bezel is 1469 x 3104, the screen sits at 58,58 with 1344 x 2992.
+   Same height as the iPhone (width = .9676 x --w), same drop shadow. */
+.phone.android{width:calc(var(--w)*.9676);aspect-ratio:1469/3104}
+.phone.android img{left:3.948%;top:1.869%;width:91.49%;height:96.39%;border-radius:calc(var(--w)*.06)}
+.phone.android::after{background-image:url(assets/pixel-8-pro.webp)}
+.duo{display:flex;align-items:flex-start;justify-content:center;gap:min(26px,3vw)}
+.duo .phone{--w:min(250px,38vw)}
+@media (max-width:560px){.duo:has(.film){flex-direction:column;align-items:center;gap:28px}.duo:has(.film) .phone{--w:min(250px,62vw)}}
+
 .phone-front{z-index:2;transform:translateX(-8%)}
 .phone-back{position:absolute!important;z-index:1;transform:translateX(42%) rotate(5deg) scale(.86);opacity:.95}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity .6s var(--ease)}
