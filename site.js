@@ -49,6 +49,8 @@ function applyLang() {
   $$('[data-t]').forEach(e => { if (d[e.dataset.t]) e.textContent = d[e.dataset.t]; });
   $$('[data-t-html]').forEach(e => { if (d[e.dataset.tHtml]) e.innerHTML = d[e.dataset.tHtml]; });
   langBtn.textContent = lang === 'de' ? 'EN' : 'DE';
+  // Android screens exist per language: web-x-android.webp (de) and web-x-android-en.webp
+  $$('img[data-lang-src]').forEach(i => { const s = i.getAttribute('src').replace(/-en\.webp$/, '.webp'); i.setAttribute('src', lang === 'en' ? s.replace(/\.webp$/, '-en.webp') : s); });
   buildStops();
 }
 langBtn.addEventListener('click', () => { lang = lang === 'de' ? 'en' : 'de'; localStorage.setItem('lang', lang); applyLang(); });
