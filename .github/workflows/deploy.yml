@@ -1,0 +1,29 @@
+# Updates /srv/publit-site on the server to origin/main (fast-forward only).
+# The SSH key is restricted on the server to a single command (publit-deploy.sh).
+name: Deploy
+on:
+  push:
+    branches: [main]
+  # Pushes made with GITHUB_TOKEN (Unpack assets) do not trigger push events.
+  workflow_run:
+    workflows: ['Unpack assets']
+    types: [completed]
+  workflow_dispatch:
+concurrency: deploy
+permissions: {}
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Update server checkout
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "publit-deploy@$DEPLOY_HOST"
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
