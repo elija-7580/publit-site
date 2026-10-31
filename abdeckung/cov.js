@@ -66,6 +66,8 @@ EN.cellsT = 'Show stops';
 
 /* ---------- map setup ---------- */
 const svg = $('#m'), wrap = $('#map'), tip = $('#tip'), panel = $('#panel'), pbody = $('#pbody'), cv = $('#cv'), ctx = cv.getContext('2d');
+// Phones: hide the floating privacy-settings button while the map is on screen (it would cover the sheet).
+if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => document.documentElement.classList.toggle('map-in-view', e.intersectionRatio > .4), {threshold: [0, .4, 1]}).observe(wrap);
 svg.innerHTML = '<g id="world" transform="scale(.1)"></g><g id="gw" transform="scale(.1)"></g><g id="gr" transform="scale(.01)"></g><g id="gh"></g>';
 const world = $('#world', svg), gw = $('#gw', svg), gr = $('#gr', svg), gh = $('#gh', svg);
 const mobile = matchMedia('(max-width:1320px)');

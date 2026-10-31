@@ -141,3 +141,17 @@
   #m .hl,#m .hh{stroke:#fff}
 }
 @media (max-width:1320px){.sheet:not(.open) .sheet-body{touch-action:none}}
+
+/* ---------- phones: map fills the screen under the header, nothing overlaps the sheet ---------- */
+@media (max-width:700px){
+  .cov-map{height:calc(100svh - 84px);min-height:460px;max-height:780px;scroll-margin-top:76px}
+  .m-foot{right:12px}
+  .mode{min-width:0;overflow:hidden;text-overflow:ellipsis;display:block;line-height:30px}
+  .cov-table{min-width:0}
+  .cov-table th:nth-child(3),.cov-table td:nth-child(3),.cov-table th:nth-child(4),.cov-table td:nth-child(4),
+  .cov-table th:nth-child(5),.cov-table td:nth-child(5),.cov-table th:nth-child(7),.cov-table td:nth-child(7){display:none}
+  .cov-table td{white-space:normal}
+  .cov-table td:nth-child(6){white-space:nowrap}
+}
+/* The floating privacy-settings button would cover the sheet while the map is on screen. */
+@media (max-width:1320px){html.map-in-view .pc-consent-settings{display:none}}
