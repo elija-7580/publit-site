@@ -49,9 +49,13 @@ pre{margin-top:22px;padding:22px;border-radius:18px;background:#111;color:#e9e9e
     <span>publit</span>
   </a>
   <nav>
-    <a href="../" data-t="navHome">Start</a>
-    <a href="../features/" data-t="navAll">Alle Funktionen</a>
+    <a href="../#nearby" data-t="navApp">Die App</a>
+    <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    <a href="../staedte/" data-t="navCities">Für Städte</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
+    <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
   </nav>
 </header>
 <main>
@@ -109,11 +113,19 @@ pre{margin-top:22px;padding:22px;border-radius:18px;background:#111;color:#e9e9e
 <footer class="foot">
   <span>© 2026 Publit</span>
   <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
-  <a href="../privacy/" data-t="footPrivacy" style="color:inherit">Datenschutz</a>
+  <nav class="foot-nav">
+    <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
+    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
+    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
+  </nav>
 </footer>
 <script>
 (() => {
-const EN = {"s1": "Publish your timetable as GTFS", "s1x": "Your timetable as a GTFS file (a ZIP with stops.txt, routes.txt, trips.txt, stop_times.txt and calendar.txt). Many scheduling systems export GTFS directly. In the EU there is usually a National Access Point (NAP) for it already.", "s2": "Offer live data as GTFS Realtime", "s2x": "TripUpdates with delays and cancellations, plus VehiclePositions and ServiceAlerts if you can. The trip_id and stop_id must match your GTFS. SIRI works too.", "s3": "At a stable URL, with an open licence", "s3x": "A permanent URL that works without signing up, and a clear licence such as CC BY 4.0. Update the timetable regularly and the live feed every 15 to 30 seconds.", "s4": "Add it to Transitous", "s4x": "Publit gets its data through Transitous, an open, community-run journey planner. A feed is added with a small entry in feeds/*.json in the Transitous repository on GitHub. If it is listed in the Mobility Database or on Transitland, its ID is enough.", "s5": "Done: Publit is live in your city", "s5x": "After the next daily import Publit shows your departures with live times, delays and cancellations. So does every other app built on Transitous or open data.", "navHome": "Start", "navAll": "All features", "kick": "For cities and transit operators", "title": "Put your transit live.", "lead": "Publit shows departures, delays and cancellations wherever operators publish their data openly. Five steps, and your riders see live when to leave. No contract, no fees, no app development on your side.", "codeT": "This is what the entry looks like.", "codeX": "A timetable and a live feed with the same name, so Transitous applies the updates to the right timetable. After the pull request the feed is tested automatically.", "docs": "Guide at Transitous →", "whyT": "What you get.", "b1": "Riders see delays and cancellations before they reach the platform", "b2": "Publish once, show up in many apps, not only Publit", "b3": "Changes between operators and countries become plannable", "b4": "Fits what the EU already asks for with National Access Points", "b5": "No rider data: Publit needs no account and tracks no one", "cT": "Questions, or already have a feed?", "cX": "Write to us on GitHub. We help with the entry, check your data in Publit and let you know as soon as your city is live.", "cBtn": "Report a feed", "cMap": "See coverage", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy"};
+const EN = {"navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources", "s1": "Publish your timetable as GTFS", "s1x": "Your timetable as a GTFS file (a ZIP with stops.txt, routes.txt, trips.txt, stop_times.txt and calendar.txt). Many scheduling systems export GTFS directly. In the EU there is usually a National Access Point (NAP) for it already.", "s2": "Offer live data as GTFS Realtime", "s2x": "TripUpdates with delays and cancellations, plus VehiclePositions and ServiceAlerts if you can. The trip_id and stop_id must match your GTFS. SIRI works too.", "s3": "At a stable URL, with an open licence", "s3x": "A permanent URL that works without signing up, and a clear licence such as CC BY 4.0. Update the timetable regularly and the live feed every 15 to 30 seconds.", "s4": "Add it to Transitous", "s4x": "Publit gets its data through Transitous, an open, community-run journey planner. A feed is added with a small entry in feeds/*.json in the Transitous repository on GitHub. If it is listed in the Mobility Database or on Transitland, its ID is enough.", "s5": "Done: Publit is live in your city", "s5x": "After the next daily import Publit shows your departures with live times, delays and cancellations. So does every other app built on Transitous or open data.", "navHome": "Start", "navAll": "All features", "kick": "For cities and transit operators", "title": "Put your transit live.", "lead": "Publit shows departures, delays and cancellations wherever operators publish their data openly. Five steps, and your riders see live when to leave. No contract, no fees, no app development on your side.", "codeT": "This is what the entry looks like.", "codeX": "A timetable and a live feed with the same name, so Transitous applies the updates to the right timetable. After the pull request the feed is tested automatically.", "docs": "Guide at Transitous →", "whyT": "What you get.", "b1": "Riders see delays and cancellations before they reach the platform", "b2": "Publish once, show up in many apps, not only Publit", "b3": "Changes between operators and countries become plannable", "b4": "Fits what the EU already asks for with National Access Points", "b5": "No rider data: Publit needs no account and tracks no one", "cT": "Questions, or already have a feed?", "cX": "Write to us on GitHub. We help with the entry, check your data in Publit and let you know as soon as your city is live.", "cBtn": "Report a feed", "cMap": "See coverage", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy"};
 const els = [...document.querySelectorAll('[data-t]')], DE = {};
 els.forEach(e => DE[e.dataset.t] = e.textContent);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');

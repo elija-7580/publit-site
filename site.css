@@ -129,6 +129,7 @@ p{font-size:18px;line-height:1.55;color:var(--soft)}
 .closing p{margin:22px auto 0;max-width:32em}
 .closing .cta{justify-content:center}
 .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:28px max(28px,calc((100vw - 1160px)/2));font-size:13px;color:var(--faint);border-top:1px solid var(--line)}
+.foot-nav{display:flex;flex-wrap:wrap;gap:8px 18px}.foot-nav a{color:inherit}.foot-nav a:hover{color:var(--ink)}
 
 /* The line with the travelling dot */
 .line{position:fixed;left:max(10px,calc((100vw - 1160px)/2 - 64px));top:96px;bottom:36px;width:24px;z-index:20;pointer-events:none}
@@ -350,3 +351,18 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
   .tdot.dk{box-shadow:0 0 0 3px #000}
   .phone{filter:drop-shadow(0 calc(var(--w)*.09) calc(var(--w)*.08) rgba(0,0,0,.6)) drop-shadow(0 calc(var(--w)*.02) calc(var(--w)*.025) rgba(0,0,0,.5))}
 }
+
+/* Apple Watch (Watch Ultra 3 bezel, framed by tools/website/watch_frames.py in the iOS repo) */
+.watches{display:flex;gap:min(28px,4vw);align-items:flex-start;justify-content:center}
+.watches img{height:min(380px,48vw);width:auto;filter:drop-shadow(0 22px 20px rgba(0,0,0,.22)) drop-shadow(0 5px 6px rgba(0,0,0,.18))}
+.watches img:nth-child(2){margin-top:60px}
+.tile .tph .watches img{height:300px}.tile .tph .watches img:nth-child(2){margin-top:30px}
+/* Wishes teaser */
+.wishes-teaser{max-width:760px}
+.wish-top{list-style:none;margin:28px 0;padding:0;display:grid;gap:10px}
+.wish-top li{display:flex;align-items:center;gap:16px;background:var(--surface);border-radius:18px;padding:14px 18px;box-shadow:0 1px 2px rgba(0,0,0,.05);font-weight:600}
+.wish-top b{flex:none;min-width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--dot);color:#111;font-variant-numeric:tabular-nums}
+.wish-top span{flex:1}.wish-top i{font-style:normal;font-size:13px;color:var(--faint);font-weight:500}
+.wishes-teaser .key{margin-top:8px;display:inline-flex}
+.tile-group{grid-column:1/-1;font-size:clamp(22px,2.4vw,28px);letter-spacing:-.02em;margin:34px 0 0}
+.tile-group:first-child{margin-top:0}

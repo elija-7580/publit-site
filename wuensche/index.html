@@ -32,7 +32,11 @@
     <span>publit</span>
   </a>
   <nav>
-    <a href="../" data-t="navHome">Start</a>
+    <a href="../#nearby" data-t="navApp">Die App</a>
+    <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    <a href="../staedte/" data-t="navCities">Für Städte</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
     <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
   </nav>
@@ -95,11 +99,19 @@
 <footer class="foot">
   <span>© 2026 Publit</span>
   <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
-  <a href="../privacy/" data-t="footPrivacy" style="color:inherit">Datenschutz</a>
+  <nav class="foot-nav">
+    <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
+    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
+    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
+  </nav>
 </footer>
 <script>
 (() => {
-const EN = {navHome: 'Home', title: 'What should Publit do next?', lead: 'Suggest a feature or vote for what others asked for. No sign-up, no cookies. What many people want comes sooner.',
+const EN = {navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', title: 'What should Publit do next?', lead: 'Suggest a feature or vote for what others asked for. No sign-up, no cookies. What many people want comes sooner.',
   sortTop: 'Popular', sortNew: 'New', formT: 'New wish', fTitle: 'What would you like?', fBody: 'What do you need it for? (optional)', fSend: 'Send wish',
   fNote: 'Wishes are public. We store no IP addresses and no account; your browser only keeps a random ID so you cannot vote twice.',
   footData: 'Timetable data: Transitous and open data sources', footPrivacy: 'Privacy'};
