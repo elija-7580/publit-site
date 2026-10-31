@@ -37,7 +37,8 @@ navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes',
   footData:'Timetable data: Transitous and open data sources',
   covTitle:'What Publit knows where.', covText:'Every dot is a city we tested: green with live times, grey with timetables only, yellow with live times Publit fetches from the operators itself. Tap a dot for details.',
   covNote:'Samples from 14 October 2026, from open data (Transitous). All information without guarantee.', covAria:'Map of coverage in Europe', covMore:'Detailed map of all countries and regions →',
-  footPrivacy:'Privacy'
+  footPrivacy:'Privacy',
+  supTitle:'Questions? Write to us.', supText:'A bug in the app, a missing line or an idea: send an email to support. A real person reads every message.', supAlt:'For detailed bug reports you can also open an <a href="https://github.com/elija-7580/Publit/issues">issue on GitHub</a>.', footSupport:'Support'
 };
 const DE = {};
 $$('[data-t]').forEach(e => DE[e.dataset.t] = e.textContent);
