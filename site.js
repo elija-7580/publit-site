@@ -5,7 +5,8 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 
 /* ---------- Language ---------- */
 const EN = {
-  platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show the iPhone and the Pixel 8 Pro.', androidDownload:'Download Android APK',
+  ctaIphone: 'For iPhone: on GitHub', wTitle: 'On your wrist.', wText: 'The Apple Watch app shows departures nearby and guides you through the trip: which line, how long, where to get off. A tap on your wrist reminds you to get off.', wa: 'Departures nearby, without the iPhone in your hand', wb: 'Live trip with changes and platforms', wc: 'Tickets with their code right on the watch', wishTitle: 'What should come next?', wishText: 'Suggest a feature or vote for what others asked for. No sign-up.', wishLink: 'See all wishes →',
+navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources',   platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show the iPhone and the Pixel 8 Pro.', androidDownload:'Download Android APK',
   navApp:'The app', navEurope:'Europe', navWhy:'Why', navAll:'All features', navCities:'For cities', footCities:'For cities and transit operators', light:'Light', dark:'Dark',
   film1:'Board', film2:'On the way', film3:'Get off', filmBanner:'Next stop: Marienplatz', filmBannerSub:'Get off now · U6 towards Klinikum Großhadern', allFeatures:'See all features →',
   kicker:'For iPhone and Android · Made in EU · Open source',
@@ -51,6 +52,7 @@ function applyLang() {
   langBtn.textContent = lang === 'de' ? 'EN' : 'DE';
   // Android screens exist per language: web-x-android.webp (de) and web-x-android-en.webp
   $$('img[data-lang-src]').forEach(i => { const s = i.getAttribute('src').replace(/-en\.webp$/, '.webp'); i.setAttribute('src', lang === 'en' ? s.replace(/\.webp$/, '-en.webp') : s); });
+  if (window.renderWishTop) renderWishTop();
   buildStops();
 }
 langBtn.addEventListener('click', () => { lang = lang === 'de' ? 'en' : 'de'; localStorage.setItem('lang', lang); applyLang(); });
@@ -327,4 +329,19 @@ addEventListener('load', () => { measure(); buildTrack(); });
 buildTrack();
 applyLang(); measure();
 requestAnimationFrame(frame);
+})();
+
+/* ---------- Wishes: the three most wanted (publit.eu/api/wishes) ---------- */
+(() => {
+  const ol = document.getElementById('wishtop'); if (!ol) return;
+  let top = [];
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  window.renderWishTop = () => {
+    if (!top.length) { ol.hidden = true; return; }
+    const de = document.documentElement.lang === 'de', one = de ? 'Stimme' : 'vote', many = de ? 'Stimmen' : 'votes';
+    ol.innerHTML = top.map(w => `<li><b>${w.votes}</b><span>${esc(w.title)}</span><i>${w.votes === 1 ? one : many}</i></li>`).join('');
+    ol.hidden = false;
+  };
+  fetch('/api/wishes?sort=top', {cache: 'no-store'}).then(r => r.ok ? r.json() : null)
+    .then(d => { if (d) { top = d.wishes.slice(0, 3); renderWishTop(); } }).catch(() => {});
 })();

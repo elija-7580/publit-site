@@ -1,0 +1,17 @@
+[Unit]
+Description=Publit feature requests (publit.eu/wuensche)
+After=network.target
+
+[Service]
+User=publit-wishes
+ExecStart=/usr/bin/python3 /opt/publit-wishes/wishes.py --db /var/lib/publit-wishes/wishes.db serve --port 8787
+Restart=on-failure
+StateDirectory=publit-wishes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/publit-wishes
+
+[Install]
+WantedBy=multi-user.target

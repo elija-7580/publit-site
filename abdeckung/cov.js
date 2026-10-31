@@ -8,7 +8,7 @@ const py = lat => (Y1 - Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360))) *
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- language ---------- */
-const EN = {navHome: 'Home', navAll: 'All features', navCities: 'For cities', kick: 'Coverage of Transitous', title: 'Where Transitous runs.',
+const EN = {navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', navAll: 'All features', navCities: 'For cities', kick: 'Coverage of Transitous', title: 'Where Transitous runs.',
   lead: 'The map shows the whole world. Transitous coverage data is available for Europe, measured from real stops across its sources. Zoom in or tap a European country to see its states and regions.',
   hint: 'Pinch to zoom or rotate, drag to move, tap for details.', cellsT: 'Show stop grid (about 3 km)', tableT: 'All countries', methT: 'How the map is measured',
   meth1: 'For every European source in Transitous we read the stops from the processed GTFS file and place each stop in a country and region by its coordinates. Cross-border sources therefore count where their stops really are.',
@@ -66,6 +66,8 @@ EN.cellsT = 'Show stops';
 
 /* ---------- map setup ---------- */
 const svg = $('#m'), wrap = $('#map'), tip = $('#tip'), panel = $('#panel'), pbody = $('#pbody'), cv = $('#cv'), ctx = cv.getContext('2d');
+// Phones: hide the floating privacy-settings button while the map is on screen (it would cover the sheet).
+if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => document.documentElement.classList.toggle('map-in-view', e.intersectionRatio > .4), {threshold: [0, .4, 1]}).observe(wrap);
 svg.innerHTML = '<g id="world" transform="scale(.1)"></g><g id="gw" transform="scale(.1)"></g><g id="gr" transform="scale(.01)"></g><g id="gh"></g>';
 const world = $('#world', svg), gw = $('#gw', svg), gr = $('#gr', svg), gh = $('#gh', svg);
 const mobile = matchMedia('(max-width:1320px)');

@@ -38,9 +38,9 @@
   </a>
   <nav>
     <a href="#nearby" data-t="navApp">Die App</a>
-    <a href="#europa" data-t="navEurope">Europa</a>
-    <a href="#prinzip" data-t="navWhy">Warum</a>
-    <a href="features/" data-t="navAll">Alle Funktionen</a>
+    <a href="features/" data-t="navFeat">Funktionen</a>
+    <a href="abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="wuensche/" data-t="navWishes">Wünsche</a>
     <a href="staedte/" data-t="navCities">Für Städte</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
     <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">
@@ -57,8 +57,8 @@
     <p class="lead reveal" data-t="heroLead">Publit zeigt, was in deiner Nähe gleich abfährt, plant Routen durch ganz Europa und begleitet dich bis zum Aussteigen. Die App ist kostenlos und kommt ohne Werbung und ohne Konto aus.</p>
     <p class="reveal" data-t="platforms">iOS nutzt Apple Maps, Android MapLibre. Android ist als APK verfügbar und wird weiterentwickelt. Die Screenshots zeigen das iPhone und das Pixel 8 Pro.</p>
     <div class="cta reveal">
-      <a class="key key-ink" href="https://github.com/elija-7580/Publit" data-t="ctaPrimary">Auf GitHub ansehen</a>
-      <a class="key" href="https://github.com/elija-7580/Publit-Android/releases/tag/native-latest" data-t="androidDownload">Android APK herunterladen</a>
+      <a class="key key-ink" href="https://github.com/elija-7580/Publit-Android/releases/tag/native-latest" data-t="androidDownload">Android APK herunterladen</a>
+      <a class="key" href="https://github.com/elija-7580/Publit" data-t="ctaIphone">Für iPhone: auf GitHub</a>
       <a class="key" href="#nearby" data-t="ctaSecondary">Funktionen ansehen ↓</a>
     </div>
     <ul class="facts reveal">
@@ -188,13 +188,21 @@
   <div class="feature-shot reveal"><div class="phone"><img src="assets/app/web-passes.webp" alt="" loading="lazy" width="600" height="1305"></div></div>
 </section>
 
-<section id="dark" class="dark-strip" data-stop="Nachts" data-stop-en="At night">
-  <h2 data-station class="reveal" data-t="darkTitle">Auch um Mitternacht gut lesbar.</h2>
-  <div class="strip">
-    <div class="phone reveal"><img src="assets/app/web-nearby-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
-    <div class="phone reveal"><img src="assets/app/web-plan-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
-    <div class="phone reveal"><img src="assets/app/web-live-overview-dark.webp" alt="" loading="lazy" width="600" height="1305"></div>
+<section id="watch" class="feature flip" data-stop="Watch" data-stop-en="Watch">
+  <div class="feature-text">
+    <p class="num reveal">06</p>
+    <h2 data-station class="reveal" data-t="wTitle">Am Handgelenk.</h2>
+    <p class="reveal" data-t="wText">Die Apple-Watch-App zeigt die Abfahrten in der Nähe und begleitet dich durch die Fahrt: welche Linie, wie lange noch, wo du aussteigst. Ein Tippen aufs Handgelenk erinnert dich ans Aussteigen.</p>
+    <ul class="points reveal">
+      <li data-t="wa">Abfahrten in der Nähe, auch ohne iPhone in der Hand</li>
+      <li data-t="wb">Live-Fahrt mit Umstiegen und Steig</li>
+      <li data-t="wc">Tickets mit Code direkt auf der Uhr</li>
+    </ul>
   </div>
+  <div class="feature-shot reveal"><div class="watches">
+    <img data-lang-src src="assets/app/web-watch-nearby.webp" alt="" loading="lazy" width="377" height="600">
+    <img data-lang-src src="assets/app/web-watch-trip.webp" alt="" loading="lazy" width="377" height="600">
+  </div></div>
 </section>
 
 <section id="europa" class="europe" data-stop="Europa" data-stop-en="Europe">
@@ -231,6 +239,13 @@
   </div>
 </section>
 
+<section id="wuensche" class="wishes-teaser" data-stop="Wünsche" data-stop-en="Wishes">
+  <h2 data-station class="reveal" data-t="wishTitle">Was soll als Nächstes kommen?</h2>
+  <p class="reveal" data-t="wishText">Schlag eine Funktion vor oder stimm für Wünsche anderer. Ohne Anmeldung.</p>
+  <ol class="wish-top reveal" id="wishtop" hidden></ol>
+  <a class="key reveal" href="wuensche/" data-t="wishLink">Zu den Wünschen →</a>
+</section>
+
 <section class="morelink">
   <a class="key" href="features/" data-t="allFeatures">Alle Funktionen ansehen →</a>
 </section>
@@ -245,8 +260,15 @@
 <footer class="foot">
   <span>© 2026 Publit</span>
   <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
-  <a href="staedte/" data-t="footCities" style="color:inherit">Für Städte und Verkehrsbetriebe</a>
-  <a href="privacy/" data-t="footPrivacy" style="color:inherit">Datenschutz</a>
+  <nav class="foot-nav">
+    <a href="features/" data-t="navFeat">Funktionen</a>
+    <a href="abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="wuensche/" data-t="navWishes">Wünsche</a>
+    <a href="staedte/" data-t="navCities">Für Städte</a>
+    <a href="privacy/" data-t="footPrivacy">Datenschutz</a>
+    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
+    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
+  </nav>
 </footer>
 
 <script src="site.js" defer></script>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Publit Wünsche – Funktionen vorschlagen und abstimmen</title>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/publit.svg">
+<link rel="stylesheet" href="../site.css">
+<meta name="description" content="Schlage Funktionen für Publit vor und stimme ab, was als Nächstes kommt. Ohne Anmeldung.">
+<link rel="canonical" href="https://publit.eu/wuensche/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Publit">
+<meta property="og:locale" content="de_AT">
+<meta property="og:url" content="https://publit.eu/wuensche/">
+<meta property="og:title" content="Publit Wünsche – Funktionen vorschlagen und abstimmen">
+<meta property="og:description" content="Schlage Funktionen für Publit vor und stimme ab, was als Nächstes kommt. Ohne Anmeldung.">
+<meta property="og:image" content="https://publit.eu/assets/publit-social.png">
+<meta property="og:image:alt" content="Publit – Öffi-App für iPhone und Android">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Publit Wünsche – Funktionen vorschlagen und abstimmen">
+<meta name="twitter:description" content="Schlage Funktionen für Publit vor und stimme ab, was als Nächstes kommt. Ohne Anmeldung.">
+<meta name="twitter:image" content="https://publit.eu/assets/publit-social.png">
+
+<body>
+<header class="top">
+  <a class="brand" href="../" aria-label="Publit">
+    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
+    <span>publit</span>
+  </a>
+  <nav>
+    <a href="../#nearby" data-t="navApp">Die App</a>
+    <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
+    <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
+  </nav>
+</header>
+<style>
+.wish-wrap{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start;margin-top:56px}
+.wish-tools{display:flex;gap:4px;padding:4px;border-radius:14px;background:var(--fill);width:max-content;margin-bottom:16px}
+.wish-tools button{font:inherit;font-size:14px;font-weight:600;border:0;background:none;color:var(--soft);padding:7px 14px;border-radius:10px;cursor:pointer}
+.wish-tools button.on{background:var(--surface);color:var(--ink);box-shadow:0 1.5px 1.5px rgba(0,0,0,.14)}
+.wishes{list-style:none;display:grid;gap:10px;margin:0;padding:0}
+.wish{display:flex;gap:16px;align-items:flex-start;background:var(--surface);border-radius:var(--radius);padding:18px 20px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.vote{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:58px;height:62px;border-radius:16px;border:1.5px solid var(--line);background:none;color:var(--ink);font:inherit;cursor:pointer;transition:background .2s,border-color .2s}
+.vote b{font-size:18px;font-variant-numeric:tabular-nums}.vote svg{width:16px;height:16px}
+.vote.mine{background:var(--dot);border-color:var(--dot);color:#111}
+.vote:disabled{opacity:.5;cursor:default}
+.wish h3{font-size:17px;line-height:1.35;margin:4px 0 0}.wish p{font-size:15px;margin-top:6px;white-space:pre-line}
+.wish .st{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--fill);color:var(--soft)}
+.wish .st.planned{background:#e7f0ff;color:#0b5bd3}.wish .st.doing{background:#fff3cf;color:#8a5a00}.wish .st.done{background:#e3f4e7;color:#1b7a33}
+.wish-form{position:sticky;top:96px;background:var(--surface);border-radius:var(--radius);padding:22px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.wish-form h2{font-size:22px;letter-spacing:-.02em}
+.wish-form label{display:block;font-size:13px;font-weight:700;color:var(--soft);margin:16px 0 6px}
+.wish-form input,.wish-form textarea{width:100%;box-sizing:border-box;font:inherit;font-size:16px;color:var(--ink);background:var(--ground);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.wish-form textarea{min-height:110px;resize:vertical}
+.wish-form input:focus,.wish-form textarea:focus{outline:none;border-color:var(--ink)}
+.wish-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.wish-form .key{margin-top:16px;border:0;cursor:pointer;font:inherit;font-weight:700}
+.wish-form small{display:block;margin-top:12px;font-size:12.5px;line-height:1.45;color:var(--faint)}
+.wish-msg{font-size:14px;margin-top:12px;min-height:1.4em;color:var(--soft)}.wish-msg.err{color:#c4321a}
+.wish-empty{color:var(--soft);font-size:16px;padding:30px 4px}
+@media (max-width:900px){.wish-wrap{grid-template-columns:1fr}.wish-form{position:static}}
+@media (prefers-color-scheme:dark){.wish .st.planned{background:#16294a;color:#8fb8ff}.wish .st.doing{background:#3b2f10;color:#ffd36a}.wish .st.done{background:#173322;color:#7fd99a}}
+</style>
+</head><main>
+<section class="fpage">
+  <p class="kicker"><span class="dot"></span><span>Publit</span></p>
+  <h1 data-t="title">Was soll Publit als Nächstes können?</h1>
+  <p class="lead" data-t="lead">Schlag eine Funktion vor oder stimm für Wünsche anderer. Ohne Anmeldung, ohne Cookies. Was oft gewünscht wird, kommt früher.</p>
+  <div class="wish-wrap">
+    <div>
+      <div class="wish-tools" role="tablist">
+        <button type="button" class="on" data-sort="top" data-t="sortTop">Beliebt</button>
+        <button type="button" data-sort="new" data-t="sortNew">Neu</button>
+      </div>
+      <ul class="wishes" id="wishes" aria-live="polite"></ul>
+    </div>
+    <form class="wish-form" id="wishform" novalidate>
+      <h2 data-t="formT">Neuer Wunsch</h2>
+      <label for="wtitle" data-t="fTitle">Was wünschst du dir?</label>
+      <input id="wtitle" name="title" maxlength="120" required autocomplete="off">
+      <label for="wbody" data-t="fBody">Wofür brauchst du das? (optional)</label>
+      <textarea id="wbody" name="body" maxlength="1500"></textarea>
+      <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="key key-ink" type="submit" data-t="fSend">Wunsch senden</button>
+      <p class="wish-msg" id="wmsg" role="status"></p>
+      <small data-t="fNote">Wünsche sind öffentlich. Wir speichern keine IP-Adressen und kein Konto; dein Browser merkt sich nur eine zufällige Kennung, damit du nicht doppelt abstimmst.</small>
+    </form>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <span>© 2026 Publit</span>
+  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+  <nav class="foot-nav">
+    <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
+    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
+    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
+  </nav>
+</footer>
+<script>
+(() => {
+const EN = {navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', title: 'What should Publit do next?', lead: 'Suggest a feature or vote for what others asked for. No sign-up, no cookies. What many people want comes sooner.',
+  sortTop: 'Popular', sortNew: 'New', formT: 'New wish', fTitle: 'What would you like?', fBody: 'What do you need it for? (optional)', fSend: 'Send wish',
+  fNote: 'Wishes are public. We store no IP addresses and no account; your browser only keeps a random ID so you cannot vote twice.',
+  footData: 'Timetable data: Transitous and open data sources', footPrivacy: 'Privacy'};
+const MSG = {
+  de: {empty: 'Noch keine Wünsche. Schreib den ersten!', down: 'Die Wunschliste ist gerade nicht erreichbar. Versuch es bitte später noch einmal.', sent: 'Danke! Dein Wunsch ist eingetragen.',
+       title: 'Bitte beschreib den Wunsch in mindestens 6 Zeichen.', exists: 'Diesen Wunsch gibt es schon – stimm einfach dafür ab.', slow: 'Zu viele Anfragen. Bitte warte ein bisschen.', links: 'Bitte höchstens zwei Links.', fail: 'Das hat nicht geklappt. Bitte versuch es noch einmal.',
+       vote: 'Stimme', votes: 'Stimmen', st: {open: 'Offen', planned: 'Geplant', doing: 'In Arbeit', done: 'Erledigt'}},
+  en: {empty: 'No wishes yet. Be the first!', down: 'The wish list is not reachable right now. Please try again later.', sent: 'Thanks! Your wish is in.',
+       title: 'Please describe the wish in at least 6 characters.', exists: 'This wish already exists – just vote for it.', slow: 'Too many requests. Please wait a moment.', links: 'At most two links, please.', fail: 'That did not work. Please try again.',
+       vote: 'vote', votes: 'votes', st: {open: 'Open', planned: 'Planned', doing: 'In progress', done: 'Done'}}};
+const API = '/api/wishes';
+const $ = s => document.querySelector(s);
+const els = [...document.querySelectorAll('[data-t]')], DE = {};
+els.forEach(e => DE[e.dataset.t] = e.textContent);
+let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
+let sort = 'top', list = [], loaded = false, down = false;
+let voter = null;
+try { voter = localStorage.getItem('publit-voter'); } catch (e) {}
+if (!/^[A-Za-z0-9_-]{16,64}$/.test(voter || '')) {
+  const a = new Uint8Array(18); crypto.getRandomValues(a);
+  voter = btoa(String.fromCharCode(...a)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  try { localStorage.setItem('publit-voter', voter); } catch (e) {}
+}
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const M = () => MSG[lang];
+const up = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function render() {
+  const ul = $('#wishes');
+  if (down) { ul.innerHTML = `<li class="wish-empty">${M().down}</li>`; return; }
+  if (!loaded) return;
+  if (!list.length) { ul.innerHTML = `<li class="wish-empty">${M().empty}</li>`; return; }
+  ul.innerHTML = list.map(w => `<li class="wish"><button type="button" class="vote${w.mine ? ' mine' : ''}" data-id="${w.id}" aria-pressed="${w.mine}" aria-label="${w.votes} ${w.votes === 1 ? M().vote : M().votes}">${up}<b>${w.votes}</b></button>`
+    + `<div><h3>${esc(w.title)}</h3>${w.body ? `<p>${esc(w.body)}</p>` : ''}${w.status !== 'open' ? `<span class="st ${w.status}">${M().st[w.status] || ''}</span>` : ''}</div></li>`).join('');
+}
+async function load() {
+  try {
+    const r = await fetch(`${API}?sort=${sort}&voter=${encodeURIComponent(voter)}`, {cache: 'no-store'});
+    if (!r.ok) throw 0;
+    list = (await r.json()).wishes; loaded = true; down = false;
+  } catch (e) { down = true; }
+  render();
+}
+$('#wishes').addEventListener('click', async e => {
+  const b = e.target.closest('.vote'); if (!b) return;
+  const w = list.find(x => x.id === +b.dataset.id); if (!w) return;
+  b.disabled = true;
+  try {
+    const r = await fetch(`${API}/${w.id}/vote`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({voter})});
+    const d = await r.json();
+    if (r.ok) { w.votes = d.votes; w.mine = d.mine; }
+    else if (r.status === 429) $('#wmsg').textContent = M().slow;
+  } catch (err) {}
+  render();
+});
+document.querySelectorAll('.wish-tools button').forEach(b => b.addEventListener('click', () => {
+  sort = b.dataset.sort; document.querySelectorAll('.wish-tools button').forEach(x => x.classList.toggle('on', x === b)); load();
+}));
+$('#wishform').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, msg = $('#wmsg'), btn = f.querySelector('button[type=submit]');
+  const title = f.title.value.trim();
+  msg.className = 'wish-msg';
+  if (title.length < 6) { msg.textContent = M().title; msg.classList.add('err'); f.title.focus(); return; }
+  btn.disabled = true;
+  try {
+    const r = await fetch(API, {method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({title, body: f.body.value.trim(), lang, voter, website: f.website.value})});
+    const d = await r.json().catch(() => ({}));
+    if (r.ok) { msg.textContent = M().sent; f.reset(); sort = 'new'; document.querySelectorAll('.wish-tools button').forEach(x => x.classList.toggle('on', x.dataset.sort === 'new')); load(); }
+    else { msg.textContent = M()[{422: d.error === 'links' ? 'links' : 'title', 409: 'exists', 429: 'slow'}[r.status] || 'fail']; msg.classList.add('err'); }
+  } catch (err) { msg.textContent = M().down; msg.classList.add('err'); }
+  btn.disabled = false;
+});
+const btn = document.querySelector('.lang');
+function apply() {
+  const d = lang === 'de' ? DE : EN;
+  document.documentElement.lang = lang;
+  els.forEach(e => { if (d[e.dataset.t]) e.textContent = d[e.dataset.t]; });
+  document.title = 'Publit · ' + (lang === 'de' ? 'Wünsche' : 'Wishes');
+  btn.textContent = lang === 'de' ? 'EN' : 'DE';
+  render();
+}
+btn.addEventListener('click', () => { lang = lang === 'de' ? 'en' : 'de'; localStorage.setItem('lang', lang); apply(); });
+const top = document.querySelector('.top');
+addEventListener('scroll', () => top.classList.toggle('scrolled', scrollY > 10), {passive: true});
+apply(); load();
+})();
+</script>
+<script src="/analytics-consent.js" defer></script>
+</body>
+</html>
