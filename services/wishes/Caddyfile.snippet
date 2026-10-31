@@ -1,0 +1,7 @@
+# Inside the publit.eu site block of the Caddyfile:
+handle /api/wishes* {
+	reverse_proxy 127.0.0.1:8787
+}
+# The service code lives in the site repo; do not serve it.
+@services path /services/*
+respond @services 404
