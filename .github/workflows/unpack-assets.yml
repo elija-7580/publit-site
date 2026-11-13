@@ -3,6 +3,7 @@
 name: Unpack assets
 on:
   push:
+    branches: [main]
     paths: ['_incoming/go']
 permissions:
   contents: write
@@ -20,4 +21,6 @@ jobs:
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Unpack binary assets"
-          git push
+          branch="generated/unpacked-assets-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          git push origin "HEAD:refs/heads/$branch"
+          echo "[Pull Request öffnen](https://github.com/$GITHUB_REPOSITORY/compare/main...$branch?expand=1)" >> "$GITHUB_STEP_SUMMARY"

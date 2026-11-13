@@ -1,0 +1,22 @@
+name: Website validation
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    name: Website check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate scripts, coverage data and homepage assets
+        run: |
+          node --check site.js
+          node --check coverage.js
+          node --check analytics-consent.js
+          python3 tools/check_site.py

@@ -4,17 +4,12 @@ name: Deploy
 on:
   push:
     branches: [main]
-  # Pushes made with GITHUB_TOKEN (Unpack assets) do not trigger push events.
-  workflow_run:
-    workflows: ['Unpack assets']
-    types: [completed]
   workflow_dispatch:
 concurrency: deploy
 permissions: {}
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Update server checkout
         run: |
