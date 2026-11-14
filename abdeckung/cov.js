@@ -9,41 +9,41 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- language ---------- */
 const EN = {navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', navAll: 'All features', navCities: 'For cities', kick: 'Coverage of Transitous', title: 'Where Transitous runs.',
-  lead: 'The map shows the whole world. Transitous coverage data is available for Europe, measured from real stops across its sources. Zoom in or tap a European country to see its states and regions.',
+  lead: 'Where does Transitous have open timetables and realtime data? The map shows it for the whole world, measured from the real stops of every source and updated automatically every week. Tap a country to see its states and regions.',
   hint: 'Pinch to zoom or rotate, drag to move, tap for details.', cellsT: 'Show stop grid (about 3 km)', tableT: 'All countries', methT: 'How the map is measured',
-  meth1: 'For every European source in Transitous we read the stops from the processed GTFS file and place each stop in a country and region by its coordinates. Cross-border sources therefore count where their stops really are.',
+  meth1: 'For every source in Transitous, worldwide, we read the stops from the processed GTFS file and place each stop in a country and region by its coordinates. Cross-border sources therefore count where their stops really are. When Transitous adds an area, it appears on the map with the next weekly run.',
   meth2: 'Area means: share of grid cells (about 3 × 3 km) in the area that contain at least one stop. When you zoom in, the map shows every single stop instead (to about 100 m) and a radius of about 300 m walking. Realtime means: share of stops whose source has a realtime feed in Transitous (GTFS-RT or SIRI). That does not mean every trip is live, only that live data is provided.',
-  meth3: 'The yellow, green and grey dots are cities Publit tested itself. Borders: Natural Earth. No guarantee for any information.',
+  meth3: 'The dots are capitals and large cities: green with realtime, grey with timetables only, white without data, orange where services are missing, yellow where Publit fetches extra live times itself. Borders: Natural Earth. No guarantee for any information.',
   footData: 'Timetables: Transitous and open data sources', footPrivacy: 'Privacy'};
 const els = $$('[data-t]'), DE = {}; els.forEach(e => DE[e.dataset.t] = e.textContent);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
 const L = {
-  de: {europe: 'Europa', cat: {l2: 'Fahrplan und Echtzeit', l1: 'Fahrplan, Echtzeit teilweise', t: 'Nur Fahrplan', v: 'Nur vereinzelt', n: 'Keine Daten'},
-    cellL: 'Haltestellen mit Echtzeit-Quelle', cellT: 'Haltestellen nur mit Fahrplan', tested: 'Von Publit getestet',
+  de: {europe: 'Welt', cat: {l2: 'Fahrplan und Echtzeit', l1: 'Fahrplan, Echtzeit teilweise', t: 'Nur Fahrplan', v: 'Nur vereinzelt', n: 'Keine Daten'},
+    cellL: 'Haltestellen mit Echtzeit-Quelle', cellT: 'Haltestellen nur mit Fahrplan', tested: 'Städte',
     sources: 'Quellen', rtSources: 'mit Echtzeit', stops: 'Haltestellen', area: 'Fläche mit Haltestellen', live: 'Haltestellen mit Echtzeit-Quelle',
     regions: 'Regionen', srcList: 'Quellen in diesem Gebiet', more: n => `Alle ${n} anzeigen`, less: 'Weniger anzeigen', rt: 'Echtzeit', ops: 'Betreiber',
-    country: 'Land', status: 'Status', date: d => `Stand der Daten: ${d}. Berechnet aus allen europäischen Quellen von Transitous.`,
+    country: 'Land', status: 'Status', date: d => `Stand der Daten: ${d}. Berechnet aus allen Quellen von Transitous, jede Woche neu.`,
     europeDesc: (n, s, r) => `${n} Länder mit Daten, ${s} Haltestellen aus ${r} Quellen. Tippe auf ein Land für Bundesländer, Regionen und alle Quellen.`,
-    stopsIn: n => `${n} Haltestellen hier`, cityNote: 'Getestete Städte', noData: 'Transitous hat hier keine Haltestellen.',
+    stopsIn: n => `${n} Haltestellen hier`, cityNote: 'Städte', noData: 'Transitous hat hier keine Haltestellen.',
     nation: (f, p) => `Eine Quelle deckt fast alles ab: ${f} (${p} % der Haltestellen).`,
     big: (f, p) => `Größte Quelle: ${f} mit ${p} % der Haltestellen.`,
     sum: (nm, k, srcs, rts) => `${nm}: ${srcs} ${srcs === 1 ? 'Quelle' : 'Quellen'} bei Transitous, ${rts ? rts + ' davon mit Echtzeit' : 'keine mit Echtzeit'}.`,
     area_: a => a >= .85 ? 'Fast überall gibt es Haltestellen in den Daten.' : a >= .5 ? 'In den meisten Gegenden gibt es Haltestellen in den Daten.' : a >= .2 ? 'Gut abgedeckt sind vor allem Städte und Hauptachsen.' : 'Nur einzelne Städte oder Linien sind in den Daten.',
     live_: l => l >= .9 ? 'Für fast alle Haltestellen gibt es eine Echtzeit-Quelle.' : l >= .5 ? 'Die meisten Haltestellen haben eine Echtzeit-Quelle.' : l >= .05 ? 'Echtzeit gibt es nur für einen Teil der Netze.' : 'Echtzeit gibt es hier bisher nicht.',
-    tcat: {l: 'live', x: 'live über Publit', t: 'nur Fahrplan', p: 'teilweise', n: 'keine Daten'}, sel: 'Ausgewählt', back: 'Zurück'},
-  en: {europe: 'Europe', cat: {l2: 'Timetable and realtime', l1: 'Timetable, realtime in part', t: 'Timetable only', v: 'Only scattered', n: 'No data'},
-    cellL: 'Stops with a realtime source', cellT: 'Stops with timetable only', tested: 'Tested by Publit',
+    tcat: {l: 'Echtzeit', x: 'live über Publit', t: 'nur Fahrplan', p: 'teilweise', n: 'keine Daten'}, sel: 'Ausgewählt', back: 'Zurück'},
+  en: {europe: 'World', cat: {l2: 'Timetable and realtime', l1: 'Timetable, realtime in part', t: 'Timetable only', v: 'Only scattered', n: 'No data'},
+    cellL: 'Stops with a realtime source', cellT: 'Stops with timetable only', tested: 'Cities',
     sources: 'Sources', rtSources: 'with realtime', stops: 'Stops', area: 'Area with stops', live: 'Stops with a realtime source',
     regions: 'Regions', srcList: 'Sources in this area', more: n => `Show all ${n}`, less: 'Show less', rt: 'Realtime', ops: 'Operators',
-    country: 'Country', status: 'Status', date: d => `Data as of ${d}. Computed from all European sources in Transitous.`,
+    country: 'Country', status: 'Status', date: d => `Data as of ${d}. Computed from all sources in Transitous, every week.`,
     europeDesc: (n, s, r) => `${n} countries with data, ${s} stops from ${r} sources. Tap a country for its states, regions and all sources.`,
-    stopsIn: n => `${n} stops here`, cityNote: 'Tested cities', noData: 'Transitous has no stops here.',
+    stopsIn: n => `${n} stops here`, cityNote: 'Cities', noData: 'Transitous has no stops here.',
     nation: (f, p) => `One source covers almost everything: ${f} (${p} % of stops).`,
     big: (f, p) => `Largest source: ${f} with ${p} % of stops.`,
     sum: (nm, k, srcs, rts) => `${nm}: ${srcs} ${srcs === 1 ? 'source' : 'sources'} in Transitous, ${rts ? rts + ' of them with realtime' : 'none with realtime'}.`,
     area_: a => a >= .85 ? 'There are stops in the data almost everywhere.' : a >= .5 ? 'Most areas have stops in the data.' : a >= .2 ? 'Mainly cities and main corridors are covered.' : 'Only single cities or lines are in the data.',
     live_: l => l >= .9 ? 'Almost every stop has a realtime source.' : l >= .5 ? 'Most stops have a realtime source.' : l >= .05 ? 'Realtime exists for some networks only.' : 'No realtime here yet.',
-    tcat: {l: 'live', x: 'live via Publit', t: 'timetable only', p: 'partly', n: 'no data'}, sel: 'Selected', back: 'Back'}
+    tcat: {l: 'realtime', x: 'live via Publit', t: 'timetable only', p: 'partly', n: 'no data'}, sel: 'Selected', back: 'Back'}
 };
 const T = () => L[lang];
 const nf = n => n.toLocaleString(lang === 'de' ? 'de-DE' : 'en-GB');
@@ -620,7 +620,9 @@ Promise.all([fetch('data/europe.json').then(r => r.json()), fetch('data/world.js
   mapBounds = WORLD;
   (D.tiles || []).forEach(k => TILE.add(k)); D.places = D.places || [];
   measure(); readColors(); drawEurope(); svg.classList.add('cellson');
-  applyLang(); view = fitBox(EUROPE, .01); apply();
+  applyLang();
+  const has = D.countries.filter(c => c.eu && c.stops && c.b), B = has.length ? [Math.min(...has.map(c => c.b[0])), Math.max(py(75), Math.min(...has.map(c => c.b[1]))), Math.max(...has.map(c => c.b[2])), Math.min(py(-48), Math.max(...has.map(c => c.b[3])))] : EUROPE;
+  view = fitBox(B, .01); apply();
   const [h, r] = decodeURIComponent(location.hash.slice(1)).split('/');
   if (h && byIso[h]?.eu) go(h, r || null, false);
 });

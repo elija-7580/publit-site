@@ -35,8 +35,8 @@ navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes',
   w5:'Simple', w5t:'Open it and go. What matters is shown big, everything else is one tap away.', w6:'Smart routing', w6t:'Publit rates every change: how safe is it, how long do you wait and walk? The route that feels shortest wins.',
   endTitle:'Last stop. Everybody off, please.', endText:'Get Publit for free on your iPhone and find the next departure near you.',
   footData:'Timetable data: Transitous and open data sources',
-  covTitle:'What Publit knows where.', covText:'Every dot is a city we tested: green with live times, grey with timetables only, yellow with live times Publit fetches from the operators itself. Tap a dot for details.',
-  covNote:'Samples from 14 October 2026, from open data (Transitous). All information without guarantee.', covAria:'Map of coverage in Europe', covMore:'Detailed map of all countries and regions →',
+  covTitle:'What Publit knows where.', covText:'Publit works wherever Transitous has open timetables. The map shows where that is today: green with realtime, grey with timetables only. It updates itself every week. Tap a country for details.',
+  covAria:'Map of Transitous coverage worldwide', covMore:'Detailed map of all countries and regions →',
   footPrivacy:'Privacy',
   supTitle:'Questions? Write to us.', supText:'A bug in the app, a missing line or an idea: send an email to support. A real person reads every message.', supAlt:'For detailed bug reports you can also open an <a href="https://github.com/elija-7580/Publit/issues">issue on GitHub</a>.', footSupport:'Support'
 };

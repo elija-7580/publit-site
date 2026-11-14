@@ -1,5 +1,4 @@
 import urllib.parse,json,struct,zlib,urllib.request,concurrent.futures as cf,os,csv,io,sys
-EU='ge am ad al at ba be bg ch cy cz de dk ee es fi fr gb gr hr hu ie is it lt lu lv mc md me mk nl no pl pt ro rs se si sk tr ua xk eu'.split()
 B='https://api.transitous.org/gtfs/'
 def rng(url,a,b):
     r=urllib.request.Request(url,headers={'Range':f'bytes={a}-{b}','User-Agent':'publit-coverage/1.0'})
@@ -46,7 +45,8 @@ def stops(fn):
         p+=46+nl+el+cl
     return fn,'no stops'
 d=json.load(open('lic.json'))
-fns=sorted({x['filename'] for x in d if x.get('filename','').split('_')[0] in EU})
+# Every GTFS feed Transitous publishes, worldwide: a new region shows up on the map by itself.
+fns=sorted({x['filename'] for x in d if x.get('filename','').endswith('.gtfs.zip')})
 print(len(fns),flush=True)
 done=0
 with cf.ThreadPoolExecutor(12) as ex:

@@ -1,4 +1,5 @@
-# Erzeugt abdeckung/data/*.json. Siehe .github/workflows/coverage.yml
+# Erzeugt abdeckung/data/*.json aus allen GTFS-Quellen von Transitous, weltweit. Siehe .github/workflows/coverage.yml
+# Kein Land und keine Stadt ist fest eingetragen: kommt bei Transitous ein Gebiet dazu, erscheint es beim naechsten Lauf.
 import json,glob,os,math,re,collections
 import numpy as np, shapely
 from shapely.geometry import shape, box, mapping, Polygon, MultiPolygon
@@ -7,7 +8,8 @@ SITE=os.environ.get('SITE','/data/repos/publit-site'); OUT=SITE+'/abdeckung/data
 K=0.6156614753256583; SX=22.87703162651752; Y1=1.81486224426954; S=K*SX
 def px(lon): return (lon+SX)*S
 def py(lat): return (Y1-np.log(np.tan(np.pi/4+np.asarray(lat)*np.pi/360)))*S*180/np.pi
-BOX=box(-25,34,45.5,71.5)
+BOX=box(-180,-60,180,84)
+# Europe is always listed, also where there is no data yet; elsewhere a country appears once it has stops.
 EUROPE='ad al am at ba be bg by ch cy cz de dk ee es fi fr gb ge gr hr hu ie is it li lt lu lv mc md me mk mt nl no pl pt ro rs ru se si sk sm tr ua va xk az'.split()
 # ---------- feeds ----------
 lic=[e for e in json.load(open('lic.json')) if 'filename' in e]
@@ -42,12 +44,13 @@ a1=json.load(open('a1.geojson'))['features']
 regions=collections.defaultdict(dict)
 for ft in a1:
     p=ft['properties']; iso=(p['iso_a2'] or '').lower()
-    if iso not in countries or not countries[iso]['eu']: continue
+    if iso not in countries: continue
     g=shape(ft['geometry']).intersection(BOX)
     if g.is_empty: continue
-    key=p['name']; de=p.get('name_de') or p['name']; en=p.get('name_en') or p['name']
+    nm=p['name'] or p.get('name_en') or p.get('woe_name') or p.get('adm1_code') or '?'
+    key=nm; de=p.get('name_de') or nm; en=p.get('name_en') or nm
     if iso in GROUP:
-        r=p.get(GROUP[iso]) or p['name']
+        r=p.get(GROUP[iso]) or nm
         if iso=='pt' and r=='Norte, Centro': r='Centro'
         key=r; de=r; en=r
     R=regions[iso].setdefault(key,dict(name=key,de=de,en=en,parts=[]))
@@ -89,16 +92,33 @@ for fi,f in enumerate(feeds):
             if f['rt']: rs['live']|=pts
             rs['cells']|=cells_of(lon[sub],lat[sub])
     if fi%100==0: print('feed',fi,flush=True)
+for iso,c in countries.items(): c['eu']=c['eu'] or bool(CS[iso]['stops'])
+print('countries with data',sum(1 for i in countries if CS[i]['stops']))
+# ---------- towns: does a town have stops? (keeps big, empty countries from looking blank) ----------
+TOWNS=collections.defaultdict(list)
+for ft in json.load(open('pp.geojson'))['features']:
+    p=ft['properties']
+    if p['pop_max']>=50000: TOWNS[(p.get('iso_a2') or '').lower()].append((p['latitude'],p['longitude']))
+def town_share(st,iso,g=None):
+    ts=TOWNS.get(iso,[])
+    if g is not None and ts:
+        a=np.array(ts); ts=[t for t,ok in zip(ts,shapely.contains_xy(g,a[:,1],a[:,0])) if ok]
+    if len(ts)<3: return None
+    hit=0
+    for la,lo in ts:
+        i,j=math.floor(lo/DX),math.floor(la/DY)
+        if any((i+a,j+b) in st['cells'] for a in (-1,0,1) for b in (-1,0,1)): hit+=1
+    return round(hit/len(ts),3)
 def area_cells(g):
     b=g.bounds; xs=np.arange(math.floor(b[0]/DX),math.ceil(b[2]/DX)); ys=np.arange(math.floor(b[1]/DY),math.ceil(b[3]/DY))
     X,Y=np.meshgrid((xs+.5)*DX,(ys+.5)*DY); return int(shapely.contains_xy(g,X.ravel(),Y.ravel()).sum()) or 1
-def summ(st,g):
+def summ(st,g,iso,whole=False):
     n=len(st['stops']); tot=area_cells(g)
-    return dict(stops=n,live=round(len(st['live'])/n,3) if n else 0,area=round(min(1,len(st['cells'])/tot),3),
+    return dict(towns=town_share(st,iso,None if whole else g),stops=n,live=round(len(st['live'])/n,3) if n else 0,area=round(min(1,len(st['cells'])/tot),3),
         feeds=[[fi,c] for fi,c in st['feeds'].most_common() if c>=3 or c/len(feeds[fi]['pts'])>.2])
 def cat(s):
     if not s['stops']: return 'n'
-    if s['area']<.05: return 'v'
+    if s['area']<.05 and (s['towns'] is None or s['towns']<.3): return 'v'
     if s['live']>=.5: return 'l2'
     if s['live']>=.05: return 'l1'
     return 't'
@@ -123,16 +143,19 @@ def path(g,tol,dec):
 def pb(g): b=g.bounds; return [round(float(px(b[0])),1),round(float(py(b[3])),1),round(float(px(b[2])),1),round(float(py(b[1])),1)]
 # ---------- write ----------
 fe=[dict(n=f['name'],o=f['ops'][:12],no=len(f['ops']),rt=f['rt'],l=f['lic'],p=f['pub'],u=f['upd'],cc=f['cc'],s=len(f['pts'])) for f in feeds]
-eu=dict(date=max(f['upd'] for f in feeds if f['upd']),scale=10,feeds=fe,countries=[])
+eu_rec={}
+import datetime
+# The day the data was read (feeds sometimes carry dates in the future); the apps take the newest atlas by this date.
+eu=dict(date=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d'),scale=10,feeds=fe,countries=[])
 for iso,c in sorted(countries.items()):
     rec=dict(iso=iso,de=c['de'],en=c['en'],eu=c['eu'],d=path(c['geom'],.35,1) or path(c['geom'],.01,1) or path(c['geom'].buffer(.02),.01,1),b=pb(c['geom']))
     if c['eu']:
-        s=summ(CS[iso],c['geom']); s['cat']=cat(s); rec.update(s); rec['regions']=len(regions.get(iso,{}))
-    eu['countries'].append(rec)
+        s=summ(CS[iso],c['geom'],iso,True); s['cat']=cat(s); rec.update(s); rec['regions']=len(regions.get(iso,{}))
+    eu['countries'].append(rec); eu_rec[iso]=rec
     if c['eu'] and iso in regions:
         rr=[]
         for rk,R in sorted(regions[iso].items()):
-            s=summ(RS[(iso,rk)],R['geom']); s['cat']=cat(s)
+            s=summ(RS[(iso,rk)],R['geom'],iso); s['cat']=cat(s)
             rr.append(dict(id=rk,de=R['de'],en=R['en'],d=path(R['geom'],.06,2) or path(R['geom'],.005,2),b=pb(R['geom']),**s))
         st=CS[iso]; enc=lambda S_: ';'.join(f'{a},{b}' for a,b in sorted(S_))
         stat_only=st['cells']-st['lcells']
@@ -155,7 +178,7 @@ live=collections.defaultdict(set); tt=collections.defaultdict(set)
 for f in feeds:
     P=f['pts']
     if not len(P): continue
-    lat,lon=P[:,0],P[:,1]; m=(lon>=-25)&(lon<45.5)&(lat>=34)&(lat<71.5); lat,lon=lat[m],lon[m]
+    lat,lon=P[:,0],P[:,1]; m=(lat>=-60)&(lat<84); lat,lon=lat[m],lon[m]
     q=np.round(lon*1000).astype(np.int64)*1000000+np.round(lat*1000).astype(np.int64)
     (live if f['rt'] else tt)[0].update(q.tolist())
 L_=live[0]; T_=tt[0]-L_
@@ -174,12 +197,60 @@ print('tiles',len(tiles),'live',len(L_),'tt',len(T_))
 pl=[]
 for ft in json.load(open('pp.geojson'))['features']:
     p=ft['properties']; lo,la=p['longitude'],p['latitude']
-    if -25<lo<45.5 and 34<la<71.5 and p['scalerank']<=8:
+    shown=countries.get((p.get('iso_a2') or '').lower(),{}).get('eu')
+    if -60<la<84 and p['scalerank']<=(8 if shown else 3):
         pl.append([p['name'],round(la,3),round(lo,3),p['scalerank'],1 if p['adm0cap'] else 0])
 pl.sort(key=lambda r:(r[3],-r[4])); eu['places']=pl
-import ast
-src=open(SITE+'/coverage.js').read()
-arr=src[src.index('const C = [')+10:src.index('];',src.index('const C = ['))+1]
-eu['publit']=ast.literal_eval(arr)
+# ---------- cities: computed from the stops, plus the hand-kept list in cities.json ----------
+CUR=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'cities.json')))
+GAPS={'L':('local and regional buses','Regionalbusse'),'C':('city buses','Stadtbusse'),'M':('metro','Metro'),'T':('trams','Trams'),'F':('ferries','Fähren'),'S':('suburban trains','S-Bahn')}
+def qll(q):
+    x=q//1000000; y=q-x*1000000
+    if y>=500000: y-=1000000; x+=1
+    return y/1000,x/1000
+BIN=collections.defaultdict(list)
+for live_,S_ in ((1,L_),(0,T_)):
+    for q in S_:
+        la,lo=qll(q); BIN[(math.floor(la/.05),math.floor(lo/.05))].append((la,lo,live_))
+def near(la,lo,km=5):
+    n=l=0; r=int(math.ceil(km/5.5))+1; cl=math.cos(math.radians(la))
+    for a in range(-r,r+1):
+        for b in range(-2*r,2*r+1):
+            for y,x,lv in BIN.get((math.floor(la/.05)+a,math.floor(lo/.05)+b),()):
+                if math.hypot((y-la)*111.2,(x-lo)*111.2*cl)<=km: n+=1; l+=lv
+    return n,l
+def partial_at(la,lo):
+    for c in CUR['partial']:
+        if 'circle' in c:
+            y,x,rad=c['circle']
+            if math.hypot((y-la)*111.2,(x-lo)*111.2*math.cos(math.radians(la)))*1000<=rad: return c
+    return None
+cities=[]
+for nm,la,lo,en,de in CUR['own_live']: cities.append([nm,la,lo,'x',en,de])
+seen={(round(c[1]),round(c[2])) for c in cities}
+for ft in json.load(open('pp.geojson'))['features']:
+    p=ft['properties']; iso=(p.get('iso_a2') or '').lower()
+    if not countries.get(iso,{}).get('eu'): continue
+    if not (p['adm0cap'] or p['scalerank']<=2 or (iso in EUROPE and p['scalerank']<=3 and p['pop_max']>=500000)): continue
+    la,lo=round(p['latitude'],2),round(p['longitude'],2)
+    if any(math.hypot(la-c[1],lo-c[2])<.3 for c in cities): continue
+    n,l=near(la,lo)
+    pc_=partial_at(la,lo)
+    if pc_:
+        miss=[GAPS[g] for g in pc_['gaps']]
+        cities.append([p['name'],la,lo,'p','Missing: '+', '.join(m[0] for m in miss),'Es fehlen: '+', '.join(m[1] for m in miss)])
+    elif n<20: cities.append([p['name'],la,lo,'n'])
+    elif l/n>=.5: cities.append([p['name'],la,lo,'l'])
+    else: cities.append([p['name'],la,lo,'t'])
+eu['publit']=cities
+print('cities',len(cities),collections.Counter(c[3] for c in cities))
+# ---------- home.json: small file for the map on the start page ----------
+home=dict(date=eu['date'],countries=[],cities=cities)
+for iso,c in sorted(countries.items()):
+    d=path(c['geom'],1.5,0)
+    if not d: continue
+    home['countries'].append([iso,c['en'],c['de'],eu_rec[iso].get('cat','') if c['eu'] else '',eu_rec[iso].get('stops',0) if c['eu'] else 0,d,[round(v) for v in pb(c['geom'])]])
+json.dump(home,open(f'{OUT}/home.json','w'),ensure_ascii=False,separators=(',',':'))
+print('home.json',os.path.getsize(f'{OUT}/home.json'))
 json.dump(eu,open(f'{OUT}/europe.json','w'),ensure_ascii=False,separators=(',',':'))
 print('ok')

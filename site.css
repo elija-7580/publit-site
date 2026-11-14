@@ -193,11 +193,20 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 #covmap::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
   linear-gradient(to right,#f8f8f6 0%,transparent 14%,transparent 86%,#f8f8f6 100%),
   linear-gradient(to bottom,#f8f8f6 0%,transparent 14%,transparent 86%,#f8f8f6 100%)}
-#covmap .pt{opacity:0;transform:scale(.2);transform-box:fill-box;transform-origin:center;transition:opacity .5s var(--ease),transform .6s var(--ease);cursor:pointer}
-#covmap.on .pt{opacity:1;transform:none}
-#covmap .pt:hover,#covmap .pt.sel{transform:scale(1.5)}
-#covmap .ring{fill:none;stroke:#1b7a33;stroke-width:1.6;transform-box:fill-box;transform-origin:center;opacity:0}
-#covmap.on .ring{animation:covpulse 2.6s var(--ease) infinite}
+#abdeckung{--k-l2:#1b7a33;--k-l1:#8fca9c;--k-t:#a3a39e;--k-v:#d2d2cc;--k-n:#e6e6e1;--k-edge:#fff}
+#covmap svg{aspect-ratio:2/1}
+#covland path{stroke:var(--k-edge);stroke-width:1.2;vector-effect:non-scaling-stroke;opacity:0;transition:opacity .7s var(--ease),filter .2s;cursor:pointer}
+#covmap.on #covland path{opacity:1}
+#covland path:hover,#covland path.sel{filter:brightness(.9)}
+#covland .k-l2,.covlegend .k-l2,.covtip .k-l2{fill:var(--k-l2);background:var(--k-l2)}#covland .k-l1,.covlegend .k-l1,.covtip .k-l1{fill:var(--k-l1);background:var(--k-l1)}
+#covland .k-t,.covlegend .k-t,.covtip .k-t{fill:var(--k-t);background:var(--k-t)}#covland .k-v,.covlegend .k-v,.covtip .k-v{fill:var(--k-v);background:var(--k-v)}
+#covland .k-n,.covlegend .k-n,.covtip .k-n{fill:var(--k-n);background:var(--k-n)}
+.covlegend i[class^="k-"],.covtip i[class^="k-"]{border-color:transparent;border-radius:4px}
+.covlegend .covframe{gap:6px;margin-top:4px}
+.covframe button{font:inherit;font-size:14px;padding:6px 12px;border-radius:999px;border:1px solid rgba(17,17,17,.15);background:transparent;color:inherit;cursor:pointer}
+.covframe button[aria-pressed="true"]{background:#111;color:#fff;border-color:#111}
+#covmap .pt{opacity:0;transition:opacity .5s var(--ease);cursor:pointer}
+#covmap.on .pt{opacity:1}
 @keyframes covpulse{0%{transform:scale(.6);opacity:.8}100%{transform:scale(2.6);opacity:0}}
 .covtip{position:absolute;z-index:2;pointer-events:none;min-width:150px;max-width:240px;padding:10px 12px;border-radius:12px;background:var(--surface);
   box-shadow:0 6px 18px rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.1);font-size:14px;line-height:1.35;opacity:0;transform:translate(-50%,calc(-100% - 14px)) scale(.96);transition:opacity .15s,transform .15s}
@@ -338,8 +347,11 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
   #covmap::after{background:
     linear-gradient(to right,#18181a 0%,transparent 14%,transparent 86%,#18181a 100%),
     linear-gradient(to bottom,#18181a 0%,transparent 14%,transparent 86%,#18181a 100%)}
+  #abdeckung{--k-l2:#2f9e4f;--k-l1:#2a5e3a;--k-t:#6a6a6e;--k-v:#3e3e41;--k-n:#2b2b2d;--k-edge:#18181a}
   #covmap circle[stroke="#111111"]{stroke:#f2f2f0}
   #covmap circle[fill="#ffffff"]{fill:#18181a}
+  .covframe button{border-color:rgba(255,255,255,.2)}
+  .covframe button[aria-pressed="true"]{background:#f2f2f0;color:#111;border-color:#f2f2f0}
   .covlegend span,.covnote{color:#8e8e93}
   .covtip{box-shadow:0 6px 18px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.07)}
   .screens-dark .theme::before{background:#3a3a3c}
