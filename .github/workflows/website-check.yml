@@ -4,6 +4,7 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -18,5 +19,6 @@ jobs:
         run: |
           node --check site.js
           node --check coverage.js
+          node --check abdeckung/cov.js
           node --check analytics-consent.js
           python3 tools/check_site.py
