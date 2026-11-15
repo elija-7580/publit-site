@@ -8,7 +8,7 @@ const py = lat => (Y1 - Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360))) *
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- language ---------- */
-const EN = {navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', navAll: 'All features', navCities: 'For cities', kick: 'Coverage of Transitous', title: 'Where Transitous runs.',
+const EN = {navSupport: 'Support', navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', navAll: 'All features', navCities: 'For cities', kick: 'Coverage of Transitous', title: 'Where Transitous runs.',
   lead: 'Where does Transitous have open timetables and realtime data? The map shows it for the whole world, measured from the real stops of every source and updated automatically every week. Tap a country to see its states and regions.',
   hint: 'Pinch to zoom or rotate, drag to move, tap for details.', cellsT: 'Show stop grid (about 3 km)', tableT: 'All countries', methT: 'How the map is measured',
   meth1: 'For every source in Transitous, worldwide, we read the stops from the processed GTFS file and place each stop in a country and region by its coordinates. Cross-border sources therefore count where their stops really are. When Transitous adds an area, it appears on the map with the next weekly run.',
