@@ -26,7 +26,16 @@ sudo -u publit-wishes python3 /opt/publit-wishes/wishes.py --db /var/lib/publit-
 
 Easier: set status (and, if needed, a cleaner title/body) in `wuensche/status.json` in this repo,
 keyed by wish id. The website applies it right after deploy; the API applies it too, reading
-`/srv/publit-site/wuensche/status.json` (`--overlay` / `WISHES_OVERLAY`), so the apps see the same board.
+https://publit.eu/wuensche/status.json (cached a minute; `--overlay` / `WISHES_OVERLAY` for a file
+or another URL), so the apps see the same board.
+
+Update the installed service in place (run on the server; finds the path the service uses):
+
+```sh
+f=$(systemctl show -p ExecStart --value publit-wishes | grep -o '/[^ ;]*wishes\.py' | head -1)
+sudo curl -fsSL https://raw.githubusercontent.com/elija-7580/publit-site/main/services/wishes/wishes.py -o "$f"
+sudo systemctl restart publit-wishes
+```
 
 ## Privacy and abuse
 

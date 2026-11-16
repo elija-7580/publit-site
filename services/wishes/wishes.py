@@ -21,7 +21,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DB = os.environ.get("WISHES_DB", "/var/lib/publit-wishes/wishes.db")
 # Status and wording kept in the site repo (wuensche/status.json), so the board updates with a normal deploy.
-OVERLAY = os.environ.get("WISHES_OVERLAY", "/srv/publit-site/wuensche/status.json")
+# A file path or a URL; the URL works wherever the site checkout lives. Cached for a minute.
+OVERLAY = os.environ.get("WISHES_OVERLAY", "https://publit.eu/wuensche/status.json")
+_ov_cache = {"at": 0.0, "data": {}}
 STATUSES = ("open", "planned", "doing", "done")
 LIMITS = {"post": (3, 3600), "vote": (60, 3600)}     # per hashed address: count per seconds
 MAX_BODY = 4000
@@ -74,18 +76,33 @@ def clean(s, n):
     return re.sub(r"[ \t]+", " ", s)[:n]
 
 
+def overlay():
+    if time.time() - _ov_cache["at"] < 60:
+        return _ov_cache["data"]
+    try:
+        if OVERLAY.startswith("http"):
+            import urllib.request
+            req = urllib.request.Request(OVERLAY, headers={"User-Agent": "publit-wishes"})
+            with urllib.request.urlopen(req, timeout=5) as r:
+                raw = json.load(r)
+        else:
+            with open(OVERLAY, encoding="utf-8") as f:
+                raw = json.load(f)
+        data = {int(k): {x: v[x] for x in ("status", "title", "body", "short") if isinstance(v.get(x), (str, dict))}
+                for k, v in raw.items()}
+    except (OSError, ValueError, AttributeError):
+        data = _ov_cache["data"]          # keep the last good state if the site is briefly unreachable
+    _ov_cache.update(at=time.time(), data=data)
+    return data
+
+
 def listing(c, sort, voter):
     order = "votes desc, w.created desc" if sort != "new" else "w.created desc"
     rows = c.execute(f"""select w.id, w.title, w.body, w.lang, w.status, w.created,
         (select count(*) from votes v where v.wish = w.id) as votes,
         exists(select 1 from votes v where v.wish = w.id and v.voter = ?) as mine
         from wishes w where w.hidden = 0 order by {order} limit 500""", (voter or "",)).fetchall()
-    try:
-        with open(OVERLAY, encoding="utf-8") as f:
-            ov = {int(k): {x: v[x] for x in ("status", "title", "body", "short") if isinstance(v.get(x), (str, dict))}
-                  for k, v in json.load(f).items()}
-    except (OSError, ValueError, AttributeError):
-        ov = {}
+    ov = overlay()
     out = []
     for r in rows:
         w = dict(r) | {"mine": bool(r["mine"])} | ov.get(r["id"], {})
