@@ -72,9 +72,18 @@
   </div>
 
   <div class="sup-block">
+    <h2 data-t="gT">Über GitHub Sponsors</h2>
+    <p class="sup-note" data-t="gX">Ohne App-Store-Gebühr: Unterstütze Publit direkt auf GitHub – monatlich oder einmalig, mit Kreditkarte oder PayPal. Publit ist Open Source, der ganze Code liegt dort.</p>
+    <div class="cta">
+      <a class="key key-ink" href="https://github.com/sponsors/elija-7580"><span aria-hidden="true">♥</span>&nbsp;<span data-t="gBtn">Auf GitHub sponsern</span></a>
+      <a class="key" href="https://github.com/elija-7580/Publit" data-t="gCode">Code auf GitHub ansehen</a>
+    </div>
+  </div>
+
+  <div class="sup-block">
     <h2 data-t="hT">So geht's</h2>
     <div class="sup-steps">
-      <div class="card"><h3 data-t="h1">In der App</h3><p data-t="h1x">Einstellungen → „Publit unterstützen“. Bezahlt wird sicher über den App Store oder Google Play; kündigen kannst du dort jederzeit.</p></div>
+      <div class="card"><h3 data-t="h1">In der App</h3><p data-t="h1x">Einstellungen → „Publit unterstützen“. Bezahlt wird sicher über den App Store oder Google Play; kündigen kannst du dort jederzeit. Oder ohne App: GitHub Sponsors.</p></div>
       <div class="card"><h3 data-t="h2">Ohne Geld</h3><p data-t="h2x">Wünsche einreichen und abstimmen, Fehler melden, Publit weitersagen oder deine Stadt zu Transitous bringen – das hilft genauso.</p></div>
       <div class="card"><h3 data-t="h3">Wohin das Geld geht</h3><p data-t="h3x">Server für publit.eu, Wunschliste und Live-Daten, die Entwickler-Konten bei Apple und Google und die Entwicklung selbst.</p></div>
     </div>
@@ -83,7 +92,7 @@
       <a class="key" href="https://github.com/elija-7580/Publit-Android/releases/tag/native-latest" data-t="android">Android-App laden</a>
       <a class="key" href="../wuensche/" data-t="wishes">Zu den Wünschen →</a>
     </div>
-    <p class="sup-note" data-t="note">Beträge in Euro; im App Store und bei Google Play siehst du den Preis in deiner Währung. Store-Gebühren gehen an Apple bzw. Google.</p>
+    <p class="sup-note" data-t="note">Beträge in Euro; im App Store und bei Google Play siehst du den Preis in deiner Währung. Store-Gebühren gehen an Apple bzw. Google – über GitHub Sponsors kommt mehr bei Publit an.</p>
   </div>
 </section>
 </main>
@@ -109,11 +118,11 @@ const MONTHLY = [150, 300, 500, 1000, 2000, 5000], ONCE = [300, 500, 1000, 2000,
 const EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources",
   "kick": "Publit is a community project", "title": "Support Publit.", "lead": "No ads, no tracking, no account. Your contribution pays for servers, developer accounts and the time to make Publit better. Support unlocks nothing: every feature stays free for everyone.",
   "mT": "Monthly", "mX": "A small regular amount helps most – it lets us plan. Cancel any time.", "oT": "One-time", "hT": "How it works",
-  "h1": "In the app", "h1x": "Settings → “Support Publit”. You pay safely through the App Store or Google Play and can cancel there at any time.",
+  "h1": "In the app", "h1x": "Settings → “Support Publit”. You pay safely through the App Store or Google Play and can cancel there at any time. Or without the app: GitHub Sponsors.",
   "h2": "Without money", "h2x": "Suggest and vote for wishes, report bugs, tell others about Publit or bring your city to Transitous – that helps just as much.",
   "h3": "Where the money goes", "h3x": "Servers for publit.eu, the wish list and live data, the developer accounts at Apple and Google, and development itself.",
   "ios": "Open in the App Store", "android": "Get the Android app", "wishes": "See the wishes →",
-  "note": "Amounts in euro; the App Store and Google Play show the price in your currency. Store fees go to Apple and Google."};
+  "note": "Amounts in euro; the App Store and Google Play show the price in your currency. Store fees go to Apple and Google – more reaches Publit through GitHub Sponsors.", "gT": "Through GitHub Sponsors", "gX": "No app store fee: support Publit directly on GitHub – monthly or once, by card or PayPal. Publit is open source, all of the code lives there.", "gBtn": "Sponsor on GitHub", "gCode": "See the code on GitHub"};
 const L = {de: {month: "pro Monat", once: "einmalig", pick: "Guter Start", title: "Publit unterstützen"}, en: {month: "per month", once: "once", pick: "Good start", title: "Support Publit"}};
 const els = () => [...document.querySelectorAll('[data-t]')];
 const DE = {}; els().forEach(e => DE[e.dataset.t] = e.textContent);
