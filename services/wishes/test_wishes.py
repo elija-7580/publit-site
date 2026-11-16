@@ -17,6 +17,8 @@ def call(method, path, body=None, ip="198.51.100.1"):
 def main():
     d = tempfile.mkdtemp()
     ovp = os.path.join(d, "status.json")
+    with open(ovp, "w") as f:   # read once and cached, so it has to exist before the first request
+        json.dump({"1": {"status": "doing", "title": "CarPlay"}, "999": {"status": "bogus"}}, f)
     p = subprocess.Popen([sys.executable, os.path.join(HERE, "wishes.py"), "--db", os.path.join(d, "w.db"), "--overlay", ovp, "serve", "--port", str(PORT)])
     try:
         time.sleep(0.8)
@@ -29,7 +31,7 @@ def main():
         assert call("POST", "/api/wishes", {"title": "Bot bot bot bot", "website": "x"})[0] == 201
         assert call("POST", "/api/wishes", {"title": "Link http://x.example"})[0] == 422
         s, r = call("GET", f"/api/wishes?voter={V}")
-        assert [w["title"] for w in r["wishes"]] == ["CarPlay-Unterstützung"] and r["wishes"][0]["votes"] == 1 and r["wishes"][0]["mine"]
+        assert [w["title"] for w in r["wishes"]] == ["CarPlay"] and r["wishes"][0]["status"] == "doing" and r["wishes"][0]["votes"] == 1 and r["wishes"][0]["mine"]
         assert call("POST", f"/api/wishes/{wid}/vote", {"voter": V})[1]["votes"] == 0
         assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "short"})[0] == 422
         assert call("POST", "/api/wishes/999/vote", {"voter": V})[0] == 404
@@ -37,8 +39,6 @@ def main():
             assert call("POST", "/api/wishes", {"title": t}, ip="198.51.100.2")[0] == 201
         call("POST", "/api/wishes", {"title": "Vierter Wunsch hier"}, ip="198.51.100.2")
         assert call("POST", "/api/wishes", {"title": "Fünfter Wunsch hier"}, ip="198.51.100.2")[0] == 429
-        with open(ovp, "w") as f:
-            json.dump({str(wid): {"status": "doing", "title": "CarPlay"}, "999": {"status": "bogus"}}, f)
         w = [x for x in call("GET", "/api/wishes")[1]["wishes"] if x["id"] == wid][0]
         assert w["status"] == "doing" and w["title"] == "CarPlay"
         print("ok")
