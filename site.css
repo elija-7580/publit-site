@@ -414,7 +414,7 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 8px}
 .chips button{font-size:14px;font-weight:650;padding:9px 14px;border-radius:999px;background:var(--fill);color:var(--soft);white-space:nowrap}
 .chips button.on{background:var(--ink);color:var(--ground)}
-.bcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px;align-items:start}
+.bcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:22px;align-items:start}
 .bcol{background:var(--fill);border-radius:var(--radius);padding:14px}
 .bcol h3{display:flex;align-items:baseline;gap:8px;font-size:17px;padding:6px 6px 2px}
 .bcol h3 i{font-style:normal;font-size:13px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
@@ -433,6 +433,10 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 .bvote.mine{background:var(--dot);color:#111}
 .bcol.ship .bitem b::before{content:"✓ ";color:#2f9e4f}
 .board-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.bcol.ship{grid-column:1/-1}
+.bcol.ship .bitems{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.bcol.ideas .bitem small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media (max-width:620px){.bcols{grid-template-columns:1fr}.bcol{padding:12px}.bitem{padding:12px}}
 
 /* Support Publit */
 .sup-page h1{max-width:12em}

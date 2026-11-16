@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css?v=44f81bc">
+<link rel="stylesheet" href="../site.css?v=c63e326">
 <meta name="description" content="Entdecke Publit: Abfahrten in der Nähe, Routenplanung, Live-Fahrt, Karten und Tickets für öffentliche Verkehrsmittel in Europa.">
 <link rel="canonical" href="https://publit.eu/features/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -222,11 +222,12 @@ const F = [
   ['next','tix','iA',['Tickets weltweit','Tickets worldwide'],['Für jede Fahrt automatisch zum richtigen Ticketshop, wo möglich mit der Fahrt vorausgefüllt.','For every trip straight to the right ticket shop, prefilled with the trip where possible.']],
   ['next','go','i',['CarPlay','CarPlay'],['Route und nächster Umstieg im Auto, für Park and Ride.','Route and next change in the car, for park and ride.']],
   ['next','map','iA',['Mehr Live-Städte','More live cities'],['Live-Zeiten überall, wo Betriebe GTFS-RT veröffentlichen.','Live times wherever operators publish GTFS-RT.']],
-  ['later','tix','iA',['Tickets in der App kaufen','Buy tickets in the app'],['Erst mit einem Verkehrsverbund als Pilot, dann weiter.','First with one transit network as a pilot, then more.']],
 ];
 const P = {i: 'iPhone', A: 'Android', W: 'Watch'};
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
-let area = 'all', ideas = [];
+let area = 'all', ideas = [], wishes = [];
+// Wishes with a status from GitHub (wuensche/status.json) show up in the matching column by themselves.
+const WS = {doing: 'now', planned: 'next', done: 'ship'};
 const L = () => lang === 'de' ? 0 : 1;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 let voter = null;
@@ -241,12 +242,19 @@ function render() {
   const l = L();
   document.getElementById('chips').innerHTML = [['all', ['Alle', 'All']], ...Object.entries(A)].map(([k, n]) =>
     `<button type="button" role="tab" data-a="${k}" class="${area === k ? 'on' : ''}" aria-selected="${area === k}">${n[l]}</button>`).join('');
-  const cols = S.map(([k, name, sub]) => {
-    const items = F.filter(f => f[0] === k && (area === 'all' || f[1] === area));
+  // What is being built and what comes next first, side by side; then ideas; everything available
+  // as one full-width grid underneath. Empty columns are left out.
+  const order = ['now', 'next', 'later', 'ship'];
+  const cols = S.slice().sort((x, y) => order.indexOf(x[0]) - order.indexOf(y[0])).map(([k, name, sub]) => {
+    const items = F.filter(f => f[0] === k && (area === 'all' || f[1] === area))
+      .concat(wishes.filter(w => WS[w.status] === k).map(w =>
+        [k, A[w.short?.area] ? w.short.area : 'com', 'iA', [w.short?.de || w.title, w.short?.en || w.title], [w.short?.deX || '', w.short?.enX || '']])
+        .filter(f => area === 'all' || f[1] === area));
+    if (!items.length && k !== 'ship') return '';
     return `<section class="bcol ${k}"><h3>${name[l]} <i>${items.length}</i></h3><p>${sub[l]}</p><ul class="bitems">` + items.map(f =>
       `<li class="bitem"><div><b>${f[3][l]}</b><small>${f[4][l]}</small><span class="bmeta"><span class="area">${A[f[1]][l]}</span>${[...f[2]].map(p => `<span>${P[p]}</span>`).join('')}</span></div></li>`).join('') + '</ul></section>';
   });
-  if (area === 'all' || area === 'com') cols.push(`<section class="bcol ideas"><h3>${['Ideen von euch', 'Ideas from you'][l]} <i>${ideas.length}</i></h3><p>${['Die meistgewünschten auf der Wunschliste.', 'Most wanted on the wish list.'][l]}</p><ul class="bitems">` +
+  if (area === 'all' || area === 'com') cols.splice(3, 0, `<section class="bcol ideas"><h3>${['Ideen von euch', 'Ideas from you'][l]} <i>${ideas.length}</i></h3><p>${['Die meistgewünschten auf der Wunschliste.', 'Most wanted on the wish list.'][l]}</p><ul class="bitems">` +
     (ideas.length ? ideas.map(w => `<li class="bitem"><button type="button" class="bvote${w.mine ? ' mine' : ''}" data-id="${w.id}" aria-pressed="${w.mine}" aria-label="${['Abstimmen', 'Vote'][l]}: ${esc(w.title)}">${up}${w.votes}</button><div><b>${esc(w.title)}</b>${w.body ? `<small>${esc(w.body).slice(0, 140)}</small>` : ''}</div></li>`).join('')
       : `<li class="bitem"><div><small>${['Noch nichts hier – schlag die erste Idee vor.', 'Nothing here yet – suggest the first idea.'][l]}</small></div></li>`) + '</ul></section>');
   document.getElementById('bcols').innerHTML = cols.join('');
@@ -262,8 +270,10 @@ document.getElementById('bcols').addEventListener('click', async e => {
   } catch (err) {}
   render();
 });
-fetch(`/api/wishes?sort=top&voter=${encodeURIComponent(voter)}`, {cache: 'no-store'}).then(r => r.ok ? r.json() : {wishes: []})
-  .then(d => { ideas = (d.wishes || []).filter(w => w.status !== 'done').slice(0, 6); render(); }).catch(() => {});
+Promise.all([
+  fetch(`/api/wishes?sort=top&voter=${encodeURIComponent(voter)}`, {cache: 'no-store'}).then(r => r.ok ? r.json() : {wishes: []}),
+  fetch('/wuensche/status.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : {}).catch(() => ({}))])
+  .then(([d, o]) => { const all = (d.wishes || []).map(w => o[w.id] ? {...w, ...o[w.id]} : w); wishes = all.filter(w => WS[w.status]); ideas = all.filter(w => w.status === 'open').slice(0, 6); render(); }).catch(() => {});
 document.querySelector('.lang').addEventListener('click', () => setTimeout(() => { lang = document.documentElement.lang; render(); }));
 render();
 })();

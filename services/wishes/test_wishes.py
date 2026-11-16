@@ -16,7 +16,8 @@ def call(method, path, body=None, ip="198.51.100.1"):
 
 def main():
     d = tempfile.mkdtemp()
-    p = subprocess.Popen([sys.executable, os.path.join(HERE, "wishes.py"), "--db", os.path.join(d, "w.db"), "serve", "--port", str(PORT)])
+    ovp = os.path.join(d, "status.json")
+    p = subprocess.Popen([sys.executable, os.path.join(HERE, "wishes.py"), "--db", os.path.join(d, "w.db"), "--overlay", ovp, "serve", "--port", str(PORT)])
     try:
         time.sleep(0.8)
         V = "voter_abcdefghijklmnop"
@@ -36,6 +37,10 @@ def main():
             assert call("POST", "/api/wishes", {"title": t}, ip="198.51.100.2")[0] == 201
         call("POST", "/api/wishes", {"title": "Vierter Wunsch hier"}, ip="198.51.100.2")
         assert call("POST", "/api/wishes", {"title": "Fünfter Wunsch hier"}, ip="198.51.100.2")[0] == 429
+        with open(ovp, "w") as f:
+            json.dump({str(wid): {"status": "doing", "title": "CarPlay"}, "999": {"status": "bogus"}}, f)
+        w = [x for x in call("GET", "/api/wishes")[1]["wishes"] if x["id"] == wid][0]
+        assert w["status"] == "doing" and w["title"] == "CarPlay"
         print("ok")
     finally:
         p.terminate()

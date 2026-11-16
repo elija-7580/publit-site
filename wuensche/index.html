@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css?v=44f81bc">
+<link rel="stylesheet" href="../site.css?v=c63e326">
 <meta name="description" content="Schlage Funktionen für Publit vor und stimme ab, was als Nächstes kommt. Ohne Anmeldung.">
 <link rel="canonical" href="https://publit.eu/wuensche/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -57,10 +57,11 @@
 .wish-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end;margin-top:48px}
 .wish-form{background:var(--surface);border-radius:var(--radius);padding:18px 20px;box-shadow:0 1px 2px rgba(0,0,0,.05);margin-top:28px}
 .wish-form h2{font-size:20px;letter-spacing:-.02em}
-.wish-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) auto;gap:10px;align-items:end;margin-top:12px}
+.wish-row{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:12px}
 .wish-form label{display:block;font-size:13px;font-weight:700;color:var(--soft);margin:0 0 6px}
 .wish-form input,.wish-form textarea{width:100%;box-sizing:border-box;font:inherit;font-size:16px;color:var(--ink);background:var(--ground);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
-.wish-form textarea{height:46px;min-height:46px;resize:vertical}
+.wish-form textarea{min-height:120px;line-height:1.45;resize:vertical}
+.wish-row>.key{justify-self:start}
 .wish-form input:focus,.wish-form textarea:focus{outline:none;border-color:var(--ink)}
 .wish-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .wish-form .key{border:0;cursor:pointer;font:inherit;font-weight:700;white-space:nowrap;height:46px}
@@ -87,8 +88,8 @@
     <div class="wish-row">
       <div><label for="wtitle" data-t="fTitle">Was wünschst du dir?</label>
       <input id="wtitle" name="title" maxlength="120" required autocomplete="off"></div>
-      <div><label for="wbody" data-t="fBody">Wofür brauchst du das? (optional)</label>
-      <textarea id="wbody" name="body" maxlength="1500"></textarea></div>
+      <div><label for="wbody" data-t="fBody">Beschreibung (optional)</label>
+      <textarea id="wbody" name="body" maxlength="1500" rows="5" data-tp="fBodyPh" placeholder="Wie soll es funktionieren, und wann würdest du es nutzen?"></textarea></div>
       <button class="key key-ink" type="submit" data-t="fSend">Wunsch senden</button>
     </div>
     <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -125,7 +126,7 @@
 <script>
 (() => {
 const EN = {navSupport: 'Support', navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', title: 'What should Publit do next?', lead: 'Suggest a feature or vote for what others asked for. No sign-up, no cookies. What many people want comes sooner.',
-  sortTop: 'Popular', sortNew: 'New', toBoard: 'What is already here →', toSupport: 'Support Publit ♥', formT: 'New wish', fTitle: 'What would you like?', fBody: 'What do you need it for? (optional)', fSend: 'Send wish',
+  sortTop: 'Popular', sortNew: 'New', toBoard: 'What is already here →', toSupport: 'Support Publit ♥', formT: 'New wish', fTitle: 'What would you like?', fBody: 'Description (optional)', fBodyPh: 'How should it work, and when would you use it?', fSend: 'Send wish',
   fNote: 'Wishes are public. We store no IP addresses and no account; your browser only keeps a random ID so you cannot vote twice.',
   footData: 'Timetable data: Transitous and open data sources', footPrivacy: 'Privacy'};
 const MSG = {
@@ -136,9 +137,14 @@ const MSG = {
        title: 'Please describe the wish in at least 6 characters.', exists: 'This wish already exists – just vote for it.', slow: 'Too many requests. Please wait a moment.', links: 'At most two links, please.', fail: 'That did not work. Please try again.',
        vote: 'vote', votes: 'votes', more: 'more', none: 'Nothing here yet – what gets many votes moves here.', st: {open: 'Ideas', planned: 'Planned', doing: 'In progress', done: 'Done'}, sub: {open: 'Suggested by you – vote.', planned: 'Coming next.', doing: 'Being built now.', done: 'In the app.'}}};
 const API = '/api/wishes';
+// Status and wording set in the repo (wuensche/status.json), so the board can be updated with a normal deploy.
+const ov = fetch('/wuensche/status.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : {}).catch(() => ({}));
+const overlay = (ws, o) => ws.map(w => o[w.id] ? {...w, ...o[w.id]} : w);
 const $ = s => document.querySelector(s);
 const els = [...document.querySelectorAll('[data-t]')], DE = {};
 els.forEach(e => DE[e.dataset.t] = e.textContent);
+const phs = [...document.querySelectorAll('[data-tp]')], DEP = {};
+phs.forEach(e => DEP[e.dataset.tp] = e.placeholder);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
 let sort = 'top', list = [], loaded = false, down = false;
 let voter = null;
@@ -175,7 +181,7 @@ async function load() {
   try {
     const r = await fetch(`${API}?sort=${sort}&voter=${encodeURIComponent(voter)}`, {cache: 'no-store'});
     if (!r.ok) throw 0;
-    list = (await r.json()).wishes; loaded = true; down = false;
+    list = overlay((await r.json()).wishes, await ov); loaded = true; down = false;
   } catch (e) { down = true; }
   render();
 }
@@ -216,6 +222,7 @@ function apply() {
   const d = lang === 'de' ? DE : EN;
   document.documentElement.lang = lang;
   els.forEach(e => { if (d[e.dataset.t]) e.textContent = d[e.dataset.t]; });
+  phs.forEach(e => { const v = (lang === 'de' ? DEP : EN)[e.dataset.tp]; if (v) e.placeholder = v; });
   document.title = 'Publit · ' + (lang === 'de' ? 'Wünsche' : 'Wishes');
   btn.textContent = lang === 'de' ? 'EN' : 'DE';
   render();
