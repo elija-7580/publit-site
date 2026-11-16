@@ -24,6 +24,10 @@ sudo -u publit-wishes python3 /opt/publit-wishes/wishes.py --db /var/lib/publit-
 ... hide <id> | show <id> | delete <id> | status <id> open|planned|doing|done
 ```
 
+Easier: set status (and, if needed, a cleaner title/body) in `wuensche/status.json` in this repo,
+keyed by wish id. The website applies it right after deploy; the API applies it too, reading
+`/srv/publit-site/wuensche/status.json` (`--overlay` / `WISHES_OVERLAY`), so the apps see the same board.
+
 ## Privacy and abuse
 
 No accounts, no cookies, no IP addresses stored. The browser keeps a random voter id in

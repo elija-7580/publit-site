@@ -1,0 +1,11 @@
+{
+  "2": {"status": "doing"},
+  "6": {"status": "doing"},
+  "7": {"status": "doing"},
+  "8": {"status": "doing"},
+  "9": {"status": "doing"},
+  "3": {"status": "planned"},
+  "10": {"status": "planned",
+         "title": "Customize your own route, leg by leg",
+         "body": "Publit first routes a trip as usual, e.g. with 5 legs. Afterwards each leg can be changed on its own: another departure, another mode or another place to change, without searching the whole route again."}
+}

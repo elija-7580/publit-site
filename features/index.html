@@ -218,11 +218,17 @@ const F = [
   ['ship','com','iA',['Wünsche und Abstimmung','Wishes and voting'],['Direkt in der App und hier auf publit.eu, ohne Konto.','Right in the app and here on publit.eu, no account.']],
   ['now','com','iA',['Publit unterstützen','Support Publit'],['Monatlich ab 1,50 € oder einmalig – alles bleibt kostenlos.','Monthly from €1.50 or once – everything stays free.']],
   ['now','com','iA',['Was ist neu','What is new'],['Nach jedem Update ein kurzer Überblick.','A short overview after every update.']],
+  ['now','go','iA',['Bester Ausgang aus der U-Bahn','Best exit from the underground'],['Welcher nummerierte Ausgang dich am schnellsten ans Ziel bringt.','Which numbered exit gets you to your destination fastest.']],
+  ['now','plan','iA',['Start oder Ziel auf der Karte wählen','Pick start or destination on the map'],['Pin setzen, verschieben, bestätigen – auch für Orte ohne Adresse.','Drop a pin, adjust it, confirm – also for places without an address.']],
+  ['now','map','iA',['Fahrzeug verfolgen','Track a vehicle'],['Einen Bus, eine Tram oder einen Zug live auf der Karte mitverfolgen.','Follow one bus, tram or train live on the map.']],
+  ['now','go','iA',['Fußwege leichter starten und folgen','Easier walking navigation'],['Ein Tipp zum Losgehen, nächste Abbiegung und Distanz immer im Blick.','One tap to start, the next turn and distance always in view.']],
+  ['now','dev','iA',['Zuhause und Arbeit am Homescreen','Home and work on the home screen'],['Mit einem Tipp vom Homescreen nach Hause oder zur Arbeit.','One tap from the home screen to get home or to work.']],
   ['now','dev','A',['Android im Google Play Store','Android on Google Play'],['Die native Android-App kommt in den Play Store.','The native Android app is coming to the Play Store.']],
   ['next','tix','iA',['Tickets weltweit','Tickets worldwide'],['Für jede Fahrt automatisch zum richtigen Ticketshop, wo möglich mit der Fahrt vorausgefüllt.','For every trip straight to the right ticket shop, prefilled with the trip where possible.']],
   ['next','go','i',['CarPlay','CarPlay'],['Route und nächster Umstieg im Auto, für Park and Ride.','Route and next change in the car, for park and ride.']],
   ['next','map','iA',['Mehr Live-Städte','More live cities'],['Live-Zeiten überall, wo Betriebe GTFS-RT veröffentlichen.','Live times wherever operators publish GTFS-RT.']],
-  ['later','tix','iA',['Tickets in der App kaufen','Buy tickets in the app'],['Erst mit einem Verkehrsverbund als Pilot, dann weiter.','First with one transit network as a pilot, then more.']],
+  ['next','tix','iA',['Tickets in der App kaufen','Buy tickets in the app'],['Erst mit einem Verkehrsverbund als Pilot, dann weiter.','First with one transit network as a pilot, then more.']],
+  ['next','plan','iA',['Verbindung selbst zusammenstellen','Build your own connection'],['Route suchen, dann jeden Abschnitt einzeln ändern: andere Abfahrt, anderes Verkehrsmittel, anderer Umstieg.','Plan a trip, then change each leg on its own: another departure, mode or change.']],
 ];
 const P = {i: 'iPhone', A: 'Android', W: 'Watch'};
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
@@ -262,8 +268,10 @@ document.getElementById('bcols').addEventListener('click', async e => {
   } catch (err) {}
   render();
 });
-fetch(`/api/wishes?sort=top&voter=${encodeURIComponent(voter)}`, {cache: 'no-store'}).then(r => r.ok ? r.json() : {wishes: []})
-  .then(d => { ideas = (d.wishes || []).filter(w => w.status !== 'done').slice(0, 6); render(); }).catch(() => {});
+Promise.all([
+  fetch(`/api/wishes?sort=top&voter=${encodeURIComponent(voter)}`, {cache: 'no-store'}).then(r => r.ok ? r.json() : {wishes: []}),
+  fetch('/wuensche/status.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : {}).catch(() => ({}))])
+  .then(([d, o]) => { ideas = (d.wishes || []).map(w => o[w.id] ? {...w, ...o[w.id]} : w).filter(w => w.status === 'open').slice(0, 6); render(); }).catch(() => {});
 document.querySelector('.lang').addEventListener('click', () => setTimeout(() => { lang = document.documentElement.lang; render(); }));
 render();
 })();
