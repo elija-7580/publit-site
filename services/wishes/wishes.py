@@ -82,7 +82,7 @@ def listing(c, sort, voter):
         from wishes w where w.hidden = 0 order by {order} limit 500""", (voter or "",)).fetchall()
     try:
         with open(OVERLAY, encoding="utf-8") as f:
-            ov = {int(k): {x: v[x] for x in ("status", "title", "body") if isinstance(v.get(x), str)}
+            ov = {int(k): {x: v[x] for x in ("status", "title", "body", "short") if isinstance(v.get(x), (str, dict))}
                   for k, v in json.load(f).items()}
     except (OSError, ValueError, AttributeError):
         ov = {}

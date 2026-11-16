@@ -38,3 +38,11 @@ simple bots; titles must be unique; at most two links per wish.
 ## Test
 
 `python3 test_wishes.py`
+
+## Automatic status
+
+Nobody sets statuses by hand. `.github/workflows/wishes-sync.yml` runs every 30 minutes and
+`tools/wishes_sync.py` derives each wish's status from its linked GitHub issues (issue links in the
+wish text plus `wuensche/links.json`): label `released` → Done, closed as completed / label
+`in progress` / open PR → In progress, label `planned` → Planned. Plain-language titles for the
+features page live in `wuensche/overrides.json`.
