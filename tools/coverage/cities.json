@@ -1,0 +1,18 @@
+{
+  "_doc": "The only hand-kept part of the coverage map. Everything else comes from Transitous on every run. own_live: cities where the Publit app adds live times from its own sources (not via Transitous); this changes only with the app. partial: areas checked by hand where a kind of service is missing from the open data (gaps: L local and regional buses, C city buses, M metro, T trams, F ferries, S suburban trains); used for the city dots and for the app's warnings (atlas.txt).",
+  "own_live": [
+    ["Vienna", 48.21, 16.37, "Live via Wiener Linien open data and ÖBB", "Live über Wiener Linien Open Data und ÖBB"],
+    ["Salzburg", 47.81, 13.04, "Live via ÖBB", "Live über ÖBB"],
+    ["Innsbruck", 47.27, 11.40, "Live via ÖBB", "Live über ÖBB"],
+    ["Linz", 48.31, 14.29, "Live via ÖBB", "Live über ÖBB"],
+    ["Venice", 45.44, 12.33, "Live via ACTV (vaporetti, buses)", "Live über ACTV (Vaporetti, Busse)"],
+    ["Stockholm", 59.33, 18.07, "Live via SL", "Live über SL"]
+  ],
+  "partial": [
+    {"id": "at-carinthia", "region": ["at", "Carinthia"], "gaps": "L", "en": "Carinthia", "de": "Kärnten"},
+    {"id": "es-madrid", "iso": "es", "circle": [40.42, -3.70, 22000], "gaps": "MC", "en": "Madrid", "de": "Madrid"},
+    {"id": "tr-istanbul", "iso": "tr", "circle": [41.01, 28.98, 45000], "gaps": "MTFS", "en": "Istanbul", "de": "Istanbul"},
+    {"id": "ua-kyiv", "iso": "ua", "circle": [50.45, 30.52, 30000], "gaps": "MTS", "en": "Kyiv", "de": "Kiew"},
+    {"id": "xk-pristina", "iso": "xk", "circle": [42.66, 21.17, 15000], "gaps": "C", "en": "Pristina", "de": "Pristina"}
+  ]
+}

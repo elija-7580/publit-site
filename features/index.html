@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../site.css?v=dc79f37">
 <meta name="description" content="Entdecke Publit: Abfahrten in der Nähe, Routenplanung, Live-Fahrt, Karten und Tickets für öffentliche Verkehrsmittel in Europa.">
 <link rel="canonical" href="https://publit.eu/features/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -38,9 +38,22 @@
     <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="../wuensche/" data-t="navWishes">Wünsche</a>
     <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <a class="nav-sup" href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
     <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
     <a class="gh" href="https://www.reddit.com/r/Publit/" aria-label="Reddit r/Publit">Reddit</a>
+      <details class="mnav"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
+      <div class="mnav-sheet" onclick="if(event.target.closest('a'))this.parentNode.open=false">
+        <a href="../#nearby" data-t="navApp">Die App</a>
+        <a href="../features/" data-t="navFeat">Funktionen</a>
+        <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+        <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+        <a href="../staedte/" data-t="navCities">Für Städte</a>
+        <a href="https://github.com/elija-7580/Publit">GitHub</a>
+        <a href="https://www.reddit.com/r/Publit/">Reddit</a>
+        <a class="mnav-cta" href="../unterstuetzen/"><span aria-hidden="true">♥</span> <span data-t="navSupport">Unterstützen</span></a>
+      </div>
+    </details>
   </nav>
 </header>
 <main>
@@ -114,22 +127,26 @@
     <p class="n">15</p><h3 data-t="t15">Hell und dunkel</h3><p data-t="t15x">Jeder Bildschirm ist für Tag und Nacht gestaltet und auch um Mitternacht gut lesbar.</p>
     <div class="tph"><div class="phone"><img src="../assets/app/web-nearby-dark.webp" alt="" loading="lazy" width="600" height="1305"></div></div>
   </article>
-  <article class="tile soon"><span class="tag" data-t="soon">Bald</span>
+  <article class="tile">
     <p class="n">16</p><h3 data-t="t16">Widgets</h3><p data-t="t16x">Die nächsten Abfahrten und deine Fahrt auf dem Homescreen und dem Sperrbildschirm.</p>
     <div class="tph"><div class="phone"><img src="../assets/app/web-widgets.webp" alt="" loading="lazy" width="600" height="1305"><img class="dark" src="../assets/app/web-widgets-dark.webp" alt="" loading="lazy" width="600" height="1305"></div></div>
   </article>
-  <article class="tile soon"><span class="tag" data-t="soon">Bald</span>
+  <article class="tile">
     <p class="n">17</p><h3 data-t="t17">Apple Watch</h3><p data-t="t17x">Abfahrten und die Live-Fahrt am Handgelenk, mit Hinweis zum Aussteigen.</p>
     <div class="tph"><div class="watches"><img data-lang-src src="../assets/app/web-watch-home.webp" alt="" loading="lazy" width="377" height="600"><img data-lang-src src="../assets/app/web-watch-leg.webp" alt="" loading="lazy" width="377" height="600"></div></div>
   </article>
-  <article class="tile road">
-    <p class="n">ROADMAP</p><h3 data-t="roadT">Als Nächstes</h3><p data-t="roadX">Daran arbeiten wir gerade. Ohne Termine, aber in dieser Reihenfolge.</p>
-    <ol>
-      <li><b data-t="r1">Apple Watch</b><span data-t="r1x">Abfahrten und die Live-Fahrt am Handgelenk.</span></li>
-      <li><b data-t="r2">CarPlay</b><span data-t="r2x">Route und nächster Umstieg im Auto, für Park and Ride.</span></li>
-      <li><b data-t="r3">Mehr Live-Städte</b><span data-t="r3x">Live-Zeiten überall dort, wo Verkehrsbetriebe GTFS-RT veröffentlichen. Auch deine Stadt?</span> <a class="link" href="../staedte/" data-t="r3l">Für Städte und Verkehrsbetriebe →</a></li>
-    </ol>
-  </article>
+  </div>
+  <div class="board" id="roadmap">
+    <div class="board-head">
+      <div><h2 data-t="bT">Was kommt, was ist da.</h2>
+      <p data-t="bX">Jede Funktion auf einen Blick, öffentlich und ohne Termine. Stimm für Ideen ab oder schlag etwas vor – Publit ist ein Community-Projekt.</p></div>
+    </div>
+    <div class="chips" id="chips" role="tablist"></div>
+    <div class="bcols" id="bcols"></div>
+    <div class="board-cta">
+      <a class="key key-ink" href="../wuensche/" data-t="bSuggest">Funktion vorschlagen</a>
+      <a class="key" href="../unterstuetzen/" data-t="bSupport">Publit unterstützen ♥</a>
+    </div>
   </div>
   <div class="cta"><a class="key" href="../" data-t="back">← Zurück zur Startseite</a></div>
 </section>
@@ -142,6 +159,7 @@
     <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="../wuensche/" data-t="navWishes">Wünsche</a>
     <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <a href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
     <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
     <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
     <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
@@ -150,7 +168,7 @@
 </footer>
 <script>
 (() => {
-const EN = {"gPlan": "Departures and planning", "gGo": "On the way", "gMap": "Map", "gTix": "Tickets and saved", "gDev": "Devices and display", "gNext": "Coming next", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources", "t1": "Departures nearby", "t1x": "The next departures around you, with line, direction, platform and live times.", "t2": "Every route on one timeline", "t2x": "Compare connections side by side: which arrives first, where you change, where it gets tight.", "t3": "Every step of the route", "t3x": "Map and steps in the colours of the lines, with platforms, stops and delays.", "t4": "Smart routing", "t4x": "Publit rates how safe each change is and how long you wait and walk. The route that feels shortest comes first.", "t5": "Live trip", "t5x": "Big and clear: your line, the minutes left and where to get off. Also as a Live Activity and in the Dynamic Island.", "t6": "Trip overview", "t6x": "One map with every remaining leg and the live times of each one.", "t7": "New connection from here", "t7x": "Missed a connection? One tap and Publit finds the best way from where you are now.", "t8": "Reminder to get off", "t8x": "Just before your stop Publit lets you know, with a spoken announcement if you like.", "t9": "Map with every station", "t9x": "Stops and lines on the map, with departures right at the station.", "t10": "Places, addresses, stops", "t10x": "One search for everything. Links from Apple Maps and Google Maps land in the right place, too.", "t11": "Cafés, pharmacies, supermarkets", "t11x": "Find what is nearby on the map and get there with one tap.", "t12": "Tickets in the app", "t12x": "Tickets from a PDF, a photo or a screenshot. Publit reads them on your iPhone and uploads nothing.", "t13": "Home, work, saved", "t13x": "Your places and planned trips at a glance, stored only on your device.", "t14": "Calendar and sharing", "t14x": "Add trips to your calendar or share them as a link, with your arrival time for others.", "t15": "Light and dark", "t15x": "Every screen is designed for day and night and easy to read at midnight.", "t16": "Widgets", "t16x": "Next departures and your trip on the home screen and the lock screen.", "t17": "Apple Watch", "t17x": "Departures and your live trip on your wrist, with a nudge to get off.", "roadT": "Coming next", "roadX": "What we are working on. No dates, but in this order.", "r1": "Apple Watch", "r1x": "Departures and your live trip on your wrist.", "r2": "CarPlay", "r2x": "Your route and the next change on the car screen, for park and ride.", "r3": "More live cities", "r3x": "Live times wherever operators publish GTFS-RT. Your city too?", "r3l": "For cities and operators →", "title": "All features.", "lead": "Everything Publit does today, and what comes next. Free, made in the EU, without an account and without tracking.", "back": "← Back to the start page", "soon": "Soon", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy", "navHome": "Start"};
+const EN = {"gPlan": "Departures and planning", "gGo": "On the way", "gMap": "Map", "gTix": "Tickets and saved", "gDev": "Devices and display", "gNext": "Coming next", "navSupport": "Support", "bT": "What is coming, what is here.", "bX": "Every feature at a glance, in the open and without dates. Vote for ideas or suggest something – Publit is a community project.", "bSuggest": "Suggest a feature", "bSupport": "Support Publit ♥", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources", "t1": "Departures nearby", "t1x": "The next departures around you, with line, direction, platform and live times.", "t2": "Every route on one timeline", "t2x": "Compare connections side by side: which arrives first, where you change, where it gets tight.", "t3": "Every step of the route", "t3x": "Map and steps in the colours of the lines, with platforms, stops and delays.", "t4": "Smart routing", "t4x": "Publit rates how safe each change is and how long you wait and walk. The route that feels shortest comes first.", "t5": "Live trip", "t5x": "Big and clear: your line, the minutes left and where to get off. Also as a Live Activity and in the Dynamic Island.", "t6": "Trip overview", "t6x": "One map with every remaining leg and the live times of each one.", "t7": "New connection from here", "t7x": "Missed a connection? One tap and Publit finds the best way from where you are now.", "t8": "Reminder to get off", "t8x": "Just before your stop Publit lets you know, with a spoken announcement if you like.", "t9": "Map with every station", "t9x": "Stops and lines on the map, with departures right at the station.", "t10": "Places, addresses, stops", "t10x": "One search for everything. Links from Apple Maps and Google Maps land in the right place, too.", "t11": "Cafés, pharmacies, supermarkets", "t11x": "Find what is nearby on the map and get there with one tap.", "t12": "Tickets in the app", "t12x": "Tickets from a PDF, a photo or a screenshot. Publit reads them on your iPhone and uploads nothing.", "t13": "Home, work, saved", "t13x": "Your places and planned trips at a glance, stored only on your device.", "t14": "Calendar and sharing", "t14x": "Add trips to your calendar or share them as a link, with your arrival time for others.", "t15": "Light and dark", "t15x": "Every screen is designed for day and night and easy to read at midnight.", "t16": "Widgets", "t16x": "Next departures and your trip on the home screen and the lock screen.", "t17": "Apple Watch", "t17x": "Departures and your live trip on your wrist, with a nudge to get off.", "roadT": "Coming next", "roadX": "What we are working on. No dates, but in this order.", "r1": "Apple Watch", "r1x": "Departures and your live trip on your wrist.", "r2": "CarPlay", "r2x": "Your route and the next change on the car screen, for park and ride.", "r3": "More live cities", "r3x": "Live times wherever operators publish GTFS-RT. Your city too?", "r3l": "For cities and operators →", "title": "All features.", "lead": "Everything Publit does today, and what comes next. Free, made in the EU, without an account and without tracking.", "back": "← Back to the start page", "soon": "Soon", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy", "navHome": "Start"};
 const els = [...document.querySelectorAll('[data-t]')], DE = {};
 els.forEach(e => DE[e.dataset.t] = e.textContent);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
@@ -169,6 +187,98 @@ addEventListener('scroll', () => top.classList.toggle('scrolled', scrollY > 10),
 const dm = matchMedia('(prefers-color-scheme: dark)'), sync = () => document.body.classList.toggle('screens-dark', dm.matches);
 sync(); dm.addEventListener('change', sync);
 apply();
+})();
+</script>
+<script>
+(() => {
+// The feature board: status columns like a public roadmap, filter by area, ideas live from the wish list.
+const A = {plan: ['Abfahrten & Planen', 'Departures & planning'], go: ['Unterwegs', 'On the way'], map: ['Karte', 'Map'],
+  tix: ['Tickets', 'Tickets'], dev: ['Geräte', 'Devices'], com: ['Community', 'Community']};
+const S = [
+  ['ship', ['Verfügbar', 'Available'], ['In der App, heute.', 'In the app, today.']],
+  ['now', ['In Arbeit', 'In progress'], ['Wird gerade gebaut.', 'Being built now.']],
+  ['next', ['Als Nächstes', 'Next'], ['Danach, in dieser Reihenfolge.', 'After that, in this order.']],
+  ['later', ['Später', 'Later'], ['Auf der Liste.', 'On the list.']],
+];
+const F = [
+  ['ship','plan','iA',['Abfahrten in der Nähe','Departures nearby'],['Linie, Richtung, Steig und Live-Zeiten um dich herum.','Line, direction, platform and live times around you.']],
+  ['ship','plan','iA',['Alle Wege auf einer Zeitachse','Every route on one timeline'],['Verbindungen vergleichen, knappe Umstiege markiert.','Compare connections, tight changes marked.']],
+  ['ship','plan','iA',['Smart Routing','Smart routing'],['Wie sicher jeder Umstieg ist, mit Backup, falls er platzt.','How safe each change is, with a backup if it breaks.']],
+  ['ship','plan','iA',['Klare Umstiege','Clear changes'],['Zeit, Steig und Puffer jedes Umstiegs auf einen Blick.','Time, platform and buffer of every change at a glance.']],
+  ['ship','plan','iA',['Kalender und Teilen','Calendar and sharing'],['Fahrten teilen – Links funktionieren auf iPhone und Android.','Share trips – links work on iPhone and Android.']],
+  ['ship','go','iAW',['Live-Fahrt','Live trip'],['Linie, Minuten bis zum Ziel, wo du aussteigst – auch am Sperrbildschirm.','Line, minutes left, where to get off – on the lock screen too.']],
+  ['ship','go','iA',['Neue Verbindung ab hier','New connection from here'],['Anschluss verpasst? Ein Tipp, und Publit findet den besten Weg.','Missed it? One tap and Publit finds the best way.']],
+  ['ship','go','iA',['Erinnerung zum Aussteigen','Reminder to get off'],['Kurz vor deinem Halt, auf Wunsch mit Ansage.','Just before your stop, spoken if you like.']],
+  ['ship','go','iA',['Umstiegshilfe und Ausgänge','Change guide and exits'],['Von Steig zu Steig mit Treppen, Aufzügen und Ausgangsnummer.','Platform to platform with stairs, lifts and exit numbers.']],
+  ['ship','go','iA',['Live-Daten von mehr Betreibern','Live data from more operators'],['ÖBB, Wiener Linien, search.ch, deutsche Verbünde, TfL und mehr.','ÖBB, Wiener Linien, search.ch, German networks, TfL and more.']],
+  ['ship','map','iA',['Karte mit allen Stationen','Map with every station'],['Haltestellen, Linien und Fahrzeuge, mit Abfahrten an der Station.','Stops, lines and vehicles, with departures at the station.']],
+  ['ship','map','iA',['Orte, Adressen, Haltestellen','Places, addresses, stops'],['Eine Suche für alles, auch Links aus Karten-Apps.','One search for everything, links from map apps too.']],
+  ['ship','tix','iA',['Tickets in der App','Tickets in the app'],['Aus PDF, Foto oder Screenshot – ausgelesen auf dem Gerät.','From a PDF, photo or screenshot – read on the device.']],
+  ['ship','tix','iA',['Weiter zum Ticketshop','On to the ticket shop'],['Pro Betreiber der passende Shop oder deine Ticket-App.','The right shop or your ticket app for each operator.']],
+  ['ship','dev','iA',['Widgets','Widgets'],['Nächste Abfahrten am Homescreen.','Next departures on the home screen.']],
+  ['ship','dev','W',['Apple Watch und Wear OS','Apple Watch and Wear OS'],['Abfahrten, Live-Fahrt und Tickets am Handgelenk.','Departures, live trip and tickets on your wrist.']],
+  ['ship','dev','iA',['15 Sprachen, hell und dunkel','15 languages, light and dark'],['Jeder Bildschirm für Tag und Nacht.','Every screen for day and night.']],
+  ['ship','com','iA',['Wünsche und Abstimmung','Wishes and voting'],['Direkt in der App und hier auf publit.eu, ohne Konto.','Right in the app and here on publit.eu, no account.']],
+  ['now','com','iA',['Publit unterstützen','Support Publit'],['Monatlich ab 1,50 € oder einmalig – alles bleibt kostenlos.','Monthly from €1.50 or once – everything stays free.']],
+  ['now','com','iA',['Was ist neu','What is new'],['Nach jedem Update ein kurzer Überblick.','A short overview after every update.']],
+  ['now','dev','A',['Android im Google Play Store','Android on Google Play'],['Die native Android-App kommt in den Play Store.','The native Android app is coming to the Play Store.']],
+  ['next','tix','iA',['Tickets weltweit','Tickets worldwide'],['Für jede Fahrt automatisch zum richtigen Ticketshop, wo möglich mit der Fahrt vorausgefüllt.','For every trip straight to the right ticket shop, prefilled with the trip where possible.']],
+  ['next','go','i',['CarPlay','CarPlay'],['Route und nächster Umstieg im Auto, für Park and Ride.','Route and next change in the car, for park and ride.']],
+  ['next','map','iA',['Mehr Live-Städte','More live cities'],['Live-Zeiten überall, wo Betriebe GTFS-RT veröffentlichen.','Live times wherever operators publish GTFS-RT.']],
+];
+const P = {i: 'iPhone', A: 'Android', W: 'Watch'};
+let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
+let area = 'all', ideas = [], wishes = [];
+// Wishes with a status from GitHub (wuensche/status.json) show up in the matching column by themselves.
+const WS = {doing: 'now', planned: 'next', done: 'ship'};
+const L = () => lang === 'de' ? 0 : 1;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+let voter = null;
+try { voter = localStorage.getItem('publit-voter'); } catch (e) {}
+if (!/^[A-Za-z0-9_-]{16,64}$/.test(voter || '')) {
+  const a = new Uint8Array(18); crypto.getRandomValues(a);
+  voter = btoa(String.fromCharCode(...a)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  try { localStorage.setItem('publit-voter', voter); } catch (e) {}
+}
+const up = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function render() {
+  const l = L();
+  document.getElementById('chips').innerHTML = [['all', ['Alle', 'All']], ...Object.entries(A)].map(([k, n]) =>
+    `<button type="button" role="tab" data-a="${k}" class="${area === k ? 'on' : ''}" aria-selected="${area === k}">${n[l]}</button>`).join('');
+  // What is being built and what comes next first, side by side; then ideas; everything available
+  // as one full-width grid underneath. Empty columns are left out.
+  const order = ['now', 'next', 'later', 'ship'];
+  const cols = S.slice().sort((x, y) => order.indexOf(x[0]) - order.indexOf(y[0])).map(([k, name, sub]) => {
+    const items = F.filter(f => f[0] === k && (area === 'all' || f[1] === area))
+      .concat(wishes.filter(w => WS[w.status] === k).map(w =>
+        [k, A[w.short?.area] ? w.short.area : 'com', 'iA', [w.short?.de || w.title, w.short?.en || w.title], [w.short?.deX || '', w.short?.enX || '']])
+        .filter(f => area === 'all' || f[1] === area));
+    if (!items.length && k !== 'ship') return '';
+    return `<section class="bcol ${k}"><h3>${name[l]} <i>${items.length}</i></h3><p>${sub[l]}</p><ul class="bitems">` + items.map(f =>
+      `<li class="bitem"><div><b>${f[3][l]}</b><small>${f[4][l]}</small><span class="bmeta"><span class="area">${A[f[1]][l]}</span>${[...f[2]].map(p => `<span>${P[p]}</span>`).join('')}</span></div></li>`).join('') + '</ul></section>';
+  });
+  if (area === 'all' || area === 'com') cols.splice(3, 0, `<section class="bcol ideas"><h3>${['Ideen von euch', 'Ideas from you'][l]} <i>${ideas.length}</i></h3><p>${['Die meistgewünschten auf der Wunschliste.', 'Most wanted on the wish list.'][l]}</p><ul class="bitems">` +
+    (ideas.length ? ideas.map(w => `<li class="bitem"><button type="button" class="bvote${w.mine ? ' mine' : ''}" data-id="${w.id}" aria-pressed="${w.mine}" aria-label="${['Abstimmen', 'Vote'][l]}: ${esc(w.title)}">${up}${w.votes}</button><div><b>${esc(w.title)}</b>${w.body ? `<small>${esc(w.body).slice(0, 140)}</small>` : ''}</div></li>`).join('')
+      : `<li class="bitem"><div><small>${['Noch nichts hier – schlag die erste Idee vor.', 'Nothing here yet – suggest the first idea.'][l]}</small></div></li>`) + '</ul></section>');
+  document.getElementById('bcols').innerHTML = cols.join('');
+}
+document.getElementById('chips').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { area = b.dataset.a; render(); } });
+document.getElementById('bcols').addEventListener('click', async e => {
+  const b = e.target.closest('.bvote'); if (!b) return;
+  const w = ideas.find(x => x.id === +b.dataset.id); if (!w) return;
+  b.disabled = true;
+  try {
+    const r = await fetch(`/api/wishes/${w.id}/vote`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({voter})});
+    if (r.ok) { const d = await r.json(); w.votes = d.votes; w.mine = d.mine; }
+  } catch (err) {}
+  render();
+});
+Promise.all([
+  fetch(`/api/wishes?sort=top&voter=${encodeURIComponent(voter)}`, {cache: 'no-store'}).then(r => r.ok ? r.json() : {wishes: []}),
+  fetch('/wuensche/status.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : {}).catch(() => ({}))])
+  .then(([d, o]) => { const all = (d.wishes || []).map(w => o[w.id] ? {...w, ...o[w.id]} : w); wishes = all.filter(w => WS[w.status]); ideas = all.filter(w => w.status === 'open').slice(0, 6); render(); }).catch(() => {});
+document.querySelector('.lang').addEventListener('click', () => setTimeout(() => { lang = document.documentElement.lang; render(); }));
+render();
 })();
 </script>
 <script src="/analytics-consent.js" defer></script>

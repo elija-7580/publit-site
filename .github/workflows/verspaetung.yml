@@ -1,0 +1,63 @@
+# Spiegelt die Verspaetungstabellen (Smart Routing der Apps) jede Woche vom Dienst services/delay-history
+# (Publit-Repo) nach verspaetung/data/<land>.txt.gz. Die Apps laden nur die Laender, in denen geplant wird.
+# Ohne Repo-Variable DELAY_HISTORY_URL (z. B. https://delay.publit.eu) oder wenn der Dienst nicht antwortet,
+# passiert nichts und die alten Dateien bleiben. Ablauf wie "Abdeckung aktualisieren".
+name: Verspaetungsdaten aktualisieren
+on:
+  schedule:
+    - cron: '41 4 * * 2'
+  workflow_dispatch:
+concurrency: verspaetung
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  checks: read
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SRC: ${{ vars.DELAY_HISTORY_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Laden
+        id: fetch
+        run: |
+          set -e
+          [ -n "$SRC" ] || { echo "DELAY_HISTORY_URL nicht gesetzt"; echo "skip=1" >> "$GITHUB_OUTPUT"; exit 0; }
+          mkdir -p verspaetung/data
+          curl -sfL "$SRC/index.json" -o /tmp/index.json || { echo "::warning::Dienst nicht erreichbar"; echo "skip=1" >> "$GITHUB_OUTPUT"; exit 0; }
+          for c in $(python3 -c "import json;print(' '.join(json.load(open('/tmp/index.json'))['regions']))"); do
+            case "$c" in *[!a-z]*) continue;; esac
+            curl -sfL "$SRC/$c.txt.gz" -o /tmp/$c.txt.gz || continue
+            # Nur ganze Dateien: gzip lesbar, Kopfzeile "D|".
+            gzip -dc /tmp/$c.txt.gz | head -c 2 | grep -q '^D|' && mv /tmp/$c.txt.gz verspaetung/data/$c.txt.gz
+          done
+          cp /tmp/index.json verspaetung/data/index.json
+      - name: Speichern, pruefen, mergen, deployen
+        if: steps.fetch.outputs.skip != '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add -A verspaetung/data
+          git diff --cached --quiet && { echo "Keine Aenderungen"; exit 0; }
+          day=$(date -u +%Y-%m-%d)
+          branch="generated/verspaetung-$day-$GITHUB_RUN_ID"
+          git commit -m "Verspaetungsdaten aktualisiert ($day)"
+          git push origin "HEAD:refs/heads/$branch"
+          pr=$(gh pr create --base main --head "$branch" --title "Verspaetungsdaten aktualisiert ($day)" \
+                 --body "Automatisch vom Dienst delay-history gespiegelt (nur oeffentliche Fahrplandaten). Wird nach dem Website-Check selbst gemergt.")
+          sha=$(git rev-parse HEAD)
+          gh workflow run website-check.yml --ref "$branch"
+          for i in $(seq 1 60); do
+            sleep 10
+            st=$(gh api "repos/$GITHUB_REPOSITORY/commits/$sha/check-runs?check_name=Website%20check" --jq '.check_runs[0].conclusion // ""')
+            [ -n "$st" ] && break
+          done
+          test "$st" = success
+          gh pr merge "$pr" --squash --delete-branch
+          gh workflow run deploy.yml --ref main

@@ -1,0 +1,34 @@
+# Keeps the wish board (publit.eu/wuensche, the features page and, via the API, the apps) in sync with
+# GitHub: tools/wishes_sync.py derives each wish's status from its linked issues and writes
+# wuensche/status.json. Runs every 30 minutes; if anything changed it commits to main and deploys.
+name: Wishes sync
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+concurrency: wishes-sync
+permissions:
+  contents: write
+  actions: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Status from GitHub issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/wishes_sync.py
+      - name: Commit and deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          git diff --quiet wuensche/status.json && { echo "Nothing changed"; exit 0; }
+          python3 tools/check_site.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Wish statuses synced from GitHub" wuensche/status.json
+          git push origin HEAD:main
+          gh workflow run deploy.yml --ref main

@@ -1,12 +1,18 @@
-# Aktualisiert die Abdeckungsdaten (abdeckung/data/*.json) einmal im Monat
-# aus den offenen Transitous-Daten. Manuell startbar unter Actions > Abdeckung aktualisieren.
+# Aktualisiert die Abdeckung (abdeckung/data: Karte, Startseite, atlas.txt fuer die Apps) jede Woche
+# aus allen offenen Transitous-Daten weltweit. Neue Gebiete erscheinen von selbst, nichts ist fest eingetragen
+# ausser tools/coverage/cities.json. Ablauf: bauen, pruefen, Pull Request, Website-Check, mergen, deployen.
+# Manuell startbar unter Actions > Abdeckung aktualisieren.
 name: Abdeckung aktualisieren
 on:
   schedule:
-    - cron: '17 4 1 * *'
+    - cron: '17 3 * * 1'
   workflow_dispatch:
+concurrency: coverage
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
+  checks: read
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -30,19 +36,46 @@ jobs:
           curl -sfL https://codeload.github.com/public-transport/transitous/tar.gz/refs/heads/main | tar xz
           python3 $GITHUB_WORKSPACE/tools/coverage/fetch_stops.py | tail -20
           n=$(ls stops | wc -l); echo "Quellen mit Haltestellen: $n"
-          test "$n" -gt 800
+          test "$n" -gt 1500
       - name: Karte bauen
         run: |
           cd /tmp/cov
           SITE=$GITHUB_WORKSPACE python3 $GITHUB_WORKSPACE/tools/coverage/build.py
           SITE=$GITHUB_WORKSPACE python3 $GITHUB_WORKSPACE/tools/coverage/build_world.py
-      - name: Speichern
+          python3 $GITHUB_WORKSPACE/tools/coverage/make_atlas.py --site $GITHUB_WORKSPACE/abdeckung/data --places pp.geojson
+      - name: Plausibel?
+        # Faellt eine Quelle bei Transitous kurz aus, soll die Karte nicht ganze Laender verlieren.
         run: |
+          python3 tools/check_site.py
+          python3 tools/coverage/sanity.py
+      - name: Speichern, pruefen, mergen, deployen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
           git add -A abdeckung/data
           git diff --cached --quiet && { echo "Keine Aenderungen"; exit 0; }
-          git commit -m "Abdeckungsdaten aktualisiert ($(date -u +%Y-%m-%d))"
-          branch="generated/coverage-update-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          day=$(date -u +%Y-%m-%d)
+          branch="generated/coverage-$day-$GITHUB_RUN_ID"
+          git commit -m "Abdeckungsdaten aktualisiert ($day)"
           git push origin "HEAD:refs/heads/$branch"
-          echo "[Pull Request öffnen](https://github.com/$GITHUB_REPOSITORY/compare/main...$branch?expand=1)" >> "$GITHUB_STEP_SUMMARY"
+          pr=$(gh pr create --base main --head "$branch" --title "Abdeckungsdaten aktualisiert ($day)" \
+                 --body "Automatisch aus den Transitous-Daten erzeugt (Workflow Abdeckung aktualisieren). Wird nach dem Website-Check selbst gemergt.") || {
+            echo "::warning::Pull Request konnte nicht erstellt werden. Einstellung pruefen: Settings > Actions > General > Allow GitHub Actions to create and approve pull requests."
+            echo "[Pull Request öffnen](https://github.com/$GITHUB_REPOSITORY/compare/main...$branch?expand=1)" >> "$GITHUB_STEP_SUMMARY"
+            exit 1; }
+          echo "PR: $pr" >> "$GITHUB_STEP_SUMMARY"
+          # Pull Requests von github-actions starten keine Workflows; den Pflicht-Check daher direkt anstossen.
+          sha=$(git rev-parse HEAD)
+          gh workflow run website-check.yml --ref "$branch"
+          for i in $(seq 1 60); do
+            sleep 10
+            st=$(gh api "repos/$GITHUB_REPOSITORY/commits/$sha/check-runs?check_name=Website%20check" --jq '.check_runs[0].conclusion // ""')
+            [ -n "$st" ] && break
+          done
+          echo "Website check: $st"
+          test "$st" = success
+          gh pr merge "$pr" --squash --delete-branch
+          gh workflow run deploy.yml --ref main
