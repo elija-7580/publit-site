@@ -112,8 +112,10 @@
 </footer>
 <script>
 (() => {
-// Web payment links per amount (cents). Empty: the cards point to the app, where support is bought in the store.
+// Web payment links per amount (cents). Without one, a card opens GitHub Sponsors, where you can pay on the web
+// right away (monthly or once). The App Store / Google Play route is explained under "How it works".
 const WEB = {monthly: {}, once: {}};
+const SPONSORS = 'https://github.com/sponsors/elija-7580';
 const MONTHLY = [150, 300, 500, 1000, 2000, 5000], ONCE = [300, 500, 1000, 2000, 5000], PICK = 300;
 const EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources",
   "kick": "Publit is a community project", "title": "Support Publit.", "lead": "No ads, no tracking, no account. Your contribution pays for servers, developer accounts and the time to make Publit better. Support unlocks nothing: every feature stays free for everyone.",
@@ -130,7 +132,7 @@ let lang = new URLSearchParams(location.search).get('lang') || localStorage.getI
 const eur = c => new Intl.NumberFormat(lang === 'de' ? 'de-AT' : 'en-IE', {style: 'currency', currency: 'EUR', minimumFractionDigits: c % 100 ? 2 : 0}).format(c / 100);
 function cards(id, list, kind) {
   document.getElementById(id).innerHTML = list.map(c => {
-    const href = WEB[kind][c] || (/Android/i.test(navigator.userAgent) ? 'https://github.com/elija-7580/Publit-Android/releases/tag/native-latest' : 'https://apps.apple.com/app/id6824481988');
+    const href = WEB[kind][c] || SPONSORS;
     const pick = kind === 'monthly' && c === PICK;
     return `<a class="amount${pick ? ' pick' : ''}" href="${href}">${pick ? `<em>${L[lang].pick}</em>` : ''}<b>${eur(c)}</b><span>${kind === 'monthly' ? L[lang].month : L[lang].once}</span></a>`;
   }).join('');
