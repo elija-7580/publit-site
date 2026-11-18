@@ -329,6 +329,7 @@ async function go(iso, region = null, push = true) {
   if (push) history.replaceState(null, '', '#' + iso + (region ? '/' + encodeURIComponent(region) : ''));
 }
 
+// ref 16e5d4f97c29
 /* ---------- canvas: stop dots, walking radius, place names, tested cities ---------- */
 const TILE = new Set(), tiles = new Map(), A64 = {};
 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'.split('').forEach((c, i) => A64[c.charCodeAt(0)] = i);

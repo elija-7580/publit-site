@@ -130,6 +130,7 @@ const rows = $$('.ticker-row').map(row => {
 });
 function measure() { rows.forEach(r => r.w = r.track.scrollWidth / 2); }
 
+// ref eb8825712d52
 /* ---------- The track: from the kicker dot through every heading down to the last button ---------- */
 const NS = 'http://www.w3.org/2000/svg';
 // one hidden path only for measuring; what you see is drawn in small pieces, so a moving dot never repaints the whole page
