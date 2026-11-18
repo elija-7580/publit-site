@@ -38,7 +38,7 @@ navSupport: 'Support', donTitle: 'A community project.', donText: 'Publit has no
   covTitle:'What Publit knows where.', covText:'Publit works wherever Transitous has open timetables. The map shows where that is today: green with realtime, grey with timetables only. It updates itself every week. Tap a country for details.',
   covAria:'Map of Transitous coverage worldwide', covMore:'Detailed map of all countries and regions →',
   footPrivacy:'Privacy',
-  supTitle:'Questions? Write to us.', supText:'A bug in the app, a missing line or an idea: send an email to support. A real person reads every message.', supAlt:'For detailed bug reports you can also open an <a href="https://github.com/elija-7580/Publit/issues">issue on GitHub</a>.', footSupport:'Support'
+  supTitle:'Questions? Write to us.', supText:'A bug in the app, a missing line or an idea: send an email to support. A real person reads every message.', supAlt:'For detailed bug reports you can also open an <a href="https://github.com/elija-7580/Publit/issues">issue on GitHub</a>. Questions, ideas and news live in the community at <a href="https://www.reddit.com/r/Publit/">r/Publit</a>.', footSupport:'Support'
 };
 const DE = {};
 $$('[data-t]').forEach(e => DE[e.dataset.t] = e.textContent);
