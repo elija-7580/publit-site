@@ -6,7 +6,7 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 /* ---------- Language ---------- */
 const EN = {
   ctaIphone: 'Download on the App Store', wTitle: 'On your wrist.', wText: 'The Apple Watch app shows departures nearby and guides you through the trip: which line, how long, where to get off. A tap on your wrist reminds you to get off.', wa: 'Departures nearby, without the iPhone in your hand', wb: 'Live trip with changes and platforms', wc: 'Tickets with their code right on the watch', wishTitle: 'What should come next?', wishText: 'Suggest a feature or vote for what others asked for. No sign-up.', wishLink: 'See all wishes →',
-navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources',   platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show the iPhone and the Pixel 8 Pro.', androidDownload:'Download Android APK',
+navSupport: 'Support', donTitle: 'A community project.', donText: 'Publit has no ads and no tracking. From €1.50 a month you help pay for servers and development – every feature stays free for everyone.', donLink: 'Support Publit ♥', navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources',   platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show the iPhone and the Pixel 8 Pro.', androidDownload:'Download Android APK',
   navApp:'The app', navEurope:'Europe', navWhy:'Why', navAll:'All features', navCities:'For cities', footCities:'For cities and transit operators', light:'Light', dark:'Dark',
   film1:'Board', film2:'On the way', film3:'Get off', filmBanner:'Next stop: Marienplatz', filmBannerSub:'Get off now · U6 towards Klinikum Großhadern', allFeatures:'See all features →',
   kicker:'For iPhone and Android · Made in EU · Open source',
@@ -35,8 +35,8 @@ navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes',
   w5:'Simple', w5t:'Open it and go. What matters is shown big, everything else is one tap away.', w6:'Smart routing', w6t:'Publit rates every change: how safe is it, how long do you wait and walk? The route that feels shortest wins.',
   endTitle:'Last stop. Everybody off, please.', endText:'Get Publit for free on your iPhone and find the next departure near you.',
   footData:'Timetable data: Transitous and open data sources',
-  covTitle:'What Publit knows where.', covText:'Every dot is a city we tested: green with live times, grey with timetables only, yellow with live times Publit fetches from the operators itself. Tap a dot for details.',
-  covNote:'Samples from 14 October 2026, from open data (Transitous). All information without guarantee.', covAria:'Map of coverage in Europe', covMore:'Detailed map of all countries and regions →',
+  covTitle:'What Publit knows where.', covText:'Publit works wherever Transitous has open timetables. The map shows where that is today: green with realtime, grey with timetables only. It updates itself every week. Tap a country for details.',
+  covAria:'Map of Transitous coverage worldwide', covMore:'Detailed map of all countries and regions →',
   footPrivacy:'Privacy',
   supTitle:'Questions? Write to us.', supText:'A bug in the app, a missing line or an idea: send an email to support. A real person reads every message.', supAlt:'For detailed bug reports you can also open an <a href="https://github.com/elija-7580/Publit/issues">issue on GitHub</a>.', footSupport:'Support'
 };

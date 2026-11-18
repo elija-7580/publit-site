@@ -1,0 +1,74 @@
+{
+  "2": {
+    "short": {
+      "de": "Bester Ausgang aus der U-Bahn",
+      "en": "Best exit from the underground",
+      "deX": "Welcher nummerierte Ausgang dich am schnellsten ans Ziel bringt.",
+      "enX": "Which numbered exit gets you to your destination fastest.",
+      "area": "go"
+    },
+    "status": "doing"
+  },
+  "3": {
+    "short": {
+      "de": "Tickets in der App kaufen",
+      "en": "Buy tickets in the app",
+      "deX": "Erst mit einem Verkehrsverbund als Pilot, dann weiter.",
+      "enX": "First with one transit network as a pilot, then more.",
+      "area": "tix"
+    },
+    "status": "planned"
+  },
+  "6": {
+    "short": {
+      "de": "Zuhause und Arbeit am Homescreen",
+      "en": "Home and work on the home screen",
+      "deX": "Mit einem Tipp vom Homescreen nach Hause oder zur Arbeit.",
+      "enX": "One tap from the home screen to get home or to work.",
+      "area": "dev"
+    },
+    "status": "doing"
+  },
+  "7": {
+    "short": {
+      "de": "Fußwege leichter starten und folgen",
+      "en": "Easier walking navigation",
+      "deX": "Ein Tipp zum Losgehen, nächste Abbiegung und Distanz immer im Blick.",
+      "enX": "One tap to start, the next turn and distance always in view.",
+      "area": "go"
+    },
+    "status": "doing"
+  },
+  "8": {
+    "short": {
+      "de": "Start oder Ziel auf der Karte wählen",
+      "en": "Pick start or destination on the map",
+      "deX": "Pin setzen, verschieben, bestätigen – auch für Orte ohne Adresse.",
+      "enX": "Drop a pin, adjust it, confirm – also for places without an address.",
+      "area": "plan"
+    },
+    "status": "doing"
+  },
+  "9": {
+    "short": {
+      "de": "Fahrzeug verfolgen",
+      "en": "Track a vehicle",
+      "deX": "Einen Bus, eine Tram oder einen Zug live auf der Karte mitverfolgen.",
+      "enX": "Follow one bus, tram or train live on the map.",
+      "area": "map"
+    },
+    "status": "doing"
+  },
+  "10": {
+    "title": "Customize your own route, leg by leg",
+    "body": "Publit first routes a trip as usual, e.g. with 5 legs. Afterwards each leg can be changed on its own: another departure, another mode or another place to change, without searching the whole route again.",
+    "short": {
+      "de": "Verbindung selbst zusammenstellen",
+      "en": "Build your own connection",
+      "deX": "Route suchen, dann jeden Abschnitt einzeln ändern: andere Abfahrt, anderes Verkehrsmittel, anderer Umstieg.",
+      "enX": "Plan a trip, then change each leg on its own: another departure, mode or change.",
+      "area": "plan"
+    },
+    "status": "planned"
+  }
+}

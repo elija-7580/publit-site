@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../site.css?v=c63e326">
 <style>
 .steps{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:56px}
 .steps .n{font-size:13px;font-weight:800;color:var(--faint);letter-spacing:.08em;margin-bottom:8px}
@@ -54,8 +54,20 @@ pre{margin-top:22px;padding:22px;border-radius:18px;background:#111;color:#e9e9e
     <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="../wuensche/" data-t="navWishes">Wünsche</a>
     <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <a class="nav-sup" href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
     <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
+      <details class="mnav"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
+      <div class="mnav-sheet" onclick="if(event.target.closest('a'))this.parentNode.open=false">
+        <a href="../#nearby" data-t="navApp">Die App</a>
+        <a href="../features/" data-t="navFeat">Funktionen</a>
+        <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+        <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+        <a href="../staedte/" data-t="navCities">Für Städte</a>
+        <a href="https://github.com/elija-7580/Publit">GitHub</a>
+        <a class="mnav-cta" href="../unterstuetzen/"><span aria-hidden="true">♥</span> <span data-t="navSupport">Unterstützen</span></a>
+      </div>
+    </details>
   </nav>
 </header>
 <main>
@@ -118,6 +130,7 @@ pre{margin-top:22px;padding:22px;border-radius:18px;background:#111;color:#e9e9e
     <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="../wuensche/" data-t="navWishes">Wünsche</a>
     <a href="../staedte/" data-t="navCities">Für Städte</a>
+    <a href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
     <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
     <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
     <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
@@ -125,7 +138,7 @@ pre{margin-top:22px;padding:22px;border-radius:18px;background:#111;color:#e9e9e
 </footer>
 <script>
 (() => {
-const EN = {"navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources", "s1": "Publish your timetable as GTFS", "s1x": "Your timetable as a GTFS file (a ZIP with stops.txt, routes.txt, trips.txt, stop_times.txt and calendar.txt). Many scheduling systems export GTFS directly. In the EU there is usually a National Access Point (NAP) for it already.", "s2": "Offer live data as GTFS Realtime", "s2x": "TripUpdates with delays and cancellations, plus VehiclePositions and ServiceAlerts if you can. The trip_id and stop_id must match your GTFS. SIRI works too.", "s3": "At a stable URL, with an open licence", "s3x": "A permanent URL that works without signing up, and a clear licence such as CC BY 4.0. Update the timetable regularly and the live feed every 15 to 30 seconds.", "s4": "Add it to Transitous", "s4x": "Publit gets its data through Transitous, an open, community-run journey planner. A feed is added with a small entry in feeds/*.json in the Transitous repository on GitHub. If it is listed in the Mobility Database or on Transitland, its ID is enough.", "s5": "Done: Publit is live in your city", "s5x": "After the next daily import Publit shows your departures with live times, delays and cancellations. So does every other app built on Transitous or open data.", "navHome": "Start", "navAll": "All features", "kick": "For cities and transit operators", "title": "Put your transit live.", "lead": "Publit shows departures, delays and cancellations wherever operators publish their data openly. Five steps, and your riders see live when to leave. No contract, no fees, no app development on your side.", "codeT": "This is what the entry looks like.", "codeX": "A timetable and a live feed with the same name, so Transitous applies the updates to the right timetable. After the pull request the feed is tested automatically.", "docs": "Guide at Transitous →", "whyT": "What you get.", "b1": "Riders see delays and cancellations before they reach the platform", "b2": "Publish once, show up in many apps, not only Publit", "b3": "Changes between operators and countries become plannable", "b4": "Fits what the EU already asks for with National Access Points", "b5": "No rider data: Publit needs no account and tracks no one", "cT": "Questions, or already have a feed?", "cX": "Write to us on GitHub. We help with the entry, check your data in Publit and let you know as soon as your city is live.", "cBtn": "Report a feed", "cMap": "See coverage", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy"};
+const EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources", "s1": "Publish your timetable as GTFS", "s1x": "Your timetable as a GTFS file (a ZIP with stops.txt, routes.txt, trips.txt, stop_times.txt and calendar.txt). Many scheduling systems export GTFS directly. In the EU there is usually a National Access Point (NAP) for it already.", "s2": "Offer live data as GTFS Realtime", "s2x": "TripUpdates with delays and cancellations, plus VehiclePositions and ServiceAlerts if you can. The trip_id and stop_id must match your GTFS. SIRI works too.", "s3": "At a stable URL, with an open licence", "s3x": "A permanent URL that works without signing up, and a clear licence such as CC BY 4.0. Update the timetable regularly and the live feed every 15 to 30 seconds.", "s4": "Add it to Transitous", "s4x": "Publit gets its data through Transitous, an open, community-run journey planner. A feed is added with a small entry in feeds/*.json in the Transitous repository on GitHub. If it is listed in the Mobility Database or on Transitland, its ID is enough.", "s5": "Done: Publit is live in your city", "s5x": "After the next daily import Publit shows your departures with live times, delays and cancellations. So does every other app built on Transitous or open data.", "navHome": "Start", "navAll": "All features", "kick": "For cities and transit operators", "title": "Put your transit live.", "lead": "Publit shows departures, delays and cancellations wherever operators publish their data openly. Five steps, and your riders see live when to leave. No contract, no fees, no app development on your side.", "codeT": "This is what the entry looks like.", "codeX": "A timetable and a live feed with the same name, so Transitous applies the updates to the right timetable. After the pull request the feed is tested automatically.", "docs": "Guide at Transitous →", "whyT": "What you get.", "b1": "Riders see delays and cancellations before they reach the platform", "b2": "Publish once, show up in many apps, not only Publit", "b3": "Changes between operators and countries become plannable", "b4": "Fits what the EU already asks for with National Access Points", "b5": "No rider data: Publit needs no account and tracks no one", "cT": "Questions, or already have a feed?", "cX": "Write to us on GitHub. We help with the entry, check your data in Publit and let you know as soon as your city is live.", "cBtn": "Report a feed", "cMap": "See coverage", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy"};
 const els = [...document.querySelectorAll('[data-t]')], DE = {};
 els.forEach(e => DE[e.dataset.t] = e.textContent);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');

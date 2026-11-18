@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/publit.svg">
 <link rel="preload" as="image" href="assets/app/web-nearby.webp">
 <link rel="preload" as="image" href="assets/iphone-17-pro.webp">
-<link rel="stylesheet" href="site.css?v=92ae795">
+<link rel="stylesheet" href="site.css?v=c63e326">
 <meta name="description" content="Abfahrten in der Nähe, Routen durch Europa und Live-Fahrt: Publit ist eine kostenlose Open-Source-Öffi-App für iPhone und Android, ohne Konto und Werbung.">
 <link rel="canonical" href="https://publit.eu/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -42,10 +42,22 @@
     <a href="abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="wuensche/" data-t="navWishes">Wünsche</a>
     <a href="staedte/" data-t="navCities">Für Städte</a>
+    <a class="nav-sup" href="unterstuetzen/" data-t="navSupport">Unterstützen</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
     <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">
       <svg viewBox="0 0 16 16" width="20" height="20"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.22 1.88.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
     </a>
+      <details class="mnav"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
+      <div class="mnav-sheet" onclick="if(event.target.closest('a'))this.parentNode.open=false">
+        <a href="#nearby" data-t="navApp">Die App</a>
+        <a href="features/" data-t="navFeat">Funktionen</a>
+        <a href="abdeckung/" data-t="navCov">Abdeckung</a>
+        <a href="wuensche/" data-t="navWishes">Wünsche</a>
+        <a href="staedte/" data-t="navCities">Für Städte</a>
+        <a href="https://github.com/elija-7580/Publit">GitHub</a>
+        <a class="mnav-cta" href="unterstuetzen/"><span aria-hidden="true">♥</span> <span data-t="navSupport">Unterstützen</span></a>
+      </div>
+    </details>
   </nav>
 </header>
 
@@ -218,12 +230,12 @@
 
 <section id="abdeckung" class="coverage" data-stop="Abdeckung" data-stop-en="Coverage">
   <h2 data-station class="reveal" data-t="covTitle">Wo Publit was weiß.</h2>
-  <p class="reveal" data-t="covText">Jeder Punkt ist eine Stadt, die wir getestet haben: grün mit Live-Zeiten, grau nur mit Fahrplan, gelb mit Live-Zeiten, die Publit selbst bei den Verkehrsbetrieben holt. Tippe auf einen Punkt für Details.</p>
+  <p class="reveal" data-t="covText">Publit fährt überall, wo Transitous offene Fahrpläne hat. Die Karte zeigt, wo das heute ist: grün mit Echtzeit, grau nur mit Fahrplan. Sie aktualisiert sich jede Woche selbst. Tippe auf ein Land für Details.</p>
   <div class="covwrap reveal">
-    <div id="covmap" role="img" aria-label="Karte der Abdeckung in Europa"></div>
+    <div id="covmap" role="img" aria-label="Karte der Abdeckung von Transitous weltweit"></div>
     <ul id="covlegend" class="covlegend"></ul>
   </div>
-  <p class="covnote" data-t="covNote">Stichproben vom 14. Oktober 2026 aus offenen Daten (Transitous). Alle Angaben ohne Gewähr.</p>
+  <p class="covnote">Jede Woche neu berechnet aus allen Quellen von Transitous. Alle Angaben ohne Gewähr.</p>
   <a class="link reveal" href="abdeckung/" data-t="covMore">Genaue Karte aller Länder und Regionen →</a>
 </section>
 
@@ -244,6 +256,12 @@
   <p class="reveal" data-t="wishText">Schlag eine Funktion vor oder stimm für Wünsche anderer. Ohne Anmeldung.</p>
   <ol class="wish-top reveal" id="wishtop" hidden></ol>
   <a class="key reveal" href="wuensche/" data-t="wishLink">Zu den Wünschen →</a>
+</section>
+
+<section id="unterstuetzen" class="sup-teaser">
+  <h2 class="reveal" data-t="donTitle">Ein Community-Projekt.</h2>
+  <p class="reveal" data-t="donText">Publit hat keine Werbung und kein Tracking. Ab 1,50 € im Monat hilfst du, Server und Entwicklung zu bezahlen – alle Funktionen bleiben für alle kostenlos.</p>
+  <a class="key key-ink reveal" href="unterstuetzen/" data-t="donLink">Publit unterstützen ♥</a>
 </section>
 
 <section class="morelink">
@@ -272,6 +290,7 @@
     <a href="abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="wuensche/" data-t="navWishes">Wünsche</a>
     <a href="staedte/" data-t="navCities">Für Städte</a>
+    <a href="unterstuetzen/" data-t="navSupport">Unterstützen</a>
     <a href="#support" data-t="footSupport">Support</a>
     <a href="privacy/" data-t="footPrivacy">Datenschutz</a>
     <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
@@ -279,8 +298,8 @@
   </nav>
 </footer>
 
-<script src="site.js" defer></script>
+<script src="site.js?v=c63e326" defer></script>
 <script src="/analytics-consent.js" defer></script>
-<script src="coverage.js" defer></script>
+<script src="coverage.js?v=world-20261114" defer></script>
 </body>
 </html>
