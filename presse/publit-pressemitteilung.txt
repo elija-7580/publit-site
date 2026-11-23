@@ -1,0 +1,28 @@
+Wiener Entwickler baut eine Öffi-App für ganz Europa
+
+Publit plant Fahrten mit Bus, Bim, U-Bahn und Zug über Ländergrenzen hinweg und begleitet bis zum Aussteigen. 2.500 Menschen nutzen die kostenlose Open-Source-App. Als Nächstes soll man in Publit auch gleich das Ticket des Verkehrsunternehmens kaufen können.
+
+Wien, 24. November 2026. Elija Friedrich-Ulrich entwickelt Publit allein, als unabhängiges Projekt aus Wien. Die App gibt es für iPhone und Apple Watch im App Store, eine Android-Version steht als Download auf GitHub bereit. Publit zeigt Abfahrten in der Nähe, plant Routen durch Europa und führt durch die Fahrt: welche Linie, welcher Steig, wann aussteigen. Das funktioniert auch auf dem Sperrbildschirm und auf der Uhr. Die App braucht kein Konto, zeigt keine Werbung und sammelt keine Nutzungsdaten. Der Quellcode ist auf GitHub offen (Lizenz AGPL-3.0).
+
+Fahrpläne und Echtzeitdaten kommen von Transitous, einem offenen, ehrenamtlich betriebenen Routing-Dienst, der Daten aus mehr als 1.000 Quellen in 49 Ländern zusammenführt. Publit funktioniert deshalb nicht nur in Wien, sondern auch in München, Mailand oder Kopenhagen, ohne dass man vor der Reise eine neue App laden muss.
+
+An einem einzigen Tag wurde sie 1.400 Mal geladen und stand zeitweise auf Platz 19 der Verkehrs-Charts im österreichischen App Store. Ein Beitrag über Publit auf Reddit kam auf rund 120.000 Aufrufe.
+
+„In Wien brauchst du eine App, in München die nächste und für den Zug nach Venedig eine dritte. Ich will, dass eine reicht“, sagt Friedrich-Ulrich.
+
+Der nächste Schritt ist der Ticketkauf. Publit soll Tickets im Auftrag der Verkehrsunternehmen direkt an der gefundenen Verbindung verkaufen und dafür eine Provision bekommen. Tarife und Preise bestimmt weiter das Verkehrsunternehmen. Der Kauf ist noch nicht live und soll Schritt für Schritt mit einzelnen Betrieben starten. Schon heute kann man eigene Tickets, etwa das Klimaticket oder das Deutschlandticket, aus einem PDF oder Foto in Publit ablegen und an der Sperre vorzeigen.
+
+Über Publit
+
+Publit ist eine kostenlose Open-Source-App für den öffentlichen Verkehr in Europa, für iPhone, Apple Watch und Android. Sie zeigt Abfahrten in der Nähe, plant Routen über Grenzen hinweg und begleitet bis zum Aussteigen, ohne Konto, Werbung oder Tracking. Entwickelt wird sie von Elija Friedrich-Ulrich in Wien. Mehr unter publit.eu.
+
+Bildmaterial
+
+Hochauflösende Bilder im Querformat, Logo und Screenshots: publit.eu/presse (auch als ZIP). Fotocredit: „Publit“. Alle Bilder sind zur redaktionellen Nutzung freigegeben.
+
+Kontakt für Rückfragen
+
+Elija Friedrich-Ulrich, Gründer und Entwickler
+E-Mail: support@publit.eu
+Telefon: +43 676 7359197
+Web: publit.eu
