@@ -35,6 +35,16 @@ def main():
         assert call("POST", f"/api/wishes/{wid}/vote", {"voter": V})[1]["votes"] == 0
         assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "short"})[0] == 422
         assert call("POST", "/api/wishes/999/vote", {"voter": V})[0] == 404
+        # one vote per address and wish: fresh random voter ids from the same address do not add votes
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": V})[1]["votes"] == 1
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000001"})[0] == 409
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000002"})[0] == 409
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000003"}, ip="198.51.100.9")[1]["votes"] == 2
+        # taking the vote back frees the address again
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": V})[1]["votes"] == 1
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000001"})[1]["votes"] == 2
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000001"})[1]["votes"] == 1
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000003"}, ip="198.51.100.9")[1]["votes"] == 0
         for t in ("Zweiter Wunsch hier", "Dritter Wunsch hier"):
             assert call("POST", "/api/wishes", {"title": t}, ip="198.51.100.2")[0] == 201
         call("POST", "/api/wishes", {"title": "Vierter Wunsch hier"}, ip="198.51.100.2")
