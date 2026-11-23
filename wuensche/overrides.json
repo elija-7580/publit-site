@@ -63,5 +63,149 @@
       "enX": "Follow one bus, tram or train live on the map.",
       "area": "map"
     }
+  },
+  "5": {
+    "short": {
+      "de": "Texterkennung für PDF-Tickets",
+      "en": "Text recognition for PDF tickets",
+      "deX": "„Felder zuweisen“ liest auch eingescannte PDF-Tickets, direkt am Gerät.",
+      "enX": "\"Assign fields\" also reads scanned PDF tickets, right on the device.",
+      "area": "tix"
+    }
+  },
+  "14": {
+    "short": {
+      "de": "Gespeicherte Haltestellen auf der Uhr",
+      "en": "Saved stops on the watch",
+      "deX": "Deine Haltestellen am Start-Bildschirm der Apple Watch, ein Tipp bis zu den Abfahrten.",
+      "enX": "Your stops on the Apple Watch's home screen, one tap to the departures.",
+      "area": "dev"
+    }
+  },
+  "16": {
+    "short": {
+      "de": "Zu Fuß als echte Wahl",
+      "en": "Walking as a real choice",
+      "deX": "Bei kurzen Wegen steht die reine Fußroute neben den Öffis.",
+      "enX": "On short trips, walking all the way is listed next to public transport.",
+      "area": "plan"
+    }
+  },
+  "17": {
+    "short": {
+      "de": "Station in der Karte öffnen",
+      "en": "Open a station inside the map",
+      "deX": "Die Station öffnet sich in der Karte der Umgebung statt in einem neuen Fenster.",
+      "enX": "A station opens inside the Nearby map instead of on a new screen.",
+      "area": "map"
+    }
+  },
+  "18": {
+    "short": {
+      "de": "Komplikationen für die Apple Watch",
+      "en": "Apple Watch complications",
+      "deX": "Die laufende Fahrt oder die nächste Abfahrt direkt am Zifferblatt.",
+      "enX": "The running trip or the next departure right on the watch face.",
+      "area": "dev"
+    }
+  },
+  "19": {
+    "short": {
+      "de": "Widget mit Abfahrten in der Nähe",
+      "en": "Widget with departures nearby",
+      "deX": "Die nächsten Abfahrten rund um dich, gespeicherte Haltestellen zuerst.",
+      "enX": "The next departures around you, saved stops first.",
+      "area": "dev"
+    }
+  },
+  "20": {
+    "short": {
+      "de": "Tickets aus Wallet-Dateien",
+      "en": "Tickets from Wallet files",
+      "deX": "Ein Ticket, das als .pkpass-Datei kommt, zu deinen Tickets hinzufügen.",
+      "enX": "Add a ticket that comes as a .pkpass file to your tickets.",
+      "area": "tix"
+    }
+  },
+  "21": {
+    "short": {
+      "de": "Linie mit Richtung speichern",
+      "en": "Save a line with its direction",
+      "deX": "Eine Linie in einer Richtung an einer Haltestelle speichern und nur diese Abfahrten sehen.",
+      "enX": "Save one line in one direction at a stop and see only those departures.",
+      "area": "plan"
+    }
+  },
+  "22": {
+    "short": {
+      "de": "Eigene Kurzbefehle",
+      "en": "Your own shortcuts",
+      "deX": "Weitere eigene Orte neben Zuhause und Arbeit, mit einem Tipp zur Route.",
+      "enX": "More places of your own next to Home and Work, one tap to the route.",
+      "area": "plan"
+    }
+  },
+  "23": {
+    "short": {
+      "de": "Route um ein vorhandenes Ticket",
+      "en": "Route around a ticket you have",
+      "deX": "Den Abschnitt festlegen, für den du ein Ticket hast, Publit plant den Rest.",
+      "enX": "Fix the leg you hold a ticket for, Publit plans the rest.",
+      "area": "plan"
+    }
+  },
+  "24": {
+    "short": {
+      "de": "Rest der Reise zum Ticket planen",
+      "en": "Plan the rest around your ticket",
+      "deX": "Zu einem Zug, für den du schon ein Ticket hast, plant Publit An- und Weiterreise.",
+      "enX": "For a train you already hold a ticket for, Publit plans the way there and onwards.",
+      "area": "plan"
+    }
+  },
+  "25": {
+    "short": {
+      "de": "Wallet-Ticket in Publit nutzen",
+      "en": "Use a Wallet ticket in Publit",
+      "deX": "Ein Ticket aus einer Wallet-Datei in Publit übernehmen.",
+      "enX": "Take a ticket from a Wallet file over into Publit.",
+      "area": "tix"
+    }
+  },
+  "26": {
+    "short": {
+      "de": "Favoriten selbst sortieren",
+      "en": "Sort your saved stops",
+      "deX": "Gespeicherte Haltestellen per Ziehen in die eigene Reihenfolge bringen.",
+      "enX": "Drag saved stops into your own order.",
+      "area": "plan"
+    }
+  },
+  "27": {
+    "short": {
+      "de": "Favoriten selbst sortieren",
+      "en": "Sort your saved stops",
+      "deX": "Gespeicherte Haltestellen per Ziehen in die eigene Reihenfolge bringen.",
+      "enX": "Drag saved stops into your own order.",
+      "area": "plan"
+    }
+  },
+  "28": {
+    "short": {
+      "de": "Verbindung speichern",
+      "en": "Save a connection",
+      "deX": "Eine Strecke speichern und gleich sehen, wann die nächste Fahrt geht.",
+      "enX": "Save a way you take often and see when the next ride leaves.",
+      "area": "plan"
+    }
+  },
+  "29": {
+    "short": {
+      "de": "Abfahrten am Zwischenhalt",
+      "en": "Departures at an intermediate stop",
+      "deX": "Einen Zwischenhalt antippen und seine Abfahrten sehen.",
+      "enX": "Tap an intermediate stop and see its departures.",
+      "area": "plan"
+    }
   }
 }
