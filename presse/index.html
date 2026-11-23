@@ -85,7 +85,7 @@
     <ul class="pk-nums">
       <li><b>2.500</b><span data-t="n1">Menschen nutzen Publit</span></li>
       <li><b>1.400</b><span data-t="n2">Downloads an einem einzigen Tag</span></li>
-      <li><b data-t="n3n">Platz 19</b><span data-t="n3">zeitweise in den Verkehrs-Charts im App Store</span></li>
+      <li><b data-t="n3n">Platz 19</b><span data-t="n3">zeitweise in den Verkehrs-Charts im App Store Österreich</span></li>
       <li><b>120.000</b><span data-t="n4">Aufrufe auf Reddit</span></li>
     </ul>
   </div>
@@ -126,9 +126,10 @@
 
   <div class="sup-block">
     <h2 data-t="cT">Kontakt</h2>
-    <p class="sup-note" data-t="cX">Elija Friedrich-Ulrich, Gründer und Entwickler. Für Fragen, Interviews oder einen Testzugang: support@publit.eu.</p>
+    <p class="sup-note" data-t="cX">Elija Friedrich-Ulrich, Gründer und Entwickler. Für Fragen, Interviews oder einen Testzugang: support@publit.eu oder +43 676 7359197.</p>
     <div class="cta">
       <a class="key key-ink" href="mailto:support@publit.eu?subject=Presseanfrage%20Publit" data-t="cMail">E-Mail schreiben</a>
+      <a class="key" href="tel:+436767359197" data-t="cTel">Anrufen</a>
       <a class="key" href="https://apps.apple.com/app/id6824481988" data-t="ios">Im App Store ansehen</a>
       <a class="key" href="https://github.com/elija-7580/Publit" data-t="gCode">Code auf GitHub</a>
     </div>
@@ -156,7 +157,7 @@
 const EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footSources": "Data sources", "footPress": "Press", "footData": "Timetable data: Transitous and open data sources",
   "kick": "For press and blogs", "title": "Publit at a glance.", "lead": "Publit is an open app for local and long-distance public transport across Europe, for iPhone, Apple Watch and Android. It plans journeys across borders and guides you until you get off, with no account, ads or tracking. Next, you will be able to buy the transport operator's ticket right in Publit.",
   "dZip": "Press kit as ZIP (5 MB)", "dPdf": "Press release (PDF, German)", "dTxt": "Press release (text, German)",
-  "nT": "Numbers", "n1": "people use Publit", "n2": "downloads on a single day", "n3n": "No. 19", "n3": "at times in the App Store travel charts", "n4": "views on Reddit",
+  "nT": "Numbers", "n1": "people use Publit", "n2": "downloads on a single day", "n3n": "No. 19", "n3": "at times in the Austrian App Store travel charts", "n4": "views on Reddit",
   "fT": "Facts", "f1": "What", "f1x": "Departures nearby, journey planning across borders and a live trip until you get off, also on the lock screen and the Apple Watch. Your own tickets, such as the Klimaticket or Deutschlandticket, can be stored and shown.",
   "f2": "Platforms", "f2x": "iPhone (iOS 17 and later) and Apple Watch on the App Store. Android as a download on GitHub; the Google Play release is being prepared.",
   "f3": "Data", "f3x": "Timetables and live data come from Transitous, an open, volunteer-run routing service with data from more than 1,000 sources in 49 countries.",
@@ -166,7 +167,7 @@ const EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features",
   "bT": "Boilerplate", "bX": "Publit is a free, open-source public transport app for Europe, for iPhone, Apple Watch and Android. It shows departures nearby, plans journeys across borders and guides you until you get off, with no account, ads or tracking. It is built by Elija Friedrich-Ulrich in Vienna.",
   "aT": "Images and logo", "aX": "All images are landscape, 3200 × 1800 pixels. Cleared for editorial use, credit: Publit. Please do not alter the name or the logo.",
   "g1": "iPhone: departures, route, live trip", "g2": "iPhone, Android and Apple Watch", "g3": "Dark design", "g4": "Map and tickets", "g5": "Logo, light (PNG)", "g6": "Logo, dark (PNG)", "aLogo": "Logo (SVG)", "aIcon": "App icon (PNG, 1024 px)",
-  "cT": "Contact", "cX": "Elija Friedrich-Ulrich, founder and developer. For questions, interviews or test access: support@publit.eu.", "cMail": "Send an email", "ios": "View on the App Store", "gCode": "Code on GitHub"};
+  "cT": "Contact", "cX": "Elija Friedrich-Ulrich, founder and developer. For questions, interviews or test access: support@publit.eu or +43 676 7359197.", "cMail": "Send an email", "cTel": "Call", "ios": "View on the App Store", "gCode": "Code on GitHub"};
 const els = () => [...document.querySelectorAll('[data-t]')];
 const DE = {}; els().forEach(e => DE[e.dataset.t] = e.textContent);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');

@@ -6,7 +6,7 @@ Wien, 24. November 2026. Elija Friedrich-Ulrich entwickelt Publit allein, als un
 
 Fahrpläne und Echtzeitdaten kommen von Transitous, einem offenen, ehrenamtlich betriebenen Routing-Dienst, der Daten aus mehr als 1.000 Quellen in 49 Ländern zusammenführt. Publit funktioniert deshalb nicht nur in Wien, sondern auch in München, Mailand oder Kopenhagen, ohne dass man vor der Reise eine neue App laden muss.
 
-An einem einzigen Tag wurde sie 1.400 Mal geladen und stand zeitweise auf Platz 19 der Verkehrs-Charts im App Store. Ein Beitrag über Publit auf Reddit kam auf rund 120.000 Aufrufe.
+An einem einzigen Tag wurde sie 1.400 Mal geladen und stand zeitweise auf Platz 19 der Verkehrs-Charts im österreichischen App Store. Ein Beitrag über Publit auf Reddit kam auf rund 120.000 Aufrufe.
 
 „In Wien brauchst du eine App, in München die nächste und für den Zug nach Venedig eine dritte. Ich will, dass eine reicht“, sagt Friedrich-Ulrich.
 
@@ -24,4 +24,5 @@ Kontakt für Rückfragen
 
 Elija Friedrich-Ulrich, Gründer und Entwickler
 E-Mail: support@publit.eu
+Telefon: +43 676 7359197
 Web: publit.eu
