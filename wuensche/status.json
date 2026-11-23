@@ -1,4 +1,9 @@
 {
+  "1": {
+    "issues": [
+      "https://github.com/elija-7580/publit/issues/155"
+    ]
+  },
   "2": {
     "short": {
       "de": "Bester Ausgang aus der U-Bahn",
@@ -23,6 +28,11 @@
     "status": "planned",
     "issues": [
       "https://github.com/elija-7580/publit/issues/90"
+    ]
+  },
+  "4": {
+    "issues": [
+      "https://github.com/elija-7580/publit/issues/156"
     ]
   },
   "5": {
@@ -122,6 +132,11 @@
     "status": "planned",
     "issues": [
       "https://github.com/elija-7580/publit/issues/123"
+    ]
+  },
+  "15": {
+    "issues": [
+      "https://github.com/elija-7580/publit/issues/157"
     ]
   },
   "16": {
