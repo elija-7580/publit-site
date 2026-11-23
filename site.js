@@ -262,6 +262,10 @@ function buildTrack() {
 // a small snap: when scrolling stops close to a heading, settle on it
 let snapT, touching = false, snapping = false;
 addEventListener('touchstart', () => { touching = true; clearTimeout(snapT); }, { passive: true });
+// a jump from a link or the address bar goes exactly where it was asked to, never snapped to a neighbouring heading
+let jumpT; const jumped = () => { snapping = true; clearTimeout(snapT); clearTimeout(jumpT); jumpT = setTimeout(() => { snapping = false; }, 1600); };
+addEventListener('hashchange', jumped);
+document.addEventListener('click', e => { if (e.target.closest('a[href*="#"]')) jumped(); });
 addEventListener('touchend', () => { touching = false; }, { passive: true });
 addEventListener('scroll', () => {
   clearTimeout(snapT);
