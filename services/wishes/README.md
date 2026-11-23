@@ -65,6 +65,10 @@ has no issue yet, is still open, is at least 24 hours old (time to `hide` it) an
 2 votes (the author's own plus one), at most 5 per run; `@name` and `#123` in the text are defused.
 Limits: repository variables `WISHES_ISSUE_MIN_VOTES` / `WISHES_ISSUE_MIN_HOURS` in `Publit`.
 
+Publishing: the sync pushes to `main` with a deploy key (`wishes-sync`, write access, secret
+`WISHES_DEPLOY_KEY`); "Deploy keys" are on the bypass list of the ruleset for `main`. Without the
+secret it keeps one pull request (`generated/wishes`) open instead.
+
 Each issue carries `<!-- publit-wish:<id> -->`. The wishes sync here reads those issues and writes
 the link to `wuensche/links.json`, so the wish's status follows the issue from then on.
 
