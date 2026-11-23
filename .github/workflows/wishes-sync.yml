@@ -12,6 +12,7 @@ on:
 concurrency: wishes-sync
 permissions:
   contents: write
+  issues: read
   pull-requests: write
   actions: write
   checks: read
