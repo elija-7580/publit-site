@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css?v=84b21d1">
+<link rel="stylesheet" href="../site.css?v=e6c07d5">
 <meta name="description" content="Schlage Funktionen für Publit vor und stimme ab, was als Nächstes kommt. Ohne Anmeldung.">
 <link rel="canonical" href="https://publit.eu/wuensche/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -84,9 +84,10 @@
 </style>
 </head><main>
 <section class="fpage">
-  <p class="kicker"><span class="dot"></span><span>Publit</span></p>
+  <p class="kicker"><span class="dot"></span><span data-t="kick">Ein Community-Projekt</span></p>
   <h1 data-t="title">Was soll Publit als Nächstes können?</h1>
-  <p class="lead" data-t="lead">Schlag eine Funktion vor oder stimm für Wünsche anderer. Ohne Anmeldung, ohne Cookies. Was oft gewünscht wird, kommt früher.</p>
+  <p class="lead" data-t="lead">Publit wird mit der Community gebaut. Schlag eine Funktion vor oder stimm für Wünsche anderer, ohne Anmeldung und ohne Cookies. Was oft gewünscht wird, kommt früher.</p>
+  <p class="hint" data-t="cityHint">Auch gefragt: Welche Stadt oder welches Verkehrsunternehmen soll als Erstes Tickets in Publit bekommen? Schreib es als Wunsch.</p>
   <form class="wish-form" id="wishform" novalidate>
     <h2 data-t="formT">Neuer Wunsch</h2>
     <div class="wish-row">
@@ -112,6 +113,17 @@
     </div>
   </div>
 </section>
+<section class="vband">
+  <div class="vband-in">
+    <p class="kicker"><span class="dot"></span><span data-t="vbK">Wohin Publit geht</span></p>
+    <h2 data-t="vbT">Eine App für Nah- und Fernverkehr in ganz Europa.</h2>
+    <p data-t="vbX">Route finden, Ticket kaufen, einsteigen. Heute plant Publit deine Fahrt und begleitet dich bis zum Aussteigen, der Ticketkauf kommt Schritt für Schritt dazu.</p>
+    <div class="cta">
+      <a class="key key-dot" href="https://apps.apple.com/app/id6824481988" data-t="vbApp">Im App Store laden</a>
+      <a class="key key-ghost" href="../#ticketboerse" data-t="vbHome">Mehr zur Idee →</a>
+    </div>
+  </div>
+</section>
 </main>
 <footer class="foot">
   <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
@@ -129,7 +141,7 @@
 </footer>
 <script>
 (() => {
-const EN = {navSupport: 'Support', navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', title: 'What should Publit do next?', lead: 'Suggest a feature or vote for what others asked for. No sign-up, no cookies. What many people want comes sooner.',
+const EN = {vbK: 'Where Publit is going', vbT: 'One app for local and long-distance transport across Europe.', vbX: 'Find the route, buy the ticket, get on. Today Publit plans your trip and guides you until you get off, and ticket sales are coming step by step.', vbApp: 'Download on the App Store', vbHome: 'More about the idea →', kick: 'A community project', cityHint: 'Also wanted: which city or transit operator should be the first to get tickets in Publit? Post it as a wish.', navSupport: 'Support', navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources', navHome: 'Home', title: 'What should Publit do next?', lead: 'Publit is built with its community. Suggest a feature or vote for what others asked for, with no sign-up and no cookies. What many people want comes sooner.',
   sortTop: 'Popular', sortNew: 'New', toBoard: 'What is already here →', toSupport: 'Support Publit ♥', formT: 'New wish', fTitle: 'What would you like?', fBody: 'Description (optional)', fBodyPh: 'How should it work, and when would you use it?', fSend: 'Send wish',
   fNote: 'Wishes are public. We store no IP addresses and no account; your browser only keeps a random ID so you cannot vote twice.',
   footData: 'Timetable data: Transitous and open data sources', footPrivacy: 'Privacy'};
