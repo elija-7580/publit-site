@@ -21,22 +21,35 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Deploy key with write access that is on the bypass list of the main ruleset
+          # (secret WISHES_DEPLOY_KEY). Without it the run falls back to a pull request.
+          ssh-key: ${{ secrets.WISHES_DEPLOY_KEY }}
       - name: Links, status and roadmap from GitHub issues
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 tools/wishes_sync.py
-      - name: Pull request, check, merge, deploy
-        # main only takes pull requests with a green "Website check". The bot can merge its own PR only
-        # if "GitHub Actions" is on the bypass list of the main ruleset; otherwise the PR stays open.
+      - name: Publish (push with the deploy key, or pull request)
+        # main only takes pull requests with a green "Website check". "Deploy keys" are on the bypass
+        # list of that ruleset, so with WISHES_DEPLOY_KEY the run pushes straight to main. Without the
+        # key it keeps one pull request open (github-actions cannot merge it under the ruleset).
         env:
           GH_TOKEN: ${{ github.token }}
+          HAS_DEPLOY_KEY: ${{ secrets.WISHES_DEPLOY_KEY != '' }}
         run: |
           set -e
+          [ "$HAS_DEPLOY_KEY" = true ] || HAS_DEPLOY_KEY=
           git add wuensche/status.json wuensche/links.json wuensche/roadmap.json
           git diff --cached --quiet && { echo "Nothing changed"; exit 0; }
           python3 tools/check_site.py
           git config user.name "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$HAS_DEPLOY_KEY" ]; then
+            # The push by the deploy key starts the website check and the deploy by itself.
+            git commit -m "Wishes synced with GitHub issues"
+            git push origin HEAD:main
+            exit 0
+          fi
           # One branch and one pull request that every run updates, so nothing piles up.
           branch="generated/wishes"
           git commit -m "Wishes synced with GitHub issues"
