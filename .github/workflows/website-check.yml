@@ -22,3 +22,4 @@ jobs:
           node --check abdeckung/cov.js
           node --check analytics-consent.js
           python3 tools/check_site.py
+          python3 tools/test_wishes_sync.py
