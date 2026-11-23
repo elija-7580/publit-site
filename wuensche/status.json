@@ -1,4 +1,9 @@
 {
+  "1": {
+    "issues": [
+      "https://github.com/elija-7580/publit/issues/155"
+    ]
+  },
   "2": {
     "short": {
       "de": "Bester Ausgang aus der U-Bahn",
@@ -23,6 +28,11 @@
     "status": "planned",
     "issues": [
       "https://github.com/elija-7580/publit/issues/90"
+    ]
+  },
+  "4": {
+    "issues": [
+      "https://github.com/elija-7580/publit/issues/156"
     ]
   },
   "5": {
@@ -124,6 +134,11 @@
       "https://github.com/elija-7580/publit/issues/123"
     ]
   },
+  "15": {
+    "issues": [
+      "https://github.com/elija-7580/publit/issues/157"
+    ]
+  },
   "16": {
     "short": {
       "de": "Zu Fuß als echte Wahl",
@@ -132,7 +147,7 @@
       "enX": "On short trips, walking all the way is listed next to public transport.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/110"
     ]
@@ -222,7 +237,7 @@
       "enX": "Fix the leg you hold a ticket for, Publit plans the rest.",
       "area": "plan"
     },
-    "status": "doing",
+    "status": "planned",
     "issues": [
       "https://github.com/elija-7580/publit/issues/133"
     ]
@@ -235,7 +250,7 @@
       "enX": "For a train you already hold a ticket for, Publit plans the way there and onwards.",
       "area": "plan"
     },
-    "status": "doing",
+    "status": "planned",
     "issues": [
       "https://github.com/elija-7580/publit/issues/133"
     ]
@@ -300,7 +315,7 @@
       "enX": "Tap an intermediate stop and see its departures.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/130"
     ]

@@ -73,11 +73,14 @@
 .chips .count{opacity:.6;margin-left:4px;font-variant-numeric:tabular-nums}
 .bitem small{white-space:pre-line}
 .bitem .more{display:inline;border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
-#wishes{grid-template-columns:minmax(0,2.1fr) minmax(0,1fr)}
+/* Ideas across the full width, then planned, in progress and done as three columns. */
+#wishes{grid-template-columns:minmax(0,1fr)}
 .bcol.ideas .bitems{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
-.wstack{display:grid;gap:16px}
+.wstack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.wstack .bcol.ship{grid-column:auto}
+.wstack .bcol.ship .bitems{grid-template-columns:minmax(0,1fr)}
 .wish-form .key{justify-content:center}
-@media (max-width:900px){#wishes{grid-template-columns:1fr}}
+@media (max-width:900px){.wstack{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:900px){.wish-row{grid-template-columns:1fr}.wish-top{grid-template-columns:1fr}}
 </style>
 </head><main>
@@ -175,10 +178,17 @@ function render() {
   if (down) { box.innerHTML = `<p class="wish-empty">${M().down}</p>`; return; }
   if (!loaded) return;
   if (!list.length) { box.innerHTML = `<p class="wish-empty">${M().empty}</p>`; return; }
-  // Ideas first and widest; then what is planned, being built and done.
-  // Ideas wide on the left; planned, being built and done stacked beside them.
+  // Ideas across the top; then what is planned, being built and done side by side.
+  // Wishes linked to the same GitHub issue (e.g. the same idea in two languages) show once,
+  // as the one with the most votes.
+  const seen = new Set(), keep = new Set();
+  [...list].sort((a, b) => b.votes - a.votes).forEach(w => {
+    const iss = w.issues || [];
+    if (iss.some(u => seen.has(u))) return;
+    iss.forEach(u => seen.add(u)); keep.add(w.id);
+  });
   const col = st => {
-    const ws = list.filter(w => (M().st[w.status] ? w.status : 'open') === st);
+    const ws = list.filter(w => keep.has(w.id) && (M().st[w.status] ? w.status : 'open') === st);
     return `<section class="bcol ${st === 'open' ? 'ideas' : st === 'done' ? 'ship' : st}"><h3>${M().st[st]} <i>${ws.length}</i></h3><p>${M().sub[st]}</p><ul class="bitems">`
       + (ws.length ? ws.map(item).join('') : `<li class="bitem"><div><small>${M().none}</small></div></li>`) + '</ul></section>';
   };
