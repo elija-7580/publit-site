@@ -40,6 +40,9 @@ create table if not exists votes(
 _lock = threading.Lock()
 _hits = {}
 _salt = {"day": None, "salt": b""}
+# (wish id, hashed address) pairs that voted today: one vote per address and wish, however many
+# random voter ids a client makes up. Memory only, cleared with the daily salt like _hits.
+_voted = set()
 
 
 def db(path=None):
@@ -55,6 +58,7 @@ def addr_key(ip):
     if _salt["day"] != day:
         _salt.update(day=day, salt=secrets.token_bytes(16))
         _hits.clear()
+        _voted.clear()
     return hashlib.sha256(_salt["salt"] + ip.encode()).hexdigest()[:20]
 
 
@@ -186,11 +190,17 @@ class Handler(BaseHTTPRequestHandler):
             with db() as c:
                 if not c.execute("select 1 from wishes where id = ? and hidden = 0", (wid,)).fetchone():
                     return self._send(404, {"error": "not found"})
-                if c.execute("delete from votes where wish = ? and voter = ?", (wid, voter)).rowcount == 0:
+                if c.execute("delete from votes where wish = ? and voter = ?", (wid, voter)).rowcount:
+                    with _lock:
+                        _voted.discard((wid, key))
+                    mine = False
+                else:
+                    with _lock:
+                        if (wid, key) in _voted:
+                            return self._send(409, {"error": "already voted"})
+                        _voted.add((wid, key))
                     c.execute("insert into votes values(?,?,?)", (wid, voter, int(time.time())))
                     mine = True
-                else:
-                    mine = False
                 votes = c.execute("select count(*) from votes where wish = ?", (wid,)).fetchone()[0]
             return self._send(200, {"ok": True, "votes": votes, "mine": mine})
         self._send(404, {"error": "not found"})
