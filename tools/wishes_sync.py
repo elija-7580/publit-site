@@ -38,18 +38,18 @@ MARKER = re.compile(r"<!-- publit-wish:(\d+) -->")
 ISSUE = re.compile(r"github\.com/([\w.-]+/[\w.-]+)/issues/(\d+)|\b([\w.-]+/[\w.-]+)#(\d+)\b")
 
 
-def get(url):
+def get(url, auth=True):
     h = {"Accept": "application/vnd.github+json", "User-Agent": "publit-wishes-sync"}
-    if TOKEN and "api.github.com" in url:
+    if auth and TOKEN and "api.github.com" in url:
         h["Authorization"] = f"Bearer {TOKEN}"
     with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=30) as r:
         return json.load(r)
 
 
-def all_pages(url):
+def all_pages(url, auth=True):
     out, page = [], 1
     while True:
-        batch = get(f"{url}{'&' if '?' in url else '?'}per_page=100&page={page}")
+        batch = get(f"{url}{'&' if '?' in url else '?'}per_page=100&page={page}", auth)
         out += batch
         if len(batch) < 100 or page >= 20:
             return out
@@ -73,10 +73,16 @@ def marker_links(issues):
 def link_filed_issues(wishes, links):
     """Adds issues filed for wishes to links. Returns how many were added."""
     try:
-        found = marker_links(all_pages(f"https://api.github.com/repos/{WISH_ISSUE_REPO}/issues?labels=wish&state=all"))
+        url = f"https://api.github.com/repos/{WISH_ISSUE_REPO}/issues?labels=wish&state=all"
+        found = marker_links(all_pages(url))
+        if not found and TOKEN:
+            # The Actions token of this repository may list no issues of another repository;
+            # the wish issues are public, so ask once more without it.
+            found = marker_links(all_pages(url, auth=False))
     except urllib.error.HTTPError as e:
         print(f"Could not read the wish issues of {WISH_ISSUE_REPO}: {e}", file=sys.stderr)
         return 0
+    print(f"{WISH_ISSUE_REPO}: {len(found)} wish issue(s) with a marker", file=sys.stderr)
     ids = {w["id"] for w in wishes}
     n = 0
     for wid, num in found.items():
