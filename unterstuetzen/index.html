@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="author" content="Elija Friedrich-Ulrich">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-itunes-app" content="app-id=6824481988">
 <title>Publit unterstützen</title>
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
@@ -57,13 +58,13 @@
 </header>
 <main>
 <section class="fpage sup-page">
-  <p class="kicker"><span class="dot"></span><span data-t="kick">Publit ist ein Community-Projekt</span></p>
+  <p class="kicker"><span class="dot"></span><span data-t="kick">Ein Community-Projekt</span></p>
   <h1 data-t="title">Publit unterstützen.</h1>
-  <p class="lead" data-t="lead">Keine Werbung, kein Tracking, kein Konto. Dein Beitrag bezahlt Server, Entwickler-Konten und die Zeit, Publit besser zu machen. Unterstützen schaltet nichts frei: Alle Funktionen bleiben für alle kostenlos.</p>
+  <p class="lead" data-t="lead">Publit soll Route und Ticket für Nah- und Fernverkehr in ganz Europa in eine App bringen. Dein Beitrag bezahlt Server, Entwickler-Konten und die Zeit, die das braucht. Keine Werbung, kein Tracking, und Unterstützen schaltet nichts frei: Alle Funktionen bleiben für alle kostenlos.</p>
 
   <div class="sup-block">
     <h2 data-t="mT">Monatlich</h2>
-    <p class="sup-note" data-t="mX">Am meisten hilft ein kleiner, regelmäßiger Beitrag – damit lässt sich planen. Jederzeit kündbar.</p>
+    <p class="sup-note" data-t="mX">Am meisten hilft ein kleiner, regelmäßiger Beitrag, weil sich damit planen lässt. Jederzeit kündbar.</p>
     <div class="amounts" id="monthly"></div>
   </div>
 
@@ -85,7 +86,7 @@
     <h2 data-t="hT">So geht's</h2>
     <div class="sup-steps">
       <div class="card"><h3 data-t="h1">In der App</h3><p data-t="h1x">Einstellungen → „Publit unterstützen“. Bezahlt wird sicher über den App Store oder Google Play; kündigen kannst du dort jederzeit. Oder ohne App: GitHub Sponsors.</p></div>
-      <div class="card"><h3 data-t="h2">Ohne Geld</h3><p data-t="h2x">Wünsche einreichen und abstimmen, Fehler melden, Publit weitersagen oder deine Stadt zu Transitous bringen – das hilft genauso.</p></div>
+      <div class="card"><h3 data-t="h2">Ohne Geld</h3><p data-t="h2x">Wünsche einreichen und abstimmen, Fehler melden, Publit weitersagen oder deine Stadt zu Transitous bringen. Das hilft genauso.</p></div>
       <div class="card"><h3 data-t="h3">Wohin das Geld geht</h3><p data-t="h3x">Server für publit.eu, Wunschliste und Live-Daten, die Entwickler-Konten bei Apple und Google und die Entwicklung selbst.</p></div>
     </div>
     <div class="cta">
@@ -94,6 +95,17 @@
       <a class="key" href="../wuensche/" data-t="wishes">Zu den Wünschen →</a>
     </div>
     <p class="sup-note" data-t="note">Beträge in Euro; im App Store und bei Google Play siehst du den Preis in deiner Währung. Store-Gebühren gehen an Apple bzw. Google – über GitHub Sponsors kommt mehr bei Publit an.</p>
+  </div>
+</section>
+<section class="vband">
+  <div class="vband-in">
+    <p class="kicker"><span class="dot"></span><span data-t="vbK">Wohin Publit geht</span></p>
+    <h2 data-t="vbT">Eine App für Nah- und Fernverkehr in ganz Europa.</h2>
+    <p data-t="vbX">Route finden, Ticket kaufen, einsteigen. Heute plant Publit deine Fahrt und begleitet dich bis zum Aussteigen, der Ticketkauf kommt Schritt für Schritt dazu.</p>
+    <div class="cta">
+      <a class="key key-dot" href="https://apps.apple.com/app/id6824481988" data-t="vbApp">Im App Store laden</a>
+      <a class="key key-ghost" href="../#ticketboerse" data-t="vbHome">Mehr zur Idee →</a>
+    </div>
   </div>
 </section>
 </main>
@@ -107,6 +119,8 @@
     <a href="../staedte/" data-t="navCities">Für Städte</a>
     <a href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
     <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
+    <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
+    <a href="../presse/" data-t="footPress">Presse</a>
     <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
     <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
   </nav>
@@ -116,11 +130,11 @@
 // Web payment links per amount (cents). Empty: the cards point to the app, where support is bought in the store.
 const WEB = {monthly: {}, once: {}};
 const MONTHLY = [150, 300, 500, 1000, 2000, 5000], ONCE = [300, 500, 1000, 2000, 5000], PICK = 300;
-const EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources",
-  "kick": "Publit is a community project", "title": "Support Publit.", "lead": "No ads, no tracking, no account. Your contribution pays for servers, developer accounts and the time to make Publit better. Support unlocks nothing: every feature stays free for everyone.",
-  "mT": "Monthly", "mX": "A small regular amount helps most – it lets us plan. Cancel any time.", "oT": "One-time", "hT": "How it works",
+const EN = {"vbK": "Where Publit is going", "vbT": "One app for local and long-distance transport across Europe.", "vbX": "Find the route, buy the ticket, get on. Today Publit plans your trip and guides you until you get off, and ticket sales are coming step by step.", "vbApp": "Download on the App Store", "vbHome": "More about the idea →", "navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources",
+  "kick": "A community project", "title": "Support Publit.", "lead": "Publit wants to bring route and ticket for local and long-distance transport across Europe into one app. Your contribution pays for servers, developer accounts and the time that takes. No ads, no tracking, and support unlocks nothing: every feature stays free for everyone.",
+  "mT": "Monthly", "mX": "A small regular amount helps most, because it lets us plan. Cancel any time.", "oT": "One-time", "hT": "How it works",
   "h1": "In the app", "h1x": "Settings → “Support Publit”. You pay safely through the App Store or Google Play and can cancel there at any time. Or without the app: GitHub Sponsors.",
-  "h2": "Without money", "h2x": "Suggest and vote for wishes, report bugs, tell others about Publit or bring your city to Transitous – that helps just as much.",
+  "h2": "Without money", "h2x": "Suggest and vote for wishes, report bugs, tell others about Publit or bring your city to Transitous. That helps just as much.",
   "h3": "Where the money goes", "h3x": "Servers for publit.eu, the wish list and live data, the developer accounts at Apple and Google, and development itself.",
   "ios": "Open in the App Store", "android": "Get the Android app", "wishes": "See the wishes →",
   "note": "Amounts in euro; the App Store and Google Play show the price in your currency. Store fees go to Apple and Google – more reaches Publit through GitHub Sponsors.", "gT": "Through GitHub Sponsors", "gX": "No app store fee: support Publit directly on GitHub – monthly or once, by card or PayPal. Publit is open source, all of the code lives there.", "gBtn": "Sponsor on GitHub", "gCode": "See the code on GitHub"};
