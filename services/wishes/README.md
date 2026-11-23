@@ -58,21 +58,15 @@ features page live in `wuensche/overrides.json`.
 
 ## Wishes become GitHub issues
 
-The same workflow files new wishes as issues in `elija-7580/Publit` (label `wish`) and writes the
-link to `wuensche/links.json`, so their status follows the issue from then on. Spam stays out:
-a wish is filed only when it has no issue yet, is still open, is at least 24 hours old (time to
-`hide` it) and has at least 2 votes (the author's own plus one), at most 5 per run. Mentions
-(`@name`) and `#123` references in the wish text are defused. Change the limits with the repository
-variables `WISHES_ISSUE_MIN_VOTES` and `WISHES_ISSUE_MIN_HOURS`.
+The workflow `Wishes to issues` in `elija-7580/Publit` (hourly, `tools/wishes/wishes_to_issues.py`
+there) files new wishes as issues with label `wish`, using that workflow's own `GITHUB_TOKEN`:
+no personal token, nothing secret on the wish server. Spam stays out: a wish is filed only when it
+has no issue yet, is still open, is at least 24 hours old (time to `hide` it) and has at least
+2 votes (the author's own plus one), at most 5 per run; `@name` and `#123` in the text are defused.
+Limits: repository variables `WISHES_ISSUE_MIN_VOTES` / `WISHES_ISSUE_MIN_HOURS` in `Publit`.
 
-The token never reaches the wish server or the browser: it is an Actions secret of this repository.
-
-1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.
-   Repository access: only `elija-7580/Publit`; permissions: Issues → Read and write.
-2. This repository → Settings → Secrets and variables → Actions → New repository secret
-   `WISHES_ISSUE_TOKEN`.
-
-Without the secret nothing is filed; status and roadmap still sync.
+Each issue carries `<!-- publit-wish:<id> -->`. The wishes sync here reads those issues and writes
+the link to `wuensche/links.json`, so the wish's status follows the issue from then on.
 
 ## Roadmap from GitHub issues
 

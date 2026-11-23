@@ -1,6 +1,6 @@
 # Keeps the wish board (publit.eu/wuensche, the features page and, via the API, the apps) in sync with
-# GitHub: tools/wishes_sync.py files new wishes as issues in elija-7580/Publit (needs the secret
-# WISHES_ISSUE_TOKEN, see services/wishes/README.md; without it this step is skipped), derives each
+# GitHub: tools/wishes_sync.py links the issues that "Wishes to issues" (elija-7580/Publit) filed for
+# new wishes, derives each
 # wish's status from its linked issues and lists issues labelled "roadmap" for the features page.
 # Writes wuensche/status.json, links.json and roadmap.json. Runs every 30 minutes; if anything
 # changed it commits to main and deploys.
@@ -19,12 +19,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Issues for new wishes, status and roadmap from GitHub
+      - name: Links, status and roadmap from GitHub issues
         env:
           GH_TOKEN: ${{ github.token }}
-          WISHES_ISSUE_TOKEN: ${{ secrets.WISHES_ISSUE_TOKEN }}
-          WISHES_ISSUE_MIN_VOTES: ${{ vars.WISHES_ISSUE_MIN_VOTES }}
-          WISHES_ISSUE_MIN_HOURS: ${{ vars.WISHES_ISSUE_MIN_HOURS }}
         run: python3 tools/wishes_sync.py
       - name: Commit and deploy
         env:

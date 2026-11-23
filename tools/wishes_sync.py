@@ -13,13 +13,10 @@ Each wish is linked to GitHub issues: issue URLs in the wish text, plus wuensche
 Wording fixes (title/body) come from wuensche/overrides.json and are kept as they are.
 status.json also lists each wish's issues ("issues"), so the pages can link to them.
 
-New wishes become GitHub issues by themselves (only with WISHES_ISSUE_TOKEN, a token that may
-write issues in WISHES_ISSUE_REPO; it stays in GitHub Actions, the wish server never sees it).
-To keep spam out of the tracker a wish is filed only when it has no issue yet, is still "open",
-is at least WISHES_ISSUE_MIN_HOURS old (default 24, time to hide it on the server) and has at
-least WISHES_ISSUE_MIN_VOTES votes (default 2: the author's own plus one more); at most
-WISHES_ISSUE_MAX_PER_RUN (default 5) per run. The new issue is written to wuensche/links.json.
-A hidden marker in the issue (<!-- publit-wish:<id> -->) keeps a wish from being filed twice.
+New wishes become GitHub issues by themselves: the workflow "Wishes to issues" in
+elija-7580/Publit files them with its own token (spam rules there: 24 h old, 2 votes, 5 per run).
+Each such issue carries a marker <!-- publit-wish:<id> -->; this script finds those issues
+(label "wish" in WISH_ISSUE_REPO, read only) and writes the link to wuensche/links.json.
 
 wuensche/roadmap.json lists GitHub issues with the label "roadmap" (in ROADMAP_REPOS) that no wish
 links to, with the same status rules (open = later). The features page shows them on its board.
@@ -28,41 +25,31 @@ come from wuensche/overrides.json, keyed by "owner/repo#123".
 
 Run: python3 tools/wishes_sync.py   (GH_TOKEN optional, raises the API rate limit)
 """
-import json, os, re, sys, time, urllib.error, urllib.request
+import json, os, re, sys, urllib.error, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 API = os.environ.get("WISHES_API", "https://publit.eu/api/wishes?sort=new")
 TOKEN = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-ISSUE_TOKEN = os.environ.get("WISHES_ISSUE_TOKEN")
-ISSUE_REPO = os.environ.get("WISHES_ISSUE_REPO") or "elija-7580/Publit"
-MIN_HOURS = float(os.environ.get("WISHES_ISSUE_MIN_HOURS") or 24)
-MIN_VOTES = int(os.environ.get("WISHES_ISSUE_MIN_VOTES") or 2)
-MAX_PER_RUN = int(os.environ.get("WISHES_ISSUE_MAX_PER_RUN") or 5)
+WISH_ISSUE_REPO = os.environ.get("WISH_ISSUE_REPO") or "elija-7580/Publit"
 ROADMAP_REPOS = (os.environ.get("ROADMAP_REPOS") or "elija-7580/Publit,elija-7580/Publit-Android").split(",")
 AREAS = {"plan", "go", "map", "tix", "dev", "com"}
 MARKER = re.compile(r"<!-- publit-wish:(\d+) -->")
 ISSUE = re.compile(r"github\.com/([\w.-]+/[\w.-]+)/issues/(\d+)|\b([\w.-]+/[\w.-]+)#(\d+)\b")
 
 
-def get(url, token=None, method="GET", data=None):
+def get(url):
     h = {"Accept": "application/vnd.github+json", "User-Agent": "publit-wishes-sync"}
-    token = token or TOKEN
-    if token and "api.github.com" in url:
-        h["Authorization"] = f"Bearer {token}"
-    body = None
-    if data is not None:
-        body = json.dumps(data).encode()
-        h["Content-Type"] = "application/json"
-    req = urllib.request.Request(url, data=body, headers=h, method=method)
-    with urllib.request.urlopen(req, timeout=30) as r:
+    if TOKEN and "api.github.com" in url:
+        h["Authorization"] = f"Bearer {TOKEN}"
+    with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=30) as r:
         return json.load(r)
 
 
-def all_pages(url, token=None):
+def all_pages(url):
     out, page = [], 1
     while True:
-        batch = get(f"{url}{'&' if '?' in url else '?'}per_page=100&page={page}", token)
+        batch = get(f"{url}{'&' if '?' in url else '?'}per_page=100&page={page}")
         out += batch
         if len(batch) < 100 or page >= 20:
             return out
@@ -73,65 +60,29 @@ def ref_text(repo, n):
     return f"{repo}#{n}"
 
 
-def defang(text):
-    """Wish text is written by anyone: no @mentions and no #123 cross-references in the tracker."""
-    text = re.sub(r"@(?=\w)", "@\u200b", text or "")
-    return re.sub(r"(?<![\w/])#(?=\d)", "#\u200b", text)
+def marker_links(issues):
+    """{wish id: issue number} from the markers of issues filed by "Wishes to issues"."""
+    out = {}
+    for i in sorted(issues, key=lambda i: i["number"]):
+        m = MARKER.search(i.get("body") or "")
+        if m and "pull_request" not in i:
+            out.setdefault(int(m.group(1)), i["number"])
+    return out
 
 
-def issue_body(w):
-    quoted = "\n".join("> " + line if line else ">" for line in defang(w.get("body") or "").splitlines()) or "> (no details)"
-    return (f"{quoted}\n\n"
-            f"Wish #{w['id']} from the [Publit wish list](https://publit.eu/wuensche/) "
-            f"({w.get('lang', 'en')}, {w['votes']} votes when filed). Filed automatically; "
-            f"the wish's status on publit.eu follows this issue (labels `planned`, `in progress`, `released`).\n\n"
-            f"<!-- publit-wish:{w['id']} -->\n")
-
-
-def to_file(wishes, linked, now=None):
-    """Wishes that should get an issue now (oldest first), see the module docstring."""
-    now = now or time.time()
-    c = [w for w in wishes if w["id"] not in linked and w.get("status", "open") == "open"
-         and now - w.get("created", now) >= MIN_HOURS * 3600 and w.get("votes", 0) >= MIN_VOTES]
-    return sorted(c, key=lambda w: w["id"])[:MAX_PER_RUN]
-
-
-def file_issues(wishes, links):
-    """Creates issues for new wishes and records them in links. Returns how many were linked."""
-    if not ISSUE_TOKEN:
-        print("WISHES_ISSUE_TOKEN not set: no issues filed", file=sys.stderr)
-        return 0
-    linked = {int(k) for k, v in links.items() if v}
-    linked |= {w["id"] for w in wishes if any(refs(w.get("body")))}
-    api = f"https://api.github.com/repos/{ISSUE_REPO}"
-    # Issues filed earlier (also if links.json was not saved then): find them by their marker.
-    known = {}
+def link_filed_issues(wishes, links):
+    """Adds issues filed for wishes to links. Returns how many were added."""
     try:
-        for i in all_pages(f"{api}/issues?labels=wish&state=all", ISSUE_TOKEN):
-            m = MARKER.search(i.get("body") or "")
-            if m:
-                known.setdefault(int(m.group(1)), i["number"])
+        found = marker_links(all_pages(f"https://api.github.com/repos/{WISH_ISSUE_REPO}/issues?labels=wish&state=all"))
     except urllib.error.HTTPError as e:
-        print(f"Could not list issues in {ISSUE_REPO}: {e}", file=sys.stderr)
+        print(f"Could not read the wish issues of {WISH_ISSUE_REPO}: {e}", file=sys.stderr)
         return 0
+    ids = {w["id"] for w in wishes}
     n = 0
-    for wid, num in known.items():
-        if wid not in linked and any(w["id"] == wid for w in wishes):
-            links[str(wid)] = [ref_text(ISSUE_REPO, num)]; linked.add(wid); n += 1
-    try:
-        get(f"{api}/labels", ISSUE_TOKEN, "POST", {"name": "wish", "color": "ffc531", "description": "From the wish list on publit.eu"})
-    except urllib.error.HTTPError:
-        pass                                  # 422: the label is already there
-    for w in to_file(wishes, linked):
-        title = defang(" ".join(w["title"].split()))[:200]
-        try:
-            i = get(f"{api}/issues", ISSUE_TOKEN, "POST", {"title": title, "body": issue_body(w), "labels": ["wish"]})
-        except urllib.error.HTTPError as e:
-            print(f"Could not file wish {w['id']}: {e}", file=sys.stderr)
-            break
-        links[str(w["id"])] = [ref_text(ISSUE_REPO, i["number"])]
-        print(f"Wish {w['id']} -> {i['html_url']}", file=sys.stderr)
-        n += 1
+    for wid, num in found.items():
+        if wid in ids and not links.get(str(wid)):
+            links[str(wid)] = [ref_text(WISH_ISSUE_REPO, num)]
+            n += 1
     return n
 
 
@@ -214,7 +165,7 @@ def main():
     links = json.loads((ROOT / "wuensche/links.json").read_text())
     overrides = json.loads((ROOT / "wuensche/overrides.json").read_text())
     wishes = get(API)["wishes"]
-    if file_issues(wishes, links):
+    if link_filed_issues(wishes, links):
         write("links.json", dict(sorted(links.items(), key=lambda kv: int(kv[0]))))
     cache, out, linked_refs = {}, {}, set()
     for w in wishes:
