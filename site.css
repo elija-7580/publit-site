@@ -484,3 +484,17 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 .partner .cta{margin-top:26px}
 @media (max-width:900px){.stats ul{grid-template-columns:1fr 1fr}.vsteps{grid-template-columns:1fr}}
 @media (max-width:560px){.stats{padding-top:48px}.stats li{padding:18px}.vision>p,.partner>p{font-size:17px}}
+
+/* subpages: same kicker dot and closing band as the homepage */
+.fpage .kicker .dot{visibility:visible;animation:pulse 2.4s infinite}
+.fpage .hint{margin-top:14px;max-width:34em;font-size:16px;color:var(--soft);padding:12px 16px;border-left:3px solid var(--dot);background:var(--surface);border-radius:0 14px 14px 0}
+.vband{padding-top:0}
+@media (prefers-color-scheme:dark){.vband-in{background:#1c1c1e;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}}
+.vband-in{background:#111;color:#f4f4f2;border-radius:28px;padding:clamp(28px,5vw,56px)}
+.vband .kicker{color:#a9a9a4;margin-bottom:18px}.vband .kicker .dot{visibility:visible;animation:pulse 2.4s infinite}
+.vband h2{font-size:clamp(30px,4vw,52px);max-width:16em}
+.vband p:not(.kicker){margin-top:16px;max-width:36em;color:#c9c9c4;font-size:17px;line-height:1.5}
+.vband .cta{margin-top:26px}
+.vband .key-dot{background:var(--dot);color:#111}
+.vband .key-ghost{background:transparent;color:#f4f4f2;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)}
+@media (max-width:560px){.vband{padding:12px 12px 56px}.vband-in{border-radius:22px}.vband .cta .key{flex:1 1 100%;justify-content:center}}
