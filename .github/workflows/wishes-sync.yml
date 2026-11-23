@@ -21,10 +21,6 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-        with:
-          # Deploy key with write access that is on the bypass list of the main ruleset
-          # (secret WISHES_DEPLOY_KEY). Without it the run falls back to a pull request.
-          ssh-key: ${{ secrets.WISHES_DEPLOY_KEY }}
       - name: Links, status and roadmap from GitHub issues
         env:
           GH_TOKEN: ${{ github.token }}
@@ -35,10 +31,26 @@ jobs:
         # key it keeps one pull request open (github-actions cannot merge it under the ruleset).
         env:
           GH_TOKEN: ${{ github.token }}
-          HAS_DEPLOY_KEY: ${{ secrets.WISHES_DEPLOY_KEY != '' }}
+          # Deploy key with write access that is on the bypass list of the main ruleset.
+          # Without it the run falls back to a pull request.
+          WISHES_DEPLOY_KEY: ${{ secrets.WISHES_DEPLOY_KEY }}
         run: |
           set -e
-          [ "$HAS_DEPLOY_KEY" = true ] || HAS_DEPLOY_KEY=
+          HAS_DEPLOY_KEY=
+          if [ -n "$WISHES_DEPLOY_KEY" ]; then
+            # Pasted secrets often lose the final newline or carry CRLF; OpenSSH then fails
+            # with "error in libcrypto". Normalise the key before use, never print it.
+            key="$RUNNER_TEMP/wishes_deploy_key"
+            printf '%s\n' "$WISHES_DEPLOY_KEY" | tr -d '\r' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | grep -v '^$' > "$key"
+            chmod 600 "$key"
+            if ! head -n1 "$key" | grep -q -- '-----BEGIN .*PRIVATE KEY-----' || ! tail -n1 "$key" | grep -q -- '-----END .*PRIVATE KEY-----'; then
+              echo "::error::WISHES_DEPLOY_KEY is not a complete private key (must start with -----BEGIN ... PRIVATE KEY----- and end with -----END ... PRIVATE KEY-----)."
+              exit 1
+            fi
+            ssh-keygen -y -f "$key" > /dev/null || { echo "::error::WISHES_DEPLOY_KEY could not be read as an SSH private key."; exit 1; }
+            export GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+            HAS_DEPLOY_KEY=1
+          fi
           git add wuensche/status.json wuensche/links.json wuensche/roadmap.json
           git diff --cached --quiet && { echo "Nothing changed"; exit 0; }
           python3 tools/check_site.py
@@ -47,7 +59,7 @@ jobs:
           if [ -n "$HAS_DEPLOY_KEY" ]; then
             # The push by the deploy key starts the website check and the deploy by itself.
             git commit -m "Wishes synced with GitHub issues"
-            git push origin HEAD:main
+            git push "git@github.com:${GITHUB_REPOSITORY}.git" HEAD:main
             exit 0
           fi
           # One branch and one pull request that every run updates, so nothing piles up.
