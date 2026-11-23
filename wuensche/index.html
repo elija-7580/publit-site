@@ -162,7 +162,10 @@ const open = new Set();
 function item(w) {
   const long = w.body && w.body.length > 120 && !open.has(w.id);
   const body = w.body ? `<small>${esc(long ? w.body.slice(0, 110).trimEnd() + '… ' : w.body)}${long ? `<button type="button" class="more" data-more="${w.id}">${M().more}</button>` : ''}</small>` : '';
-  return `<li class="bitem"><button type="button" class="bvote${w.mine ? ' mine' : ''}" data-id="${w.id}" aria-pressed="${w.mine}" aria-label="${w.votes} ${w.votes === 1 ? M().vote : M().votes}: ${esc(w.title)}">${up}${w.votes}</button><div><b>${esc(w.title)}</b>${body}</div></li>`;
+  // Linked GitHub issues (status.json "issues", from tools/wishes_sync.py): follow the work there.
+  const links = (w.issues || []).map(u => /^https:\/\/github\.com\/[\w.-]+\/([\w.-]+)\/issues\/(\d+)$/i.exec(u)).filter(Boolean)
+    .map(m => `<span><a href="${esc(m[0])}" rel="noopener" style="color:inherit">GitHub${/android/i.test(m[1]) ? ' Android' : ''} #${m[2]}</a></span>`).join('');
+  return `<li class="bitem"><button type="button" class="bvote${w.mine ? ' mine' : ''}" data-id="${w.id}" aria-pressed="${w.mine}" aria-label="${w.votes} ${w.votes === 1 ? M().vote : M().votes}: ${esc(w.title)}">${up}${w.votes}</button><div><b>${esc(w.title)}</b>${body}${links ? `<span class="bmeta">${links}</span>` : ''}</div></li>`;
 }
 function render() {
   const box = $('#wishes');

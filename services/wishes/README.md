@@ -55,3 +55,25 @@ Nobody sets statuses by hand. `.github/workflows/wishes-sync.yml` runs every 30 
 wish text plus `wuensche/links.json`): label `released` → Done, closed as completed / label
 `in progress` / open PR → In progress, label `planned` → Planned. Plain-language titles for the
 features page live in `wuensche/overrides.json`.
+
+## Wishes become GitHub issues
+
+The workflow `Wishes to issues` in `elija-7580/Publit` (hourly, `tools/wishes/wishes_to_issues.py`
+there) files new wishes as issues with label `wish`, using that workflow's own `GITHUB_TOKEN`:
+no personal token, nothing secret on the wish server. Spam stays out: a wish is filed only when it
+has no issue yet, is still open, is at least 24 hours old (time to `hide` it) and has at least
+2 votes (the author's own plus one), at most 5 per run; `@name` and `#123` in the text are defused.
+Limits: repository variables `WISHES_ISSUE_MIN_VOTES` / `WISHES_ISSUE_MIN_HOURS` in `Publit`.
+
+Each issue carries `<!-- publit-wish:<id> -->`. The wishes sync here reads those issues and writes
+the link to `wuensche/links.json`, so the wish's status follows the issue from then on.
+
+## Roadmap from GitHub issues
+
+Give an issue in `elija-7580/Publit` or `elija-7580/Publit-Android` the label `roadmap` and it
+appears on the board of publit.eu/features (open → Later, `planned` → Next, `in progress` / open PR /
+closed as completed → In progress, `released` → Available), with a link to the issue. Issues a wish
+already links to are shown through the wish instead. Optional labels: `area:plan|go|map|tix|dev|com`,
+`ios` / `android` / `watch`. A German title goes into `wuensche/overrides.json` under
+`"elija-7580/Publit#123": {"short": {"de": …, "en": …, "deX": …, "enX": …, "area": …}}`.
+The wish list (publit.eu/wuensche) and the board link every wish to its issues.
