@@ -132,7 +132,7 @@
       "enX": "On short trips, walking all the way is listed next to public transport.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/110"
     ]
@@ -300,7 +300,7 @@
       "enX": "Tap an intermediate stop and see its departures.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/130"
     ]
