@@ -9,6 +9,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{overflow-x:hidden}
+/* iOS Safari mis-targets taps on the fixed header when body clips with overflow:hidden; clip does not create a scroll container */
+@supports (overflow:clip){body{overflow-x:visible}html{overflow-x:clip}}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -175,7 +177,8 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
   .line-label{left:auto;right:24px}
   .strip{gap:14px}.strip .phone{--w:28vw}
 }
-@media (max-width:560px){.cards{grid-template-columns:1fr}.cycle-tabs button{padding:8px 9px;font-size:12px}.facts{gap:14px;font-size:13px;flex-wrap:wrap}.facts li{white-space:nowrap}.hero-phones{height:560px}.hero-phones .phone{--w:274px}.phone-front{transform:none}.cta{flex-wrap:wrap}}
+@media (max-width:560px){.cards{grid-template-columns:1fr}.cycle-tabs button{padding:8px 9px;font-size:12px}.facts{gap:14px;font-size:13px;flex-wrap:wrap}.facts li{white-space:nowrap}.hero-phones{height:560px}.hero-phones .phone{--w:274px}.phone-front{transform:none}.cta{flex-wrap:wrap}
+  section{padding:64px 20px}.hero{min-height:0;padding-top:88px;gap:44px}.feature,.europe{gap:36px}.hero-phones{height:520px}.hero-phones .phone{--w:250px}.cta .key{flex:1 1 100%;justify-content:center;text-align:center}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
@@ -466,3 +469,34 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 }
 @media (max-width:900px){.top nav .mnav-sheet a{display:flex;opacity:1}}
 .amount{position:relative}.amount em{position:absolute;top:12px;right:12px}
+
+/* ticket marketplace: numbers, vision, operators */
+.status{font-size:14px;color:var(--soft);margin-top:14px;max-width:36em}
+.stats{padding-top:72px;padding-bottom:24px}
+.stats ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stats li{background:var(--surface);border-radius:var(--radius);padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.05);display:flex;flex-direction:column;gap:6px}
+.stats b{font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.stats span{color:var(--soft);font-size:15px;line-height:1.35}
+.vision>*,.partner>*{max-width:760px}
+.vision>p,.partner>p{margin-top:18px;color:var(--soft);font-size:19px;line-height:1.5}
+.vsteps{list-style:none;counter-reset:v;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:none;margin-top:36px}
+.vsteps li{counter-increment:v;background:var(--surface);border-radius:var(--radius);padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.05);display:flex;flex-direction:column;gap:8px}
+.vsteps li::before{content:counter(v);width:30px;height:30px;border-radius:50%;background:var(--dot);color:#111;font-weight:800;display:grid;place-items:center;font-size:15px}
+.vsteps b{font-size:19px}.vsteps span{color:var(--soft);line-height:1.45}
+.partner .cta{margin-top:26px}
+@media (max-width:900px){.stats ul{grid-template-columns:1fr 1fr}.vsteps{grid-template-columns:1fr}}
+@media (max-width:560px){.stats{padding-top:48px}.stats li{padding:18px}.vision>p,.partner>p{font-size:17px}}
+
+/* subpages: same kicker dot and closing band as the homepage */
+.fpage .kicker .dot{visibility:visible;animation:pulse 2.4s infinite}
+.fpage .hint{margin-top:14px;max-width:34em;font-size:16px;color:var(--soft);padding:12px 16px;border-left:3px solid var(--dot);background:var(--surface);border-radius:0 14px 14px 0}
+.vband{padding-top:0}
+@media (prefers-color-scheme:dark){.vband-in{background:#1c1c1e;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}}
+.vband-in{background:#111;color:#f4f4f2;border-radius:28px;padding:clamp(28px,5vw,56px)}
+.vband .kicker{color:#a9a9a4;margin-bottom:18px}.vband .kicker .dot{visibility:visible;animation:pulse 2.4s infinite}
+.vband h2{font-size:clamp(30px,4vw,52px);max-width:16em}
+.vband p:not(.kicker){margin-top:16px;max-width:36em;color:#c9c9c4;font-size:17px;line-height:1.5}
+.vband .cta{margin-top:26px}
+.vband .key-dot{background:var(--dot);color:#111}
+.vband .key-ghost{background:transparent;color:#f4f4f2;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)}
+@media (max-width:560px){.vband{padding:12px 12px 56px}.vband-in{border-radius:22px}.vband .cta .key{flex:1 1 100%;justify-content:center}}

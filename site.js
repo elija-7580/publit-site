@@ -6,19 +6,26 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 /* ---------- Language ---------- */
 const EN = {
   ctaIphone: 'Download on the App Store', wTitle: 'On your wrist.', wText: 'The Apple Watch app shows departures nearby and guides you through the trip: which line, how long, where to get off. A tap on your wrist reminds you to get off.', wa: 'Departures nearby, without the iPhone in your hand', wb: 'Live trip with changes and platforms', wc: 'Tickets with their code right on the watch', wishTitle: 'What should come next?', wishText: 'Suggest a feature or vote for what others asked for. No sign-up.', wishLink: 'See all wishes →',
-navSupport: 'Support', donTitle: 'A community project.', donText: 'Publit has no ads and no tracking. From €1.50 a month you help pay for servers and development – every feature stays free for everyone.', donLink: 'Support Publit ♥', navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footData: 'Timetable data: Transitous and open data sources',   platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show the iPhone and the Pixel 8 Pro.', androidDownload:'Download Android APK',
+navSupport: 'Support', donTitle: 'A community project.', donText: 'Publit has no ads and no tracking. From €1.50 a month you help pay for servers and development – every feature stays free for everyone.', donLink: 'Support Publit ♥', navApp: 'The app', navFeat: 'Features', navCov: 'Coverage', navWishes: 'Wishes', navCities: 'For cities', footPrivacy: 'Privacy', footSources: 'Data sources', footPress: 'Press', footData: 'Timetable data: Transitous and open data sources',   platforms:'iOS uses Apple Maps; Android uses MapLibre. Android is available as an APK and remains in development. Screenshots show the iPhone and the Pixel 8 Pro.', androidDownload:'Download Android APK',
   navApp:'The app', navEurope:'Europe', navWhy:'Why', navAll:'All features', navCities:'For cities', footCities:'For cities and transit operators', light:'Light', dark:'Dark',
   film1:'Board', film2:'On the way', film3:'Get off', filmBanner:'Next stop: Marienplatz', filmBannerSub:'Get off now · U6 towards Klinikum Großhadern', allFeatures:'See all features →',
-  kicker:'For iPhone and Android · Made in EU · Open source',
-  heroTitle:'Your way.<br>At a glance.',
-  heroLead:'Publit shows what leaves near you, plans routes across Europe and guides you until you get off. It is free, with no ads and no account.',
+  kicker:'For iPhone and Android. Made in EU. Open source.',
+  heroTitle:'One app.<br>Every ticket.<br>All of Europe.',
+  heroLead:'Publit finds your connection across Europe and guides you until you get off. Next comes the ticket: buy it where you plan, instead of installing a different app in every city.',
+  status:'In the app today: departures, routes, live trips and your tickets in one place. Ticket sales start step by step with the first transit operators.',
+  st1n:'2,500', st2n:'1,400', st4n:'120,000', st1:'people use Publit', st2:'downloads in a single day', st3n:'No. 19', st3:'at times in the transport charts', st4:'views on Reddit, with lots of positive feedback',
+  visTitle:'One app for local and long-distance transport across Europe.', visText:'In Vienna you need one app, in Munich the next, and a third for the train to Venice. We are changing that: in Publit you find the connection and buy the operator’s ticket right with it. Publit sells on behalf of the transit operators, the ticket comes from them.',
+  vs1:'Find the route', vs1t:'Public transport and rail across Europe, with live times.', vs2:'Buy the ticket', vs2t:'The right ticket right on the connection, without a second app and without a new account at every operator.', vs3:'Get on', vs3t:'The code is ready in Publit, and Publit guides you until you get off.',
+  visStatus:'Where we are today: routes, live trips and storing your own tickets work. Buying in the app starts gradually, one operator at a time.',
+  f5c:'Soon: buy tickets right in Publit',
+  parTitle:'For transit operators.', parText:'Publit sells your tickets as an agent, right on the route, to riders from all over Europe. You stay the provider and set fares and prices. Publit earns a commission per ticket sold. That way you reach people who would never have installed your own app, like commuters from the neighbouring country or visitors on a city trip.', parMail:'Write to us', parData:'Open data for cities →',
   ctaPrimary:'View on GitHub', ctaSecondary:'See the features ↓',
   fact1:'Made in EU', fact2:'No account', fact3:'Opt-in stats', fact4:'Open data',
   tabNearby:'Nearby', tabPlan:'Plan', tabRoute:'Route', tabLive:'On the way',
   f1Title:'What leaves next?', f1Text:'Open Publit and see the next departures around you: line, direction, platform and the minutes until it leaves. Live times and delays right beside them.',
   f1a:'Tap a station, route there with one tap', f1b:'Filter by metro, tram, bus, ferry', f1c:'When the stop is far, the walking time is shown', f1d:'Find cafés, pharmacies or supermarkets nearby on the map',
   f2Title:'Every route on one timeline.', f2Text:'Publit puts every connection on the same time axis, so you see at a glance which one arrives first, where you change and where it gets tight.',
-  f2a:'Tight changes are marked', f2b:'Compare all routes on one map', f2c:'Walking, cycling and driving to compare',
+  f2a:'Tight changes are marked', f2b:'Find the last connection of the night', f2c:'Walking, cycling and driving to compare',
   f3Title:'Know when to leave.', f3Text:'Every route says at the top when to leave and when you arrive. Below are the map and every step in the colours of the lines, with platforms, stops and delays.',
   f3a:'Reminders to leave and to get off', f3b:'Add to calendar or share as a link', f3c:'Attach tickets to the trip',
   f4Title:'From here until you get off.', f4Text:'On the way, Publit shows in large type which line you are on, how long is left and where to get off. Delays and platform changes appear at once, on the lock screen and in the Dynamic Island too.',
@@ -33,7 +40,7 @@ navSupport: 'Support', donTitle: 'A community project.', donText: 'Publit has no
   w1:'Made in EU', w1t:'Built in Europe, for Europe. Timetables from open European sources, without a detour through big platforms.', w2:'Private', w2t:'No account, no tracking, no analytics SDKs. Your places, trips and tickets stay on your iPhone.',
   w3:'Independent', w3t:'Built by an <a href="https://friedrich-ulrich.com/" rel="author">indie developer</a>, not a corporation. No ads, no data trading, no interest in keeping you in the app.', w4:'Open data', w4t:'Publit uses open timetables (GTFS) and live data (GTFS-RT) via Transitous. All the code is open on GitHub.',
   w5:'Simple', w5t:'Open it and go. What matters is shown big, everything else is one tap away.', w6:'Smart routing', w6t:'Publit rates every change: how safe is it, how long do you wait and walk? The route that feels shortest wins.',
-  endTitle:'Last stop. Everybody off, please.', endText:'Get Publit for free on your iPhone and find the next departure near you.',
+  endTitle:'Last stop. Everybody off, please.', endText:'Get Publit for free and plan your next trip. The ticket is coming soon.',
   footData:'Timetable data: Transitous and open data sources',
   footDev:'developed by <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a>',
   covTitle:'What Publit knows where.', covText:'Publit works wherever Transitous has open timetables. The map shows where that is today: green with realtime, grey with timetables only. It updates itself every week. Tap a country for details.',
@@ -53,7 +60,7 @@ function applyLang() {
   $$('[data-t-html]').forEach(e => { if (d[e.dataset.tHtml]) e.innerHTML = d[e.dataset.tHtml]; });
   langBtn.textContent = lang === 'de' ? 'EN' : 'DE';
   // Android screens exist per language: web-x-android.webp (de) and web-x-android-en.webp
-  $$('img[data-lang-src]').forEach(i => { const s = i.getAttribute('src').replace(/-en\.webp$/, '.webp'); i.setAttribute('src', lang === 'en' ? s.replace(/\.webp$/, '-en.webp') : s); });
+  $$('img[data-lang-src]').forEach(i => { const a = i.hasAttribute('src') ? 'src' : 'data-src', s = i.getAttribute(a).replace(/-en\.webp$/, '.webp'); i.setAttribute(a, lang === 'en' ? s.replace(/\.webp$/, '-en.webp') : s); });
   if (window.renderWishTop) renderWishTop();
   buildStops();
 }
@@ -83,9 +90,11 @@ play();
 document.addEventListener('visibilitychange', () => document.hidden ? clearInterval(timer) : play());
 
 /* ---------- Screens: light or dark, one switch for all phones ---------- */
-$$('.theme').forEach(b => b.addEventListener('click', () => document.body.classList.toggle('screens-dark')));
+// dark screenshots are only downloaded once someone sees dark screens
+const darkOn = on => { document.body.classList.toggle('screens-dark', on); if (on) $$('img.dark[data-src]').forEach(i => { i.src = i.dataset.src; i.removeAttribute('data-src'); }); };
+$$('.theme').forEach(b => b.addEventListener('click', () => darkOn(!document.body.classList.contains('screens-dark'))));
 // screens follow the system appearance until someone picks one
-const dm = matchMedia('(prefers-color-scheme: dark)'), syncScreens = () => document.body.classList.toggle('screens-dark', dm.matches);
+const dm = matchMedia('(prefers-color-scheme: dark)'), syncScreens = () => darkOn(dm.matches);
 syncScreens(); dm.addEventListener('change', syncScreens);
 
 /* ---------- Live trip film: board, ride, get off ---------- */
@@ -133,27 +142,34 @@ function measure() { rows.forEach(r => r.w = r.track.scrollWidth / 2); }
 
 // ref eb8825712d52
 /* ---------- The track: from the kicker dot through every heading down to the last button ---------- */
-const NS = 'http://www.w3.org/2000/svg';
-// one hidden path only for measuring; what you see is drawn in small pieces, so a moving dot never repaints the whole page
-const meas = document.createElementNS(NS, 'svg'); meas.setAttribute('aria-hidden', 'true');
-meas.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;visibility:hidden';
-meas.innerHTML = '<path/>'; document.body.appendChild(meas);
-const pMeas = $('path', meas);
+// what you see is drawn in small pieces, so a moving dot never repaints the whole page
 const layer = document.createElement('div'); layer.className = 'track'; layer.setAttribute('aria-hidden', 'true'); document.body.appendChild(layer);
 const tdot = document.createElement('div'); tdot.className = 'tdot'; document.body.appendChild(tdot);
 // iOS changes innerHeight while the toolbar hides; keep one height so the stations don't jump
 let VH = innerHeight, VW = innerWidth;
 let track = null;
 function docXY(el) { let x = 0, y = 0; for (let e = el; e; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y }; }
-function roundPath(v, r) {
-  let d = `M${v[0][0]} ${v[0][1]}`;
+// the same rounded path as a dense polyline, sampled every 2 px; replaces thousands of getPointAtLength calls
+function sampleRound(v, r, step) {
+  const pl = [[v[0][0], v[0][1]]];
   for (let i = 1; i < v.length - 1; i++) {
     const [ax, ay] = v[i - 1], [x, y] = v[i], [bx, by] = v[i + 1];
     const la = Math.hypot(ax - x, ay - y), lb = Math.hypot(bx - x, by - y), rr = Math.min(r, la / 2, lb / 2);
-    if (rr < .5) { d += ` L${x} ${y}`; continue; }
-    d += ` L${(x + (ax - x) / la * rr).toFixed(1)} ${(y + (ay - y) / la * rr).toFixed(1)} Q${x} ${y} ${(x + (bx - x) / lb * rr).toFixed(1)} ${(y + (by - y) / lb * rr).toFixed(1)}`;
+    if (rr < .5) { pl.push([x, y]); continue; }
+    const p0x = +(x + (ax - x) / la * rr).toFixed(1), p0y = +(y + (ay - y) / la * rr).toFixed(1);
+    const p2x = +(x + (bx - x) / lb * rr).toFixed(1), p2y = +(y + (by - y) / lb * rr).toFixed(1);
+    pl.push([p0x, p0y]);
+    for (let s = 1; s <= 16; s++) { const t = s / 16, u = 1 - t; pl.push([u * u * p0x + 2 * u * t * x + t * t * p2x, u * u * p0y + 2 * u * t * y + t * t * p2y]); }
   }
-  const l = v[v.length - 1]; return d + ` L${l[0]} ${l[1]}`;
+  pl.push([v[v.length - 1][0], v[v.length - 1][1]]);
+  const out = [pl[0][0], pl[0][1]]; let acc = 0, next = step;
+  for (let i = 1; i < pl.length; i++) {
+    const [x0, y0] = pl[i - 1], [x1, y1] = pl[i], sl = Math.hypot(x1 - x0, y1 - y0);
+    while (sl > 0 && next <= acc + sl) { const f = (next - acc) / sl; out.push(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f); next += step; }
+    acc += sl;
+  }
+  const l = pl[pl.length - 1]; out.push(l[0], l[1]);
+  return { len: acc, lut: Float32Array.from(out) };
 }
 // dash pattern that is cut off at length p
 function dashUpTo(pat, p) {
@@ -191,11 +207,8 @@ function buildTrack() {
     }
     v.push([S.x, S.y]); cx = S.x;
   }
-  pMeas.setAttribute('d', roundPath(v, mob ? 18 : 30));
   const H = document.documentElement.scrollHeight;
-  const len = pMeas.getTotalLength(), N = Math.floor(len / 2) + 2;
-  const lut = new Float32Array(N * 2);
-  for (let k = 0; k < N; k++) { const q = pMeas.getPointAtLength(Math.min(k * 2, len)); lut[k * 2] = q.x; lut[k * 2 + 1] = q.y; }
+  const { len, lut } = sampleRound(v, mob ? 18 : 30, 2), N = lut.length / 2;
   st.forEach(S => { let best = 0, bd = 1e9; for (let k = 0; k < N; k++) { const dd = (lut[k * 2] - S.x) ** 2 + (lut[k * 2 + 1] - S.y) ** 2; if (dd < bd) { bd = dd; best = k * 2; } } S.len = best; });
   st[0].len = 0; st[st.length - 1].len = len;
   const max = Math.max(1, H - VH);
@@ -249,6 +262,10 @@ function buildTrack() {
 // a small snap: when scrolling stops close to a heading, settle on it
 let snapT, touching = false, snapping = false;
 addEventListener('touchstart', () => { touching = true; clearTimeout(snapT); }, { passive: true });
+// a jump from a link or the address bar goes exactly where it was asked to, never snapped to a neighbouring heading
+let jumpT; const jumped = () => { snapping = true; clearTimeout(snapT); clearTimeout(jumpT); jumpT = setTimeout(() => { snapping = false; }, 1600); };
+addEventListener('hashchange', jumped);
+document.addEventListener('click', e => { if (e.target.closest('a[href*="#"]')) jumped(); });
 addEventListener('touchend', () => { touching = false; }, { passive: true });
 addEventListener('scroll', () => {
   clearTimeout(snapT);
@@ -262,7 +279,8 @@ addEventListener('scroll', () => {
     }
   }, 240);
 }, { passive: true });
-let trackT; const queueTrack = () => { clearTimeout(trackT); trackT = setTimeout(buildTrack, 120); };
+let trackT, loaded = document.readyState === 'complete'; addEventListener('load', () => { loaded = true; });
+const queueTrack = () => { clearTimeout(trackT); if (loaded) trackT = setTimeout(buildTrack, 200); };
 new ResizeObserver(queueTrack).observe(document.body);
 function buildStops() { queueTrack(); }
 
@@ -318,18 +336,20 @@ function frame(t) {
   }
 
   // feature phones lean in as they arrive
-  if (!reduce && tilt.length) {
+  if (!reduce && tilt.length && (dy !== 0 || tiltAll)) {
+    tiltAll = false;
     const cs = tilt.map(ph => { const r = ph.getBoundingClientRect(); return (r.top + r.height / 2 - innerHeight / 2) / innerHeight; });
     tilt.forEach((ph, j) => { const c = cs[j]; if (Math.abs(c) < 1.2) { const t = `translateY(${(c * 40).toFixed(1)}px) rotateX(${(c * 8).toFixed(2)}deg)`; if (ph._t !== t) { ph._t = t; ph.style.transform = t; } } });
   }
   requestAnimationFrame(frame);
 }
 const tilt = $$('.feature-shot .phone');
+let tiltAll = true; addEventListener('resize', () => { tiltAll = true; });
 
 
-addEventListener('resize', () => { measure(); if (innerWidth !== VW || Math.abs(innerHeight - VH) > 160) { VW = innerWidth; VH = innerHeight; buildTrack(); } });
-addEventListener('load', () => { measure(); buildTrack(); });
-buildTrack();
+addEventListener('resize', () => { measure(); if (innerWidth !== VW || Math.abs(innerHeight - VH) > 160) { VW = innerWidth; VH = innerHeight; queueTrack(); } });
+// the track is decoration: draw it once the page has loaded, never in the way of the first paint
+addEventListener('load', () => { measure(); queueTrack(); });
 applyLang(); measure();
 requestAnimationFrame(frame);
 })();
