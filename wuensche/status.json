@@ -43,7 +43,7 @@
       "enX": "\"Assign fields\" also reads scanned PDF tickets, right on the device.",
       "area": "tix"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/131"
     ]
@@ -129,7 +129,7 @@
       "enX": "Your stops on the Apple Watch's home screen, one tap to the departures.",
       "area": "dev"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/123"
     ]
@@ -160,7 +160,7 @@
       "enX": "A station opens inside the Nearby map instead of on a new screen.",
       "area": "map"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/132"
     ]
@@ -173,6 +173,7 @@
       "enX": "The running trip or the next departure right on the watch face.",
       "area": "dev"
     },
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/81"
     ]
@@ -185,7 +186,7 @@
       "enX": "The next departures around you, saved stops first.",
       "area": "dev"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/125"
     ]
@@ -198,7 +199,7 @@
       "enX": "Add a ticket that comes as a .pkpass file to your tickets.",
       "area": "tix"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/126"
     ]
@@ -211,7 +212,7 @@
       "enX": "Save one line in one direction at a stop and see only those departures.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/127"
     ]
@@ -224,7 +225,7 @@
       "enX": "More places of your own next to Home and Work, one tap to the route.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/128"
     ]
@@ -237,7 +238,7 @@
       "enX": "Fix the leg you hold a ticket for, Publit plans the rest.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/133"
     ]
@@ -250,7 +251,7 @@
       "enX": "For a train you already hold a ticket for, Publit plans the way there and onwards.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/133"
     ]
@@ -263,7 +264,7 @@
       "enX": "Take a ticket from a Wallet file over into Publit.",
       "area": "tix"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/126"
     ]
@@ -302,7 +303,7 @@
       "enX": "Save a way you take often and see when the next ride leaves.",
       "area": "plan"
     },
-    "status": "planned",
+    "status": "doing",
     "issues": [
       "https://github.com/elija-7580/publit/issues/129"
     ]
