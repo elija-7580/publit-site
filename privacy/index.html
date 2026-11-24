@@ -57,13 +57,13 @@
 
 <article id="de" lang="de">
 <h1>Datenschutzerklärung</h1>
-<p class="meta">Für die App Publit (iPhone, Apple Watch, Widgets) und diese Website · Stand: 18. Oktober 2026</p>
+<p class="meta">Für die App Publit (iPhone, Apple Watch, Widgets, Android, Wear OS) und diese Website · Stand: 24. November 2026</p>
 
 <p class="lead">Kurz gesagt: Die Publit-App hat kein Konto, keine Werbung, kein Tracking und keine Analyse-Tools. Was du in der App speicherst, bleibt auf deinem Gerät. Daten verlassen dein Gerät nur, wenn die App sie für eine Funktion braucht, die du gerade benutzt – etwa um eine Verbindung zu suchen.</p>
 
 <h2>1. Verantwortlicher</h2>
 <p>Elijá Friedrich-Ulrich, Entwickler von Publit.<br>
-Kontakt: über <a href="https://github.com/elija-7580/Publit/issues">GitHub</a> (öffentlich) oder über das Profil <a href="https://github.com/elija-7580">github.com/elija-7580</a>. Für vertrauliche Anfragen nenne bitte in einem Issue nur, dass du Kontakt wünschst – keine persönlichen Daten.</p>
+Kontakt: <a href="mailto:support@publit.eu">support@publit.eu</a>, über <a href="https://github.com/elija-7580/Publit/issues">GitHub</a> (öffentlich) oder über das Profil <a href="https://github.com/elija-7580">github.com/elija-7580</a>. Für vertrauliche Anfragen nenne bitte in einem Issue nur, dass du Kontakt wünschst – keine persönlichen Daten.</p>
 
 <h2>2. Was auf deinem Gerät bleibt</h2>
 <p>Gespeicherte Orte, Favoriten, Linien, Reisen, Tickets, Einstellungen und Suchverlauf werden nur lokal auf deinem Gerät gespeichert (bzw. zwischen iPhone, Watch und Widgets über eine App-Gruppe auf deinen Geräten geteilt). Der Entwickler hat darauf keinen Zugriff. Wenn du die App löschst, werden diese Daten gelöscht.</p>
@@ -106,28 +106,42 @@ Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (deine Auswahl in den Einstellungen)
 <h2>11. Geteilte Links</h2>
 <p>Wenn du eine Verbindung oder Haltestelle teilst, entsteht ein Link auf diese Website. Die Angaben (Namen, Koordinaten, Zeit) stehen hinter dem Zeichen „#“ und werden von Browsern nicht an den Server übertragen; die Seite zeigt sie nur im Browser an.</p>
 
-<h2>12. Diese Website</h2>
+<h2>12. Publit für Android und Wear OS</h2>
+<p>Für die Android-App (Google Play, GitHub, F-Droid) und die Wear-OS-App gilt alles oben Gesagte sinngemäß, mit diesen Unterschieden:</p>
+<ul>
+<li><b>Karte:</b> Statt Apple Maps zeigt die App Kartenkacheln von OpenFreeMap (tiles.openfreemap.org, Daten © OpenStreetMap-Mitwirkende); das Satellitenbild kommt von EOX (tiles.maps.eox.at). Übertragen werden der Kartenausschnitt und technisch bedingt deine IP-Adresse.</li>
+<li><b>Orte in der Nähe und Bahnhofsausgänge:</b> Für Cafés, Apotheken, Supermärkte oder Ausgänge eines Bahnhofs fragt die App die öffentliche OpenStreetMap-Schnittstelle Overpass (z. B. overpass-api.de) mit dem Kartenausschnitt ab.</li>
+<li><b>Standort:</b> Über den Standortdienst von Android bzw. (in der Google-Play-Version) über die Google Play-Dienste. Während einer von dir gestarteten Fahrt läuft ein Vordergrunddienst mit sichtbarer Benachrichtigung, damit die Begleitung bis zum Aussteigen auch bei gesperrtem Bildschirm funktioniert. Im Hintergrund ohne gestartete Fahrt wird der Standort nicht genutzt.</li>
+<li><b>Health Connect (optional, „Mein Gehtempo verwenden“):</b> Die App liest Schritte, Strecke und Geschwindigkeit der letzten 30 Tage, um dein Gehtempo zu berechnen. Gespeichert wird nur das Tempo, lokal. Health-Daten werden nie übertragen, nicht für Werbung genutzt und nicht weitergegeben.</li>
+<li><b>Kalender (optional):</b> Wenn du es erlaubst, liest die App deine nächsten Termine, um Orte mit klarer Adresse als Ziel vorzuschlagen. Das geschieht nur auf dem Gerät; Termine werden nicht übertragen oder gespeichert.</li>
+<li><b>Tickets lesen:</b> In der Google-Play-Version erkennt Google ML Kit Text und Codes auf dem Gerät; Bilder werden nicht hochgeladen. ML Kit kann dabei technische Nutzungs- und Leistungsdaten (keine Bildinhalte) an Google senden. Die F-Droid-Version nutzt stattdessen Tesseract, ganz ohne Google.</li>
+<li><b>Google Wallet (falls verfügbar):</b> Wie bei Apple Wallet wird das Ticket an einen Signier-Dienst gesendet, der es signiert und nicht speichert.</li>
+<li><b>Unterstützen:</b> Freiwillige Unterstützung läuft über Google Play Billing. Die Zahlung wickelt Google ab; der Entwickler erhält keine Zahlungsdaten.</li>
+<li><b>Wear OS:</b> Die Uhr zeigt Abfahrten in der Nähe (über denselben Fahrplandienst) und die Fahrt, die du auf dem Handy gestartet hast. Diese wird direkt über die Wear-OS-Verbindung zwischen deinen Geräten übertragen.</li>
+</ul>
+
+<h2>13. Diese Website</h2>
 <p id="analytics">Die Website wird über GitHub Pages (GitHub Inc., USA) bereitgestellt. Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie deine IP-Adresse, um die Seite auszuliefern und die Sicherheit zu gewährleisten: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>. Wenn du im Datenschutzhinweis zustimmst, erfasst der selbst gehostete Dienst Matomo zusätzlich datensparsame Besuchsstatistiken. Dabei werden aufgerufene Seiten, die verweisende Website, Browser- und Geräteinformationen sowie ein ungefährer Standort aus einer gekürzten IP-Adresse verarbeitet. Matomo-Tracking-Cookies sind deaktiviert; die Daten werden auf einem Hetzner-Server gespeichert und nicht an Werbenetzwerke weitergegeben. Du kannst die Auswahl jederzeit über „Datenschutzeinstellungen“ am unteren Rand ändern. Ohne Zustimmung wird kein Matomo-Tracker geladen. Deine Sprach- und Statistik-Auswahl wird lokal in deinem Browser gespeichert. Die Abdeckungskarte lädt erst, wenn du zu ihr scrollst, die Kartenbibliothek Leaflet von unpkg.com (Cloudflare) und Kartenkacheln von CARTO (basemaps.cartocdn.com); dabei wird technisch bedingt deine IP-Adresse übertragen.<br>
 Rechtsgrundlage: Für die Webstatistik ist es deine Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Für technisch notwendige Bereitstellung und Sicherheit verarbeitet GitHub Daten auf Grundlage berechtigter Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO.</p>
 
 <p id="wishes"><b>Wünsche (publit.eu/wuensche):</b> Wenn du einen Wunsch einreichst oder abstimmst, speichert der selbst gehostete Dienst den Text deines Wunsches, die Sprache, den Zeitpunkt und eine zufällige Kennung, die dein Browser im lokalen Speicher erzeugt, damit du nicht doppelt abstimmst. Es gibt kein Konto und keine Cookies. IP-Adressen werden nicht gespeichert: Um Missbrauch zu begrenzen, wird die Adresse mit einem täglich wechselnden, nur im Arbeitsspeicher gehaltenen Zufallswert gehasht und höchstens eine Stunde lang gezählt. Wünsche sind öffentlich sichtbar; schreib bitte keine persönlichen Daten hinein. Rechtsgrundlage: berechtigtes Interesse an einer Wunschliste ohne Missbrauch (Art. 6 Abs. 1 lit. f DSGVO).</p>
 
-<h2>13. Deine Rechte</h2>
-<p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine Einwilligung jederzeit zu widerrufen. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren. Da der Entwickler selbst keine personenbezogenen Daten von dir speichert, richten sich Anfragen zu Server-Logs an den jeweiligen Dienst (Transitous, Google, Apple, GitHub).</p>
+<h2>14. Deine Rechte</h2>
+<p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine Einwilligung jederzeit zu widerrufen. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren. Da der Entwickler selbst keine personenbezogenen Daten von dir speichert, richten sich Anfragen zu Server-Logs an den jeweiligen Dienst (Transitous, Google, Apple, GitHub, OpenStreetMap).</p>
 
-<h2>14. Änderungen</h2>
+<h2>15. Änderungen</h2>
 <p>Wenn sich die App ändert, wird diese Erklärung angepasst. Die aktuelle Fassung steht immer hier.</p>
 </article>
 
 <article id="en" lang="en">
 <h1>Privacy policy</h1>
-<p class="meta">For the Publit app (iPhone, Apple Watch, widgets) and this website · Last updated: 18 October 2026</p>
+<p class="meta">For the Publit app (iPhone, Apple Watch, widgets, Android, Wear OS) and this website · Last updated: 24 November 2026</p>
 
 <p class="lead">In short: The Publit app has no account, no ads, no tracking and no analytics. What you save in the app stays on your device. Data only leaves your device when the app needs it for a feature you are using right now – for example to find a route.</p>
 
 <h2>1. Controller</h2>
 <p>Elijá Friedrich-Ulrich, developer of Publit.<br>
-Contact: via <a href="https://github.com/elija-7580/Publit/issues">GitHub</a> (public) or the profile <a href="https://github.com/elija-7580">github.com/elija-7580</a>. For confidential requests, please only say in an issue that you would like to get in touch – no personal data.</p>
+Contact: <a href="mailto:support@publit.eu">support@publit.eu</a>, via <a href="https://github.com/elija-7580/Publit/issues">GitHub</a> (public) or the profile <a href="https://github.com/elija-7580">github.com/elija-7580</a>. For confidential requests, please only say in an issue that you would like to get in touch – no personal data.</p>
 
 <h2>2. What stays on your device</h2>
 <p>Saved places, favourites, lines, trips, tickets, settings and search history are stored only on your device (and shared between your iPhone, Watch and widgets through an app group on your devices). The developer has no access to them. Deleting the app deletes this data.</p>
@@ -170,16 +184,30 @@ Legal basis: Art. 6(1)(a) GDPR (your choice in Settings); you can undo it at any
 <h2>11. Shared links</h2>
 <p>When you share a route or stop, the app creates a link to this website. The details (names, coordinates, time) come after the “#” sign, which browsers do not send to the server; the page only displays them in your browser.</p>
 
-<h2>12. This website</h2>
+<h2>12. Publit for Android and Wear OS</h2>
+<p>Everything above applies likewise to the Android app (Google Play, GitHub, F-Droid) and the Wear OS app, with these differences:</p>
+<ul>
+<li><b>Map:</b> Instead of Apple Maps the app shows map tiles from OpenFreeMap (tiles.openfreemap.org, data © OpenStreetMap contributors); satellite imagery comes from EOX (tiles.maps.eox.at). The map area and, for technical reasons, your IP address are sent.</li>
+<li><b>Places nearby and station exits:</b> For cafés, pharmacies, supermarkets or the exits of a station, the app queries the public OpenStreetMap Overpass API (e.g. overpass-api.de) with the map area.</li>
+<li><b>Location:</b> Through Android's location service or, in the Google Play version, Google Play services. During a trip you start, a foreground service with a visible notification keeps guiding you to your stop with the screen locked. Location is not used in the background without a started trip.</li>
+<li><b>Health Connect (optional, “Use my walking pace”):</b> The app reads steps, distance and speed from the last 30 days to work out your walking pace. Only the pace is stored, locally. Health data is never transferred, used for advertising or shared.</li>
+<li><b>Calendar (optional):</b> If you allow it, the app reads your upcoming events to suggest places with a clear address as destinations. This happens on the device only; events are not transferred or stored.</li>
+<li><b>Reading tickets:</b> In the Google Play version, Google ML Kit recognises text and codes on the device; images are not uploaded. ML Kit may send technical usage and performance data (no image content) to Google. The F-Droid version uses Tesseract instead, with no Google at all.</li>
+<li><b>Google Wallet (where available):</b> As with Apple Wallet, the ticket is sent to a signing service that signs it and does not store it.</li>
+<li><b>Support:</b> Voluntary support goes through Google Play Billing. Google handles the payment; the developer receives no payment details.</li>
+<li><b>Wear OS:</b> The watch shows departures nearby (from the same timetable service) and the trip you started on your phone, which is sent directly over the Wear OS connection between your devices.</li>
+</ul>
+
+<h2>13. This website</h2>
 <p id="analytics-en">This website is hosted on GitHub Pages (GitHub Inc., USA). When you visit, GitHub processes technically necessary data such as your IP address to deliver the page and keep it secure: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>. If you allow analytics in the privacy prompt, the self-hosted Matomo service also records privacy-focused visit statistics. It processes visited pages, referring website, browser and device information, and an approximate location derived from a shortened IP address. Matomo tracking cookies are disabled; data is stored on a Hetzner server and is not shared with advertising networks. You can change your choice at any time through “Privacy settings” at the bottom of the page. Without your consent, the Matomo tracker is not loaded. Your language and analytics choices are stored locally in your browser. The coverage map loads, only once you scroll to it, the Leaflet map library from unpkg.com (Cloudflare) and map tiles from CARTO (basemaps.cartocdn.com); for technical reasons your IP address is sent.<br>
 Legal basis: your consent under Art. 6(1)(a) GDPR for website analytics; legitimate interests under Art. 6(1)(f) GDPR for technically necessary delivery and security by GitHub.</p>
 
 <p id="wishes-en"><b>Wishes (publit.eu/wuensche):</b> When you submit a wish or vote, the self-hosted service stores the text of your wish, its language, the time and a random ID that your browser creates in local storage so you cannot vote twice. There is no account and no cookie. IP addresses are not stored: to limit abuse, the address is hashed with a random value that changes daily and is kept only in memory, and it is counted for at most one hour. Wishes are public; please do not include personal data. Legal basis: legitimate interest in a wish list without abuse (Art. 6(1)(f) GDPR).</p>
 
-<h2>13. Your rights</h2>
-<p>You have the right of access, rectification, erasure, restriction of processing, data portability and objection (Art. 15–21 GDPR) and the right to withdraw consent at any time. You can also complain to a data protection supervisory authority. As the developer stores no personal data about you, requests about server logs go to the respective service (Transitous, Google, Apple, GitHub).</p>
+<h2>14. Your rights</h2>
+<p>You have the right of access, rectification, erasure, restriction of processing, data portability and objection (Art. 15–21 GDPR) and the right to withdraw consent at any time. You can also complain to a data protection supervisory authority. As the developer stores no personal data about you, requests about server logs go to the respective service (Transitous, Google, Apple, GitHub, OpenStreetMap).</p>
 
-<h2>14. Changes</h2>
+<h2>15. Changes</h2>
 <p>When the app changes, this policy is updated. The current version is always here.</p>
 </article>
 
