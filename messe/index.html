@@ -78,7 +78,7 @@ form button{background:var(--yel);color:var(--ink);border:0;border-radius:.8em;p
 #map text.end{fill:#ffc531}
 #map .rt{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .maplabel{position:absolute;left:.8em;bottom:.6em;color:var(--mute);font-size:.75em}
-#info{position:absolute;top:.8em;right:.8em;bottom:.8em;width:34%;overflow:hidden;display:flex;flex-direction:column;background:rgba(22,22,20,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:.8em;padding:.9em 1em}
+#info{position:absolute;top:.8em;right:.8em;bottom:.8em;max-height:calc(100% - 1.6em);width:34%;overflow:hidden;display:flex;flex-direction:column;background:rgba(22,22,20,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:.8em;padding:.9em 1em}
 #info:has(.hint){background:none;border:0;backdrop-filter:none}
 .sum{display:flex;align-items:baseline;gap:.6em;flex-wrap:wrap}
 .sum b{font-size:1.9em;font-weight:800;letter-spacing:-.02em}
@@ -96,14 +96,32 @@ form button{background:var(--yel);color:var(--ink);border:0;border-radius:.8em;p
 .strip .c i{font-style:normal;font-size:.7em;font-weight:800;color:var(--ink);border-radius:.3em;padding:.1em .35em}
 .strip .c small{color:var(--mute);font-weight:500;font-size:.78em}
 .strip .a{color:#5f5f59}
-.leave{margin-top:.5em;font-size:1.05em}
+.leave{flex:none;margin-top:.5em;font-size:1.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (min-width:901px){.strip{display:none}}
 .leave b{color:var(--yel);font-variant-numeric:tabular-nums}
 .ops{margin-top:auto;padding-top:.7em;border-top:1px solid var(--line)}
 .ops .n{font-size:1em;font-weight:750;line-height:1.25}
-.ops[hidden]{display:none}
 .ops .n em{font-style:normal;color:var(--yel)}
 .ops .list{color:var(--mute);font-size:.86em;margin-top:.2em}
+/* operators band: the main message of the stand, readable from 3 m */
+#ops{position:absolute;left:.8em;right:.8em;bottom:.8em;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.2em 1.1em;
+  background:rgba(16,16,14,.94);backdrop-filter:blur(8px);border:2px solid rgba(255,197,49,.55);border-radius:.9em;padding:.7em 1.2em .85em .9em;
+  box-shadow:0 1em 3em rgba(0,0,0,.55);animation:opsin .6s cubic-bezier(.2,.8,.2,1) both}
+#ops[hidden]{display:none}
+@keyframes opsin{from{opacity:0;transform:translateY(1.2em)}}
+#ops .big{grid-row:1/3;font-size:4.7em;font-weight:900;line-height:.82;letter-spacing:-.06em;color:var(--yel);font-variant-numeric:tabular-nums;text-shadow:0 0 .35em rgba(255,197,49,.35);padding-right:.04em}
+#ops .head{font-size:1.5em;font-weight:850;letter-spacing:-.025em;line-height:1.15}
+#ops .head span{display:block;color:var(--paper);font-weight:650;font-size:.7em;letter-spacing:0;margin-top:.15em}
+#ops .head b{color:var(--red);font-weight:850}
+#ops .head em{font-style:normal;color:var(--yel)}
+#ops .row{display:flex;flex-wrap:wrap;align-items:center;gap:.3em .25em;margin-top:.3em}
+#ops .op{display:inline-flex;align-items:center;gap:.35em;background:#2a2a27;border:1px solid #3a3a36;border-radius:.5em;padding:.16em .5em .16em .25em;font-size:1.28em;font-weight:800;letter-spacing:-.01em;white-space:nowrap;animation:popin .45s cubic-bezier(.2,.8,.2,1.3) both}
+#ops .op i{font-style:normal;font-size:.56em;font-weight:900;color:#fff;border-radius:.35em;padding:.18em .42em;letter-spacing:.02em}
+#ops .ar{color:var(--yel);font-weight:900;font-size:1.1em;opacity:.8;animation:popin .45s both}
+#ops .goal{grid-column:1/-1;margin-top:.45em;padding-top:.45em;border-top:1px solid var(--line);font-size:1.18em;font-weight:650;color:var(--paper)}
+#ops .goal b{color:var(--red)}
+#ops .goal em{font-style:normal;color:var(--yel);font-weight:850}
+@keyframes popin{from{opacity:0;transform:scale(.7)}}
 .hint{color:var(--mute);display:flex;align-items:center;justify-content:center;text-align:center;height:100%;padding:1em;font-size:1.1em;line-height:1.4}
 .spin{width:2.2em;height:2.2em;border:.25em solid var(--line);border-top-color:var(--yel);border-radius:50%;animation:r 1s linear infinite;margin:0 auto .6em}
 @keyframes r{to{transform:rotate(1turn)}}
@@ -144,12 +162,22 @@ footer{display:flex;align-items:center;gap:1.4em}
 #show.on .ph:nth-child(2){animation-delay:.12s}#show.on .ph:nth-child(3){animation-delay:.24s}
 @keyframes rise{from{opacity:0;transform:translateY(8%)}}
 #map .train{filter:drop-shadow(0 0 .4em rgba(255,197,49,.9))}
+@media (max-height:860px) and (min-width:901px){
+  .ask h1{font-size:2.1em}
+  form{margin-top:.6em}
+  form input{padding:.45em .8em}
+  .chips{margin-top:.55em}
+  #result{margin-top:.65em}
+  #ops .big{font-size:4.2em}
+  .sum b{font-size:1.6em}
+}
 @media (max-width:900px){
   #show{display:none}
   body{overflow:auto;height:auto;grid-template-rows:auto;font-size:15px;padding:16px}
   main{grid-template-columns:minmax(0,1fr)}
   #result{display:flex;flex-direction:column;gap:.8em;overflow:visible}
-  #map,#info{position:relative;inset:auto;width:auto}
+  #map,#info,#ops{position:relative;inset:auto;width:auto}
+  #ops .big{font-size:4em}
   .chips{height:auto}
   header{flex-wrap:wrap;gap:.6em}
   .where{order:5;width:100%}
@@ -181,7 +209,7 @@ footer{display:flex;align-items:center;gap:1.4em}
     <div class="ask"><h1 data-t="ask"></h1><span class="auto" id="auto" data-t="auto"></span></div>
     <form id="f" autocomplete="off"><input id="q" enterkeyhint="go" data-ph="ph"><button type="submit" data-t="go"></button></form>
     <div class="chips" id="chips"></div>
-    <div id="result"><div id="map"><div id="gl"></div><div id="svgmap"></div></div><div id="info"></div>
+    <div id="result"><div id="map"><div id="gl"></div><div id="svgmap"></div></div><div id="info"></div><div id="ops" hidden></div>
       <div id="show" aria-hidden="true"><div><h3 data-t="showT"></h3><p data-t="showP"></p>
         <div class="stats"><div><b>2,500</b><span data-t="s1"></span></div><div><b>68</b><span data-t="s2"></span></div><div><b>40</b><span data-t="s3"></span></div><div><b>3.8M</b><span data-t="s4"></span></div></div></div>
         <div class="phones"><div class="ph"><img src="/assets/app/web-nearby-dark.webp" alt=""></div><div class="ph"><img src="/assets/app/web-route-dark.webp" alt=""></div><div class="ph android"><img src="/assets/app/web-plan-android-dark-en.webp" alt=""></div></div></div></div>
@@ -208,6 +236,7 @@ const T = {
     qrApp: 'Get the app', qrBiz: 'Operators: talk to us', qrBizSub: 'Sell your tickets to travellers across Europe',
     min: 'min', now: 'now', then: 'then', from: 'From', walk: 'Walk', changes: n => n === 0 ? 'direct' : n === 1 ? '1 change' : `${n} changes`,
     ops: n => `<em>${n} operators</em> on one trip: ${n} ticket shops today. Publit’s goal: one app.`, opsGoal: 'Publit’s goal: plan and buy it all in one app.',
+    opsHead: n => n > 1 ? `operators on one trip<span>Today: <b>${n} ticket shops, ${n} accounts.</b> Publit’s goal: <em>one app.</em></span>` : `operator on this trip<span>Planned in <em>one app.</em></span>`,
     ops1: n => `<em>${n === 1 ? 'One operator' : n + ' operators'}</em>, found in one app.`,
     planning: 'Searching every timetable in Europe …', none: 'No connection found. Try another place.', notFound: 'Place not found. Try a city name.',
     err: 'No connection to the server right now.', start: 'Praterstraße 1', home: 'Vienna', idle: 'Type a city above, or tap one of the suggestions.',
@@ -221,6 +250,7 @@ const T = {
     qrApp: 'App holen', qrBiz: 'Verkehrsunternehmen: sprich mit uns', qrBizSub: 'Verkauft eure Tickets an Reisende in ganz Europa',
     min: 'min', now: 'jetzt', then: 'dann', from: 'Ab', walk: 'Fußweg', changes: n => n === 0 ? 'direkt' : n === 1 ? '1 Umstieg' : `${n} Umstiege`,
     ops: n => `<em>${n} Verkehrsunternehmen</em> auf einer Reise: heute ${n} Ticketshops. Publits Ziel: eine App.`, opsGoal: 'Publits Ziel: alles in einer App planen und kaufen.',
+    opsHead: n => n > 1 ? `Verkehrsunternehmen auf einer Reise<span>Heute: <b>${n} Ticketshops, ${n} Konten.</b> Publits Ziel: <em>eine App.</em></span>` : `Verkehrsunternehmen auf dieser Reise<span>Geplant in <em>einer App.</em></span>`,
     ops1: n => `<em>${n === 1 ? 'Ein Verkehrsunternehmen' : n + ' Verkehrsunternehmen'}</em>, gefunden in einer App.`,
     planning: 'Durchsuche alle Fahrpläne Europas …', none: 'Keine Verbindung gefunden. Probier einen anderen Ort.', notFound: 'Ort nicht gefunden. Probier einen Städtenamen.',
     err: 'Gerade keine Verbindung zum Server.', start: 'Praterstraße 1', home: 'Wien', idle: 'Tippe oben eine Stadt ein oder wähle einen Vorschlag.',
@@ -360,7 +390,7 @@ function drawSvg(it) {
   pts.forEach(p => { const x = px(p[1]), y = py(p[0]); x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); });
   const box = $('#svgmap'), W = box.clientWidth || 600, H = box.clientHeight || 400, wide = innerWidth > 900;
   // the route sits left of the info card and above the operators bar
-  const uw = wide ? W * .64 : W, uh = H, ux = 0, uy = 0;
+  const uw = wide ? W * .64 : W, uh = wide && !$('#ops').hidden ? H - $('#ops').offsetHeight - 20 : H, ux = 0, uy = 0;
   const bw = Math.max(x1 - x0, 30), bh = Math.max(y1 - y0, 30);
   const k = Math.min(uw / (bw * 1.32), uh / (bh * 1.4));
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
@@ -467,7 +497,10 @@ async function drawGL(it) {
   const b = all.reduce((b, c) => [Math.min(b[0], c[0]), Math.min(b[1], c[1]), Math.max(b[2], c[0]), Math.max(b[3], c[1])], [180, 90, -180, -90]);
   const box = $('#map'), wide = innerWidth > 900, info = wide ? $('#info').offsetWidth + 24 : 0;
   map.resize();
-  map.fitBounds([[b[0], b[1]], [b[2], b[3]]], {padding: {top: 70, bottom: 50, left: 60, right: info + 60}, maxZoom: 13, duration: 1400, essential: true});
+  const opsH = wide && !$('#ops').hidden ? $('#ops').offsetHeight + 20 : 0, H = box.clientHeight;
+  let top = 60, bottom = opsH + 30;
+  if (H - top - bottom < 150) { top = 30; bottom = Math.max(20, Math.min(bottom, H - 150 - top)); }
+  map.fitBounds([[b[0], b[1]], [b[2], b[3]]], {padding: {top, bottom, left: 60, right: info + 60}, maxZoom: 13, duration: 1400, essential: true});
   const a = it.legs[0].from, z = it.legs[it.legs.length - 1].to;
   const ride = it.legs.filter(l => l.mode !== 'WALK');
   const changes = ride.slice(1).map(l => l.from);
@@ -569,12 +602,14 @@ function best(p) {
   if (!its.length) return null;
   const firstArr = Math.min(...its.map(i => +new Date(i.endTime)));
   // among the ones arriving within 30 min of the first, take the fewest changes
-  return its.filter(i => +new Date(i.endTime) - firstArr <= 30 * 60e3).sort((a, b) => a.transfers - b.transfers || new Date(a.endTime) - new Date(b.endTime))[0];
+  const coach = i => i.legs.filter(l => l.mode === 'COACH').length;
+  return its.filter(i => +new Date(i.endTime) - firstArr <= 30 * 60e3).sort((a, b) => a.transfers - b.transfers || coach(a) - coach(b) || new Date(a.endTime) - new Date(b.endTime))[0];
 }
 async function go(name, coords) {
   const my = ++busy;
   stopDemo(false);
   $('#info').innerHTML = `<div class="hint"><div><div class="spin"></div>${esc(L().planning)}</div></div>`;
+  $('#ops').hidden = true; fitInfo();
   try {
     const to = coords || await geocode(name);
     if (my !== busy) return;
@@ -588,7 +623,23 @@ async function go(name, coords) {
   }
 }
 const OP_CLEAN = /\s*(GmbH(\s*&\s*Co\.?\s*KG)?|Management GmbH|AG|S\.p\.A\.?|SpA|Zrt\.?|Személyszállítási|a\.s\.|S\.A\.|SA|Ltd\.?|B\.V\.|N\.V\.|sp\. z o\.o\.|d\.o\.o\.|Fernverkehr|Regio|VOYAGEURS|-eu)\b\.?/gi;
-const opName = s => String(s || '').split(/ - |,/)[0].replace(OP_CLEAN, ' ').replace(/\s+/g, ' ').trim().replace(/^Wiener Linien.*/, 'Wiener Linien').replace(/^SNCF.*/, 'SNCF').replace(/^MÁV.*/, 'MÁV');
+// agency names in the open data are legal names; show the brand people know (and buy tickets from)
+const OP_BRANDS = [[/^Wiener Linien/i, 'Wiener Linien'], [/^(OEBB|ÖBB)/i, 'ÖBB'], [/^DB(\s|$)/, 'DB'], [/^SNCF/i, 'SNCF'], [/^(MÁV|MAV\b|Magyar Áll?amvasutak|Magyar Allamvasutak)/i, 'MÁV'],
+  [/^(České dráhy|Ceske Drahy)/i, 'ČD'], [/^Renfe/i, 'Renfe'], [/^Trenitalia/i, 'Trenitalia'], [/^Flix/i, 'FlixBus'], [/^(Schweizerische Bundesbahnen|SBB)/i, 'SBB'],
+  [/^Verkehrsbetriebe Zürich/i, 'VBZ'], [/^(RATP|Rive (Droite|Gauche))/i, 'RATP'], [/^ACTV/i, 'ACTV'], [/^ZTP\s+Krak/i, 'MPK Kraków'], [/^Pražská integrovaná/i, 'DPP Praha'],
+  [/^Zagrebački električni/i, 'ZET'], [/LIECHTENSTEINmobil/i, 'LIEmobil'], [/^Ostdeutsche Eisenbahn/i, 'ODEG'], [/^Metroselskabet/i, 'Metro København'], [/^DSB/i, 'DSB'],
+  [/^(NMBS|SNCB)/i, 'SNCB'], [/^ZOU/i, 'ZOU!'], [/^WEST ?bahn/i, 'WESTbahn'], [/^RegioJet/i, 'RegioJet'], [/^PKP Intercity/i, 'PKP Intercity'], [/^BlaBlaCar/i, 'BlaBlaCar Bus'], [/^Nightjet/i, 'ÖBB']];
+const opName = s => {
+  s = String(s || '').trim();
+  const hit = OP_BRANDS.find(b => b[0].test(s));
+  return hit ? hit[1] : s.split(/ - |,/)[0].replace(OP_CLEAN, ' ').replace(/\s+/g, ' ').trim();
+};
+// Railjets from Vienna are sold and run by ÖBB, even when the open data files them under MÁV
+const opOf = l => {
+  const n = opName(l.agencyName);
+  if (n === 'MÁV' && /^(RJX?|xpress|railjet)\b/i.test(l.displayName || l.routeShortName || '') && l.from && l.from.lon < 17.1) return 'ÖBB';
+  return n;
+};
 function hhmm(iso, tz) {
   return new Intl.DateTimeFormat('en-GB', {timeZone: tz || 'Europe/Vienna', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}).format(new Date(iso));
 }
@@ -603,25 +654,41 @@ function dur(sec) {
 const MODE_SHORT = {SUBWAY: 'U', TRAM: 'Tram', BUS: 'Bus', COACH: 'Bus', FERRY: 'Ferry', HIGHSPEED_RAIL: 'Train', LONG_DISTANCE: 'Train', NIGHT_RAIL: 'Night', REGIONAL_FAST_RAIL: 'Train', REGIONAL_RAIL: 'Train', SUBURBAN: 'S', RAIL: 'Train', AIRPLANE: 'Air', FUNICULAR: 'Funi', AERIAL_LIFT: 'Lift'};
 function showRoute(p, name) {
   const it = best(p);
-  if (!it) { $('#info').innerHTML = `<div class="hint">${esc(L().none)}</div>`; clearRoute(); return; }
+  if (!it) { $('#info').innerHTML = `<div class="hint">${esc(L().none)}</div>`; $('#ops').hidden = true; fitInfo(); clearRoute(); return; }
   const ride = it.legs.filter(l => l.mode !== 'WALK');
-  const ops = [...new Set(ride.map(l => opName(l.agencyName)).filter(Boolean))];
+  const ops = [];
+  ride.forEach(l => { const n = opOf(l); if (n && !ops.some(o => o.name === n)) ops.push({name: n, mode: l.mode}); });
   const first = ride[0];
   const chips = ride.map(l => {
     const line = l.displayName || l.routeShortName || l.tripShortName || '';
-    return `<span class="c"><i style="background:${legColor(l.mode)}">${esc(MODE_SHORT[l.mode] || l.mode)}</i>${esc(line)} <small>${esc(opName(l.agencyName))}</small></span>`;
+    return `<span class="c"><i style="background:${legColor(l.mode)}">${esc(MODE_SHORT[l.mode] || l.mode)}</i>${esc(line)} <small>${esc(opOf(l))}</small></span>`;
   }).join('<span class="a">→</span>');
   const last = it.legs[it.legs.length - 1];
   const days = Math.round((dayStart(it.endTime, last.to.tz) - dayStart(new Date().toISOString(), 'Europe/Vienna')) / 864e5);
   $('#info').innerHTML = `<div class="sum"><b>→ ${esc(name)}</b><span>${dur(it.duration)} · ${L().changes(it.transfers)} · ${L().arr} ${hhmm(it.endTime, last.to.tz)}${days > 0 ? ` (+${days})` : ''}</span></div>
     ${first ? `<div class="leave">${esc(L().leave)} <b>${hhmm(first.startTime, first.from.tz)}</b> · ${esc(strip(first.from.name))}</div>` : ''}
     <div class="strip">${chips}</div>
-
-    <div class="ops"><div class="n">${ops.length > 1 ? L().ops(ops.length) : L().ops1(ops.length)}</div><div class="list">${esc(ops.join(' · '))}</div></div>`;
+`;
+  const n = ops.length, band = $('#ops');
+  band.innerHTML = `<div class="big">${n}</div><div class="head">${L().opsHead(n)}</div>
+    <div class="row">${ops.map((o, i) => `${i ? `<span class="ar" style="animation-delay:${.25 + i * .22 - .1}s">→</span>` : ''}<span class="op" style="animation-delay:${.25 + i * .22}s"><i style="background:${legColor(o.mode)}">${esc(MODE_SHORT[o.mode] || o.mode)}</i>${esc(o.name)}</span>`).join('')}</div>`;
+  band.hidden = !n;
+  band.style.animation = 'none'; band.offsetWidth; band.style.animation = '';
+  fitInfo();
   it.destName = name;
   drawMap(it);
   document.querySelectorAll('#chips button').forEach(b => b.classList.toggle('on', CITIES[lang][+b.dataset.i][0] === name));
 }
+function fitInfo() {
+  const band = $('#ops'), info = $('#info');
+  const on = innerWidth > 900 && !band.hidden && !info.querySelector('.hint');
+  info.style.bottom = on ? 'auto' : '';
+  info.style.maxHeight = on ? `calc(100% - ${band.offsetHeight}px - 2.4em)` : '';
+  // small screens: drop the "first ride" line instead of cutting it
+  const lv = info.querySelector('.leave');
+  if (lv) { lv.hidden = false; if (on && lv.getBoundingClientRect().bottom > info.getBoundingClientRect().bottom - 8) lv.hidden = true; }
+}
+addEventListener('resize', fitInfo);
 function idleHint() {
   $('#info').innerHTML = `<div class="hint">${esc(L().idle)}</div>`;
 }
