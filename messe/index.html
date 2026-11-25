@@ -34,12 +34,12 @@ section{background:var(--card);border-radius:1.2em;padding:1.2em 1.4em;min-heigh
 h2{font-size:.82em;text-transform:uppercase;letter-spacing:.14em;color:var(--mute);font-weight:700;display:flex;align-items:center;gap:.6em}
 h2 .dot{width:.6em;height:.6em;border-radius:50%;background:var(--yel);box-shadow:0 0 0 0 rgba(255,197,49,.6);animation:pulse 2s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 .6em rgba(255,197,49,0)}100%{box-shadow:0 0 0 0 rgba(255,197,49,0)}}
-#deps{list-style:none;margin-top:.8em;flex:1;overflow:hidden}
+#deps{list-style:none;margin-top:.8em;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#3a3a36 transparent;-webkit-mask-image:linear-gradient(#000 calc(100% - 2.5em),transparent);mask-image:linear-gradient(#000 calc(100% - 2.5em),transparent);padding-bottom:2em}
 #deps li{display:grid;grid-template-columns:3.6em 1fr auto;align-items:center;gap:.8em;padding:.62em 0;border-bottom:1px solid var(--line)}
 #deps.first li{animation:in .5s both}
 #deps li:last-child{border-bottom:0}
 @keyframes in{from{opacity:0;transform:translateY(.4em)}}
-.badge{display:inline-flex;justify-content:center;align-items:center;min-width:2.6em;height:1.75em;padding:0 .45em;border-radius:.35em;font-weight:800;font-size:1.05em;color:#fff;background:#555}
+.badge{display:inline-flex;justify-content:center;align-items:center;min-width:2.6em;height:1.75em;padding:0 .45em;border-radius:.35em;font-weight:800;font-size:1.05em;color:#fff;background:#555;white-space:nowrap}
 .badge.TRAM{border-radius:99px}
 .badge.BUS{border-radius:.35em}
 .dest{min-width:0}
@@ -154,7 +154,7 @@ footer{display:flex;align-items:center;gap:1.4em}
   header{flex-wrap:wrap;gap:.6em}
   .where{order:5;width:100%}
   section{display:block}
-  #deps{flex:none}
+  #deps{flex:none;max-height:28em}
   .ask h1{font-size:1.8em}
   .qr{flex:1 1 100%}
   #map{height:300px}
@@ -290,10 +290,11 @@ function renderDeps() {
     const g = groups.get(k);
     if (g.length < 3 && !g.some(x => Math.abs(x.t - d.t) < 60e3)) g.push(d);
   });
-  const rows = [...groups.values()].slice(0, rowsFit());
+  const rows = [...groups.values()].slice(0, 40);
   const ul = $('#deps');
   ul.classList.toggle('first', !ul.dataset.done);
   ul.dataset.done = 1;
+  const keep = ul.scrollTop;
   $('#deps').innerHTML = rows.map((g, i) => {
     const d = g[0], m = Math.max(0, Math.round((d.t - now) / 60e3));
     const bg = U_COLOR[d.line] || (d.color ? '#' + d.color : MODE_COLOR[d.mode] || '#555');
@@ -303,6 +304,7 @@ function renderDeps() {
       <div class="dest"><b>${esc(d.dest)}</b><small>${esc(d.stop)}</small></div>
       <div class="mins">${m === 0 ? `<b class="now">${L().now}</b>` : `<b>${m}</b><small>${L().min}</small>`}${more ? `<span class="then">${L().then} ${more}</span>` : ''}</div></li>`;
   }).join('');
+  ul.scrollTop = keep;
 }
 function rowsFit() {
   if (innerWidth <= 900) return 6;
@@ -409,9 +411,11 @@ function initGL() {
   if (glReady) return glReady;
   if (!window.maplibregl) return null;
   try {
-    gl = new maplibregl.Map({container: 'gl', style: STYLE, center: [12, 49], zoom: 4, interactive: false,
+    gl = new maplibregl.Map({container: 'gl', style: STYLE, center: [12, 49], zoom: 4, interactive: true, dragRotate: false, pitchWithRotate: false,
       attributionControl: {compact: false}, fadeDuration: 0});
   } catch (e) { return null; }
+  gl.touchZoomRotate.disableRotation();
+  gl.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-left');
   glReady = new Promise((ok, fail) => {
     const t = setTimeout(() => fail(new Error('map timeout')), 12000);
     gl.on('load', () => {
@@ -654,7 +658,7 @@ function touched() {
   clearTimeout(cursorTimer);
   cursorTimer = setTimeout(() => document.body.classList.add('hidecursor'), 4000);
 }
-['pointerdown', 'keydown'].forEach(e => addEventListener(e, touched, {passive: true}));
+['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(e => addEventListener(e, touched, {passive: true}));
 addEventListener('pointermove', e => { if (Math.abs(e.movementX) + Math.abs(e.movementY) > 2) touched(); }, {passive: true});
 
 $('#f').addEventListener('submit', e => { e.preventDefault(); const v = $('#q').value.trim(); if (v) { go(v); $('#q').blur(); } });
