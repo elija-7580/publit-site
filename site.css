@@ -500,3 +500,26 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 .vband .key-dot{background:var(--dot);color:#111}
 .vband .key-ghost{background:transparent;color:#f4f4f2;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)}
 @media (max-width:560px){.vband{padding:12px 12px 56px}.vband-in{border-radius:22px}.vband .cta .key{flex:1 1 100%;justify-content:center}}
+
+/* photos: vision, team, operators (shoot 25.11.2026) */
+.photo{margin:0;border-radius:var(--radius);overflow:hidden;background:var(--fill);aspect-ratio:4/5}
+.photo img{display:block;width:100%;height:100%;object-fit:cover}
+.future,.team,.partner.has-photo{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,64px);align-items:center}
+.partner.has-photo{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.partner.has-photo>*{max-width:none}.partner.has-photo>div>*{max-width:760px}
+.partner.has-photo>div>p{margin-top:18px;color:var(--soft);font-size:19px;line-height:1.5}
+.future p:not(.status),.team p:not(.credit){margin-top:18px;font-size:19px;line-height:1.5}
+.vcards{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.vcards li{background:var(--surface);border-radius:var(--radius);padding:22px;box-shadow:0 1px 2px rgba(0,0,0,.05);display:flex;flex-direction:column;gap:6px}
+.vcards li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--dot);margin-bottom:6px}
+.vcards b{font-size:17px}.vcards span{color:var(--soft);font-size:15px;line-height:1.45}
+.team{align-items:start}
+.team blockquote{margin:26px 0 0;padding:4px 0 4px 20px;border-left:3px solid var(--dot)}
+.team blockquote p{margin:0;font-size:21px;line-height:1.45;color:var(--ink);font-weight:600;letter-spacing:-.01em}
+.team cite{display:block;margin-top:8px;font-style:normal;font-size:14px;color:var(--soft)}
+.team-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.team .cta{margin-top:26px}
+.credit{margin-top:14px;font-size:13px;color:var(--faint)}
+@media (max-width:900px){.future,.team,.partner.has-photo{grid-template-columns:1fr}.future .photo,.team-main,.partner.has-photo .photo{max-width:460px}}
+@media (max-width:560px){.vcards{grid-template-columns:1fr}.future p:not(.status),.team p:not(.credit),.partner.has-photo>div>p{font-size:17px}.team blockquote p{font-size:18px}}
+.team-main{position:sticky;top:96px}@media (max-width:900px){.team-main{position:static}}
