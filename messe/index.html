@@ -9,6 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Publit · Departures</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
 <link rel="icon" href="/assets/publit.svg">
 <style>
 :root{--ink:#141412;--card:#1d1d1b;--line:#2c2c29;--paper:#f4f4f2;--mute:#9a9a94;--yel:#ffc531;--red:#ff5a4e;--ok:#55d17a}
@@ -65,6 +67,12 @@ form button{background:var(--yel);color:var(--ink);border:0;border-radius:.8em;p
 #result{flex:1;min-height:0;margin-top:.9em;border-radius:.9em;overflow:hidden}
 #map{position:absolute;inset:0;background:#0b0b0a}
 #map svg{width:100%;height:100%;display:block}
+#gl,#svgmap{position:absolute;inset:0}
+#gl .maplibregl-ctrl-attrib{background:rgba(11,11,10,.7);color:#8d8d86;font-size:11px}
+#gl .maplibregl-ctrl-attrib a{color:#8d8d86}
+.mk{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",sans-serif;font-weight:800;color:#141412;background:#ffc531;font-size:22px;letter-spacing:-.01em;white-space:nowrap;padding:.12em .5em;border-radius:.45em;box-shadow:0 .2em .8em rgba(0,0,0,.6);margin-bottom:16px}
+.mk.dest{background:#f4f4f2}
+.mk.s{color:#f4f4f2;background:rgba(11,11,10,.85);border:1px solid #3a3a36;font-size:14px;font-weight:700;margin:0 0 0 12px;padding:.1em .45em;box-shadow:none}
 #map .land path{fill:#2f2f2b;stroke:#4a4a44;stroke-width:1;vector-effect:non-scaling-stroke}
 #map text{font-weight:700;fill:#f4f4f2;stroke:#0b0b0a;paint-order:stroke;stroke-linejoin:round}
 #map text.end{fill:#ffc531}
@@ -173,7 +181,7 @@ footer{display:flex;align-items:center;gap:1.4em}
     <div class="ask"><h1 data-t="ask"></h1><span class="auto" id="auto" data-t="auto"></span></div>
     <form id="f" autocomplete="off"><input id="q" enterkeyhint="go" data-ph="ph"><button type="submit" data-t="go"></button></form>
     <div class="chips" id="chips"></div>
-    <div id="result"><div id="map"></div><div id="info"></div>
+    <div id="result"><div id="map"><div id="gl"></div><div id="svgmap"></div></div><div id="info"></div>
       <div id="show" aria-hidden="true"><div><h3 data-t="showT"></h3><p data-t="showP"></p>
         <div class="stats"><div><b>2,500</b><span data-t="s1"></span></div><div><b>68</b><span data-t="s2"></span></div><div><b>40</b><span data-t="s3"></span></div><div><b>3.8M</b><span data-t="s4"></span></div></div></div>
         <div class="phones"><div class="ph"><img src="/assets/app/web-nearby-dark.webp" alt=""></div><div class="ph"><img src="/assets/app/web-route-dark.webp" alt=""></div><div class="ph android"><img src="/assets/app/web-plan-android-dark-en.webp" alt=""></div></div></div></div>
@@ -338,7 +346,7 @@ function stops(it, upp) {
   });
   return out.join('');
 }
-function drawMap(it) {
+function drawSvg(it) {
   const pts = [];
   const lines = it.legs.map(l => {
     const g = l.legGeometry ? decode(l.legGeometry.points, l.legGeometry.precision || 6) : [[l.from.lat, l.from.lon], [l.to.lat, l.to.lon]];
@@ -348,7 +356,7 @@ function drawMap(it) {
   }).filter(Boolean);
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   pts.forEach(p => { const x = px(p[1]), y = py(p[0]); x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); });
-  const box = $('#map'), W = box.clientWidth || 600, H = box.clientHeight || 400, wide = innerWidth > 900;
+  const box = $('#svgmap'), W = box.clientWidth || 600, H = box.clientHeight || 400, wide = innerWidth > 900;
   // the route sits left of the info card and above the operators bar
   const uw = wide ? W * .64 : W, uh = H, ux = 0, uy = 0;
   const bw = Math.max(x1 - x0, 30), bh = Math.max(y1 - y0, 30);
@@ -394,6 +402,123 @@ function drawMap(it) {
   }
 }
 
+/* ---------- real map (MapLibre + OpenFreeMap dark, as in the Android app); SVG outline map only if that cannot load ---------- */
+let gl = null, glReady = null, glMarkers = [], glRun = 0;
+const STYLE = 'https://tiles.openfreemap.org/styles/dark';
+function initGL() {
+  if (glReady) return glReady;
+  if (!window.maplibregl) return null;
+  try {
+    gl = new maplibregl.Map({container: 'gl', style: STYLE, center: [12, 49], zoom: 4, interactive: false,
+      attributionControl: {compact: false}, fadeDuration: 0});
+  } catch (e) { return null; }
+  glReady = new Promise((ok, fail) => {
+    const t = setTimeout(() => fail(new Error('map timeout')), 12000);
+    gl.on('load', () => {
+      clearTimeout(t);
+      const empty = {type: 'FeatureCollection', features: []};
+      ['route', 'dots', 'train'].forEach(id => gl.addSource(id, {type: 'geojson', data: empty}));
+      gl.addLayer({id: 'route-walk', type: 'line', source: 'route', filter: ['==', ['get', 'walk'], true],
+        layout: {'line-cap': 'round'}, paint: {'line-color': '#b9b9b2', 'line-width': 2.5, 'line-dasharray': [0.5, 2]}});
+      gl.addLayer({id: 'route-case', type: 'line', source: 'route', filter: ['!=', ['get', 'walk'], true],
+        layout: {'line-cap': 'round', 'line-join': 'round'}, paint: {'line-color': '#000', 'line-width': 12, 'line-opacity': .75}});
+      gl.addLayer({id: 'route-glow', type: 'line', source: 'route', filter: ['!=', ['get', 'walk'], true],
+        layout: {'line-cap': 'round', 'line-join': 'round'}, paint: {'line-color': ['get', 'color'], 'line-width': 16, 'line-blur': 10, 'line-opacity': .35}});
+      gl.addLayer({id: 'route-line', type: 'line', source: 'route', filter: ['!=', ['get', 'walk'], true],
+        layout: {'line-cap': 'round', 'line-join': 'round'}, paint: {'line-color': ['get', 'color'], 'line-width': 6}});
+      gl.addLayer({id: 'dots', type: 'circle', source: 'dots', paint: {
+        'circle-radius': ['case', ['get', 'end'], 9, 5.5], 'circle-color': ['get', 'color'],
+        'circle-stroke-color': '#0b0b0a', 'circle-stroke-width': ['case', ['get', 'end'], 3.5, 2.5]}});
+      gl.addLayer({id: 'train-glow', type: 'circle', source: 'train', paint: {'circle-radius': 18, 'circle-color': '#ffc531', 'circle-blur': 1, 'circle-opacity': .7}});
+      gl.addLayer({id: 'train', type: 'circle', source: 'train', paint: {'circle-radius': 7, 'circle-color': '#ffc531', 'circle-stroke-color': '#0b0b0a', 'circle-stroke-width': 2.5}});
+      ok(gl);
+    });
+    gl.on('error', () => {});
+  });
+  return glReady;
+}
+const dist = (a, b) => { const k = Math.cos((a[1] + b[1]) * Math.PI / 360); return Math.hypot((b[0] - a[0]) * k, b[1] - a[1]); };
+function clearRoute() {
+  glMarkers.forEach(m => m.remove()); glMarkers = []; glRun++;
+  if (gl && gl.getSource('route')) ['route', 'dots', 'train'].forEach(id => gl.getSource(id).setData({type: 'FeatureCollection', features: []}));
+  $('#svgmap').innerHTML = '';
+}
+function marker(lngLat, text, small, cls = '') {
+  const el = document.createElement('div');
+  el.className = 'mk' + (small ? ' s' : '') + (cls ? ' ' + cls : ''); el.textContent = text;
+  const m = new maplibregl.Marker({element: el, anchor: small ? 'left' : 'bottom'}).setLngLat(lngLat).addTo(gl);
+  glMarkers.push(m);
+}
+async function drawGL(it) {
+  const map = await initGL();
+  clearRoute();
+  $('#svgmap').innerHTML = '';
+  const run = glRun;
+  const legs = it.legs.map(l => {
+    const g = l.legGeometry ? decode(l.legGeometry.points, l.legGeometry.precision || 6) : [[l.from.lat, l.from.lon], [l.to.lat, l.to.lon]];
+    return {walk: l.mode === 'WALK', color: legColor(l.mode), c: g.map(p => [p[1], p[0]])};
+  }).filter(l => l.c.length > 1);
+  const all = legs.flatMap(l => l.c);
+  if (!all.length) return;
+  const b = all.reduce((b, c) => [Math.min(b[0], c[0]), Math.min(b[1], c[1]), Math.max(b[2], c[0]), Math.max(b[3], c[1])], [180, 90, -180, -90]);
+  const box = $('#map'), wide = innerWidth > 900, info = wide ? $('#info').offsetWidth + 24 : 0;
+  map.resize();
+  map.fitBounds([[b[0], b[1]], [b[2], b[3]]], {padding: {top: 70, bottom: 50, left: 60, right: info + 60}, maxZoom: 13, duration: 1400, essential: true});
+  const a = it.legs[0].from, z = it.legs[it.legs.length - 1].to;
+  const ride = it.legs.filter(l => l.mode !== 'WALK');
+  const changes = ride.slice(1).map(l => l.from);
+  map.getSource('dots').setData({type: 'FeatureCollection', features: [
+    ...changes.map(p => ({type: 'Feature', properties: {end: false, color: '#f4f4f2'}, geometry: {type: 'Point', coordinates: [p.lon, p.lat]}})),
+    {type: 'Feature', properties: {end: true, color: '#ffc531'}, geometry: {type: 'Point', coordinates: [a.lon, a.lat]}},
+    {type: 'Feature', properties: {end: true, color: '#f4f4f2'}, geometry: {type: 'Point', coordinates: [z.lon, z.lat]}}]});
+  // labels: start, destination, and change points that are not too close to each other
+  const span = Math.max(b[2] - b[0], b[3] - b[1]), seen = [[a.lon, a.lat], [z.lon, z.lat]];
+  marker([a.lon, a.lat], L().home); marker([z.lon, z.lat], it.destName || '', false, 'dest');
+  changes.forEach(p => {
+    const c = [p.lon, p.lat];
+    if (seen.some(q => dist(q, c) < span / 9)) return;
+    seen.push(c); marker(c, strip(p.name).replace(/\s+(Hauptbahnhof|Hbf|central bus station)$/i, ''), true);
+  });
+  // draw the route from Vienna outwards, then a train runs along it
+  const lens = legs.map(l => l.c.reduce((s, c, i) => i ? s + dist(l.c[i - 1], c) : 0, 0)), total = lens.reduce((x, y) => x + y, 0);
+  const cut = d => {
+    const out = []; let left = d;
+    legs.forEach((l, i) => {
+      if (left <= 0) return;
+      if (left >= lens[i]) { out.push({...l}); left -= lens[i]; return; }
+      const c = [l.c[0]]; let acc = 0;
+      for (let j = 1; j < l.c.length; j++) {
+        const s = dist(l.c[j - 1], l.c[j]);
+        if (acc + s >= left) { const f = (left - acc) / s; c.push([l.c[j - 1][0] + (l.c[j][0] - l.c[j - 1][0]) * f, l.c[j - 1][1] + (l.c[j][1] - l.c[j - 1][1]) * f]); break; }
+        acc += s; c.push(l.c[j]);
+      }
+      out.push({...l, c}); left = 0;
+    });
+    return out;
+  };
+  const fc = ls => ({type: 'FeatureCollection', features: ls.map(l => ({type: 'Feature', properties: {walk: l.walk, color: l.color}, geometry: {type: 'LineString', coordinates: l.c}}))});
+  const rideCoords = legs.filter(l => !l.walk).flatMap(l => l.c);
+  const rideLens = rideCoords.map((c, i) => i ? dist(rideCoords[i - 1], c) : 0), rideTotal = rideLens.reduce((x, y) => x + y, 0);
+  const at = d => { let acc = 0; for (let j = 1; j < rideCoords.length; j++) { if (acc + rideLens[j] >= d) { const f = (d - acc) / (rideLens[j] || 1); return [rideCoords[j - 1][0] + (rideCoords[j][0] - rideCoords[j - 1][0]) * f, rideCoords[j - 1][1] + (rideCoords[j][1] - rideCoords[j - 1][1]) * f]; } acc += rideLens[j]; } return rideCoords[rideCoords.length - 1]; };
+  const t0 = performance.now() + 900, grow = 1800, loop = 6500;
+  const frame = now => {
+    if (run !== glRun) return;
+    const t = now - t0;
+    if (t < grow) map.getSource('route').setData(fc(cut(Math.max(0, t) / grow * total)));
+    else if (t - grow < 40) map.getSource('route').setData(fc(legs));
+    if (t > grow && rideTotal) {
+      const f = ((t - grow) % (loop + 1000)) / loop;
+      map.getSource('train').setData(f <= 1 ? {type: 'Feature', properties: {}, geometry: {type: 'Point', coordinates: at(f * rideTotal)}} : {type: 'FeatureCollection', features: []});
+    }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+function drawMap(it) {
+  const ready = initGL();
+  if (!ready) return drawSvg(it);
+  ready.then(() => drawGL(it)).catch(() => { glReady = null; drawSvg(it); });
+}
 /* ---------- planning ---------- */
 const cache = new Map();
 let current = null, busy = 0;
@@ -474,7 +599,7 @@ function dur(sec) {
 const MODE_SHORT = {SUBWAY: 'U', TRAM: 'Tram', BUS: 'Bus', COACH: 'Bus', FERRY: 'Ferry', HIGHSPEED_RAIL: 'Train', LONG_DISTANCE: 'Train', NIGHT_RAIL: 'Night', REGIONAL_FAST_RAIL: 'Train', REGIONAL_RAIL: 'Train', SUBURBAN: 'S', RAIL: 'Train', AIRPLANE: 'Air', FUNICULAR: 'Funi', AERIAL_LIFT: 'Lift'};
 function showRoute(p, name) {
   const it = best(p);
-  if (!it) { $('#info').innerHTML = `<div class="hint">${esc(L().none)}</div>`; $('#map').innerHTML = ''; return; }
+  if (!it) { $('#info').innerHTML = `<div class="hint">${esc(L().none)}</div>`; clearRoute(); return; }
   const ride = it.legs.filter(l => l.mode !== 'WALK');
   const ops = [...new Set(ride.map(l => opName(l.agencyName)).filter(Boolean))];
   const first = ride[0];
