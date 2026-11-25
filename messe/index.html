@@ -122,6 +122,29 @@ form button{background:var(--yel);color:var(--ink);border:0;border-radius:.8em;p
 #ops .goal b{color:var(--red)}
 #ops .goal em{font-style:normal;color:var(--yel);font-weight:850}
 @keyframes popin{from{opacity:0;transform:scale(.7)}}
+
+/* polish: route summary and operators sit on soft gradients over the map, no boxes */
+#info{top:0;left:0;right:0;bottom:auto;width:auto;max-height:none;display:block;border:0;border-radius:0;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,11,10,.95) 0%,rgba(11,11,10,.8) 50%,rgba(11,11,10,0) 100%);padding:.9em 1.4em 1.9em;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.1em 1em}
+#info:has(.hint){bottom:0;background:none}
+.sum{gap:.2em .7em}
+.sum b{font-size:1.75em;letter-spacing:-.03em}
+.sum span{font-size:1.05em}
+.leave{margin-top:0;color:var(--mute)}
+.leave b{color:var(--paper)}
+#ops{left:0;right:0;bottom:0;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;gap:.1em 1.2em;
+  background:linear-gradient(0deg,rgba(11,11,10,.97) 0%,rgba(11,11,10,.9) 62%,rgba(11,11,10,0) 100%);padding:2.2em 1.4em 1em}
+#ops .big{text-shadow:none;letter-spacing:-.05em;font-size:4.2em}
+#ops .head{font-weight:800}
+#ops .head{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.6em}
+#ops .head span{display:inline-block;white-space:nowrap;margin:0;color:var(--mute);font-weight:500}
+#ops .head span b{color:var(--paper);font-weight:700}
+#ops .row{gap:.35em .2em;margin-top:.45em}
+#ops .op{background:rgba(255,255,255,.075);border:0;border-radius:99px;padding:.2em .75em .2em .6em;gap:.45em;font-weight:700}
+#ops .op i{width:.5em;height:.5em;padding:0;border-radius:50%;font-size:1em;line-height:0;overflow:hidden;color:transparent;flex:none}
+#ops .ar{color:#5c5c57;font-weight:400;font-size:1em;opacity:1}
+.claim{flex:1;min-width:0;font-size:1.22em;text-wrap:balance}
 .hint{color:var(--mute);display:flex;align-items:center;justify-content:center;text-align:center;height:100%;padding:1em;font-size:1.1em;line-height:1.4}
 .spin{width:2.2em;height:2.2em;border:.25em solid var(--line);border-top-color:var(--yel);border-radius:50%;animation:r 1s linear infinite;margin:0 auto .6em}
 @keyframes r{to{transform:rotate(1turn)}}
@@ -177,6 +200,8 @@ footer{display:flex;align-items:center;gap:1.4em}
   main{grid-template-columns:minmax(0,1fr)}
   #result{display:flex;flex-direction:column;gap:.8em;overflow:visible}
   #map,#info,#ops{position:relative;inset:auto;width:auto}
+  #info{background:none;padding:.3em 0}
+  #ops{background:var(--ink);border-radius:.8em;padding:1em}
   #ops .big{font-size:4em}
   .chips{height:auto}
   header{flex-wrap:wrap;gap:.6em}
@@ -230,13 +255,13 @@ const T = {
   en: {where: '<b>weXelerate</b> · Praterstraße 1, Vienna', depTitle: 'Next departures right outside', loading: 'Loading departures …',
     depSrc: 'Timetable times from open data via Transitous. Schwedenplatz, Nestroyplatz and around.',
     ask: 'Where do you want to <em>go?</em>', ph: 'Type any city in Europe …', go: 'Show route', auto: 'Demo · tap to try',
-    claim: 'One app for local and long-distance transport across Europe.', sub: 'Open data, no ads, no tracking. Built in Vienna.',
+    claim: 'One app for local and long‑distance transport across Europe.', sub: 'Open data, no ads, no tracking. Built in Vienna.',
     showT: 'Already in <em>2,500</em> pockets.', showP: 'Departures nearby, every connection across borders, a guide until you get off. iPhone, Apple Watch and Android. No account, no ads.',
     s1: 'people use Publit', s2: 'countries with full timetables', s3: 'of them with live data', s4: 'stops in the data',
     qrApp: 'Get the app', qrBiz: 'Operators: talk to us', qrBizSub: 'Sell your tickets to travellers across Europe',
     min: 'min', now: 'now', then: 'then', from: 'From', walk: 'Walk', changes: n => n === 0 ? 'direct' : n === 1 ? '1 change' : `${n} changes`,
     ops: n => `<em>${n} operators</em> on one trip: ${n} ticket shops today. Publit’s goal: one app.`, opsGoal: 'Publit’s goal: plan and buy it all in one app.',
-    opsHead: n => n > 1 ? `operators on one trip<span>Today: <b>${n} ticket shops, ${n} accounts.</b> Publit’s goal: <em>one app.</em></span>` : `operator on this trip<span>Planned in <em>one app.</em></span>`,
+    opsHead: n => n > 1 ? `operators on one trip<span>Today <b>${n} ticket shops, ${n} accounts.</b> Goal: <em>one app.</em></span>` : `operator on this trip<span>Planned in <em>one app.</em></span>`,
     ops1: n => `<em>${n === 1 ? 'One operator' : n + ' operators'}</em>, found in one app.`,
     planning: 'Searching every timetable in Europe …', none: 'No connection found. Try another place.', notFound: 'Place not found. Try a city name.',
     err: 'No connection to the server right now.', start: 'Praterstraße 1', home: 'Vienna', idle: 'Type a city above, or tap one of the suggestions.',
@@ -244,13 +269,13 @@ const T = {
   de: {where: '<b>weXelerate</b> · Praterstraße 1, Wien', depTitle: 'Nächste Abfahrten vor der Tür', loading: 'Abfahrten werden geladen …',
     depSrc: 'Fahrplanzeiten aus offenen Daten über Transitous. Schwedenplatz, Nestroyplatz und Umgebung.',
     ask: 'Wohin willst du <em>fahren?</em>', ph: 'Irgendeine Stadt in Europa …', go: 'Route zeigen', auto: 'Demo · tippen zum Ausprobieren',
-    claim: 'Eine App für Nah- und Fernverkehr in ganz Europa.', sub: 'Offene Daten, keine Werbung, kein Tracking. Aus Wien.',
+    claim: 'Eine App für Nah‑ und Fernverkehr in ganz Europa.', sub: 'Offene Daten, keine Werbung, kein Tracking. Aus Wien.',
     showT: 'Schon in <em>2.500</em> Hosentaschen.', showP: 'Abfahrten in der Nähe, jede Verbindung über Grenzen hinweg, ein Begleiter bis zum Aussteigen. iPhone, Apple Watch und Android. Ohne Konto, ohne Werbung.',
     s1: 'Menschen nutzen Publit', s2: 'Länder mit vollen Fahrplänen', s3: 'davon mit Echtzeit', s4: 'Haltestellen in den Daten',
     qrApp: 'App holen', qrBiz: 'Verkehrsunternehmen: sprich mit uns', qrBizSub: 'Verkauft eure Tickets an Reisende in ganz Europa',
     min: 'min', now: 'jetzt', then: 'dann', from: 'Ab', walk: 'Fußweg', changes: n => n === 0 ? 'direkt' : n === 1 ? '1 Umstieg' : `${n} Umstiege`,
     ops: n => `<em>${n} Verkehrsunternehmen</em> auf einer Reise: heute ${n} Ticketshops. Publits Ziel: eine App.`, opsGoal: 'Publits Ziel: alles in einer App planen und kaufen.',
-    opsHead: n => n > 1 ? `Verkehrsunternehmen auf einer Reise<span>Heute: <b>${n} Ticketshops, ${n} Konten.</b> Publits Ziel: <em>eine App.</em></span>` : `Verkehrsunternehmen auf dieser Reise<span>Geplant in <em>einer App.</em></span>`,
+    opsHead: n => n > 1 ? `Verkehrsunternehmen auf einer Reise<span>Heute <b>${n} Ticketshops, ${n} Konten.</b> Ziel: <em>eine App.</em></span>` : `Verkehrsunternehmen auf dieser Reise<span>Geplant in <em>einer App.</em></span>`,
     ops1: n => `<em>${n === 1 ? 'Ein Verkehrsunternehmen' : n + ' Verkehrsunternehmen'}</em>, gefunden in einer App.`,
     planning: 'Durchsuche alle Fahrpläne Europas …', none: 'Keine Verbindung gefunden. Probier einen anderen Ort.', notFound: 'Ort nicht gefunden. Probier einen Städtenamen.',
     err: 'Gerade keine Verbindung zum Server.', start: 'Praterstraße 1', home: 'Wien', idle: 'Tippe oben eine Stadt ein oder wähle einen Vorschlag.',
@@ -390,7 +415,7 @@ function drawSvg(it) {
   pts.forEach(p => { const x = px(p[1]), y = py(p[0]); x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); });
   const box = $('#svgmap'), W = box.clientWidth || 600, H = box.clientHeight || 400, wide = innerWidth > 900;
   // the route sits left of the info card and above the operators bar
-  const uw = wide ? W * .64 : W, uh = wide && !$('#ops').hidden ? H - $('#ops').offsetHeight - 20 : H, ux = 0, uy = 0;
+  const uw = W, uh = wide && !$('#ops').hidden ? H - $('#ops').offsetHeight - 20 : H, ux = 0, uy = 0;
   const bw = Math.max(x1 - x0, 30), bh = Math.max(y1 - y0, 30);
   const k = Math.min(uw / (bw * 1.32), uh / (bh * 1.4));
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
@@ -445,11 +470,18 @@ function initGL() {
       attributionControl: {compact: false}, fadeDuration: 0});
   } catch (e) { return null; }
   gl.touchZoomRotate.disableRotation();
-  gl.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-left');
   glReady = new Promise((ok, fail) => {
     const t = setTimeout(() => fail(new Error('map timeout')), 12000);
     gl.on('load', () => {
       clearTimeout(t);
+      // fewer, calmer labels: countries and big cities only, in English where the data has it
+      for (const l of gl.getStyle().layers) {
+        if (l.type !== 'symbol') continue;
+        if (!/^place_(city|city_large|country_major|country_minor|country_other)$/.test(l.id)) { gl.setLayoutProperty(l.id, 'visibility', 'none'); continue; }
+        gl.setLayoutProperty(l.id, 'text-field', ['coalesce', ['get', 'name:en'], ['get', 'name:latin'], ['get', 'name']]);
+        gl.setPaintProperty(l.id, 'text-color', /country/.test(l.id) ? '#6f6f69' : '#8d8d86');
+        gl.setPaintProperty(l.id, 'text-halo-color', '#0b0b0a');
+      }
       const empty = {type: 'FeatureCollection', features: []};
       ['route', 'dots', 'train'].forEach(id => gl.addSource(id, {type: 'geojson', data: empty}));
       gl.addLayer({id: 'route-walk', type: 'line', source: 'route', filter: ['==', ['get', 'walk'], true],
@@ -495,11 +527,11 @@ async function drawGL(it) {
   const all = legs.flatMap(l => l.c);
   if (!all.length) return;
   const b = all.reduce((b, c) => [Math.min(b[0], c[0]), Math.min(b[1], c[1]), Math.max(b[2], c[0]), Math.max(b[3], c[1])], [180, 90, -180, -90]);
-  const box = $('#map'), wide = innerWidth > 900, info = wide ? $('#info').offsetWidth + 24 : 0;
+  const box = $('#map'), wide = innerWidth > 900, info = 0, head = wide ? $('#info').offsetHeight - 30 : 0;
   map.resize();
   const opsH = wide && !$('#ops').hidden ? $('#ops').offsetHeight + 20 : 0, H = box.clientHeight;
-  let top = 60, bottom = opsH + 30;
-  if (H - top - bottom < 150) { top = 30; bottom = Math.max(20, Math.min(bottom, H - 150 - top)); }
+  let top = Math.max(50, head - 5), bottom = Math.max(40, opsH - 50);
+  if (H - top - bottom < 120) { const k = (H - 120) / (top + bottom); top = Math.max(20, top * k); bottom = Math.max(20, bottom * k); }
   map.fitBounds([[b[0], b[1]], [b[2], b[3]]], {padding: {top, bottom, left: 60, right: info + 60}, maxZoom: 13, duration: 1400, essential: true});
   const a = it.legs[0].from, z = it.legs[it.legs.length - 1].to;
   const ride = it.legs.filter(l => l.mode !== 'WALK');
@@ -513,7 +545,7 @@ async function drawGL(it) {
   marker([a.lon, a.lat], L().home); marker([z.lon, z.lat], it.destName || '', false, 'dest');
   changes.forEach(p => {
     const c = [p.lon, p.lat];
-    if (seen.some(q => dist(q, c) < span / 9)) return;
+    if (seen.some(q => dist(q, c) < span / 6)) return;
     seen.push(c); marker(c, strip(p.name).replace(/\s+(Hauptbahnhof|Hbf|central bus station)$/i, ''), true);
   });
   // draw the route from Vienna outwards, then a train runs along it
@@ -679,16 +711,7 @@ function showRoute(p, name) {
   drawMap(it);
   document.querySelectorAll('#chips button').forEach(b => b.classList.toggle('on', CITIES[lang][+b.dataset.i][0] === name));
 }
-function fitInfo() {
-  const band = $('#ops'), info = $('#info');
-  const on = innerWidth > 900 && !band.hidden && !info.querySelector('.hint');
-  info.style.bottom = on ? 'auto' : '';
-  info.style.maxHeight = on ? `calc(100% - ${band.offsetHeight}px - 2.4em)` : '';
-  // small screens: drop the "first ride" line instead of cutting it
-  const lv = info.querySelector('.leave');
-  if (lv) { lv.hidden = false; if (on && lv.getBoundingClientRect().bottom > info.getBoundingClientRect().bottom - 8) lv.hidden = true; }
-}
-addEventListener('resize', fitInfo);
+function fitInfo() {}
 function idleHint() {
   $('#info').innerHTML = `<div class="hint">${esc(L().idle)}</div>`;
 }
