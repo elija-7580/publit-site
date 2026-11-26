@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Kurzinfo für KI-Assistenten / summary for AI assistants: https://publit.eu/llms.txt
 Sitemap: https://publit.eu/sitemap.xml
