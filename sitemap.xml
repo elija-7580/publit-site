@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://publit.eu/</loc></url>
-  <url><loc>https://publit.eu/features/</loc></url>
-  <url><loc>https://publit.eu/unterstuetzen/</loc></url>
-  <url><loc>https://publit.eu/staedte/</loc></url>
-  <url><loc>https://publit.eu/abdeckung/</loc></url>
-  <url><loc>https://publit.eu/privacy/</loc></url>
-  <url><loc>https://publit.eu/wuensche/</loc></url>
-  <url><loc>https://publit.eu/presse/</loc></url>
+  <url><loc>https://publit.eu/</loc><lastmod>2026-11-26</lastmod><priority>1.0</priority></url>
+  <url><loc>https://publit.eu/features/</loc><lastmod>2026-11-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://publit.eu/oeffi-app-wien/</loc><lastmod>2026-11-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://publit.eu/oeffis-europa/</loc><lastmod>2026-11-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://publit.eu/klimaticket-deutschlandticket/</loc><lastmod>2026-11-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://publit.eu/abdeckung/</loc><lastmod>2026-11-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://publit.eu/staedte/</loc><lastmod>2026-11-26</lastmod><priority>0.7</priority></url>
+  <url><loc>https://publit.eu/wuensche/</loc><lastmod>2026-11-26</lastmod><priority>0.7</priority></url>
+  <url><loc>https://publit.eu/unterstuetzen/</loc><lastmod>2026-11-26</lastmod><priority>0.6</priority></url>
+  <url><loc>https://publit.eu/presse/</loc><lastmod>2026-11-26</lastmod><priority>0.6</priority></url>
+  <url><loc>https://publit.eu/android/</loc><lastmod>2026-11-26</lastmod><priority>0.5</priority></url>
+  <url><loc>https://publit.eu/privacy/</loc><lastmod>2026-11-26</lastmod><priority>0.3</priority></url>
 </urlset>

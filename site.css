@@ -523,3 +523,15 @@ body.on-dark .line-dot{box-shadow:0 0 0 3px #111,0 2px 6px rgba(0,0,0,.4)}
 @media (max-width:900px){.future,.team,.partner.has-photo{grid-template-columns:1fr}.future .photo,.team-main,.partner.has-photo .photo{max-width:460px}}
 @media (max-width:560px){.vcards{grid-template-columns:1fr}.future p:not(.status),.team p:not(.credit),.partner.has-photo>div>p{font-size:17px}.team blockquote p{font-size:18px}}
 .team-main{position:sticky;top:96px}@media (max-width:900px){.team-main{position:static}}
+
+/* FAQ (home + landing pages) and breadcrumbs */
+.faq{display:grid;gap:10px;margin-top:20px;max-width:820px}
+.faq details{background:var(--surface);border-radius:18px;padding:18px 22px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.faq summary{font-weight:700;font-size:17px;line-height:1.35;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--faint);font-weight:500;flex:none}
+.faq details[open] summary::after{content:"–"}
+.faq details p{font-size:16px;margin-top:10px}
+.faq-sec h2{max-width:14em}
+.crumbs{font-size:14px;color:var(--faint);margin-bottom:18px}
+.crumbs a{text-decoration:underline}

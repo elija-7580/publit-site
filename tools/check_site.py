@@ -31,3 +31,32 @@ for page in Path(".").glob("**/index.html"):
     for ref in re.findall(r'(?:href|src)="[./]*(site\.(?:css|js)[^"]*)"', page.read_text()):
         if ref.split("?v=")[-1] != version:
             raise SystemExit(f"{page}: {ref} should be ?v={version} (update the version after changing site.css or site.js)")
+
+# SEO / AI search: every indexable page has title, description, a self-canonical, valid JSON-LD and is in
+# the sitemap; sitemap and llms.txt only point at pages that exist; landing pages match their JSON source.
+import subprocess, sys
+sitemap = set(re.findall(r"<loc>https://publit\.eu/([^<]*)</loc>", Path("sitemap.xml").read_text()))
+for page in Path(".").glob("**/index.html"):
+    if any(part in ("services", "node_modules") or part.startswith(".") for part in page.parts):
+        continue
+    text = page.read_text()
+    if re.search(r'<meta name="robots" content="[^"]*noindex', text):
+        continue
+    path = "" if page.parent == Path(".") else page.parent.as_posix() + "/"
+    for pattern, what in ((r"<title>[^<]{10,}</title>", "a <title>"),
+                          (r'<meta name="description" content="[^"]{50,}">', "a meta description (50+ chars)"),
+                          (rf'<link rel="canonical" href="https://publit\.eu/{re.escape(path)}">', "a self-canonical"),
+                          (r'<script type="application/ld\+json">', "JSON-LD")):
+        if not re.search(pattern, text):
+            raise SystemExit(f"{page}: missing {what}")
+    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
+        json.loads(block)
+    if path not in sitemap:
+        raise SystemExit(f"{page}: indexable page missing from sitemap.xml")
+for path in sitemap:
+    if not Path(path or ".", "index.html").is_file():
+        raise SystemExit(f"sitemap.xml lists https://publit.eu/{path}, which does not exist")
+for path in re.findall(r"https://publit\.eu/([a-z0-9/-]*)", Path("llms.txt").read_text()):
+    if path and not Path(path.rstrip("/"), "index.html").is_file():
+        raise SystemExit(f"llms.txt links https://publit.eu/{path}, which does not exist")
+subprocess.run([sys.executable, "tools/landing.py", "--check"], check=True)
