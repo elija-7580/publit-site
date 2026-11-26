@@ -1,0 +1,344 @@
+[
+  {
+    "slug": "oeffi-app-wien",
+    "crumb": "Öffi-App für Wien",
+    "title": "Öffi-App für Wien: Abfahrten, Routen und Live-Fahrt | Publit",
+    "title_en": "Vienna public transport app: departures, routes, live trips | Publit",
+    "description": "Publit ist die kostenlose Öffi-App für Wien: U-Bahn, Bim, Bus, S-Bahn und ÖBB in einer App, mit Live-Daten der Wiener Linien. Ohne Konto und ohne Werbung.",
+    "kicker": "Öffis in Wien",
+    "kicker_en": "Public transport in Vienna",
+    "h1": "Die Öffi-App für Wien.",
+    "h1_en": "The transit app for Vienna.",
+    "lead": "Publit zeigt, was in Wien gerade fährt: U-Bahn, Bim, Bus, S-Bahn und Züge der ÖBB in einer App, mit Live-Zeiten der Wiener Linien. Und wenn du weiterfährst, nach Niederösterreich, Bratislava oder München, bleibt es dieselbe App.",
+    "lead_en": "Publit shows what is running in Vienna right now: U-Bahn, trams, buses, S-Bahn and ÖBB trains in one app, with live times from Wiener Linien. And when you travel on, to Lower Austria, Bratislava or Munich, it stays the same app.",
+    "sections": [
+      {
+        "h": "Was Publit in Wien kann",
+        "h_en": "What Publit does in Vienna",
+        "cards": [
+          {
+            "t": "Abfahrten in der Nähe",
+            "x": "Öffne die App und sieh sofort die nächsten Abfahrten rund um dich, mit Linie, Richtung und Minuten bis zur Abfahrt.",
+            "t_en": "Departures nearby",
+            "x_en": "Open the app and see the next departures around you right away, with line, direction and minutes to go."
+          },
+          {
+            "t": "Live-Daten der Wiener Linien",
+            "x": "Auf dem iPhone kommen Abfahrten, Störungen und Aufzugsmeldungen direkt von den Wiener Linien dazu. Für Züge nutzt Publit Live-Daten der ÖBB.",
+            "t_en": "Live data from Wiener Linien",
+            "x_en": "On iPhone, departures, disruptions and elevator notices come straight from Wiener Linien. For trains, Publit uses live data from ÖBB."
+          },
+          {
+            "t": "Route und Umstiege",
+            "x": "Publit plant von Tür zu Tür und bewertet jeden Umstieg: Wie sicher klappt er, wie weit gehst du? So gewinnt die Route, die sich am kürzesten anfühlt.",
+            "t_en": "Routes and changes",
+            "x_en": "Publit plans door to door and rates every change: how likely does it work, how far do you walk? The route that feels shortest wins."
+          },
+          {
+            "t": "Wissen, wann du aussteigst",
+            "x": "Die Live-Fahrt begleitet dich Halt für Halt, auch auf dem Sperrbildschirm und der Apple Watch, und erinnert dich rechtzeitig ans Aussteigen.",
+            "t_en": "Know when to get off",
+            "x_en": "The live trip follows you stop by stop, also on the lock screen and the Apple Watch, and reminds you in time to get off."
+          }
+        ]
+      },
+      {
+        "h": "Mit deiner Jahreskarte oder dem KlimaTicket",
+        "h_en": "With your annual pass or KlimaTicket",
+        "cards": [
+          {
+            "t": "Ticket immer dabei",
+            "x": "Leg deine Jahreskarte Wien oder dein KlimaTicket aus einem PDF oder Foto in Publit ab und zeig es bei der Kontrolle vor.",
+            "t_en": "Your ticket always with you",
+            "x_en": "Store your Vienna annual pass or KlimaTicket from a PDF or photo in Publit and show it at ticket checks."
+          },
+          {
+            "t": "Routen nur mit deinem Ticket",
+            "x": "Wähle unter „Meine Tickets“ zum Beispiel die Jahreskarte Wien oder das KlimaTicket MetropolRegion, und Publit zeigt nur Fahrten, die dein Ticket abdeckt.",
+            "t_en": "Routes your ticket covers",
+            "x_en": "Pick, for example, the Vienna annual pass or the KlimaTicket MetropolRegion under My tickets, and Publit only shows rides your ticket covers."
+          }
+        ],
+        "note": "Ticketkauf direkt in Publit ist geplant, aber noch nicht live.",
+        "note_en": "Buying tickets right in Publit is planned but not live yet."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Zeigt Publit Echtzeit-Daten der Wiener Linien?",
+        "a": "Ja. Auf dem iPhone holt Publit Abfahrten, Störungen und Aufzugsmeldungen direkt von den Wiener Linien. Die Einstellung „Live data from more operators“ ist standardmäßig an. Dabei werden nur Haltestelle, Linie und Zeit abgefragt.",
+        "q_en": "Does Publit show real-time data from Wiener Linien?",
+        "a_en": "Yes. On iPhone, Publit gets departures, disruptions and elevator notices straight from Wiener Linien. The setting Live data from more operators is on by default. Only the stop, line and time are sent."
+      },
+      {
+        "q": "Funktioniert Publit auch außerhalb von Wien?",
+        "a": "Ja. Publit kennt Fahrpläne aus ganz Österreich und aus mehr als 1.000 Quellen in 49 Ländern, über den offenen Dienst Transitous. Du kannst also mit derselben App nach Niederösterreich, ins Burgenland oder ins Ausland fahren.",
+        "q_en": "Does Publit work outside Vienna?",
+        "a_en": "Yes. Publit knows timetables from all over Austria and from more than 1,000 sources in 49 countries, through the open service Transitous. You can travel to Lower Austria, Burgenland or abroad with the same app."
+      },
+      {
+        "q": "Kostet Publit etwas?",
+        "a": "Nein. Publit ist kostenlos, ohne Werbung und ohne Konto. Wer möchte, kann das Projekt freiwillig ab 1,50 € im Monat unterstützen.",
+        "q_en": "Does Publit cost anything?",
+        "a_en": "No. Publit is free, with no ads and no account. If you like, you can support the project voluntarily from €1.50 a month."
+      },
+      {
+        "q": "Kann ich in Publit Tickets der Wiener Linien kaufen?",
+        "a": "Noch nicht. Der Ticketkauf in der App ist geplant und startet Schritt für Schritt mit einzelnen Verkehrsunternehmen. Eigene Tickets kannst du schon heute in Publit ablegen und vorzeigen.",
+        "q_en": "Can I buy Wiener Linien tickets in Publit?",
+        "a_en": "Not yet. Buying tickets in the app is planned and will start step by step with individual operators. You can already store and show your own tickets in Publit today."
+      },
+      {
+        "q": "Gibt es Publit für Android und die Apple Watch?",
+        "a": "Publit gibt es für iPhone und Apple Watch im App Store. Die Android-App läuft gerade im geschlossenen Test für Google Play und ist als Download auf GitHub erhältlich.",
+        "q_en": "Is Publit available for Android and the Apple Watch?",
+        "a_en": "Publit is on the App Store for iPhone and Apple Watch. The Android app is in a closed test for Google Play and available as a download on GitHub."
+      }
+    ],
+    "links": [
+      {
+        "href": "../features/",
+        "t": "Alle Funktionen →",
+        "t_en": "All features →"
+      },
+      {
+        "href": "../oeffis-europa/",
+        "t": "Öffis in ganz Europa →",
+        "t_en": "Transit across Europe →"
+      },
+      {
+        "href": "../klimaticket-deutschlandticket/",
+        "t": "KlimaTicket in der App →",
+        "t_en": "KlimaTicket in the app →"
+      }
+    ]
+  },
+  {
+    "slug": "oeffis-europa",
+    "crumb": "Öffis in ganz Europa",
+    "title": "Öffi-App für ganz Europa: Bus und Bahn in jeder Stadt | Publit",
+    "title_en": "One transit app for all of Europe: bus and rail in every city | Publit",
+    "description": "Eine App für Nah- und Fernverkehr in ganz Europa: Publit plant Fahrten mit Bus, Bim, U-Bahn und Zug über Grenzen hinweg, mit Daten aus 49 Ländern. Kostenlos und Open Source.",
+    "kicker": "Reisen und Städtetrips",
+    "kicker_en": "Travel and city trips",
+    "h1": "Eine App für Öffis in ganz Europa.",
+    "h1_en": "One app for public transport across Europe.",
+    "lead": "In Wien brauchst du eine App, in München die nächste und für den Zug nach Venedig eine dritte. Mit Publit reicht eine: Abfahrten, Routen und Live-Fahrt funktionieren in jeder Stadt, die offene Fahrplandaten hat, ohne dass du vor der Reise etwas Neues laden musst.",
+    "lead_en": "In Vienna you need one app, in Munich the next, and a third for the train to Venice. With Publit, one is enough: departures, routes and live trips work in every city with open timetable data, without installing anything new before your trip.",
+    "sections": [
+      {
+        "h": "So reist du mit Publit",
+        "h_en": "How you travel with Publit",
+        "cards": [
+          {
+            "t": "Über Grenzen planen",
+            "x": "Publit plant Nah- und Fernverkehr in einer Route: vom Bus zu Hause über den Zug ins Nachbarland bis zur Straßenbahn am Ziel.",
+            "t_en": "Plan across borders",
+            "x_en": "Publit plans local and long-distance transport in one route: from the bus at home, the train to the next country, to the tram at your destination."
+          },
+          {
+            "t": "Daten aus 49 Ländern",
+            "x": "Fahrpläne und Echtzeit kommen von Transitous, einem offenen, ehrenamtlich betriebenen Routing-Dienst mit mehr als 1.000 Quellen in 49 Ländern.",
+            "t_en": "Data from 49 countries",
+            "x_en": "Timetables and live data come from Transitous, an open, volunteer-run routing service with more than 1,000 sources in 49 countries."
+          },
+          {
+            "t": "Mehr Live-Daten",
+            "x": "Auf dem iPhone ergänzt Publit Live-Daten von Betreibern wie ÖBB, Wiener Linien, search.ch (Schweiz), deutschen Verbünden, ACTV in Venedig, SL in Stockholm und TfL in London.",
+            "t_en": "More live data",
+            "x_en": "On iPhone, Publit adds live data from operators such as ÖBB, Wiener Linien, search.ch (Switzerland), German transit networks, ACTV in Venice, SL in Stockholm and TfL in London."
+          },
+          {
+            "t": "In deiner Sprache",
+            "x": "Die App gibt es in 15 Sprachen. Halte, Linien und Hinweise bleiben gleich aufgebaut, egal in welcher Stadt du gerade bist.",
+            "t_en": "In your language",
+            "x_en": "The app is available in 15 languages. Stops, lines and notices look the same, whichever city you are in."
+          }
+        ]
+      },
+      {
+        "h": "Unterwegs",
+        "h_en": "On the way",
+        "cards": [
+          {
+            "t": "Live-Fahrt bis zum Aussteigen",
+            "x": "Welche Linie, welcher Steig, wann aussteigen: Publit begleitet dich auf dem Sperrbildschirm und auf der Apple Watch.",
+            "t_en": "Live trip until you get off",
+            "x_en": "Which line, which platform, when to get off: Publit guides you on the lock screen and on the Apple Watch."
+          },
+          {
+            "t": "Ohne Netz nicht blind",
+            "x": "Zuletzt geladene Abfahrten und Karten bleiben mit Zeitstempel sichtbar, wenn im Zug oder im Ausland kurz das Netz fehlt.",
+            "t_en": "Not blind without signal",
+            "x_en": "The last loaded departures and maps stay visible with a timestamp when you briefly lose signal on a train or abroad."
+          }
+        ],
+        "note": "Wo es Daten gibt, zeigt die Abdeckungskarte. Ticketkauf direkt in Publit ist geplant, aber noch nicht live.",
+        "note_en": "The coverage map shows where data is available. Buying tickets right in Publit is planned but not live yet."
+      }
+    ],
+    "faq": [
+      {
+        "q": "In welchen Ländern funktioniert Publit?",
+        "a": "Überall, wo Transitous offene Fahrplandaten hat: das sind mehr als 1.000 Quellen in 49 Ländern, mit Schwerpunkt Europa. Die Karte auf publit.eu/abdeckung zeigt, wo es Fahrpläne und wo es Echtzeit gibt.",
+        "q_en": "Which countries does Publit work in?",
+        "a_en": "Everywhere Transitous has open timetable data: more than 1,000 sources in 49 countries, with a focus on Europe. The map at publit.eu/abdeckung shows where there are timetables and where there is real-time data."
+      },
+      {
+        "q": "Plant Publit auch Fernzüge?",
+        "a": "Ja. Publit verbindet Nahverkehr und Fernverkehr in einer Route, zum Beispiel mit Zügen von ÖBB, DB oder SBB, soweit deren Fahrpläne als offene Daten vorliegen.",
+        "q_en": "Does Publit plan long-distance trains?",
+        "a_en": "Yes. Publit combines local and long-distance transport in one route, for example with ÖBB, DB or SBB trains, as far as their timetables are available as open data."
+      },
+      {
+        "q": "Muss ich für jede Stadt eine neue App laden?",
+        "a": "Nein, das ist die Idee von Publit. Dieselbe App zeigt Abfahrten und Routen in Wien, München, Mailand oder Kopenhagen.",
+        "q_en": "Do I need a new app for every city?",
+        "a_en": "No, that is the point of Publit. The same app shows departures and routes in Vienna, Munich, Milan or Copenhagen."
+      },
+      {
+        "q": "Kann ich in Publit Tickets für ganz Europa kaufen?",
+        "a": "Noch nicht. Publit soll Tickets im Auftrag der Verkehrsunternehmen direkt an der gefundenen Verbindung verkaufen. Das startet Schritt für Schritt mit einzelnen Betrieben; Tarife und Preise bestimmt weiter das Verkehrsunternehmen.",
+        "q_en": "Can I buy tickets for all of Europe in Publit?",
+        "a_en": "Not yet. Publit plans to sell tickets on behalf of transport operators right on the route it found. This starts step by step with individual operators; fares and prices stay with the operator."
+      },
+      {
+        "q": "Sammelt Publit Daten über meine Reisen?",
+        "a": "Nein. Publit braucht kein Konto und hat kein Tracking. Orte, Fahrten und Tickets bleiben auf deinem Gerät. Für Abfragen werden nur die nötigen Angaben wie Haltestelle, Linie und Zeit gesendet.",
+        "q_en": "Does Publit collect data about my trips?",
+        "a_en": "No. Publit needs no account and has no tracking. Places, trips and tickets stay on your device. Requests only send what is needed, such as stop, line and time."
+      }
+    ],
+    "links": [
+      {
+        "href": "../abdeckung/",
+        "t": "Abdeckungskarte →",
+        "t_en": "Coverage map →"
+      },
+      {
+        "href": "../features/",
+        "t": "Alle Funktionen →",
+        "t_en": "All features →"
+      },
+      {
+        "href": "../oeffi-app-wien/",
+        "t": "Publit in Wien →",
+        "t_en": "Publit in Vienna →"
+      }
+    ]
+  },
+  {
+    "slug": "klimaticket-deutschlandticket",
+    "crumb": "KlimaTicket und Deutschlandticket",
+    "title": "KlimaTicket und Deutschlandticket in der App ablegen | Publit",
+    "title_en": "Store your KlimaTicket and Deutschlandticket in an app | Publit",
+    "description": "KlimaTicket, Deutschlandticket oder Jahreskarte aus PDF oder Foto in Publit ablegen, bei der Kontrolle vorzeigen und Routen nur mit Fahrten planen, die dein Ticket abdeckt.",
+    "kicker": "Deine Tickets",
+    "kicker_en": "Your tickets",
+    "h1": "Dein Ticket. Deine Routen.",
+    "h1_en": "Your ticket. Your routes.",
+    "lead": "Leg KlimaTicket, Deutschlandticket oder Jahreskarte in Publit ab und zeig sie bei der Kontrolle vor. Publit plant dann auf Wunsch nur Routen, die dein Ticket abdeckt, damit du nicht aus Versehen in einen Zug steigst, für den es nicht gilt.",
+    "lead_en": "Store your KlimaTicket, Deutschlandticket or annual pass in Publit and show it at ticket checks. If you like, Publit then only plans routes your ticket covers, so you don’t board a train by mistake that it isn’t valid for.",
+    "sections": [
+      {
+        "h": "So funktioniert es",
+        "h_en": "How it works",
+        "cards": [
+          {
+            "t": "Aus PDF, Foto oder Wallet-Pass",
+            "x": "Importiere dein Ticket aus einem PDF, Foto, Screenshot oder Wallet-Pass. Publit erkennt Code und Angaben direkt auf dem iPhone und legt das Ticket im Tickets-Tab ab.",
+            "t_en": "From a PDF, photo or Wallet pass",
+            "x_en": "Import your ticket from a PDF, photo, screenshot or Wallet pass. Publit reads the code and details right on your iPhone and stores the ticket in the Tickets tab."
+          },
+          {
+            "t": "Bei der Kontrolle vorzeigen",
+            "x": "Das Ticket ist mit einem Tipp da, auch ohne Netz. Publit zeigt eine Kopie; gültig bleibt das Ticket, das der Anbieter ausgestellt hat.",
+            "t_en": "Show it at ticket checks",
+            "x_en": "Your ticket is one tap away, even without signal. Publit shows a copy; the ticket the provider issued remains the valid one."
+          },
+          {
+            "t": "Routen nur mit deinem Ticket",
+            "x": "Unter „Meine Tickets“ wählst du, welche Tickets du hast. Publit prüft dann jede Fahrt der Route und zeigt nur Verbindungen, die vollständig abgedeckt sind.",
+            "t_en": "Routes your ticket covers",
+            "x_en": "Under My tickets you choose which tickets you have. Publit then checks every ride on the route and only shows connections that are fully covered."
+          },
+          {
+            "t": "Regeln, die mitdenken",
+            "x": "Beim Deutschlandticket fallen Fernzüge wie ICE, IC oder Railjet weg, Grenzstrecken nach Salzburg, Kufstein oder Basel bleiben. Beim KlimaTicket Ö zählt alles mit Start und Ende in Österreich, außer CAT und Vienna Airport Lines.",
+            "t_en": "Rules that think along",
+            "x_en": "With the Deutschlandticket, long-distance trains such as ICE, IC or Railjet are left out, while border routes to Salzburg, Kufstein or Basel stay. With the KlimaTicket Ö, everything that starts and ends in Austria counts, except CAT and Vienna Airport Lines."
+          }
+        ]
+      },
+      {
+        "h": "Welche Tickets Publit kennt",
+        "h_en": "Which tickets Publit knows",
+        "cards": [
+          {
+            "t": "Österreich",
+            "x": "KlimaTicket Ö, KlimaTicket MetropolRegion und Region (VOR), Jahreskarte Wien sowie die regionalen KlimaTickets für Oberösterreich, Salzburg, Tirol, Steiermark, Kärnten und VMOBIL in Vorarlberg.",
+            "t_en": "Austria",
+            "x_en": "KlimaTicket Ö, KlimaTicket MetropolRegion and Region (VOR), the Vienna annual pass and the regional KlimaTickets for Upper Austria, Salzburg, Tyrol, Styria, Carinthia and VMOBIL in Vorarlberg."
+          },
+          {
+            "t": "Deutschland",
+            "x": "Deutschlandticket und BahnCard 100.",
+            "t_en": "Germany",
+            "x_en": "Deutschlandticket and BahnCard 100."
+          },
+          {
+            "t": "Schweiz",
+            "x": "Generalabonnement (GA), gültig mit Start und Ende in der Schweiz oder in Liechtenstein.",
+            "t_en": "Switzerland",
+            "x_en": "General travelcard (GA), valid with start and end in Switzerland or Liechtenstein."
+          }
+        ],
+        "note": "Die Routenprüfung gibt es in der iPhone-App. Tourismus- und Bergbahnen, Zuschläge und einzelne Ausnahmen bildet Publit nicht ab; im Zweifel gelten die Bedingungen des Ticket-Anbieters.",
+        "note_en": "Route checking is available in the iPhone app. Publit does not model tourist and mountain railways, surcharges or individual exceptions; if in doubt, the ticket provider’s conditions apply."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Kann ich mein KlimaTicket in Publit speichern?",
+        "a": "Ja. Du kannst dein KlimaTicket aus einem PDF oder Foto in Publit ablegen und es bei der Kontrolle vorzeigen. Das klappt auch ohne Internet.",
+        "q_en": "Can I store my KlimaTicket in Publit?",
+        "a_en": "Yes. You can store your KlimaTicket from a PDF or photo in Publit and show it at ticket checks. This also works without internet."
+      },
+      {
+        "q": "Zeigt Publit nur Verbindungen, die mit dem Deutschlandticket gelten?",
+        "a": "Ja, wenn du unter „Meine Tickets“ das Deutschlandticket wählst. Publit lässt dann Fernzüge wie ICE, IC, EC, Railjet, Nightjet, FlixTrain und Fernbusse weg und zeigt nur Routen mit Nah- und Regionalverkehr.",
+        "q_en": "Does Publit only show connections valid with the Deutschlandticket?",
+        "a_en": "Yes, if you choose the Deutschlandticket under My tickets. Publit then leaves out long-distance trains such as ICE, IC, EC, Railjet, Nightjet, FlixTrain and long-distance buses, and only shows routes with local and regional transport."
+      },
+      {
+        "q": "Gilt das KlimaTicket Ö für den CAT?",
+        "a": "Nein, der City Airport Train (CAT) und die Vienna Airport Lines sind im KlimaTicket Ö nicht enthalten. Publit berücksichtigt das bei der Routenplanung.",
+        "q_en": "Is the KlimaTicket Ö valid on the CAT?",
+        "a_en": "No, the City Airport Train (CAT) and Vienna Airport Lines are not included in the KlimaTicket Ö. Publit takes this into account when planning routes."
+      },
+      {
+        "q": "Kann ich Tickets in Publit kaufen?",
+        "a": "Noch nicht. Der Ticketkauf in der App ist geplant und startet Schritt für Schritt mit einzelnen Verkehrsunternehmen. Gekaufte Tickets anderer Anbieter kannst du schon heute ablegen.",
+        "q_en": "Can I buy tickets in Publit?",
+        "a_en": "Not yet. Buying tickets in the app is planned and will start step by step with individual operators. You can already store tickets bought elsewhere."
+      }
+    ],
+    "links": [
+      {
+        "href": "../oeffi-app-wien/",
+        "t": "Publit in Wien →",
+        "t_en": "Publit in Vienna →"
+      },
+      {
+        "href": "../oeffis-europa/",
+        "t": "Öffis in ganz Europa →",
+        "t_en": "Transit across Europe →"
+      },
+      {
+        "href": "../features/",
+        "t": "Alle Funktionen →",
+        "t_en": "All features →"
+      }
+    ]
+  }
+]
