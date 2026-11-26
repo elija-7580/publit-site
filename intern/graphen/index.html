@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: LicenseRef-AllRightsReserved -->
+<!-- SPDX-FileCopyrightText: 2026 Elija Samuel Friedrich-Ulrich -->
+<!-- Interne Seite: nicht verlinkt, nicht in sitemap.xml, noindex. -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Publit Zahlen intern</title>
+<style>
+:root{
+  color-scheme:light;
+  --ground:#f4f4f2;--surface:#fff;--ink:#141412;--soft:#5d5d5a;--faint:#9a9a95;--line:#e3e3de;--grid:#ececE8;
+  --s1:#257de0;--s2:#f47230;--s3:#00b894;--s4:#f2a600;--accent:#ffc531;
+  --q1:#cce3fd;--q2:#9dc8f7;--q3:#6aabf1;--q4:#338ced;--q5:#2370cd;--q6:#1757ac;--q7:#0e3d7e;--q0:#f1f1ee;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --ground:#111;--surface:#1c1c1e;--ink:#efefef;--soft:#a9a9a4;--faint:#7c7c78;--line:#2e2e30;--grid:#2a2a2c;
+  --s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;
+  --q0:#262628;--q1:#0e3d7e;--q2:#0f4a96;--q3:#1757ac;--q4:#1b64be;--q5:#2370cd;--q6:#338ced;--q7:#6aabf1;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#111;--surface:#1c1c1e;--ink:#efefef;--soft:#a9a9a4;--faint:#7c7c78;--line:#2e2e30;--grid:#2a2a2c;
+  --s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;
+  --q0:#262628;--q1:#0e3d7e;--q2:#0f4a96;--q3:#1757ac;--q4:#1b64be;--q5:#2370cd;--q6:#338ced;--q7:#6aabf1;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+header{max-width:1240px;margin:0 auto;padding:40px 16px 8px}
+header .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:#141412;border-radius:6px;padding:2px 8px}
+h1{font-size:34px;line-height:1.1;margin:12px 0 8px;letter-spacing:-.02em}
+header p{color:var(--soft);max-width:760px;margin:0 0 6px}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav div{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+nav a{flex:none;color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+nav a:hover{border-color:var(--soft)}
+main{max-width:1240px;margin:0 auto;padding:8px 16px 64px}
+section h2{font-size:22px;margin:36px 0 4px;letter-spacing:-.01em}
+section>p{color:var(--soft);margin:0 0 14px;max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px;min-width:0;display:flex;flex-direction:column}
+.card .no{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.card h3{font-size:17px;margin:2px 0 4px;line-height:1.25}
+.card .why{font-size:13.5px;color:var(--soft);margin:0 0 10px}
+.card svg{display:block;width:100%;height:auto;overflow:visible}
+.card svg text{fill:var(--soft);font-size:11px;font-family:inherit}
+.card svg text.v{fill:var(--ink);font-variant-numeric:tabular-nums}
+.card svg text.l{fill:var(--ink)}
+.card svg .gl{stroke:var(--grid);stroke-width:1}
+.card svg .ax{stroke:var(--line);stroke-width:1}
+.card svg [data-tip]{cursor:default}
+.card svg .hit{fill:transparent}
+.card svg .hov:hover,.card svg .hit:hover+.hov{opacity:.78}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--soft);margin:0 0 8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.src{margin-top:auto;padding-top:10px;font-size:12px;color:var(--faint)}
+details{margin-top:6px;font-size:12.5px}
+details summary{cursor:pointer;color:var(--soft)}
+details table{border-collapse:collapse;width:100%;margin-top:6px;font-variant-numeric:tabular-nums}
+details td,details th{text-align:left;padding:3px 6px;border-bottom:1px solid var(--line)}
+details td.n,details th.n{text-align:right}
+details .tw{max-height:260px;overflow:auto}
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12.5px;line-height:1.35;padding:6px 9px;border-radius:8px;max-width:280px;opacity:0;transition:opacity .08s;white-space:pre-line}
+footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;color:var(--faint);font-size:12.5px}
+@media (max-width:600px){h1{font-size:28px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<header>
+  <span class="tag">Intern</span>
+  <h1>Publit in 30 Graphen</h1>
+  <p>Abdeckung, Routing, Community, Entwicklung und Geschäft auf einen Blick. Jede Grafik nennt ihre Quelle und ihren Stand. Fahre über einen Balken oder Punkt für die genauen Werte, unter „Tabelle“ stehen alle Zahlen.</p>
+  <p>Diese Seite ist nicht verlinkt und für Suchmaschinen gesperrt. Bitte nicht öffentlich teilen.</p>
+</header>
+<nav><div>
+  <a href="#abdeckung">Abdeckung</a><a href="#routing">Routing</a><a href="#community">Community</a><a href="#entwicklung">Entwicklung</a><a href="#geschaeft">Markt &amp; Förderung</a>
+</div></nav>
+<main id="main"><p style="color:var(--soft)">Lade Daten …</p></main>
+<footer>Zusammengestellt am 26.11.2026 aus Transitous-Daten, der Wunschliste, den drei Git-Repos, GitHub und den Pitchdeck- und Förderunterlagen. Neu erzeugen: Datei <code>intern/graphen/data.json</code> ersetzen.</footer>
+<div id="tip" role="tooltip"></div>
+<script src="graphen.js"></script>
+</body>
+</html>
