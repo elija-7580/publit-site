@@ -56,7 +56,7 @@ for page in Path(".").glob("**/index.html"):
 for path in sitemap:
     if not Path(path or ".", "index.html").is_file():
         raise SystemExit(f"sitemap.xml lists https://publit.eu/{path}, which does not exist")
-for path in re.findall(r"https://publit\.eu/([a-z0-9/-]*)", Path("llms.txt").read_text()):
-    if path and not Path(path.rstrip("/"), "index.html").is_file():
+for path in re.findall(r"https://publit\.eu/([a-z0-9/.-]*[a-z0-9/])", Path("llms.txt").read_text()):
+    if not (Path(path).is_file() or Path(path.rstrip("/"), "index.html").is_file()):
         raise SystemExit(f"llms.txt links https://publit.eu/{path}, which does not exist")
 subprocess.run([sys.executable, "tools/landing.py", "--check"], check=True)
