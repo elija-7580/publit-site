@@ -6,7 +6,9 @@ Each page answers one search intent with its own title, description, H1, section
 plus matching JSON-LD (WebPage, BreadcrumbList, FAQPage). German is the indexed language; English
 comes from the same data and is switched in the browser like on the other pages.
 
-Run: python3 tools/landing.py   (writes <slug>/index.html for every page)
+Also writes llms-full.txt: llms.txt plus the home page FAQ and the full text of every landing page.
+
+Run: python3 tools/landing.py   (writes <slug>/index.html for every page and llms-full.txt)
      python3 tools/landing.py --check   (fails if a generated page is out of date)
 """
 import hashlib
@@ -206,6 +208,28 @@ apply();
 '''
 
 
+def llms_full(pages):
+    import re
+    out = [(ROOT / "llms.txt").read_text().rstrip(), "", "# Häufige Fragen (Startseite)", ""]
+    home = (ROOT / "index.html").read_text()
+    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', home, re.S):
+        for node in json.loads(block).get("@graph", []):
+            if node.get("@type") == "FAQPage":
+                for q in node["mainEntity"]:
+                    out += [f"## {q['name']}", q["acceptedAnswer"]["text"], ""]
+    for p in pages:
+        out += [f"# {p['h1']} ({BASE}{p['slug']}/)", "", p["lead"], ""]
+        for s in p["sections"]:
+            out += [f"## {s['h']}"] + [f"- {c['t']}: {c['x']}" for c in s["cards"]]
+            if s.get("note"):
+                out.append(s["note"])
+            out.append("")
+        out.append("## Häufige Fragen")
+        for q in p["faq"]:
+            out += [f"### {q['q']}", q["a"], ""]
+    return "\n".join(out).rstrip() + "\n"
+
+
 def main():
     pages = json.loads((ROOT / "tools" / "landing_pages.json").read_text())
     version = asset_version()
@@ -219,6 +243,13 @@ def main():
         else:
             out.parent.mkdir(exist_ok=True)
             out.write_text(text)
+    full = llms_full(pages)
+    target = ROOT / "llms-full.txt"
+    if "--check" in sys.argv:
+        if not target.is_file() or target.read_text() != full:
+            stale.append("llms-full.txt")
+    else:
+        target.write_text(full)
     if stale:
         raise SystemExit("Out of date, run python3 tools/landing.py: " + ", ".join(stale))
 
