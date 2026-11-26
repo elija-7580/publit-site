@@ -6,7 +6,7 @@ Each page answers one search intent with its own title, description, H1, section
 plus matching JSON-LD (WebPage, BreadcrumbList, FAQPage). German is the indexed language; English
 comes from the same data and is switched in the browser like on the other pages.
 
-Also writes llms-full.txt: llms.txt plus the home page FAQ and the full text of every landing page.
+Also writes llms-full.txt (English): llms.txt plus the home page FAQ and the full text of every landing page.
 
 Run: python3 tools/landing.py   (writes <slug>/index.html for every page and llms-full.txt)
      python3 tools/landing.py --check   (fails if a generated page is out of date)
@@ -209,24 +209,30 @@ apply();
 
 
 def llms_full(pages):
+    """English long version for LLMs: llms.txt, the home page FAQ (English strings from site.js) and every landing page."""
     import re
-    out = [(ROOT / "llms.txt").read_text().rstrip(), "", "# Häufige Fragen (Startseite)", ""]
-    home = (ROOT / "index.html").read_text()
-    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', home, re.S):
-        for node in json.loads(block).get("@graph", []):
-            if node.get("@type") == "FAQPage":
-                for q in node["mainEntity"]:
-                    out += [f"## {q['name']}", q["acceptedAnswer"]["text"], ""]
+    out = [(ROOT / "llms.txt").read_text().rstrip(), "", "# Frequently asked questions (home page)", ""]
+    js = (ROOT / "site.js").read_text()
+    i = 0
+    while True:
+        q = re.search(rf'faq{i}q:"((?:[^"\\]|\\.)*)"', js)
+        a = re.search(rf'faq{i}a:"((?:[^"\\]|\\.)*)"', js)
+        if not (q and a):
+            break
+        out += [f"## {json.loads(chr(34) + q.group(1) + chr(34))}", json.loads(chr(34) + a.group(1) + chr(34)), ""]
+        i += 1
+    if i == 0:
+        raise SystemExit("llms-full.txt: no English FAQ (faq0q/faq0a) found in site.js")
     for p in pages:
-        out += [f"# {p['h1']} ({BASE}{p['slug']}/)", "", p["lead"], ""]
+        out += [f"# {p['h1_en']} ({BASE}{p['slug']}/)", "", p["lead_en"], ""]
         for s in p["sections"]:
-            out += [f"## {s['h']}"] + [f"- {c['t']}: {c['x']}" for c in s["cards"]]
-            if s.get("note"):
-                out.append(s["note"])
+            out += [f"## {s['h_en']}"] + [f"- {c['t_en']}: {c['x_en']}" for c in s["cards"]]
+            if s.get("note_en"):
+                out.append(s["note_en"])
             out.append("")
-        out.append("## Häufige Fragen")
+        out.append("## Frequently asked questions")
         for q in p["faq"]:
-            out += [f"### {q['q']}", q["a"], ""]
+            out += [f"### {q['q_en']}", q["a_en"], ""]
     return "\n".join(out).rstrip() + "\n"
 
 
