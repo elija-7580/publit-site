@@ -60,3 +60,5 @@ for path in re.findall(r"https://publit\.eu/([a-z0-9/.-]*[a-z0-9/])", Path("llms
     if not (Path(path).is_file() or Path(path.rstrip("/"), "index.html").is_file()):
         raise SystemExit(f"llms.txt links https://publit.eu/{path}, which does not exist")
 subprocess.run([sys.executable, "tools/landing.py", "--check"], check=True)
+# one header and footer everywhere, and the planner script with its own version
+subprocess.run([sys.executable, "tools/chrome.py", "--check"], check=True)

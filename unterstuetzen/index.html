@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css?v=38955ea">
+<link rel="stylesheet" href="../site.css?v=601a6fa">
 <meta name="description" content="Publit ist ein Community-Projekt ohne Werbung und Tracking. Unterstütze die App ab 1,50 € im Monat oder einmalig – alle Funktionen bleiben kostenlos.">
 <link rel="canonical" href="https://publit.eu/unterstuetzen/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -31,27 +31,29 @@
 <body>
 <header class="top">
   <a class="brand" href="../" aria-label="Publit">
-    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
+    <svg viewBox="0 0 1024 1024" width="28" height="28" aria-hidden="true"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
     <span>publit</span>
   </a>
   <nav>
-    <a href="../#nearby" data-t="navApp">Die App</a>
     <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
     <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a class="nav-sup" href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
+    <a class="nav-biz" href="../partner/" data-t="navBiz">Für Unternehmen</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
-    <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
-      <details class="mnav"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
+    <a class="nav-cta" href="../#laden" data-t="navGet">App laden</a>
+    <details class="mnav" onclick="if(event.target===this)this.open=false"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
       <div class="mnav-sheet" onclick="if(event.target.closest('a'))this.parentNode.open=false">
-        <a href="../#nearby" data-t="navApp">Die App</a>
         <a href="../features/" data-t="navFeat">Funktionen</a>
+        <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
         <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
         <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-        <a href="../staedte/" data-t="navCities">Für Städte</a>
-        <a href="https://github.com/elija-7580/Publit">GitHub</a>
-        <a class="mnav-cta" href="../unterstuetzen/"><span aria-hidden="true">♥</span> <span data-t="navSupport">Unterstützen</span></a>
+        <a href="../partner/" data-t="navBiz">Für Unternehmen</a>
+        <hr>
+        <a class="mnav-small" href="../staedte/" data-t="navCities">Für Städte</a>
+        <a class="mnav-small" href="../presse/" data-t="navPress">Presse</a>
+        <a class="mnav-small" href="../unterstuetzen/" data-t="navSupport">Publit unterstützen</a>
+        <a class="mnav-cta" href="../#laden" data-t="navGet">App laden</a>
       </div>
     </details>
   </nav>
@@ -110,27 +112,52 @@
 </section>
 </main>
 <footer class="foot">
-  <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
-  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
-  <nav class="foot-nav">
-    <a href="../features/" data-t="navFeat">Funktionen</a>
-    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
-    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
-    <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
-    <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
-    <a href="../presse/" data-t="footPress">Presse</a>
-    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
-    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
-  </nav>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="../" aria-label="Publit"><svg viewBox="0 0 1024 1024" width="28" height="28" aria-hidden="true"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg><span>publit</span></a>
+      <p data-t="footClaim">Eine App für Nah- und Fernverkehr in ganz Europa. Entwickelt in Wien, Open Source.</p>
+    </div>
+    <nav class="foot-col" aria-label="Produkt">
+      <b data-t="fProd">Produkt</b>
+      <a href="../features/" data-t="navFeat">Funktionen</a>
+      <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
+      <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+      <a href="../android/" data-t="footAndroid">Android</a>
+      <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    </nav>
+    <nav class="foot-col" aria-label="Für Unternehmen">
+      <b data-t="fBiz">Für Unternehmen</b>
+      <a href="../partner/" data-t="footOps">Verkehrsunternehmen</a>
+      <a href="../staedte/" data-t="navCities">Für Städte</a>
+      <a href="../presse/" data-t="footPress">Presse</a>
+      <a href="mailto:support@publit.eu" data-t="footContact">Kontakt</a>
+    </nav>
+    <nav class="foot-col" aria-label="Mehr">
+      <b data-t="fMore">Mehr</b>
+      <a href="../oeffi-app-wien/" data-t="footVienna">Öffi-App Wien</a>
+      <a href="../oeffis-europa/" data-t="footEurope">Öffis in Europa</a>
+      <a href="../klimaticket-deutschlandticket/" data-t="footTickets">KlimaTicket &amp; Deutschlandticket</a>
+      <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
+    </nav>
+    <nav class="foot-col" aria-label="Projekt">
+      <b data-t="fProj">Projekt</b>
+      <a href="../unterstuetzen/" data-t="navSupport">Publit unterstützen</a>
+      <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
+      <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
+      <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
+    </nav>
+  </div>
+  <div class="foot-base">
+    <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
+    <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+  </div>
 </footer>
 <script>
 (() => {
 // Web payment links per amount (cents). Empty: the cards point to the app, where support is bought in the store.
 const WEB = {monthly: {}, once: {}};
 const MONTHLY = [150, 300, 500, 1000, 2000, 5000], ONCE = [300, 500, 1000, 2000, 5000], PICK = 300;
-const EN = {"vbK": "Where Publit is going", "vbT": "One app for local and long-distance transport across Europe.", "vbX": "Find the route, buy the ticket, get on. Today Publit plans your trip and guides you until you get off, and ticket sales are coming step by step.", "vbApp": "Download on the App Store", "vbHome": "More about the idea →", "navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources",
+const EN = {/*chrome*/"navFeat": "Features", "navRoute": "Route planner", "navCov": "Coverage", "navWishes": "Wishes", "navBiz": "For business", "navGet": "Get the app", "navCities": "For cities", "navSupport": "Support Publit", "navPress": "Press", "navHome": "Home", "footClaim": "One app for local and long-distance public transport across Europe. Made in Vienna, open source.", "fProd": "Product", "fBiz": "Business", "fMore": "More", "fProj": "Project", "footOps": "Transit operators", "footContact": "Contact", "footAndroid": "Android", "footVienna": "Vienna transit app", "footEurope": "Transit across Europe", "footTickets": "KlimaTicket & Deutschlandticket", "footSources": "Data sources", "footPrivacy": "Privacy", "footPress": "Press", "footData": "Timetable data: Transitous and open data sources", "footDev": "built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a>",/*end*/"vbK": "Where Publit is going", "vbT": "One app for local and long-distance transport across Europe.", "vbX": "Find the route, buy the ticket, get on. Today Publit plans your trip and guides you until you get off, and ticket sales are coming step by step.", "vbApp": "Download on the App Store", "vbHome": "More about the idea →", "navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources",
   "kick": "A community project", "title": "Support Publit.", "lead": "Publit wants to bring route and ticket for local and long-distance transport across Europe into one app. Your contribution pays for servers, developer accounts and the time that takes. No ads, no tracking, and support unlocks nothing: every feature stays free for everyone.",
   "mT": "Monthly", "mX": "A small regular amount helps most, because it lets us plan. Cancel any time.", "oT": "One-time", "hT": "How it works",
   "h1": "In the app", "h1x": "Settings → “Support Publit”. You pay safely through the App Store or Google Play and can cancel there at any time. Or without the app: GitHub Sponsors.",

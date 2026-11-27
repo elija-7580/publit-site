@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css?v=38955ea">
+<link rel="stylesheet" href="../site.css?v=601a6fa">
 <meta name="description" content="Eine App für Nah- und Fernverkehr in ganz Europa: Publit plant Fahrten mit Bus, Bim, U-Bahn und Zug über Grenzen hinweg, mit Daten aus 49 Ländern. Kostenlos und Open Source.">
 <link rel="canonical" href="https://publit.eu/oeffis-europa/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -34,27 +34,29 @@
 <body>
 <header class="top">
   <a class="brand" href="../" aria-label="Publit">
-    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
+    <svg viewBox="0 0 1024 1024" width="28" height="28" aria-hidden="true"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
     <span>publit</span>
   </a>
   <nav>
-    <a href="../#nearby" data-t="navApp">Die App</a>
     <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
     <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a class="nav-sup" href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
+    <a class="nav-biz" href="../partner/" data-t="navBiz">Für Unternehmen</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
-    <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
-      <details class="mnav"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
+    <a class="nav-cta" href="../#laden" data-t="navGet">App laden</a>
+    <details class="mnav" onclick="if(event.target===this)this.open=false"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
       <div class="mnav-sheet" onclick="if(event.target.closest('a'))this.parentNode.open=false">
-        <a href="../#nearby" data-t="navApp">Die App</a>
         <a href="../features/" data-t="navFeat">Funktionen</a>
+        <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
         <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
         <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-        <a href="../staedte/" data-t="navCities">Für Städte</a>
-        <a href="https://github.com/elija-7580/Publit">GitHub</a>
-        <a class="mnav-cta" href="../unterstuetzen/"><span aria-hidden="true">♥</span> <span data-t="navSupport">Unterstützen</span></a>
+        <a href="../partner/" data-t="navBiz">Für Unternehmen</a>
+        <hr>
+        <a class="mnav-small" href="../staedte/" data-t="navCities">Für Städte</a>
+        <a class="mnav-small" href="../presse/" data-t="navPress">Presse</a>
+        <a class="mnav-small" href="../unterstuetzen/" data-t="navSupport">Publit unterstützen</a>
+        <a class="mnav-cta" href="../#laden" data-t="navGet">App laden</a>
       </div>
     </details>
   </nav>
@@ -107,24 +109,49 @@
 </section>
 </main>
 <footer class="foot">
-  <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
-  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
-  <nav class="foot-nav">
-    <a href="../features/" data-t="navFeat">Funktionen</a>
-    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
-    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
-    <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
-    <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
-    <a href="../presse/" data-t="footPress">Presse</a>
-    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
-    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
-  </nav>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="../" aria-label="Publit"><svg viewBox="0 0 1024 1024" width="28" height="28" aria-hidden="true"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg><span>publit</span></a>
+      <p data-t="footClaim">Eine App für Nah- und Fernverkehr in ganz Europa. Entwickelt in Wien, Open Source.</p>
+    </div>
+    <nav class="foot-col" aria-label="Produkt">
+      <b data-t="fProd">Produkt</b>
+      <a href="../features/" data-t="navFeat">Funktionen</a>
+      <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
+      <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+      <a href="../android/" data-t="footAndroid">Android</a>
+      <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    </nav>
+    <nav class="foot-col" aria-label="Für Unternehmen">
+      <b data-t="fBiz">Für Unternehmen</b>
+      <a href="../partner/" data-t="footOps">Verkehrsunternehmen</a>
+      <a href="../staedte/" data-t="navCities">Für Städte</a>
+      <a href="../presse/" data-t="footPress">Presse</a>
+      <a href="mailto:support@publit.eu" data-t="footContact">Kontakt</a>
+    </nav>
+    <nav class="foot-col" aria-label="Mehr">
+      <b data-t="fMore">Mehr</b>
+      <a href="../oeffi-app-wien/" data-t="footVienna">Öffi-App Wien</a>
+      <a href="../oeffis-europa/" data-t="footEurope">Öffis in Europa</a>
+      <a href="../klimaticket-deutschlandticket/" data-t="footTickets">KlimaTicket &amp; Deutschlandticket</a>
+      <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
+    </nav>
+    <nav class="foot-col" aria-label="Projekt">
+      <b data-t="fProj">Projekt</b>
+      <a href="../unterstuetzen/" data-t="navSupport">Publit unterstützen</a>
+      <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
+      <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
+      <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
+    </nav>
+  </div>
+  <div class="foot-base">
+    <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
+    <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+  </div>
 </footer>
 <script>
 (() => {
-const EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footSources": "Data sources", "footPress": "Press", "footData": "Timetable data: Transitous and open data sources", "footDev": "built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a>", "ios": "Download on the App Store", "android": "Android test", "faqT": "Frequently asked questions", "moreT": "More about Publit", "home": "Home", "kick": "Travel and city trips", "h1": "One app for public transport across Europe.", "lead": "In Vienna you need one app, in Munich the next, and a third for the train to Venice. With Publit, one is enough: departures, routes and live trips work in every city with open timetable data, without installing anything new before your trip.", "s0": "How you travel with Publit", "s0c0": "Plan across borders", "s0c0x": "Publit plans local and long-distance transport in one route: from the bus at home, the train to the next country, to the tram at your destination.", "s0c1": "Data from 49 countries", "s0c1x": "Timetables and live data come from Transitous, an open, volunteer-run routing service with more than 1,000 sources in 49 countries.", "s0c2": "More live data", "s0c2x": "On iPhone, Publit adds live data from operators such as ÖBB, Wiener Linien, search.ch (Switzerland), German transit networks, ACTV in Venice, SL in Stockholm and TfL in London.", "s0c3": "In your language", "s0c3x": "The app is available in 15 languages. Stops, lines and notices look the same, whichever city you are in.", "s1": "On the way", "s1c0": "Live trip until you get off", "s1c0x": "Which line, which platform, when to get off: Publit guides you on the lock screen and on the Apple Watch.", "s1c1": "Not blind without signal", "s1c1x": "The last loaded departures and maps stay visible with a timestamp when you briefly lose signal on a train or abroad.", "s1n": "The coverage map shows where data is available. Buying tickets right in Publit is planned but not live yet.", "q0": "Which countries does Publit work in?", "a0": "Everywhere Transitous has open timetable data: more than 1,000 sources in 49 countries, with a focus on Europe. The map at publit.eu/abdeckung shows where there are timetables and where there is real-time data.", "q1": "Does Publit plan long-distance trains?", "a1": "Yes. Publit combines local and long-distance transport in one route, for example with ÖBB, DB or SBB trains, as far as their timetables are available as open data.", "q2": "Do I need a new app for every city?", "a2": "No, that is the point of Publit. The same app shows departures and routes in Vienna, Munich, Milan or Copenhagen.", "q3": "Can I buy tickets for all of Europe in Publit?", "a3": "Not yet. Publit plans to sell tickets on behalf of transport operators right on the route it found. This starts step by step with individual operators; fares and prices stay with the operator.", "q4": "Does Publit collect data about my trips?", "a4": "No. Publit needs no account and has no tracking. Places, trips and tickets stay on your device. Requests only send what is needed, such as stop, line and time.", "l0": "Coverage map →", "l1": "All features →", "l2": "Publit in Vienna →"};
+const EN = {"navFeat": "Features", "navRoute": "Route planner", "navCov": "Coverage", "navWishes": "Wishes", "navBiz": "For business", "navGet": "Get the app", "navCities": "For cities", "navSupport": "Support Publit", "navPress": "Press", "navHome": "Home", "footClaim": "One app for local and long-distance public transport across Europe. Made in Vienna, open source.", "fProd": "Product", "fBiz": "Business", "fMore": "More", "fProj": "Project", "footOps": "Transit operators", "footContact": "Contact", "footAndroid": "Android", "footVienna": "Vienna transit app", "footEurope": "Transit across Europe", "footTickets": "KlimaTicket & Deutschlandticket", "footSources": "Data sources", "footPrivacy": "Privacy", "footPress": "Press", "footData": "Timetable data: Transitous and open data sources", "footDev": "built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a>", "ios": "Download on the App Store", "android": "Android test", "faqT": "Frequently asked questions", "moreT": "More about Publit", "home": "Home", "kick": "Travel and city trips", "h1": "One app for public transport across Europe.", "lead": "In Vienna you need one app, in Munich the next, and a third for the train to Venice. With Publit, one is enough: departures, routes and live trips work in every city with open timetable data, without installing anything new before your trip.", "s0": "How you travel with Publit", "s0c0": "Plan across borders", "s0c0x": "Publit plans local and long-distance transport in one route: from the bus at home, the train to the next country, to the tram at your destination.", "s0c1": "Data from 49 countries", "s0c1x": "Timetables and live data come from Transitous, an open, volunteer-run routing service with more than 1,000 sources in 49 countries.", "s0c2": "More live data", "s0c2x": "On iPhone, Publit adds live data from operators such as ÖBB, Wiener Linien, search.ch (Switzerland), German transit networks, ACTV in Venice, SL in Stockholm and TfL in London.", "s0c3": "In your language", "s0c3x": "The app is available in 15 languages. Stops, lines and notices look the same, whichever city you are in.", "s1": "On the way", "s1c0": "Live trip until you get off", "s1c0x": "Which line, which platform, when to get off: Publit guides you on the lock screen and on the Apple Watch.", "s1c1": "Not blind without signal", "s1c1x": "The last loaded departures and maps stay visible with a timestamp when you briefly lose signal on a train or abroad.", "s1n": "The coverage map shows where data is available. Buying tickets right in Publit is planned but not live yet.", "q0": "Which countries does Publit work in?", "a0": "Everywhere Transitous has open timetable data: more than 1,000 sources in 49 countries, with a focus on Europe. The map at publit.eu/abdeckung shows where there are timetables and where there is real-time data.", "q1": "Does Publit plan long-distance trains?", "a1": "Yes. Publit combines local and long-distance transport in one route, for example with ÖBB, DB or SBB trains, as far as their timetables are available as open data.", "q2": "Do I need a new app for every city?", "a2": "No, that is the point of Publit. The same app shows departures and routes in Vienna, Munich, Milan or Copenhagen.", "q3": "Can I buy tickets for all of Europe in Publit?", "a3": "Not yet. Publit plans to sell tickets on behalf of transport operators right on the route it found. This starts step by step with individual operators; fares and prices stay with the operator.", "q4": "Does Publit collect data about my trips?", "a4": "No. Publit needs no account and has no tracking. Places, trips and tickets stay on your device. Requests only send what is needed, such as stop, line and time.", "l0": "Coverage map →", "l1": "All features →", "l2": "Publit in Vienna →"};
 const els = () => [...document.querySelectorAll('[data-t]')], htmls = () => [...document.querySelectorAll('[data-t-html]')];
 const DE = {}, DEH = {}; els().forEach(e => DE[e.dataset.t] = e.textContent); htmls().forEach(e => DEH[e.dataset.tHtml] = e.innerHTML);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');

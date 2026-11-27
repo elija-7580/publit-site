@@ -9,6 +9,7 @@ The website is in German by default; add ?lang=en to any page for English (e.g. 
 
 ## The app
 - [Home](https://publit.eu/): overview, numbers, frequently asked questions.
+- [Route planner](https://publit.eu/routenplaner/): free journey planner in the browser for public transport and rail across Europe, no sign-up; add ?from=…&to=… to link a search.
 - [All features](https://publit.eu/features/): departures nearby, journey planning, live trip, map, tickets, Apple Watch, widgets, Siri.
 - [Coverage](https://publit.eu/abdeckung/): map of where timetable and real-time data are available (data from Transitous).
 - [Transit app for Vienna](https://publit.eu/oeffi-app-wien/): Wiener Linien, ÖBB, S-Bahn and regional buses in one app, with live data.
@@ -18,6 +19,7 @@ The website is in German by default; add ?lang=en to any page for English (e.g. 
 
 ## Project and community
 - [Wish list](https://publit.eu/wuensche/): suggest features and vote, no sign-up.
+- [For transit operators and businesses](https://publit.eu/partner/): Publit sells operators' tickets as their agent, right on the planned connection; commission per ticket, no licence fee; pilot partners wanted (a transport association for local tickets, a rail or bus company for long distance). Ticket purchase in the app is not live yet.
 - [For cities and transport operators](https://publit.eu/staedte/): GTFS, GTFS-RT and open data via Transitous; ticket sales as an agent.
 - [Support Publit](https://publit.eu/unterstuetzen/): voluntary, from €1.50 a month or via GitHub Sponsors; every feature stays free.
 - [Press](https://publit.eu/presse/): press release, numbers, images, logo, contact.

@@ -17,16 +17,14 @@ import json
 import sys
 from pathlib import Path
 
+import chrome
+
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://publit.eu/"
 APP_STORE = "https://apps.apple.com/app/id6824481988"
 
-NAV_EN = {"navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage",
-          "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footSources": "Data sources",
-          "footPress": "Press", "footData": "Timetable data: Transitous and open data sources",
-          "footDev": "built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a>",
-          "ios": "Download on the App Store", "android": "Android test", "faqT": "Frequently asked questions",
-          "moreT": "More about Publit", "home": "Home"}
+NAV_EN = {**chrome.EN, "ios": "Download on the App Store", "android": "Android test",
+          "faqT": "Frequently asked questions", "moreT": "More about Publit", "home": "Home"}
 
 
 def esc(s):
@@ -132,55 +130,14 @@ def render(p, version):
 <script type="application/ld+json">{jsonld(p)}</script>
 </head>
 <body>
-<header class="top">
-  <a class="brand" href="../" aria-label="Publit">
-    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
-    <span>publit</span>
-  </a>
-  <nav>
-    <a href="../#nearby" data-t="navApp">Die App</a>
-    <a href="../features/" data-t="navFeat">Funktionen</a>
-    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
-    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a class="nav-sup" href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
-    <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
-    <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
-      <details class="mnav"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
-      <div class="mnav-sheet" onclick="if(event.target.closest('a'))this.parentNode.open=false">
-        <a href="../#nearby" data-t="navApp">Die App</a>
-        <a href="../features/" data-t="navFeat">Funktionen</a>
-        <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
-        <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-        <a href="../staedte/" data-t="navCities">Für Städte</a>
-        <a href="https://github.com/elija-7580/Publit">GitHub</a>
-        <a class="mnav-cta" href="../unterstuetzen/"><span aria-hidden="true">♥</span> <span data-t="navSupport">Unterstützen</span></a>
-      </div>
-    </details>
-  </nav>
-</header>
+{chrome.header("../", p["slug"] + "/")}
 <main>
 <section class="fpage sup-page">
   <nav class="crumbs" aria-label="Brotkrumen"><a href="../" data-t="home">Startseite</a> › <span>{esc(p["crumb"])}</span></nav>
   {main}
 </section>
 </main>
-<footer class="foot">
-  <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
-  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
-  <nav class="foot-nav">
-    <a href="../features/" data-t="navFeat">Funktionen</a>
-    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
-    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
-    <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
-    <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
-    <a href="../presse/" data-t="footPress">Presse</a>
-    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
-    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
-  </nav>
-</footer>
+{chrome.footer("../")}
 <script>
 (() => {{
 const EN = {json.dumps(en, ensure_ascii=False)};
