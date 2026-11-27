@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: LicenseRef-AllRightsReserved
+// SPDX-FileCopyrightText: 2026 Elija Samuel Friedrich-Ulrich
 if (location.search.includes("shot")) document.documentElement.classList.add("shot");
 (() => {
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains("shot");
@@ -58,9 +60,93 @@ navSupport: 'Support', donTitle: 'A community project.', donText: 'Publit has no
   faqTitle:"Frequently asked questions.", faq0q:"What is Publit?", faq0a:"Publit is a free, open-source app for local and long-distance public transport across Europe, for iPhone, Apple Watch and Android. It shows departures nearby, plans routes by bus, tram, metro and train across borders and guides you until you get off.", faq1q:"Is Publit free?", faq1a:"Yes. Publit is free, with no ads and no account. If you like, you can support the project voluntarily from €1.50 a month; every feature stays free for everyone.", faq2q:"Which countries does Publit work in?", faq2a:"Wherever open timetable data exists: Publit uses Transitous, with more than 1,000 sources in 49 countries and a focus on Europe. The same app works in Vienna, Munich, Milan or Copenhagen.", faq3q:"Can I buy tickets in Publit?", faq3a:"Not yet. Publit plans to sell tickets on behalf of transport operators right on the route it found; this starts step by step. You can already store and show your own tickets, such as the KlimaTicket or Deutschlandticket.", faq4q:"Is Publit available for Android and the Apple Watch?", faq4a:"Publit is on the App Store for iPhone (iOS 17 and later) and Apple Watch. The Android app is available as a download on GitHub and is in a closed test for Google Play.", faq5q:"Where do the timetable and real-time data come from?", faq5a:"From Transitous, an open, volunteer-run routing service. On top of that come live data from individual operators such as Wiener Linien, ÖBB or search.ch.", faq6q:"Does Publit collect data about me?", faq6a:"No. Publit has no account, no tracking and no analytics SDKs. Your places, trips and tickets stay on your device.", faq7q:"Who builds Publit?", faq7a:"Elija Friedrich-Ulrich in Vienna, as an independent project. The code is open on GitHub (AGPL-3.0), and the community collects wishes in public on publit.eu.",
   supTitle:'Questions? Write to us.', supText:'A bug in the app, a missing line or an idea: send an email to support. A real person reads every message.', supAlt:'For detailed bug reports you can also open an <a href="https://github.com/elija-7580/Publit/issues">issue on GitHub</a>.', footSupport:'Support'
 };
+// texts of the refined site (2026-11-27); they win over the older ones above
+Object.assign(EN, {
+ "navFeat": "Features",
+ "navRoute": "Route planner",
+ "navCov": "Coverage",
+ "navWishes": "Wishes",
+ "navBiz": "For business",
+ "navGet": "Get the app",
+ "navCities": "For cities",
+ "navSupport": "Support Publit",
+ "navPress": "Press",
+ "navHome": "Home",
+ "footClaim": "One app for local and long-distance public transport across Europe. Made in Vienna, open source.",
+ "fProd": "Product",
+ "fBiz": "Business",
+ "fMore": "More",
+ "fProj": "Project",
+ "footOps": "Transit operators",
+ "footContact": "Contact",
+ "footAndroid": "Android",
+ "footVienna": "Vienna transit app",
+ "footEurope": "Transit across Europe",
+ "footTickets": "KlimaTicket & Deutschlandticket",
+ "footSources": "Data sources",
+ "footPrivacy": "Privacy",
+ "footPress": "Press",
+ "footData": "Timetable data: Transitous and open data sources",
+ "footDev": "built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a>",
+ "kicker": "For iPhone, Apple Watch and Android",
+ "heroTitle": "One app for local and long-distance transport across Europe.",
+ "heroLead": "Publit plans your trip by bus, tram, metro and train across borders and guides you until you get off. Free, with no account and no ads.",
+ "androidDownload": "Get the Android app (APK)",
+ "androidTest": "Android test on Google Play",
+ "fact3": "No ads",
+ "fact4": "Open source",
+ "heroBiz": "Do you represent a transit operator or a transport association?",
+ "heroBizLink": "How we work together →",
+ "pbFrom": "From",
+ "pbTo": "To",
+ "pbGo": "Find connections",
+ "pbFromPh": "Vienna Central Station",
+ "pbToPh": "Munich",
+ "pbNote": "The route planner runs right in your browser, on the same open timetable data as the app.",
+ "st4": "views on Reddit, without paid ads",
+ "d1k": "For riders",
+ "d1t": "Departures, routes and live guidance in one app.",
+ "d1x": "From the tram around the corner to the night train: Publit shows what is running and tells you when to get off.",
+ "d1l": "See the features →",
+ "d2k": "For transit operators and associations",
+ "d2t": "Your tickets, right where the trip is planned.",
+ "d2x": "Publit sells your ticket as your agent, right on the connection, to riders from all over Europe. Fares and prices stay yours. We are looking for pilot partners.",
+ "d2l": "More for business →",
+ "visKick": "The idea",
+ "visTitle": "Route and ticket in one place.",
+ "covKick": "Coverage",
+ "covTitle": "Where Publit runs.",
+ "covText": "Publit works wherever Transitous has open timetables, from the Munich U-Bahn to the vaporetto in Venice. The map shows where that is today: green with realtime, grey with timetables only. It updates itself every week. Tap a country for details.",
+ "parKick": "For transit operators, transport associations, rail and bus companies",
+ "parTitle": "Your tickets, right where the trip is planned.",
+ "parText": "Publit sells your ticket as your agent, right on the planned connection, to riders from all over Europe. You stay the provider and set fares and prices, and riders pay the normal fare. Publit earns a commission per ticket sold.",
+ "pg1": "Reach new riders",
+ "pg1t": "Commuters from the neighbouring country, visitors on a city trip: people who would never have installed your own app.",
+ "pg2": "No project on your side",
+ "pg2t": "No licence fee and no app development for you. The first step is a link into your existing ticket shop.",
+ "pg3": "Step by step",
+ "pg3t": "Buying in the app is in development and starts with pilot partners: a transport association for local tickets, a rail or bus company for long distance.",
+ "parMore": "See how we work together",
+ "parMail": "Arrange a call",
+ "parData": "Open data for cities",
+ "w2t": "No account, no tracking, no analytics SDKs. Your places, trips and tickets stay on your device.",
+ "w3t": "Founded and built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a> in Vienna, not by a corporation. No ads, no data trading.",
+ "teamText": "Publit is made in Vienna. Elija Friedrich-Ulrich founded Publit and builds the apps for iPhone, Apple Watch and Android. What comes next is decided together with the community, through the wish list on this site.",
+ "teamMore": "More about Elija",
+ "teamPress": "Press and photos",
+ "wishLink": "See all wishes",
+ "donLink": "Support Publit",
+ "donText": "Publit has no ads and no tracking. From €1.50 a month you help pay for servers and development. Every feature stays free for everyone.",
+ "supTitle": "Questions about the app?",
+ "bizTitle": "For business and press.",
+ "bizText": "Would you like to sell tickets through Publit, make your timetable data visible or write about Publit? Here you will find the right information and a direct contact.",
+ "endTitle": "Get Publit for free.",
+ "endText": "For iPhone and Apple Watch on the App Store, for Android as a download. No account, no ads."
+});
 const DE = {};
 $$('[data-t]').forEach(e => DE[e.dataset.t] = e.textContent);
 $$('[data-t-html]').forEach(e => DE[e.dataset.tHtml] = e.innerHTML);
+$$('[data-ph]').forEach(e => DE[e.dataset.ph] = e.placeholder);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
 const langBtn = $('.lang');
 function applyLang() {
@@ -68,26 +154,31 @@ function applyLang() {
   document.documentElement.lang = lang;
   $$('[data-t]').forEach(e => { if (d[e.dataset.t]) e.textContent = d[e.dataset.t]; });
   $$('[data-t-html]').forEach(e => { if (d[e.dataset.tHtml]) e.innerHTML = d[e.dataset.tHtml]; });
+  $$('[data-ph]').forEach(e => { if (d[e.dataset.ph]) e.placeholder = d[e.dataset.ph]; });
   langBtn.textContent = lang === 'de' ? 'EN' : 'DE';
   // Android screens exist per language: web-x-android.webp (de) and web-x-android-en.webp
   $$('img[data-lang-src]').forEach(i => { const a = i.hasAttribute('src') ? 'src' : 'data-src', s = i.getAttribute(a).replace(/-en\.webp$/, '.webp'); i.setAttribute(a, lang === 'en' ? s.replace(/\.webp$/, '-en.webp') : s); });
+  // the route planner and the business page open in the same language
+  $$('.planbar').forEach(f => { let h = $('input[name=lang]', f); if (lang === 'en' && !h) { h = document.createElement('input'); h.type = 'hidden'; h.name = 'lang'; h.value = 'en'; f.appendChild(h); } else if (lang !== 'en' && h) h.remove(); });
   if (window.renderWishTop) renderWishTop();
-  buildStops();
 }
 langBtn.addEventListener('click', () => { lang = lang === 'de' ? 'en' : 'de'; localStorage.setItem('lang', lang); applyLang(); });
 
-/* ---------- Header ---------- */
+// ref eb8825712d52
+/* ---------- Header: a hairline once the page has moved ---------- */
 const top = $('.top');
+const onScroll = () => top.classList.toggle('scrolled', scrollY > 8);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
 /* ---------- Reveal ---------- */
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
-  { rootMargin: '0px 0px -8% 0px', threshold: .12 });
+  { rootMargin: '0px 0px -6% 0px', threshold: .08 });
 $$('.reveal').forEach(e => io.observe(e));
 
 /* ---------- Hero: the screens take turns ---------- */
 const cycle = $('[data-cycle]'), shots = $$('.slide', cycle), tabs = $$('.cycle-tabs button');
 let ci = 0, timer;
-const CYCLE = 3600;
+const CYCLE = 5000;
 document.documentElement.style.setProperty('--cycle', CYCLE + 'ms');
 function show(i) {
   ci = (i + shots.length) % shots.length;
@@ -132,236 +223,7 @@ if (film) {
   if (reduce) scene(0);
 }
 
-/* ---------- Cities light up one after another ---------- */
-const cities = $$('.cities span');
-let cityI = 0;
-if (!reduce) setInterval(() => {
-  cities.forEach(c => c.classList.remove('lit'));
-  cities[cityI % cities.length].classList.add('lit');
-  cities[(cityI + 5) % cities.length].classList.add('lit');
-  cityI++;
-}, 1100);
-
-/* ---------- Ticker: steady drift, scroll gives it a push and its direction ---------- */
-const rows = $$('.ticker-row').map(row => {
-  const track = $('.ticker-track', row);
-  track.innerHTML += track.innerHTML; // two copies: seamless loop
-  return { track, base: +row.dataset.speed, x: 0, w: 0 };
-});
-function measure() { rows.forEach(r => r.w = r.track.scrollWidth / 2); }
-
-// ref eb8825712d52
-/* ---------- The track: from the kicker dot through every heading down to the last button ---------- */
-// what you see is drawn in small pieces, so a moving dot never repaints the whole page
-const layer = document.createElement('div'); layer.className = 'track'; layer.setAttribute('aria-hidden', 'true'); document.body.appendChild(layer);
-const tdot = document.createElement('div'); tdot.className = 'tdot'; document.body.appendChild(tdot);
-// iOS changes innerHeight while the toolbar hides; keep one height so the stations don't jump
-let VH = innerHeight, VW = innerWidth;
-let track = null;
-function docXY(el) { let x = 0, y = 0; for (let e = el; e; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y }; }
-// the same rounded path as a dense polyline, sampled every 2 px; replaces thousands of getPointAtLength calls
-function sampleRound(v, r, step) {
-  const pl = [[v[0][0], v[0][1]]];
-  for (let i = 1; i < v.length - 1; i++) {
-    const [ax, ay] = v[i - 1], [x, y] = v[i], [bx, by] = v[i + 1];
-    const la = Math.hypot(ax - x, ay - y), lb = Math.hypot(bx - x, by - y), rr = Math.min(r, la / 2, lb / 2);
-    if (rr < .5) { pl.push([x, y]); continue; }
-    const p0x = +(x + (ax - x) / la * rr).toFixed(1), p0y = +(y + (ay - y) / la * rr).toFixed(1);
-    const p2x = +(x + (bx - x) / lb * rr).toFixed(1), p2y = +(y + (by - y) / lb * rr).toFixed(1);
-    pl.push([p0x, p0y]);
-    for (let s = 1; s <= 16; s++) { const t = s / 16, u = 1 - t; pl.push([u * u * p0x + 2 * u * t * x + t * t * p2x, u * u * p0y + 2 * u * t * y + t * t * p2y]); }
-  }
-  pl.push([v[v.length - 1][0], v[v.length - 1][1]]);
-  const out = [pl[0][0], pl[0][1]]; let acc = 0, next = step;
-  for (let i = 1; i < pl.length; i++) {
-    const [x0, y0] = pl[i - 1], [x1, y1] = pl[i], sl = Math.hypot(x1 - x0, y1 - y0);
-    while (sl > 0 && next <= acc + sl) { const f = (next - acc) / sl; out.push(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f); next += step; }
-    acc += sl;
-  }
-  const l = pl[pl.length - 1]; out.push(l[0], l[1]);
-  return { len: acc, lut: Float32Array.from(out) };
-}
-// dash pattern that is cut off at length p
-function dashUpTo(pat, p) {
-  const out = []; let acc = 0;
-  for (let i = 0; i < pat.length; i++) {
-    const seg = pat[i];
-    if (acc + seg >= p) { out.push(i % 2 ? seg : p - acc); if (i % 2) out.push(0); break; }
-    out.push(seg); acc += seg;
-  }
-  if (out.length % 2) out.push(1e5); else out.push(0, 1e5);
-  return out.map(n => n.toFixed(1)).join(' ');
-}
-function buildTrack() {
-  const mob = innerWidth < 900, G = mob ? 14 : 30;
-  const els = $$('[data-station]');
-  const st = els.map(el => {
-    const p = docXY(el), r = el.getBoundingClientRect();
-    if (el.dataset.station === 'start') return { x: p.x + r.width / 2, y: p.y + r.height / 2, el, kind: 'start' };
-    if (el.dataset.station === 'end') return { x: p.x - (mob ? 22 : 34), y: p.y + el.offsetHeight / 2, el, kind: 'end' };
-    const rg = document.createRange(); rg.selectNodeContents(el);
-    const tl = rg.getClientRects()[0] || r;
-    const fs = parseFloat(getComputedStyle(el).fontSize);
-    return { x: Math.round(p.x + (tl.left - r.left) - G), y: Math.round(p.y + fs * .52), el, kind: 'h', sec: el.closest('section') };
-  });
-  if (st.length < 2) return;
-  const v = [[st[0].x, st[0].y]];
-  let cx = Math.min(st[0].x, st[1].x);
-  if (cx !== st[0].x) v.push([cx, st[0].y]);
-  for (let i = 1; i < st.length; i++) {
-    const S = st[i], last = v[v.length - 1];
-    if (S.kind === 'end') { v.push([cx, S.y]); v.push([S.x, S.y]); continue; }
-    if (Math.abs(S.x - cx) > 2) {
-      const top = docXY(S.sec).y, yc = Math.max(last[1] + 30, top + Math.min(60, (S.y - top) * .4));
-      v.push([cx, yc]); v.push([S.x, yc]);
-    }
-    v.push([S.x, S.y]); cx = S.x;
-  }
-  const H = document.documentElement.scrollHeight;
-  const { len, lut } = sampleRound(v, mob ? 18 : 30, 2), N = lut.length / 2;
-  st.forEach(S => { let best = 0, bd = 1e9; for (let k = 0; k < N; k++) { const dd = (lut[k * 2] - S.x) ** 2 + (lut[k * 2 + 1] - S.y) ** 2; if (dd < bd) { bd = dd; best = k * 2; } } S.len = best; });
-  st[0].len = 0; st[st.length - 1].len = len;
-  const max = Math.max(1, H - VH);
-  let prev = 0;
-  st.forEach((S, i) => { S.at = i === 0 ? 0 : i === st.length - 1 ? max : Math.max(prev + 1, Math.min(max - 1, S.y - VH * .42)); prev = S.at; });
-  const darks = $$('.dark-strip').map(e => { const p = docXY(e); return { y: p.y, h: e.offsetHeight }; });
-  const inDark = y => darks.some(r => y >= r.y && y <= r.y + r.h);
-  // the line passes under things instead of drawing over them
-  const P = mob ? 8 : 12;
-  const holes = $$('.ticker,.phone,.card,.theme,.cycle-tabs,.film-steps,.cities,.covwrap,.live-points li,.key,.facts li').filter(e => e.offsetWidth).map(e => {
-    const p = docXY(e); return [p.x - P, p.y - P, p.x + e.offsetWidth + P, p.y + e.offsetHeight + P];
-  });
-  const hidden = (x, y) => holes.some(h => x > h[0] && x < h[2] && y > h[1] && y < h[3]);
-  // one small svg per leg between two stations
-  let html = '';
-  const legs = [];
-  for (let j = 0; j < st.length - 1; j++) {
-    const a = st[j].len, b = st[j + 1].len, k0 = Math.round(a / 2), k1 = Math.min(N - 1, Math.round(b / 2));
-    let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
-    const pts = [], pat = []; let run = 0, vis = true;
-    for (let k = k0; k <= k1; k++) {
-      const x = lut[k * 2], y = lut[k * 2 + 1];
-      x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y);
-      const n = pts.length;
-      // keep corners, drop points in the middle of straight runs
-      if (n >= 2 && Math.abs((pts[n - 1][0] - pts[n - 2][0]) * (y - pts[n - 2][1]) - (pts[n - 1][1] - pts[n - 2][1]) * (x - pts[n - 2][0])) < .01) pts[n - 1] = [x, y]; else pts.push([x, y]);
-      if (k > k0) { const h = !hidden(x, y); if (h !== vis) { pat.push(run); run = 0; vis = h; } run += 2; }
-    }
-    pat.push(run); if (pat.length % 2) pat.push(0);
-    const pad = 14, ox = x0 - pad, oy = y0 - pad, w = x1 - x0 + 2 * pad, h = y1 - y0 + 2 * pad;
-    const d = 'M' + pts.map(q => `${(q[0] - ox).toFixed(1)} ${(q[1] - oy).toFixed(1)}`).join(' L');
-    const S = st[j + 1], dkLeg = darks.filter(r => r.y < y1 && r.y + r.h > y0);
-    const clipId = 'tk' + j;
-    html += `<svg class="leg" style="left:${ox}px;top:${oy}px" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`
-      + (dkLeg.length ? `<defs><clipPath id="${clipId}">${dkLeg.map(r => `<rect x="0" y="${r.y - oy}" width="${w}" height="${r.h}"/>`).join('')}</clipPath></defs>` : '')
-      + `<path class="rest" d="${d}" stroke-dasharray="${pat.join(' ')}"/><path class="done" d="${d}" stroke-dasharray="0 100000"/>`
-      + (dkLeg.length ? `<path class="done done-dark" d="${d}" clip-path="url(#${clipId})" stroke-dasharray="0 100000"/>` : '')
-      + `<circle class="st${S.kind === 'end' ? ' end' : ''}${inDark(S.y) ? ' dk' : ''}" cx="${S.x - ox}" cy="${S.y - oy}" r="${S.kind === 'end' ? 8 : 6}"/></svg>`;
-    legs.push({ a, b, pat, total: pat.reduce((s, n) => s + n, 0), shown: -1, passed: null });
-  }
-  layer.innerHTML = html;
-  [...layer.children].forEach((el, j) => { legs[j].done = $$('.done', el); legs[j].circle = $('circle', el); });
-  // keep the dot where it was, relative to its leg, when the page is measured again
-  if (track) {
-    const o = track.st; let i = 0; while (i < o.length - 2 && dotP > o[i + 1].len) i++;
-    const f = (dotP - o[i].len) / Math.max(1, o[i + 1].len - o[i].len);
-    if (st[i + 1]) dotP = st[i].len + f * (st[i + 1].len - st[i].len);
-  }
-  track = { st, len, inDark, lut, legs, dk: null };
-}
-// a small snap: when scrolling stops close to a heading, settle on it
-let snapT, touching = false, snapping = false;
-addEventListener('touchstart', () => { touching = true; clearTimeout(snapT); }, { passive: true });
-// a jump from a link or the address bar goes exactly where it was asked to, never snapped to a neighbouring heading
-let jumpT; const jumped = () => { snapping = true; clearTimeout(snapT); clearTimeout(jumpT); jumpT = setTimeout(() => { snapping = false; }, 1600); };
-addEventListener('hashchange', jumped);
-document.addEventListener('click', e => { if (e.target.closest('a[href*="#"]')) jumped(); });
-addEventListener('touchend', () => { touching = false; }, { passive: true });
-addEventListener('scroll', () => {
-  clearTimeout(snapT);
-  if (snapping || reduce || !track) return;
-  snapT = setTimeout(() => {
-    if (touching || !track) return;
-    const y = scrollY, hit = track.st.slice(1, -1).find(S => Math.abs(S.at - y) < Math.min(90, VH * .1));
-    if (hit && Math.abs(hit.at - y) > 2) {
-      snapping = true; scrollTo({ top: hit.at, behavior: 'smooth' });
-      setTimeout(() => { snapping = false; }, 700);
-    }
-  }, 240);
-}, { passive: true });
-let trackT, loaded = document.readyState === 'complete'; addEventListener('load', () => { loaded = true; });
-const queueTrack = () => { clearTimeout(trackT); if (loaded) trackT = setTimeout(buildTrack, 200); };
-new ResizeObserver(queueTrack).observe(document.body);
-function buildStops() { queueTrack(); }
-
-/* ---------- One frame loop for everything that moves ---------- */
-let lastY = scrollY, vel = 0, dir = 1, dotP = 0, dotV = 0, lastT = performance.now();
-function frame(t) {
-  const dt = Math.min(64, t - lastT) / 1000; lastT = t;
-  const y = scrollY, dy = y - lastY; lastY = y;
-  vel += (dy / Math.max(dt, .001) - vel) * .12;
-  if (Math.abs(dy) > .5) dir = dy > 0 ? 1 : -1;
-  top.classList.toggle('scrolled', y > 10);
-
-  // ticker
-  if (!reduce) {
-    const push = Math.min(14, Math.abs(vel) / 120);
-    rows.forEach(r => {
-      if (!r.w) return;
-      r.x -= r.base * dir * (60 + push * 60) * dt;
-      r.x = ((r.x % r.w) - r.w) % r.w;
-      r.track.style.transform = `translate3d(${r.x}px,0,0)`;
-    });
-  }
-
-  // track: the dot travels from station to station
-  if (track) {
-    const st = track.st;
-    let i = 0; while (i < st.length - 2 && y >= st[i + 1].at) i++;
-    const A = st[i], B = st[i + 1], span = Math.max(1, B.at - A.at);
-    // the dot rests at each heading for a moment, then glides on to the next one
-    const D = Math.min(VH * .12, 90, span * .25);
-    const dA = i === 0 ? 0 : D, dB = i === st.length - 2 ? 0 : D;
-    let u = Math.min(1, Math.max(0, (y - A.at - dA) / Math.max(1, span - dA - dB)));
-    u = u * u * u * (u * (u * 6 - 15) + 10);
-    const target = A.len + (B.len - A.len) * u;
-    if (reduce) { dotP = target; dotV = 0; }
-    else {
-      // critically damped spring in small sub-steps: no overshoot, no jitter on uneven frames
-      const w = 8, n = Math.ceil(dt / .008), h = dt / n;
-      for (let s = 0; s < n; s++) { const a = w * w * (target - dotP) - 2 * w * dotV; dotV += a * h; dotP += dotV * h; }
-      if (Math.abs(target - dotP) < .05 && Math.abs(dotV) < .5) { dotP = target; dotV = 0; }
-    }
-    dotP = Math.max(0, Math.min(track.len, dotP));
-    const L = track.lut, f = dotP / 2, k0 = Math.min(L.length / 2 - 2, Math.floor(f)), fr = f - k0;
-    const qx = L[k0 * 2] + (L[k0 * 2 + 2] - L[k0 * 2]) * fr, qy = L[k0 * 2 + 1] + (L[k0 * 2 + 3] - L[k0 * 2 + 1]) * fr;
-    tdot.style.transform = `translate3d(${qx.toFixed(2)}px,${qy.toFixed(2)}px,0)`;
-    const dk = track.inDark(qy); if (dk !== track.dk) { track.dk = dk; tdot.classList.toggle('dk', dk); }
-    // only the leg the dot is on gets redrawn
-    for (const g of track.legs) {
-      const p = Math.max(0, Math.min(g.b - g.a, dotP - g.a)), r = Math.round(p * 2) / 2;
-      if (r !== g.shown) { g.shown = r; const da = r <= 0 ? '0 100000' : r >= g.total - .5 ? g.pat.join(' ') : dashUpTo(g.pat, r); g.done.forEach(e => e.setAttribute('stroke-dasharray', da)); }
-      const ps = dotP >= g.b - 2; if (ps !== g.passed) { g.passed = ps; g.circle.classList.toggle('passed', ps); }
-    }
-  }
-
-  // feature phones lean in as they arrive
-  if (!reduce && tilt.length && (dy !== 0 || tiltAll)) {
-    tiltAll = false;
-    const cs = tilt.map(ph => { const r = ph.getBoundingClientRect(); return (r.top + r.height / 2 - innerHeight / 2) / innerHeight; });
-    tilt.forEach((ph, j) => { const c = cs[j]; if (Math.abs(c) < 1.2) { const t = `translateY(${(c * 40).toFixed(1)}px) rotateX(${(c * 8).toFixed(2)}deg)`; if (ph._t !== t) { ph._t = t; ph.style.transform = t; } } });
-  }
-  requestAnimationFrame(frame);
-}
-const tilt = $$('.feature-shot .phone');
-let tiltAll = true; addEventListener('resize', () => { tiltAll = true; });
-
-
-addEventListener('resize', () => { measure(); if (innerWidth !== VW || Math.abs(innerHeight - VH) > 160) { VW = innerWidth; VH = innerHeight; queueTrack(); } });
-// the track is decoration: draw it once the page has loaded, never in the way of the first paint
-addEventListener('load', () => { measure(); queueTrack(); });
-applyLang(); measure();
-requestAnimationFrame(frame);
+applyLang();
 })();
 
 /* ---------- Wishes: the three most wanted (publit.eu/api/wishes) ---------- */

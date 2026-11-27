@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/publit.svg">
-<link rel="stylesheet" href="../site.css?v=38955ea">
+<link rel="stylesheet" href="../site.css?v=601a6fa">
 <meta name="description" content="Entdecke Publit: Abfahrten in der Nähe, Routenplanung, Live-Fahrt, Karten und Tickets für öffentliche Verkehrsmittel in Europa.">
 <link rel="canonical" href="https://publit.eu/features/">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -31,27 +31,29 @@
 <body>
 <header class="top">
   <a class="brand" href="../" aria-label="Publit">
-    <svg viewBox="0 0 1024 1024" width="30" height="30"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
+    <svg viewBox="0 0 1024 1024" width="28" height="28" aria-hidden="true"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg>
     <span>publit</span>
   </a>
   <nav>
-    <a href="../#nearby" data-t="navApp">Die App</a>
-    <a href="../features/" data-t="navFeat">Funktionen</a>
+    <a href="../features/" data-t="navFeat" aria-current="page">Funktionen</a>
+    <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
     <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
     <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a class="nav-sup" href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
+    <a class="nav-biz" href="../partner/" data-t="navBiz">Für Unternehmen</a>
     <button class="lang" type="button" aria-label="Sprache / Language">EN</button>
-    <a class="gh" href="https://github.com/elija-7580/Publit" aria-label="GitHub">GitHub</a>
-      <details class="mnav"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
+    <a class="nav-cta" href="../#laden" data-t="navGet">App laden</a>
+    <details class="mnav" onclick="if(event.target===this)this.open=false"><summary aria-label="Menü / Menu"><svg class="bars" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></summary>
       <div class="mnav-sheet" onclick="if(event.target.closest('a'))this.parentNode.open=false">
-        <a href="../#nearby" data-t="navApp">Die App</a>
         <a href="../features/" data-t="navFeat">Funktionen</a>
+        <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
         <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
         <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-        <a href="../staedte/" data-t="navCities">Für Städte</a>
-        <a href="https://github.com/elija-7580/Publit">GitHub</a>
-        <a class="mnav-cta" href="../unterstuetzen/"><span aria-hidden="true">♥</span> <span data-t="navSupport">Unterstützen</span></a>
+        <a href="../partner/" data-t="navBiz">Für Unternehmen</a>
+        <hr>
+        <a class="mnav-small" href="../staedte/" data-t="navCities">Für Städte</a>
+        <a class="mnav-small" href="../presse/" data-t="navPress">Presse</a>
+        <a class="mnav-small" href="../unterstuetzen/" data-t="navSupport">Publit unterstützen</a>
+        <a class="mnav-cta" href="../#laden" data-t="navGet">App laden</a>
       </div>
     </details>
   </nav>
@@ -152,24 +154,49 @@
 </section>
 </main>
 <footer class="foot">
-  <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
-  <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
-  <nav class="foot-nav">
-    <a href="../features/" data-t="navFeat">Funktionen</a>
-    <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
-    <a href="../wuensche/" data-t="navWishes">Wünsche</a>
-    <a href="../staedte/" data-t="navCities">Für Städte</a>
-    <a href="../unterstuetzen/" data-t="navSupport">Unterstützen</a>
-    <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
-    <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
-    <a href="../presse/" data-t="footPress">Presse</a>
-    <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
-    <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
-  </nav>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="../" aria-label="Publit"><svg viewBox="0 0 1024 1024" width="28" height="28" aria-hidden="true"><g transform="translate(-38 -18)"><path d="M400 790 V420 a150 150 0 1 1 150 150 H400" fill="none" stroke="currentColor" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="420" r="58" fill="#ffc531"/></g></svg><span>publit</span></a>
+      <p data-t="footClaim">Eine App für Nah- und Fernverkehr in ganz Europa. Entwickelt in Wien, Open Source.</p>
+    </div>
+    <nav class="foot-col" aria-label="Produkt">
+      <b data-t="fProd">Produkt</b>
+      <a href="../features/" data-t="navFeat">Funktionen</a>
+      <a href="../routenplaner/" data-t="navRoute">Routenplaner</a>
+      <a href="../abdeckung/" data-t="navCov">Abdeckung</a>
+      <a href="../android/" data-t="footAndroid">Android</a>
+      <a href="../wuensche/" data-t="navWishes">Wünsche</a>
+    </nav>
+    <nav class="foot-col" aria-label="Für Unternehmen">
+      <b data-t="fBiz">Für Unternehmen</b>
+      <a href="../partner/" data-t="footOps">Verkehrsunternehmen</a>
+      <a href="../staedte/" data-t="navCities">Für Städte</a>
+      <a href="../presse/" data-t="footPress">Presse</a>
+      <a href="mailto:support@publit.eu" data-t="footContact">Kontakt</a>
+    </nav>
+    <nav class="foot-col" aria-label="Mehr">
+      <b data-t="fMore">Mehr</b>
+      <a href="../oeffi-app-wien/" data-t="footVienna">Öffi-App Wien</a>
+      <a href="../oeffis-europa/" data-t="footEurope">Öffis in Europa</a>
+      <a href="../klimaticket-deutschlandticket/" data-t="footTickets">KlimaTicket &amp; Deutschlandticket</a>
+      <a href="https://transitous.org/sources/" data-t="footSources">Datenquellen</a>
+    </nav>
+    <nav class="foot-col" aria-label="Projekt">
+      <b data-t="fProj">Projekt</b>
+      <a href="../unterstuetzen/" data-t="navSupport">Publit unterstützen</a>
+      <a href="https://github.com/elija-7580/Publit">GitHub iOS</a>
+      <a href="https://github.com/elija-7580/Publit-Android">GitHub Android</a>
+      <a href="../privacy/" data-t="footPrivacy">Datenschutz</a>
+    </nav>
+  </div>
+  <div class="foot-base">
+    <span class="foot-dev">© 2026 Publit · <span data-t-html="footDev">entwickelt von <a href="https://friedrich-ulrich.com/" rel="author">Elija Friedrich-Ulrich</a></span></span>
+    <span data-t="footData">Fahrplandaten: Transitous und offene Datenquellen</span>
+  </div>
 </footer>
 <script>
 (() => {
-const EN = {"gPlan": "Departures and planning", "gGo": "On the way", "gMap": "Map", "gTix": "Tickets and saved", "gDev": "Devices and display", "gNext": "Coming next", "navSupport": "Support", "bT": "What is coming, what is here.", "bX": "Every feature at a glance, in the open and without dates. Vote for ideas or suggest something – Publit is a community project.", "bSuggest": "Suggest a feature", "bSupport": "Support Publit ♥", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources", "t1": "Departures nearby", "t1x": "The next departures around you, with line, direction, platform and live times.", "t2": "Every route on one timeline", "t2x": "Compare connections side by side: which arrives first, where you change, where it gets tight.", "t3": "Every step of the route", "t3x": "Map and steps in the colours of the lines, with platforms, stops and delays.", "t4": "Smart routing", "t4x": "Publit rates how safe each change is and how long you wait and walk. The route that feels shortest comes first.", "t5": "Live trip", "t5x": "Big and clear: your line, the minutes left and where to get off. Also as a Live Activity and in the Dynamic Island.", "t6": "Trip overview", "t6x": "One map with every remaining leg and the live times of each one.", "t7": "New connection from here", "t7x": "Missed a connection? One tap and Publit finds the best way from where you are now.", "t8": "Reminder to get off", "t8x": "Just before your stop Publit lets you know, with a spoken announcement if you like.", "t9": "Map with every station", "t9x": "Stops and lines on the map, with departures right at the station.", "t10": "Places, addresses, stops", "t10x": "One search for everything. Links from Apple Maps and Google Maps land in the right place, too.", "t11": "Cafés, pharmacies, supermarkets", "t11x": "Find what is nearby on the map and get there with one tap.", "t12": "Tickets in the app", "t12x": "Tickets from a PDF, a photo or a screenshot. Publit reads them on your iPhone and uploads nothing.", "t13": "Home, work, saved", "t13x": "Your places and planned trips at a glance, stored only on your device.", "t14": "Calendar and sharing", "t14x": "Add trips to your calendar or share them as a link, with your arrival time for others.", "t15": "Light and dark", "t15x": "Every screen is designed for day and night and easy to read at midnight.", "t16": "Widgets", "t16x": "Next departures on the home screen, your trip live on the lock screen.", "t17": "Apple Watch", "t17x": "Departures and your live trip on your wrist, with a nudge to get off.", "roadT": "Coming next", "roadX": "What we are working on. No dates, but in this order.", "r1": "Apple Watch", "r1x": "Departures and your live trip on your wrist.", "r2": "CarPlay", "r2x": "Your route and the next change on the car screen, for park and ride.", "r3": "More live cities", "r3x": "Live times wherever operators publish GTFS-RT. Your city too?", "r3l": "For cities and operators →", "title": "All features.", "lead": "Everything Publit does today, and what comes next. Free, made in the EU, without an account and without tracking.", "back": "← Back to the start page", "soon": "Soon", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy", "navHome": "Start"};
+const EN = {/*chrome*/"navFeat": "Features", "navRoute": "Route planner", "navCov": "Coverage", "navWishes": "Wishes", "navBiz": "For business", "navGet": "Get the app", "navCities": "For cities", "navSupport": "Support Publit", "navPress": "Press", "navHome": "Home", "footClaim": "One app for local and long-distance public transport across Europe. Made in Vienna, open source.", "fProd": "Product", "fBiz": "Business", "fMore": "More", "fProj": "Project", "footOps": "Transit operators", "footContact": "Contact", "footAndroid": "Android", "footVienna": "Vienna transit app", "footEurope": "Transit across Europe", "footTickets": "KlimaTicket & Deutschlandticket", "footSources": "Data sources", "footPrivacy": "Privacy", "footPress": "Press", "footData": "Timetable data: Transitous and open data sources", "footDev": "built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a>",/*end*/"gPlan": "Departures and planning", "gGo": "On the way", "gMap": "Map", "gTix": "Tickets and saved", "gDev": "Devices and display", "gNext": "Coming next", "navSupport": "Support", "bT": "What is coming, what is here.", "bX": "Every feature at a glance, in the open and without dates. Vote for ideas or suggest something – Publit is a community project.", "bSuggest": "Suggest a feature", "bSupport": "Support Publit ♥", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources", "t1": "Departures nearby", "t1x": "The next departures around you, with line, direction, platform and live times.", "t2": "Every route on one timeline", "t2x": "Compare connections side by side: which arrives first, where you change, where it gets tight.", "t3": "Every step of the route", "t3x": "Map and steps in the colours of the lines, with platforms, stops and delays.", "t4": "Smart routing", "t4x": "Publit rates how safe each change is and how long you wait and walk. The route that feels shortest comes first.", "t5": "Live trip", "t5x": "Big and clear: your line, the minutes left and where to get off. Also as a Live Activity and in the Dynamic Island.", "t6": "Trip overview", "t6x": "One map with every remaining leg and the live times of each one.", "t7": "New connection from here", "t7x": "Missed a connection? One tap and Publit finds the best way from where you are now.", "t8": "Reminder to get off", "t8x": "Just before your stop Publit lets you know, with a spoken announcement if you like.", "t9": "Map with every station", "t9x": "Stops and lines on the map, with departures right at the station.", "t10": "Places, addresses, stops", "t10x": "One search for everything. Links from Apple Maps and Google Maps land in the right place, too.", "t11": "Cafés, pharmacies, supermarkets", "t11x": "Find what is nearby on the map and get there with one tap.", "t12": "Tickets in the app", "t12x": "Tickets from a PDF, a photo or a screenshot. Publit reads them on your iPhone and uploads nothing.", "t13": "Home, work, saved", "t13x": "Your places and planned trips at a glance, stored only on your device.", "t14": "Calendar and sharing", "t14x": "Add trips to your calendar or share them as a link, with your arrival time for others.", "t15": "Light and dark", "t15x": "Every screen is designed for day and night and easy to read at midnight.", "t16": "Widgets", "t16x": "Next departures on the home screen, your trip live on the lock screen.", "t17": "Apple Watch", "t17x": "Departures and your live trip on your wrist, with a nudge to get off.", "roadT": "Coming next", "roadX": "What we are working on. No dates, but in this order.", "r1": "Apple Watch", "r1x": "Departures and your live trip on your wrist.", "r2": "CarPlay", "r2x": "Your route and the next change on the car screen, for park and ride.", "r3": "More live cities", "r3x": "Live times wherever operators publish GTFS-RT. Your city too?", "r3l": "For cities and operators →", "title": "All features.", "lead": "Everything Publit does today, and what comes next. Free, made in the EU, without an account and without tracking.", "back": "← Back to the start page", "soon": "Soon", "footData": "Timetable data: Transitous and open data sources", "footPrivacy": "Privacy", "navHome": "Start"};
 const els = [...document.querySelectorAll('[data-t]')], DE = {};
 els.forEach(e => DE[e.dataset.t] = e.textContent);
 let lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en');
