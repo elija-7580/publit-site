@@ -17,6 +17,12 @@ class Markers(unittest.TestCase):
         self.assertEqual(ws.marker_links(issues), {15: 140})
 
 
+class Refs(unittest.TestCase):
+    def test_only_own_repositories(self):
+        text = "see elija-7580/Publit#88, https://github.com/Elija-7580/Publit-Android/issues/3 and evil/repo#1 https://github.com/evil/repo/issues/2"
+        self.assertEqual(sorted(ws.refs(text)), [("elija-7580/publit", 88), ("elija-7580/publit-android", 3)])
+
+
 class Combine(unittest.TestCase):
     def test_states(self):
         self.assertEqual(ws.combine([]), "open")

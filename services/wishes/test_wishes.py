@@ -45,6 +45,11 @@ def main():
         assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000001"})[1]["votes"] == 2
         assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000001"})[1]["votes"] == 1
         assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000003"}, ip="198.51.100.9")[1]["votes"] == 0
+        # a made-up first X-Forwarded-For entry does not give a fresh address: the proxy's entry is last
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000004"}, ip="203.0.113.5, 198.51.100.1")[1]["votes"] == 1
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000005"}, ip="203.0.113.6, 198.51.100.1")[0] == 409
+        assert call("POST", f"/api/wishes/{wid}/vote", {"voter": "voter_other_id_000004"})[1]["votes"] == 0
+        assert call("POST", "/api/wishes", [1, 2])[0] == 400                       # not an object
         for t in ("Zweiter Wunsch hier", "Dritter Wunsch hier"):
             assert call("POST", "/api/wishes", {"title": t}, ip="198.51.100.2")[0] == 201
         call("POST", "/api/wishes", {"title": "Vierter Wunsch hier"}, ip="198.51.100.2")

@@ -92,9 +92,19 @@ def link_filed_issues(wishes, links):
     return n
 
 
+def own_repos():
+    """Repositories whose issues may set a wish's status: the wish and roadmap repositories."""
+    return {r.strip().lower() for r in [WISH_ISSUE_REPO, *ROADMAP_REPOS] if r.strip()}
+
+
 def refs(text):
+    """Issue references in a text. Wish text is written by anyone, so only issues of the own
+    repositories count: an issue elsewhere must not set the status or put its link on the board."""
+    own = own_repos()
     for m in ISSUE.finditer(text or ""):
-        yield (m.group(1) or m.group(3)).lower(), int(m.group(2) or m.group(4))
+        repo = (m.group(1) or m.group(3)).lower()
+        if repo in own:
+            yield repo, int(m.group(2) or m.group(4))
 
 
 def issue_state(repo, n):
