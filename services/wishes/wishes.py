@@ -121,7 +121,9 @@ class Handler(BaseHTTPRequestHandler):
     server_version = "publit-wishes"
 
     def _ip(self):
-        return (self.headers.get("X-Forwarded-For") or self.client_address[0]).split(",")[0].strip()
+        # Caddy appends the address it saw as the last entry; anything before it is whatever the
+        # client sent and must not decide the rate limit.
+        return (self.headers.get("X-Forwarded-For") or self.client_address[0]).split(",")[-1].strip()
 
     def _send(self, code, obj):
         b = json.dumps(obj, ensure_ascii=False).encode()
@@ -133,13 +135,17 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(b)
 
     def _json(self):
-        n = int(self.headers.get("Content-Length") or 0)
-        if n > MAX_BODY:
-            return None
         try:
-            return json.loads(self.rfile.read(n) or b"{}")
+            n = int(self.headers.get("Content-Length") or 0)
         except ValueError:
             return None
+        if n < 0 or n > MAX_BODY:           # a negative length would read until the client hangs up
+            return None
+        try:
+            data = json.loads(self.rfile.read(n) or b"{}")
+        except ValueError:
+            return None
+        return data if isinstance(data, dict) else None
 
     def log_message(self, fmt, *args):      # no addresses in the log
         sys.stderr.write("%s %s\n" % (self.command, self.path.split("?")[0]))

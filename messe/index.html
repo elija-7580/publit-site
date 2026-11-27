@@ -352,10 +352,11 @@ function renderDeps() {
   const keep = ul.scrollTop;
   $('#deps').innerHTML = rows.map((g, i) => {
     const d = g[0], m = Math.max(0, Math.round((d.t - now) / 60e3));
-    const bg = U_COLOR[d.line] || (d.color ? '#' + d.color : MODE_COLOR[d.mode] || '#555');
-    const fg = d.text && d.color ? '#' + d.text : '#fff';
+    const hex = c => /^[0-9a-f]{3,8}$/i.test(c || '') ? c : '';   // colours come from operators' feeds
+    const bg = U_COLOR[d.line] || (hex(d.color) ? '#' + d.color : MODE_COLOR[d.mode] || '#555');
+    const fg = hex(d.text) && hex(d.color) ? '#' + d.text : '#fff';
     const more = g.slice(1).map(x => Math.max(0, Math.round((x.t - now) / 60e3))).join(', ');
-    return `<li style="animation-delay:${i * 40}ms"><span class="badge ${d.mode}" style="background:${bg};color:${fg}">${esc(d.line)}</span>
+    return `<li style="animation-delay:${i * 40}ms"><span class="badge ${esc(d.mode)}" style="background:${bg};color:${fg}">${esc(d.line)}</span>
       <div class="dest"><b>${esc(d.dest)}</b><small>${esc(d.stop)}</small></div>
       <div class="mins">${m === 0 ? `<b class="now">${L().now}</b>` : `<b>${m}</b><small>${L().min}</small>`}${more ? `<span class="then">${L().then} ${more}</span>` : ''}</div></li>`;
   }).join('');
