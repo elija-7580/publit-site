@@ -154,8 +154,10 @@
 </footer>
 <script>
 (() => {
-// Web payment links per amount (cents). Empty: the cards point to the app, where support is bought in the store.
+// Web payment links per amount (cents). Without one, a card opens GitHub Sponsors, where you can pay on the web
+// right away (monthly or once). The App Store / Google Play route is explained under "How it works".
 const WEB = {monthly: {}, once: {}};
+const SPONSORS = 'https://github.com/sponsors/elija-7580';
 const MONTHLY = [150, 300, 500, 1000, 2000, 5000], ONCE = [300, 500, 1000, 2000, 5000], PICK = 300;
 const EN = {/*chrome*/"navFeat": "Features", "navRoute": "Route planner", "navCov": "Coverage", "navWishes": "Wishes", "navBiz": "For business", "navGet": "Get the app", "navCities": "For cities", "navSupport": "Support Publit", "navPress": "Press", "navHome": "Home", "footClaim": "One app for local and long-distance public transport across Europe. Made in Vienna, open source.", "fProd": "Product", "fBiz": "Business", "fMore": "More", "fProj": "Project", "footOps": "Transit operators", "footContact": "Contact", "footAndroid": "Android", "footVienna": "Vienna transit app", "footEurope": "Transit across Europe", "footTickets": "KlimaTicket & Deutschlandticket", "footSources": "Data sources", "footPrivacy": "Privacy", "footPress": "Press", "footData": "Timetable data: Transitous and open data sources", "footDev": "built by <a href=\"https://friedrich-ulrich.com/\" rel=\"author\">Elija Friedrich-Ulrich</a>",/*end*/"vbK": "Where Publit is going", "vbT": "One app for local and long-distance transport across Europe.", "vbX": "Find the route, buy the ticket, get on. Today Publit plans your trip and guides you until you get off, and ticket sales are coming step by step.", "vbApp": "Download on the App Store", "vbHome": "More about the idea →", "navSupport": "Support", "navApp": "The app", "navFeat": "Features", "navCov": "Coverage", "navWishes": "Wishes", "navCities": "For cities", "footPrivacy": "Privacy", "footData": "Timetable data: Transitous and open data sources",
   "kick": "A community project", "title": "Support Publit.", "lead": "Publit wants to bring route and ticket for local and long-distance transport across Europe into one app. Your contribution pays for servers, developer accounts and the time that takes. No ads, no tracking, and support unlocks nothing: every feature stays free for everyone.",
@@ -172,7 +174,7 @@ let lang = new URLSearchParams(location.search).get('lang') || localStorage.getI
 const eur = c => new Intl.NumberFormat(lang === 'de' ? 'de-AT' : 'en-IE', {style: 'currency', currency: 'EUR', minimumFractionDigits: c % 100 ? 2 : 0}).format(c / 100);
 function cards(id, list, kind) {
   document.getElementById(id).innerHTML = list.map(c => {
-    const href = WEB[kind][c] || (/Android/i.test(navigator.userAgent) ? 'https://github.com/elija-7580/Publit-Android/releases/tag/native-latest' : 'https://apps.apple.com/app/id6824481988');
+    const href = WEB[kind][c] || SPONSORS;
     const pick = kind === 'monthly' && c === PICK;
     return `<a class="amount${pick ? ' pick' : ''}" href=${'"' + href + '"'}>${pick ? `<em>${L[lang].pick}</em>` : ''}<b>${eur(c)}</b><span>${kind === 'monthly' ? L[lang].month : L[lang].once}</span></a>`;
   }).join('');
