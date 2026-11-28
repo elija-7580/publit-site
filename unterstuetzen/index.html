@@ -174,7 +174,7 @@ function cards(id, list, kind) {
   document.getElementById(id).innerHTML = list.map(c => {
     const href = WEB[kind][c] || (/Android/i.test(navigator.userAgent) ? 'https://github.com/elija-7580/Publit-Android/releases/tag/native-latest' : 'https://apps.apple.com/app/id6824481988');
     const pick = kind === 'monthly' && c === PICK;
-    return `<a class="amount${pick ? ' pick' : ''}" href="${href}">${pick ? `<em>${L[lang].pick}</em>` : ''}<b>${eur(c)}</b><span>${kind === 'monthly' ? L[lang].month : L[lang].once}</span></a>`;
+    return `<a class="amount${pick ? ' pick' : ''}" href=${'"' + href + '"'}>${pick ? `<em>${L[lang].pick}</em>` : ''}<b>${eur(c)}</b><span>${kind === 'monthly' ? L[lang].month : L[lang].once}</span></a>`;
   }).join('');
 }
 const btn = document.querySelector('.lang');

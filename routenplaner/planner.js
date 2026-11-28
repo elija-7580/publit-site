@@ -79,6 +79,8 @@ addEventListener('scroll', () => top.classList.toggle('scrolled', scrollY > 8), 
 
 /* ---------- Helpers ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Quotes are added here, so the page source holds no quoted template link that Google would crawl as a URL (404).
+const attr = s => '"' + esc(s) + '"';
 const hm = (iso, tz) => new Intl.DateTimeFormat(lang === 'de' ? 'de-AT' : 'en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz || undefined }).format(new Date(iso));
 const dayOf = (iso, tz) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: tz || undefined }).format(new Date(iso));
 const dur = s => { const m = Math.round(s / 60); return m < 60 ? `${m} ${L.min}` : `${Math.floor(m / 60)} ${L.h} ${String(m % 60).padStart(2, '0')} ${L.min}`; };
@@ -263,7 +265,7 @@ function render() {
     </summary><div class="rp-detail">
       <ol class="rp-steps">${it.legs.map((l, k) => step(l, k === it.legs.length - 1)).join('')}</ol>
       <div class="rp-map" data-i="${i}" hidden></div>
-      <div class="rp-actions"><a class="key key-ink" href="${esc(deep)}">${L.open}</a><button class="key" type="button" data-map="${i}">${L.map}</button><button class="key" type="button" data-share>${L.share}</button></div>
+      <div class="rp-actions"><a class="key key-ink" href=${attr(deep)}>${L.open}</a><button class="key" type="button" data-map="${i}">${L.map}</button><button class="key" type="button" data-share>${L.share}</button></div>
     </div></details></li>`;
   }).join('');
   out.innerHTML = `<div class="rp-head"><b>${esc(from.name)} → ${esc(to.name)}</b><span>${L.results}</span></div><ol class="rp-list">${items}</ol>${pager()}

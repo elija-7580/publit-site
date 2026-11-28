@@ -260,9 +260,11 @@ let area = 'all', ideas = [], wishes = [], issues = [];
 // and so do GitHub issues labelled "roadmap" (wuensche/roadmap.json, written by tools/wishes_sync.py).
 const WS = {doing: 'now', planned: 'next', done: 'ship'};
 const IS = {...WS, open: 'later'};
-const gh = u => { const m = /github\.com\/[^/]+\/([^/]+)\/issues\/(\d+)/i.exec(u || ''); return m ? `<span><a href="${esc(u)}" rel="noopener" style="color:inherit">GitHub${/android/i.test(m[1]) ? ' Android' : ''} #${m[2]}</a></span>` : ''; };
+const gh = u => { const m = /github\.com\/[^/]+\/([^/]+)\/issues\/(\d+)/i.exec(u || ''); return m ? `<span><a href=${attr(u)} rel="noopener" style="color:inherit">GitHub${/android/i.test(m[1]) ? ' Android' : ''} #${m[2]}</a></span>` : ''; };
 const L = () => lang === 'de' ? 0 : 1;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+// Quotes are added here, so the page source holds no quoted template link that Google would crawl as a URL (404).
+const attr = s => '"' + esc(s) + '"';
 let voter = null;
 try { voter = localStorage.getItem('publit-voter'); } catch (e) {}
 if (!/^[A-Za-z0-9_-]{16,64}$/.test(voter || '')) {
