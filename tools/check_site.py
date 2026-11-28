@@ -62,3 +62,24 @@ for path in re.findall(r"https://publit\.eu/([a-z0-9/.-]*[a-z0-9/])", Path("llms
 subprocess.run([sys.executable, "tools/landing.py", "--check"], check=True)
 # one header and footer everywhere, and the planner script with its own version
 subprocess.run([sys.executable, "tools/chrome.py", "--check"], check=True)
+# Google Search Console: no "Not found (404)" or "Page with redirect" from our own links. Template links in
+# scripts (href="${…}") are crawled as URLs, and internal links must hit a file or a folder with a slash.
+import posixpath
+for f in [*Path(".").glob("**/*.html"), *Path(".").glob("**/*.js")]:
+    if any(part in ("services", "node_modules", "tools") or part.startswith(".") for part in f.parts):
+        continue
+    text = f.read_text()
+    if re.search(r'(?:href|src)="\$\{', text):
+        raise SystemExit(f'{f}: quoted template link (href="${{…}}"); build the quotes in JS, e.g. href=${{attr(u)}}')
+    if f.suffix != ".html":
+        continue
+    for link in re.findall(r'(?:href|src)="([^"]*)"', re.sub(r"<script\b(?![^>]*ld\+json).*?</script>", "", text, flags=re.S)):
+        target = link.split("#")[0].split("?")[0]
+        if not target or re.match(r"[a-z]+:|//", target):
+            continue
+        rel = posixpath.normpath(posixpath.join(f.parent.as_posix(), target)) if not target.startswith("/") else target.lstrip("/") or "."
+        p = Path(rel)
+        if p.is_dir() and not target.endswith("/") and target not in (".", ".."):
+            raise SystemExit(f"{f}: link {link} redirects (add a trailing slash)")
+        if not (p.is_file() or (p / "index.html").is_file()):
+            raise SystemExit(f"{f}: link {link} does not exist (404)")
